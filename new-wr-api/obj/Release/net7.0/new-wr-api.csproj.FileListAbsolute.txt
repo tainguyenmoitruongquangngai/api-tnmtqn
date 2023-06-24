@@ -83,3 +83,4 @@ C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\refint\new-
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\new-wr-api.pdb
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\new-wr-api.genruntimeconfig.cache
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\ref\new-wr-api.dll
+C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\bin\Release\net7.0\Newtonsoft.Json.dll

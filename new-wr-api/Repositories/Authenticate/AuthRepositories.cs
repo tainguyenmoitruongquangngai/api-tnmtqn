@@ -8,6 +8,7 @@ using new_wr_api.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace new_wr_api.Repositories
 {
@@ -67,7 +68,6 @@ namespace new_wr_api.Repositories
             return result;
         }
 
-
         public async Task<string> LoginAsync(LoginViewModel model)
         {
             var res = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
@@ -75,24 +75,25 @@ namespace new_wr_api.Repositories
             {
                 return string.Empty;
             }
+
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null)
             {
                 var roles = await _userManager.GetRolesAsync(user);
 
                 var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Name, user.UserName ?? ""),
-            };
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.Name, user.UserName ?? ""),
+        };
 
                 foreach (var role in roles)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, role));
                 }
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? ""));
 
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? ""));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
                 var token = new JwtSecurityToken(
@@ -104,10 +105,25 @@ namespace new_wr_api.Repositories
                 );
 
                 var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-                return jwt;
+
+                var response = new
+                {
+                    user = new
+                    {
+                        email = user.Email,
+                        fullName = user.FullName,
+                        phoneNumber = user.PhoneNumber,
+                        userName = user.UserName,
+                    },
+                    token = jwt,
+                };
+
+                return JsonConvert.SerializeObject(response);
             }
+
             return string.Empty;
         }
+
 
         public async Task<bool> LogoutAsync(HttpContext context)
         {

@@ -33,6 +33,7 @@ C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\Microsoft.OpenApi.dll
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\Microsoft.SqlServer.Server.dll
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
+C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\obj\Release\net7.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
