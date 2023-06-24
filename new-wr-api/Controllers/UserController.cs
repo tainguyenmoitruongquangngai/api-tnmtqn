@@ -19,7 +19,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public async Task<List<ApplicationUser>> GetAllUsers()
         {
             return await _repo.GetAllUsersAsync();
