@@ -9,11 +9,13 @@ namespace new_wr_api.Repositories
     {
         private readonly DatabaseContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public UserRepositories(DatabaseContext context, UserManager<ApplicationUser> userManager)
+        public UserRepositories(DatabaseContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         public async Task<List<ApplicationUser>> GetAllUsersAsync()
         {
@@ -32,13 +34,42 @@ namespace new_wr_api.Repositories
 
         public async Task<IdentityResult> CreateUserAsync(RegisterViewModel model)
         {
-            var user = new ApplicationUser
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user != null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Username already exists" });
+            }
+
+            var newUser = new ApplicationUser
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                FullName = model.FullName
+                FullName = model.FullName,
+                PhoneNumber = model.PhoneNumber,
             };
-            return await _userManager.CreateAsync(user, model.Password);
+
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
+
+            var result = await _userManager.CreateAsync(newUser, model.Password);
+            if (result.Succeeded)
+            {
+
+                // Add default role to the user
+                if (role != null)
+                {
+                    if (role.Name != null)
+                    {
+                        if (role.IsDefault)
+                        {
+                            await _userManager.AddToRoleAsync(newUser, role.Name);
+                        }
+                    }
+                }
+
+                return result;
+            }
+
+            return result;
         }
 
         public async Task<IdentityResult?> UpdateUserAsync(string userId, UpdateUserViewModel model)
