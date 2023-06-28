@@ -11,6 +11,49 @@ namespace new_wr_api.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "CreatedOn",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "PasswordUpdatedOn",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "UpdatedOn",
+                table: "AspNetUsers");
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "CreatedTime",
+                table: "AspNetUsers",
+                type: "datetime2",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "CreatedUser",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: true);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsDelete",
+                table: "AspNetUsers",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "ModifiedTime",
+                table: "AspNetUsers",
+                type: "datetime2",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "ModifiedUser",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: true);
+
             migrationBuilder.AlterColumn<bool>(
                 name: "IsDefault",
                 table: "AspNetRoles",
@@ -20,6 +63,37 @@ namespace new_wr_api.Migrations
                 oldClrType: typeof(bool),
                 oldType: "bit",
                 oldNullable: true);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "CreatedTime",
+                table: "AspNetRoles",
+                type: "datetime2",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "CreatedUser",
+                table: "AspNetRoles",
+                type: "nvarchar(max)",
+                nullable: true);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsDelete",
+                table: "AspNetRoles",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "ModifiedTime",
+                table: "AspNetRoles",
+                type: "datetime2",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "ModifiedUser",
+                table: "AspNetRoles",
+                type: "nvarchar(max)",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Constructions",
@@ -152,17 +226,14 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PortalId = table.Column<int>(type: "int", nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: true),
                     TypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TypeSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsWebPublic = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
@@ -183,8 +254,6 @@ namespace new_wr_api.Migrations
                     IssueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LicenseHolderName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LicenseHolderAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LicensingAuthorities = table.Column<int>(type: "int", nullable: true),
                     LicenseFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RelatedDocumentFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -195,14 +264,7 @@ namespace new_wr_api.Migrations
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsRevoked = table.Column<bool>(type: "bit", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
-                    ThietBiQuanTracMucNuoc = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThietBiQuanTracMua = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThietBiQuanTracLuuLuong = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThietBiQuanTracDongChayToiThieu = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThietBiQuanTracDinhKy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuanTracMuaMua = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuanTracMuaKho = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -221,6 +283,67 @@ namespace new_wr_api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Licenses");
+
+            migrationBuilder.DropColumn(
+                name: "CreatedTime",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "CreatedUser",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "IsDelete",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "ModifiedTime",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "ModifiedUser",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "CreatedTime",
+                table: "AspNetRoles");
+
+            migrationBuilder.DropColumn(
+                name: "CreatedUser",
+                table: "AspNetRoles");
+
+            migrationBuilder.DropColumn(
+                name: "IsDelete",
+                table: "AspNetRoles");
+
+            migrationBuilder.DropColumn(
+                name: "ModifiedTime",
+                table: "AspNetRoles");
+
+            migrationBuilder.DropColumn(
+                name: "ModifiedUser",
+                table: "AspNetRoles");
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "CreatedOn",
+                table: "AspNetUsers",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "PasswordUpdatedOn",
+                table: "AspNetUsers",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "UpdatedOn",
+                table: "AspNetUsers",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AlterColumn<bool>(
                 name: "IsDefault",

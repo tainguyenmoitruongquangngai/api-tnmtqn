@@ -2,7 +2,7 @@
 {
     public class RoleViewModel
     {
-        public string roleName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public bool isDefault { get; set; } = false;
     }
 }

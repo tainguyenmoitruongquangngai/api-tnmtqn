@@ -14,8 +14,6 @@ namespace new_wr_api.Data
         public Nullable<System.DateTime> IssueDate { get; set; }
         public Nullable<System.DateTime> ExpireDate { get; set; }
         public string? Duration { get; set; }
-        public string? LicenseHolderName { get; set; }
-        public string? LicenseHolderAddress { get; set; }
         public Nullable<int> LicensingAuthorities { get; set; }
         public string? LicenseFile { get; set; }
         public string? RelatedDocumentFile { get; set; }
@@ -27,12 +25,5 @@ namespace new_wr_api.Data
         public Nullable<bool> IsRevoked { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public string? ThietBiQuanTracMucNuoc { get; set; }
-        public string? ThietBiQuanTracMua { get; set; }
-        public string? ThietBiQuanTracLuuLuong { get; set; }
-        public string? ThietBiQuanTracDongChayToiThieu { get; set; }
-        public string? ThietBiQuanTracDinhKy { get; set; }
-        public string? QuanTracMuaMua { get; set; }
-        public string? QuanTracMuaKho { get; set; }
     }
 }

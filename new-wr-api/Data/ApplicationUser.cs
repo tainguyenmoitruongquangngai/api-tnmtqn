@@ -6,9 +6,11 @@ namespace new_wr_api.Data
     {
         public string PasswordSalt { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
-        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedOn { get; set; } = DateTime.UtcNow;
-        public DateTime PasswordUpdatedOn { get; set; } = DateTime.UtcNow;
         public string UserType { get; set; } = string.Empty;
+        public bool IsDelete { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
+        public Nullable<System.DateTime> ModifiedTime { get; set; }
+        public string? CreatedUser { get; set; }
+        public string? ModifiedUser { get; set; }
     }
 }

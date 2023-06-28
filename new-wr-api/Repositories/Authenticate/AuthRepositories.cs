@@ -41,7 +41,8 @@ namespace new_wr_api.Repositories
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                FullName = model.FullName
+                FullName = model.FullName,
+                IsDelete = true,
             };
 
             var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
@@ -116,6 +117,7 @@ namespace new_wr_api.Repositories
                         userName = user.UserName,
                     },
                     token = jwt,
+                    role = roles,
                 };
 
                 return JsonConvert.SerializeObject(response);

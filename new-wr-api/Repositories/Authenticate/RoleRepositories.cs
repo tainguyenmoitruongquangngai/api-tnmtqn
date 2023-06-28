@@ -18,7 +18,7 @@ namespace new_wr_api.Repositories
 
         public async Task<List<ApplicationRole>> GetAllRolesAsync()
         {
-            return await _context.Roles.ToListAsync();
+            return await _context.Roles.Where(u => !u.IsDelete).ToListAsync();
         }
 
         public async Task<ApplicationRole?> GetRoleByIdAsync(string roleId)
@@ -31,12 +31,13 @@ namespace new_wr_api.Repositories
             return res;
         }
 
-        public async Task<IdentityResult> CreateRoleAsync(string roleName, bool isDefault)
+        public async Task<IdentityResult> CreateRoleAsync(string Name, bool isDefault)
         {
             var role = new ApplicationRole
             {
-                Name = roleName,
-                IsDefault = isDefault
+                Name = Name,
+                IsDefault = isDefault,
+                IsDelete = false,
             };
             var res = await _roleManager.CreateAsync(role);
             return res;
@@ -52,7 +53,7 @@ namespace new_wr_api.Repositories
                 return null;
             }
 
-            role.Name = model.roleName;
+            role.Name = model.Name;
             role.IsDefault = model.isDefault;
             var result = await _roleManager.UpdateAsync(role);
             return result;
@@ -60,17 +61,16 @@ namespace new_wr_api.Repositories
 
         public async Task<bool> DeleteRoleAsync(string roleId)
         {
-            if (roleId == null)
-            {
-                return false;
-            }
-            var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.Id == roleId);
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.Id == roleId, CancellationToken.None);
+
+            // Update role properties based on the RegisterViewModel
             if (role == null)
             {
                 return false;
             }
-            var res = await _roleManager.DeleteAsync(role);
-            return res.Succeeded;
+            role.IsDelete = true;
+            var result = await _roleManager.UpdateAsync(role);
+            return true;
         }
     }
 }

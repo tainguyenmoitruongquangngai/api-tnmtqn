@@ -12,7 +12,7 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230623082746_InitData")]
+    [Migration("20230628175903_InitData")]
     partial class InitData
     {
         /// <inheritdoc />
@@ -140,12 +140,27 @@ namespace new_wr_api.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasMaxLength(256)
@@ -177,8 +192,11 @@ namespace new_wr_api.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -191,11 +209,20 @@ namespace new_wr_api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -212,9 +239,6 @@ namespace new_wr_api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PasswordUpdatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -226,9 +250,6 @@ namespace new_wr_api.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -268,14 +289,8 @@ namespace new_wr_api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DisplayOrder")
-                        .HasColumnType("int");
-
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("IsWebPublic")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
@@ -284,9 +299,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PortalId")
                         .HasColumnType("int");
 
                     b.Property<bool?>("Status")
@@ -687,12 +699,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("LicenseFile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LicenseHolderAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LicenseHolderName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LicenseName")
                         .HasColumnType("nvarchar(max)");
 
@@ -711,12 +717,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("ModifiedUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("QuanTracMuaKho")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QuanTracMuaMua")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RelatedDocumentFile")
                         .HasColumnType("nvarchar(max)");
 
@@ -725,21 +725,6 @@ namespace new_wr_api.Migrations
 
                     b.Property<bool?>("Status")
                         .HasColumnType("bit");
-
-                    b.Property<string>("ThietBiQuanTracDinhKy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThietBiQuanTracDongChayToiThieu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThietBiQuanTracLuuLuong")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThietBiQuanTracMua")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThietBiQuanTracMucNuoc")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
