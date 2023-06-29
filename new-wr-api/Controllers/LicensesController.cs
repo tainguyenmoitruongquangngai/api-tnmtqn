@@ -8,6 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admintrator")]
     public class LicensesController : ControllerBase
     {
         private readonly ILicensesRepositories _repo;
@@ -19,7 +20,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllLicenses()
         {
             try { return Ok(await _repo.GetAllLicensesAsync()); }
@@ -28,7 +28,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{Id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetLicenseById(int Id)
         {
             var res = await _repo.GetLicenseAsync(Id);
@@ -37,7 +36,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("create")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateLicense(LicensesModel model)
         {
             var res = await _repo.CreateLicenseAsync(model);
@@ -47,7 +45,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("update/{Id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateLicense(int Id, LicensesModel model)
         {
             var res = await _repo.UpdateLicenseAsync(Id, model);
@@ -57,7 +54,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("delete/{Id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteLicenseById(int Id)
         {
             var res = await _repo.DeleteLicenseAsync(Id);

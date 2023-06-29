@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Data.Dto;
 using new_wr_api.Models;
+using System.Data;
 
 namespace new_wr_api.Repositories
 {
@@ -36,8 +37,7 @@ namespace new_wr_api.Repositories
                     FullName = user.FullName,
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
-                    UserType = user.UserType,
-                    Roles = roles.ToList()
+                    Roles = roles?.Select(r => new RoleDto { Name = r }).ToList() ?? new List<RoleDto>()
                 };
                 userDtos.Add(userDto);
             }
@@ -47,14 +47,33 @@ namespace new_wr_api.Repositories
 
 
 
-        public async Task<ApplicationUser?> GetUserByIdAsync(string userId)
+        public async Task<UsersDto?> GetUserByIdAsync(string userId)
         {
             if (userId == null)
             {
                 return null;
             }
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId, CancellationToken.None);
-            return user;
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var userDto = new UsersDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FullName = user.FullName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Roles = roles?.Select(r => new RoleDto { Name = r }).ToList() ?? new List<RoleDto>()
+            };
+
+            return userDto;
         }
 
         public async Task<IdentityResult> CreateUserAsync(RegisterViewModel model)
@@ -110,7 +129,6 @@ namespace new_wr_api.Repositories
 
             user.FullName = model.FullName;
             user.Email = model.Email;
-            user.UserType = model.UserType;
             user.PhoneNumber = model.PhoneNumber;
             var result = await _userManager.UpdateAsync(user);
             return result;

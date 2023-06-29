@@ -8,6 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admintrator")]
     public class ConstructionsController : ControllerBase
     {
         private readonly IConstructionsRepositories _repo;
@@ -19,7 +20,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetAllConstructions()
         {
             try { return Ok(await _repo.GetAllConstructionsAsync()); }
@@ -28,7 +28,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{Id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetConstructionById(int Id)
         {
             var res = await _repo.GetConstructionAsync(Id);
@@ -37,7 +36,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("create")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateConstruction(ConstructionsModel model)
         {
             var res = await _repo.CreateConstructionAsync(model);
@@ -47,7 +45,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("update/{Id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateConstruction(int Id, ConstructionsModel model)
         {
             var res = await _repo.UpdateConstructionAsync(Id, model);
@@ -57,7 +54,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("delete/{Id}")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConstructionById(int Id)
         {
             var res = await _repo.DeleteConstructionAsync(Id);

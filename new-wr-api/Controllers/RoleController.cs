@@ -8,6 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admintrator")]
     public class RoleController : ControllerBase
     {
         private readonly RoleRepositories _repo;
@@ -19,7 +20,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        [Authorize(Roles = "admin, Admin")]
         public async Task<List<ApplicationRole>> GetAllRoles()
         {
             return await _repo.GetAllRolesAsync();
@@ -27,7 +27,6 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{roleId}")]
-        [Authorize(Roles = "admin, Admin")]
         public async Task<ApplicationRole?> GetRoleById(string roleId)
         {
             return await _repo.GetRoleByIdAsync(roleId);
@@ -35,7 +34,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("create")]
-        [Authorize(Roles = "admin, Admin")]
         public async Task<ActionResult<ApplicationRole>> CreateRole(RoleViewModel model)
         {
             var res = await _repo.CreateRoleAsync(model.Name, model.isDefault);
@@ -55,7 +53,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("update/{roleId}")]
-        [Authorize(Roles = "admin, Admin")]
         public async Task<ActionResult<ApplicationRole>> UpdateRole(string roleId, RoleViewModel model)
         {
             var res = await _repo.UpdateRoleAsync(roleId, model);
@@ -75,7 +72,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("detete/{roleId}")]
-        [Authorize(Roles = "admin, Admin")]
         public async Task<ActionResult<ApplicationRole>> DeleteRole(string roleId)
         {
             var res = await _repo.DeleteRoleAsync(roleId);
