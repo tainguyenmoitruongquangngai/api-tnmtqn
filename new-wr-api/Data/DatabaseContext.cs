@@ -18,8 +18,8 @@ namespace new_wr_api.Data
         }
         //
         #region DbSet
-        public DbSet<Constructions>? Constructions { get; set; }
-        public DbSet<Licenses>? Licenses { get; set; }
+        public DbSet<Construction>? Construction { get; set; }
+        public DbSet<License>? License { get; set; }
         public DbSet<ConstructionType>? ConstructionType { get; set; }
         public DbSet<Permission>? Permission { get; set; }
         public DbSet<Dashboard>? Dashboard { get; set; }

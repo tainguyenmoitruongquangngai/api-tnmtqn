@@ -22,7 +22,7 @@ namespace new_wr_api.Repositories
         public async Task<List<UsersDto>> GetAllUsersAsync()
         {
             var users = await _context.Users
-                .Where(u => !u.IsDelete)
+                .Where(u => u.IsDeleted == false)
                 .ToListAsync();
 
             var userDtos = new List<UsersDto>();
@@ -90,13 +90,14 @@ namespace new_wr_api.Repositories
                 Email = model.Email,
                 FullName = model.FullName,
                 PhoneNumber = model.PhoneNumber,
-                IsDelete = false,
+                IsDeleted = false,
+                Status = true,
             };
 
             var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 
-            var result = await _userManager.CreateAsync(newUser, model.Password);
-            if (result.Succeeded)
+            var res = await _userManager.CreateAsync(newUser, model.Password);
+            if (res.Succeeded)
             {
 
                 // Add default role to the user
@@ -111,10 +112,10 @@ namespace new_wr_api.Repositories
                     }
                 }
 
-                return result;
+                return res;
             }
 
-            return result;
+            return res;
         }
 
         public async Task<IdentityResult?> UpdateUserAsync(string userName, UpdateUserViewModel model)
@@ -130,8 +131,8 @@ namespace new_wr_api.Repositories
             user.FullName = model.FullName;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
-            var result = await _userManager.UpdateAsync(user);
-            return result;
+            var res = await _userManager.UpdateAsync(user);
+            return res;
         }
 
 
@@ -145,8 +146,8 @@ namespace new_wr_api.Repositories
                 return false;
             }
 
-            user.IsDelete = true;
-            var result = await _userManager.UpdateAsync(user);
+            user.IsDeleted = true;
+            var res = await _userManager.UpdateAsync(user);
             return true;
         }
 
@@ -157,8 +158,8 @@ namespace new_wr_api.Repositories
             {
                 return null;
             }
-            var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
-            return result;
+            var res = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+            return res;
         }
 
         public async Task<string> AssignRoleAsync(SetRoleModel model)

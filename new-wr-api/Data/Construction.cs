@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class Constructions
+    public class Construction
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -112,14 +112,14 @@ namespace new_wr_api.Data
         public Nullable<double> MinimumFlowPre { get; set; }
         public Nullable<double> MaximumFlowPre { get; set; }
         public Nullable<System.DateTime> TimePre { get; set; }
+        public Nullable<bool> IsDisconnect { get; set; }
+        public Nullable<bool> IsError { get; set; }
+        public string? Change { get; set; }
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public string? CreatedUser { get; set; }
         public Nullable<System.DateTime> ModifiedTime { get; set; }
         public string? ModifiedUser { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
-        public Nullable<bool> IsDisconnect { get; set; }
-        public Nullable<bool> IsError { get; set; }
-        public string? Change { get; set; }
     }
 }

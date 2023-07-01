@@ -4,9 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
 using new_wr_api.Repositories;
-using new_wr_api.Repositories.Constructions;
+using new_wr_api.Repositories.Construction;
 using new_wr_api.Repositories.ConstructionType;
-using new_wr_api.Repositories.Licenses;
+using new_wr_api.Repositories.License;
+using new_wr_api.Repositories.Dashboard;
+using new_wr_api.Repositories.Permission;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,9 +22,11 @@ services.AddAutoMapper(typeof(Program));
 services.AddScoped<IAuthRepositories, AuthRepositories>();
 services.AddScoped<UserRepositories>();
 services.AddScoped<RoleRepositories>();
-services.AddScoped<IConstructionsRepositories, ConstructionsRepositories>();
+services.AddScoped<IConstructionRepositories, ConstructionRepositories>();
 services.AddScoped<IConstructionTypeRepositories, ConstructionTypeRepositories>();
-services.AddScoped<ILicensesRepositories, LicensesRepositories>();
+services.AddScoped<ILicenseRepositories, LicenseRepositories>();
+services.AddScoped<IDashboardRepositories, DashboardRepositories>();
+services.AddScoped<IPermissionRepositories, PermissionRepositories>();
 
 
 services.AddIdentity<ApplicationUser, ApplicationRole>()
@@ -84,8 +88,7 @@ services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("http://localhost:3000")
-               .AllowAnyOrigin()
+        builder.AllowAnyOrigin()
                .AllowAnyMethod()
                .AllowAnyHeader();
     });

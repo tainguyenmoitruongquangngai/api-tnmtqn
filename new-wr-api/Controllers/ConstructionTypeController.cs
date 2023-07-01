@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admintrator")]
+    //[Authorize(Roles = "Administrator")]
     public class ConstructionTypeController : ControllerBase
     {
         private readonly IConstructionTypeRepositories _repo;

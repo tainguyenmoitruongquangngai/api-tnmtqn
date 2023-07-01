@@ -20,6 +20,7 @@ namespace new_wr_api.Repositories.ConstructionType
             var newCons = _mapper.Map<Data.ConstructionType>(model);
             var currentDate = DateTime.Now;
             newCons.IsDeleted = false;
+            newCons.Status = true;
             newCons.CreatedTime = currentDate;
             _context.ConstructionType!.Add(newCons);
             await _context.SaveChangesAsync();
@@ -59,7 +60,6 @@ namespace new_wr_api.Repositories.ConstructionType
             if (construction == null) return false;
 
             var currentDate = DateTime.Now;
-            construction.IsDeleted = false;
             construction.ModifiedTime = currentDate;
 
             _mapper.Map(model, construction);

@@ -8,8 +8,10 @@ namespace new_wr_api.Helpers
     {
         public ApplicationMapper()
         {
-            CreateMap<Constructions, ConstructionsModel>().ReverseMap();
-            CreateMap<Licenses, LicensesModel>().ReverseMap();
+            CreateMap<Construction, ConstructionModel>().ReverseMap();
+            CreateMap<License, LicenseModel>().ReverseMap();
+            CreateMap<Dashboard, DashboardModel>().ReverseMap();
+            CreateMap<Permission, PermissionModel>().ReverseMap();
         }
     }
 }

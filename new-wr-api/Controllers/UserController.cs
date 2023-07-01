@@ -8,8 +8,8 @@ using new_wr_api.Repositories;
 namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admintrator")]
     [ApiController]
+    //[Authorize(Roles = "Administrator")]
     public class UserController : ControllerBase
     {
         private readonly UserRepositories _repo;

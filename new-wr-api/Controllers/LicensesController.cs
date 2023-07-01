@@ -1,28 +1,28 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Models;
-using new_wr_api.Repositories.Licenses;
+using new_wr_api.Repositories.License;
 using System.Data;
 
 namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admintrator")]
-    public class LicensesController : ControllerBase
+    //[Authorize(Roles = "Administrator")]
+    public class LicenseController : ControllerBase
     {
-        private readonly ILicensesRepositories _repo;
+        private readonly ILicenseRepositories _repo;
 
-        public LicensesController(ILicensesRepositories repo)
+        public LicenseController(ILicenseRepositories repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetAllLicenses()
+        public async Task<IActionResult> GetAllLicense()
         {
-            try { return Ok(await _repo.GetAllLicensesAsync()); }
+            try { return Ok(await _repo.GetAllLicenseAsync()); }
             catch { return BadRequest(); }
         }
 
@@ -36,7 +36,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateLicense(LicensesModel model)
+        public async Task<IActionResult> CreateLicense(LicenseModel model)
         {
             var res = await _repo.CreateLicenseAsync(model);
             try { return Ok(res); }
@@ -45,7 +45,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("update/{Id}")]
-        public async Task<IActionResult> UpdateLicense(int Id, LicensesModel model)
+        public async Task<IActionResult> UpdateLicense(int Id, LicenseModel model)
         {
             var res = await _repo.UpdateLicenseAsync(Id, model);
             try { return Ok(res); }

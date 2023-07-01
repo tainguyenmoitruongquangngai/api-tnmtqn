@@ -18,7 +18,7 @@ namespace new_wr_api.Repositories
 
         public async Task<List<ApplicationRole>> GetAllRolesAsync()
         {
-            return await _context.Roles.Where(u => !u.IsDelete).ToListAsync();
+            return await _context.Roles.Where(u => !u.IsDeleted).ToListAsync();
         }
 
         public async Task<ApplicationRole?> GetRoleByIdAsync(string roleId)
@@ -37,7 +37,8 @@ namespace new_wr_api.Repositories
             {
                 Name = Name,
                 IsDefault = isDefault,
-                IsDelete = false,
+                IsDeleted = false,
+                Status = true,
             };
             var res = await _roleManager.CreateAsync(role);
             return res;
@@ -55,8 +56,8 @@ namespace new_wr_api.Repositories
 
             role.Name = model.Name;
             role.IsDefault = model.isDefault;
-            var result = await _roleManager.UpdateAsync(role);
-            return result;
+            var res = await _roleManager.UpdateAsync(role);
+            return res;
         }
 
         public async Task<bool> DeleteRoleAsync(string roleId)
@@ -68,8 +69,8 @@ namespace new_wr_api.Repositories
             {
                 return false;
             }
-            role.IsDelete = true;
-            var result = await _roleManager.UpdateAsync(role);
+            role.IsDeleted = true;
+            var res = await _roleManager.UpdateAsync(role);
             return true;
         }
     }

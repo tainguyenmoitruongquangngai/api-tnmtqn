@@ -42,7 +42,8 @@ namespace new_wr_api.Repositories
                 UserName = model.UserName,
                 Email = model.Email,
                 FullName = model.FullName,
-                IsDelete = true,
+                IsDeleted = false,
+                Status = true,
             };
 
             var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);

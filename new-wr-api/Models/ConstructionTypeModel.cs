@@ -2,8 +2,8 @@
 {
     public class ConstructionTypeModel
     {
-        public Nullable<int> ParentId { get; set; }
-        public string? TypeName { get; set; }
-        public string? TypeSlug { get; set; }
+        public int ParentId { get; set; }
+        public string TypeName { get; set; } = string.Empty;
+        public string TypeSlug { get; set; } = string.Empty;
     }
 }

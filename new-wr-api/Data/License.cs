@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class Licenses
+    public class License
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,11 +18,11 @@ namespace new_wr_api.Data
         public string? LicenseFile { get; set; }
         public string? RelatedDocumentFile { get; set; }
         public string? LicenseRequestFile { get; set; }
+        public Nullable<bool> IsRevoked { get; set; }
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public string? CreatedUser { get; set; }
         public Nullable<System.DateTime> ModifiedTime { get; set; }
         public string? ModifiedUser { get; set; }
-        public Nullable<bool> IsRevoked { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
     }
