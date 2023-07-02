@@ -43,9 +43,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<ActionResult<ApplicationUser>> CreateUser(RegisterViewModel model)
+        public async Task<ActionResult<ApplicationUser>> CreateUser(UsersDto dto)
         {
-            var res = await _repo.CreateUserAsync(model);
+            var res = await _repo.CreateUserAsync(dto);
             if (res.Succeeded)
             {
                 return Ok(new
@@ -62,9 +62,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("update/{userName}")]
-        public async Task<ActionResult<ApplicationUser>> UpdateUser(string userName, UpdateUserViewModel model)
+        public async Task<ActionResult<ApplicationUser>> UpdateUser(string userName, UsersDto dto)
         {
-            var res = await _repo.UpdateUserAsync(userName, model);
+            var res = await _repo.UpdateUserAsync(userName, dto);
             if (res == null || res.Succeeded == false)
             {
                 return BadRequest(new
@@ -80,23 +80,6 @@ namespace new_wr_api.Controllers
 
         }
 
-        [HttpPost]
-        [Route("change-password/{userId}")]
-        public async Task<ActionResult<ApplicationUser>> UpdatePassword(string userId, string currentPassword, string newPassword)
-        {
-            var res = await _repo.UpdatePasswordAsync(userId, currentPassword, newPassword);
-            if (res == null || res.Succeeded == false)
-            {
-                return BadRequest(new
-                {
-                    message = res
-                });
-            }
-            return Ok(new
-            {
-                message = "Password is updated"
-            });
-        }
         [HttpPost]
         [Route("delete/{userId}")]
         public async Task<ActionResult<ApplicationUser>> DeleteUser(string userId)
@@ -115,22 +98,5 @@ namespace new_wr_api.Controllers
             });
         }
 
-        [HttpPost]
-        [Route("set-role")]
-        public async Task<ActionResult<ApplicationUser>> AssignRole(SetRoleModel model)
-        {
-            var res = await _repo.AssignRoleAsync(model);
-            if (res == null)
-            {
-                return BadRequest(new
-                {
-                    message = res
-                });
-            }
-            return Ok(new
-            {
-                message = res
-            });
-        }
     }
 }

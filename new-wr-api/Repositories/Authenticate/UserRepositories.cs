@@ -30,13 +30,8 @@ namespace new_wr_api.Repositories
             foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
-                var userDto = new UsersDto
+                var userDto = new UsersDto(user)
                 {
-                    Id = user.Id,
-                    UserName = user.UserName,
-                    FullName = user.FullName,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber,
                     Roles = roles?.Select(r => new RoleDto { Name = r }).ToList() ?? new List<RoleDto>()
                 };
                 userDtos.Add(userDto);
@@ -63,22 +58,17 @@ namespace new_wr_api.Repositories
 
             var roles = await _userManager.GetRolesAsync(user);
 
-            var userDto = new UsersDto
+            var userDto = new UsersDto(user)
             {
-                Id = user.Id,
-                UserName = user.UserName,
-                FullName = user.FullName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
                 Roles = roles?.Select(r => new RoleDto { Name = r }).ToList() ?? new List<RoleDto>()
             };
 
             return userDto;
         }
 
-        public async Task<IdentityResult> CreateUserAsync(RegisterViewModel model)
+        public async Task<IdentityResult> CreateUserAsync(UsersDto dto)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
+            var user = await _userManager.FindByNameAsync(dto.UserName);
             if (user != null)
             {
                 return IdentityResult.Failed(new IdentityError { Description = "Username already exists" });
@@ -86,17 +76,17 @@ namespace new_wr_api.Repositories
 
             var newUser = new ApplicationUser
             {
-                UserName = model.UserName,
-                Email = model.Email,
-                FullName = model.FullName,
-                PhoneNumber = model.PhoneNumber,
+                UserName = dto.UserName,
+                Email = dto.Email,
+                FullName = dto.FullName,
+                PhoneNumber = dto.PhoneNumber,
                 IsDeleted = false,
                 Status = true,
             };
 
             var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 
-            var res = await _userManager.CreateAsync(newUser, model.Password);
+            var res = await _userManager.CreateAsync(newUser, dto.PasswordHash);
             if (res.Succeeded)
             {
 
@@ -118,7 +108,7 @@ namespace new_wr_api.Repositories
             return res;
         }
 
-        public async Task<IdentityResult?> UpdateUserAsync(string userName, UpdateUserViewModel model)
+        public async Task<IdentityResult?> UpdateUserAsync(string userName, UsersDto dto)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.UserName == userName, CancellationToken.None);
 
@@ -128,9 +118,9 @@ namespace new_wr_api.Repositories
                 return null;
             }
 
-            user.FullName = model.FullName;
-            user.Email = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
+            user.FullName = dto.FullName;
+            user.Email = dto.Email;
+            user.PhoneNumber = dto.PhoneNumber;
             var res = await _userManager.UpdateAsync(user);
             return res;
         }
@@ -150,39 +140,5 @@ namespace new_wr_api.Repositories
             var res = await _userManager.UpdateAsync(user);
             return true;
         }
-
-        public async Task<IdentityResult?> UpdatePasswordAsync(string userId, string currentPassword, string newPassword)
-        {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId, CancellationToken.None);
-            if (user == null)
-            {
-                return null;
-            }
-            var res = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
-            return res;
-        }
-
-        public async Task<string> AssignRoleAsync(SetRoleModel model)
-        {
-            var user = await _userManager.FindByIdAsync(model.userId);
-            if (user == null)
-            {
-                // User not found
-                return "User not found";
-            }
-
-            var roleExists = await _roleManager.RoleExistsAsync(model.roleName);
-            if (!roleExists)
-            {
-                // Role not found
-                return "Role not found";
-            }
-
-            await _userManager.AddToRoleAsync(user, model.roleName);
-
-            // Role assigned successfully
-            return "Role assigned successfully";
-        }
-
     }
 }

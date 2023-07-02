@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Newtonsoft.Json;
+using new_wr_api.Data.Dto;
 
 namespace new_wr_api.Repositories
 {
@@ -29,27 +30,27 @@ namespace new_wr_api.Repositories
             _configuration = configuration;
         }
 
-        public async Task<IdentityResult> RegisterAsync(RegisterViewModel model)
+        public async Task<IdentityResult> RegisterAsync(UsersDto dto)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
-            if (user != null)
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "Username already exists" });
-            }
+            ApplicationUser item = new ApplicationUser();
 
-            var newUser = new ApplicationUser
+            item = dto.ToApplicationUser();
+
+            IdentityResult res;
+            item.IsDeleted = false;
+
+            if (dto.PasswordHash != null)
             {
-                UserName = model.UserName,
-                Email = model.Email,
-                FullName = model.FullName,
-                IsDeleted = false,
-                Status = true,
-            };
+                res = await _userManager.CreateAsync(item, dto.PasswordHash);
+            }
+            else
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "Password is null" });
+            }
 
             var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 
-            var result = await _userManager.CreateAsync(newUser, model.Password);
-            if (result.Succeeded)
+            if (res.Succeeded)
             {
 
                 // Add default role to the user
@@ -59,15 +60,14 @@ namespace new_wr_api.Repositories
                     {
                         if (role.IsDefault)
                         {
-                            await _userManager.AddToRoleAsync(newUser, role.Name);
+                            await _userManager.AddToRoleAsync(item, role.Name);
                         }
                     }
                 }
 
-                return result;
+                return res;
             }
-
-            return result;
+            return res;
         }
 
         public async Task<string> LoginAsync(LoginViewModel model)
@@ -127,6 +127,36 @@ namespace new_wr_api.Repositories
             return string.Empty;
         }
 
+        public async Task<IdentityResult?> UpdatePasswordAsync(UsersDto dto, string currentPassword, string newPassword)
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = dto;
+
+            var res = await _userManager.ChangePasswordAsync(dto, currentPassword, newPassword);
+            return res;
+        }
+
+        public async Task<string> AssignRoleAsync(SetRoleModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.userId);
+            if (user == null)
+            {
+                // User not found
+                return "User not found";
+            }
+
+            var role = await _roleManager.RoleExistsAsync(model.roleName);
+            if (!role)
+            {
+                // Role not found
+                return "Role not found";
+            }
+
+            await _userManager.AddToRoleAsync(user, model.roleName);
+
+            // Role assigned successfully
+            return "Role assigned successfully";
+        }
 
         public async Task<bool> LogoutAsync(HttpContext context)
         {
