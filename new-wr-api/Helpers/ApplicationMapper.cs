@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using new_wr_api.Data;
-using new_wr_api.Models;
+using new_wr_api.Data.Dto;
 
 namespace new_wr_api.Helpers
 {
@@ -8,10 +8,7 @@ namespace new_wr_api.Helpers
     {
         public ApplicationMapper()
         {
-            CreateMap<Construction, ConstructionModel>().ReverseMap();
-            CreateMap<License, LicenseModel>().ReverseMap();
-            CreateMap<Dashboard, DashboardModel>().ReverseMap();
-            CreateMap<Permission, PermissionModel>().ReverseMap();
+            CreateMap<Dashboard, DashboardDto>().ReverseMap();
         }
     }
 }

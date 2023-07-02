@@ -6,9 +6,9 @@ namespace new_wr_api.Data
     {
         public bool IsDefault { get; set; }
         public string Discriminator { get; set; } = "ApplicationRole";
-        public Nullable<System.DateTime> CreatedTime { get; set; }
+        public DateTime? CreatedTime { get; set; }
         public string CreatedUser { get; set; } = string.Empty;
-        public Nullable<System.DateTime> ModifiedTime { get; set; }
+        public DateTime? ModifiedTime { get; set; }
         public string ModifiedUser { get; set; } = string.Empty;
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }

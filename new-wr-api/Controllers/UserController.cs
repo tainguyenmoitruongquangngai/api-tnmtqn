@@ -11,25 +11,25 @@ namespace new_wr_api.Controllers
     //[Authorize(Roles = "Administrator")]
     public class UserController : ControllerBase
     {
-        private readonly UserService _repo;
+        private readonly UserService _service;
 
-        public UserController(UserService repo)
+        public UserController(UserService service)
         {
-            _repo = repo;
+            _service = service;
         }
 
         [HttpGet]
         [Route("list")]
         public async Task<List<UsersDto>> GetAllUsers()
         {
-            return await _repo.GetAllUsersAsync();
+            return await _service.GetAllUsersAsync();
         }
 
         [HttpGet]
         [Route("{userId}")]
         public async Task<ActionResult<ApplicationUser>> GetUserById(string userId)
         {
-            var res = await _repo.GetUserByIdAsync(userId);
+            var res = await _service.GetUserByIdAsync(userId);
             if (res == null)
             {
                 return NotFound(new { message = "User not found" });
@@ -44,7 +44,7 @@ namespace new_wr_api.Controllers
         [Route("save")]
         public async Task<ActionResult<ApplicationUser>> SaveUser(UsersDto dto)
         {
-            var res = await _repo.SaveUserAsync(dto);
+            var res = await _service.SaveUserAsync(dto);
             if (res.Succeeded)
             {
                 return Ok(new
@@ -62,7 +62,7 @@ namespace new_wr_api.Controllers
         [Route("delete")]
         public async Task<ActionResult<ApplicationUser>> DeleteUser(UsersDto dto)
         {
-            var res = await _repo.DeleteUserAsync(dto);
+            var res = await _service.DeleteUserAsync(dto);
             if (res == false)
             {
                 return BadRequest(new

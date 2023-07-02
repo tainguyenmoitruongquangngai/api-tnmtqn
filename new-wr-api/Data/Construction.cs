@@ -8,118 +8,118 @@ namespace new_wr_api.Data
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public Nullable<int> TypeOfConstructionId { get; set; }
-        public Nullable<int> ProvinceId { get; set; }
-        public Nullable<int> DistrictId { get; set; }
-        public Nullable<int> CommuneId { get; set; }
-        public Nullable<int> RiverId { get; set; }
-        public Nullable<int> BasinId { get; set; }
-        public Nullable<int> LicenseId { get; set; }
-        public Nullable<int> AquiferId { get; set; }
-        public string? UserName { get; set; }
-        public string? ConstructionName { get; set; }
-        public string? ConstructionCode { get; set; }
-        public string? ConstructionLocation { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
-        public Nullable<double> Lat { get; set; }
-        public Nullable<double> Lng { get; set; }
-        public Nullable<int> StartDate { get; set; }
-        public string? ExploitedWS { get; set; }
-        public string? MiningMode { get; set; }
-        public string? MiningMethod { get; set; }
-        public string? MiningPurpose { get; set; }
-        public string? DischargeMethod { get; set; }
-        public string? DischargeMode { get; set; }
-        public string? DischargeWS { get; set; }
-        public Nullable<double> DischargeFlow { get; set; }
-        public Nullable<double> MaximumDischargeFlow { get; set; }
-        public Nullable<double> MiningMaxFlow { get; set; }
-        public Nullable<double> MaximumFlow { get; set; }
-        public Nullable<double> MinimumFlow { get; set; }
-        public Nullable<double> MaximumWasteWaterFlow { get; set; }
-        public Nullable<double> Power { get; set; }
-        public Nullable<double> PumpCapacity { get; set; }
-        public Nullable<double> OverflowFlow { get; set; }
-        public Nullable<double> RiseWL { get; set; }
-        public Nullable<double> DeadWL { get; set; }
-        public Nullable<double> PreFlootMaxWL { get; set; }
-        public Nullable<double> FlootWL { get; set; }
-        public Nullable<double> UpstreamWL { get; set; }
-        public Nullable<double> DownstreamWL { get; set; }
-        public Nullable<double> DeadCapacity { get; set; }
-        public Nullable<double> UsefulCapacity { get; set; }
-        public Nullable<double> TotalCapacity { get; set; }
-        public Nullable<double> DamHeight { get; set; }
-        public Nullable<double> DamWidth { get; set; }
-        public Nullable<double> DrainElevation { get; set; }
-        public Nullable<double> DrainLength { get; set; }
-        public Nullable<double> DrainDiameter { get; set; }
-        public Nullable<double> DrainSize { get; set; }
-        public Nullable<double> PumpNumber { get; set; }
-        public Nullable<double> PumpDesignFlow { get; set; }
-        public Nullable<double> PumpMaxFlow { get; set; }
-        public Nullable<double> SuctionTankWL { get; set; }
-        public Nullable<double> WaterSupplyFlow { get; set; }
-        public string? MiningDuration { get; set; }
-        public string? DrillingDuration { get; set; }
-        public string? DrillingPurpose { get; set; }
-        public string? ExplorationPurposes { get; set; }
-        public string? DrillingScale { get; set; }
-        public string? ConstructionTime { get; set; }
-        public Nullable<double> DesignFloodLevel { get; set; }
-        public Nullable<double> CheckFloodWL { get; set; }
-        public Nullable<double> NumberMiningWells { get; set; }
-        public Nullable<double> AmountWaterExploited { get; set; }
-        public Nullable<double> NumberMonitoringWells { get; set; }
-        public string? Description { get; set; }
-        public string? WellNumber { get; set; }
-        public Nullable<double> MonitoringWellWL { get; set; }
-        public Nullable<double> WellWL { get; set; }
-        public Nullable<double> WaterDepthFrom { get; set; }
-        public Nullable<double> WaterDepthTo { get; set; }
-        public Nullable<double> LowWL { get; set; }
-        public Nullable<double> StaticWL { get; set; }
-        public Nullable<double> DynamicWL { get; set; }
-        public string? VolumeOfExplorationItems { get; set; }
-        public Nullable<double> WaterExtractionFlowDesign { get; set; }
-        public Nullable<double> WaterExtractionFlowReality { get; set; }
-        public string? ConstructionDetailLocation { get; set; }
-        public Nullable<double> RealityWateringArea { get; set; }
-        public Nullable<double> WateringAreaDesigned { get; set; }
-        public Nullable<double> GuaranteedFlow { get; set; }
-        public Nullable<double> Hmax { get; set; }
-        public Nullable<double> Hmin { get; set; }
-        public Nullable<double> Htt { get; set; }
-        public Nullable<double> RealityFlow { get; set; }
-        public Nullable<double> FlowDesigned { get; set; }
-        public Nullable<double> FlowAvgForYears { get; set; }
-        public Nullable<double> RainAvgForYears { get; set; }
-        public Nullable<double> BasinArea { get; set; }
-        public Nullable<double> AverageDischargeFlow { get; set; }
-        public string? SmallPlanningArea { get; set; }
-        public Nullable<double> GuaranteedPower { get; set; }
-        public string? ConstructionLevel { get; set; }
-        public string? KqKf { get; set; }
-        public Nullable<double> DamElevation { get; set; }
-        public string? AveragePumpTime { get; set; }
-        public string? MaximumPumpTime { get; set; }
-        public string? MinimumPumpTime { get; set; }
-        public Nullable<double> MaximumDischargeFlowPre { get; set; }
-        public Nullable<double> CapacityPre { get; set; }
-        public Nullable<double> DownstreamWLPre { get; set; }
-        public Nullable<double> UpstreamWLPre { get; set; }
-        public Nullable<double> MinimumFlowPre { get; set; }
-        public Nullable<double> MaximumFlowPre { get; set; }
-        public Nullable<System.DateTime> TimePre { get; set; }
-        public Nullable<bool> IsDisconnect { get; set; }
-        public Nullable<bool> IsError { get; set; }
-        public string? Change { get; set; }
-        public Nullable<System.DateTime> CreatedTime { get; set; }
-        public string? CreatedUser { get; set; }
-        public Nullable<System.DateTime> ModifiedTime { get; set; }
-        public string? ModifiedUser { get; set; }
-        public Nullable<bool> Status { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public int TypeOfConstructionId { get; set; }
+        public int ProvinceId { get; set; }
+        public int DistrictId { get; set; }
+        public int CommuneId { get; set; }
+        public int RiverId { get; set; }
+        public int BasinId { get; set; }
+        public int LicenseId { get; set; }
+        public int AquiferId { get; set; }
+        public string UserName { get; set; } = string.Empty;
+        public string ConstructionName { get; set; } = string.Empty;
+        public string ConstructionCode { get; set; } = string.Empty;
+        public string ConstructionLocation { get; set; } = string.Empty;
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
+        public int StartDate { get; set; }
+        public string ExploitedWS { get; set; } = string.Empty;
+        public string MiningMode { get; set; } = string.Empty;
+        public string MiningMethod { get; set; } = string.Empty;
+        public string MiningPurpose { get; set; } = string.Empty;
+        public string DischargeMethod { get; set; } = string.Empty;
+        public string DischargeMode { get; set; } = string.Empty;
+        public string DischargeWS { get; set; } = string.Empty;
+        public double DischargeFlow { get; set; }
+        public double MaximumDischargeFlow { get; set; }
+        public double MiningMaxFlow { get; set; }
+        public double MaximumFlow { get; set; }
+        public double MinimumFlow { get; set; }
+        public double MaximumWasteWaterFlow { get; set; }
+        public double Power { get; set; }
+        public double PumpCapacity { get; set; }
+        public double OverflowFlow { get; set; }
+        public double RiseWL { get; set; }
+        public double DeadWL { get; set; }
+        public double PreFlootMaxWL { get; set; }
+        public double FlootWL { get; set; }
+        public double UpstreamWL { get; set; }
+        public double DownstreamWL { get; set; }
+        public double DeadCapacity { get; set; }
+        public double UsefulCapacity { get; set; }
+        public double TotalCapacity { get; set; }
+        public double DamHeight { get; set; }
+        public double DamWidth { get; set; }
+        public double DrainElevation { get; set; }
+        public double DrainLength { get; set; }
+        public double DrainDiameter { get; set; }
+        public double DrainSize { get; set; }
+        public double PumpNumber { get; set; }
+        public double PumpDesignFlow { get; set; }
+        public double PumpMaxFlow { get; set; }
+        public double SuctionTankWL { get; set; }
+        public double WaterSupplyFlow { get; set; }
+        public string MiningDuration { get; set; } = string.Empty;
+        public string DrillingDuration { get; set; } = string.Empty;
+        public string DrillingPurpose { get; set; } = string.Empty;
+        public string ExplorationPurposes { get; set; } = string.Empty;
+        public string DrillingScale { get; set; } = string.Empty;
+        public string ConstructionTime { get; set; } = string.Empty;
+        public double DesignFloodLevel { get; set; }
+        public double CheckFloodWL { get; set; }
+        public double NumberMiningWells { get; set; }
+        public double AmountWaterExploited { get; set; }
+        public double NumberMonitoringWells { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public string WellNumber { get; set; } = string.Empty;
+        public double MonitoringWellWL { get; set; }
+        public double WellWL { get; set; }
+        public double WaterDepthFrom { get; set; }
+        public double WaterDepthTo { get; set; }
+        public double LowWL { get; set; }
+        public double StaticWL { get; set; }
+        public double DynamicWL { get; set; }
+        public string VolumeOfExplorationItems { get; set; } = string.Empty;
+        public double WaterExtractionFlowDesign { get; set; }
+        public double WaterExtractionFlowReality { get; set; }
+        public string ConstructionDetailLocation { get; set; } = string.Empty;
+        public double RealityWateringArea { get; set; }
+        public double WateringAreaDesigned { get; set; }
+        public double GuaranteedFlow { get; set; }
+        public double Hmax { get; set; }
+        public double Hmin { get; set; }
+        public double Htt { get; set; }
+        public double RealityFlow { get; set; }
+        public double FlowDesigned { get; set; }
+        public double FlowAvgForYears { get; set; }
+        public double RainAvgForYears { get; set; }
+        public double BasinArea { get; set; }
+        public double AverageDischargeFlow { get; set; }
+        public string SmallPlanningArea { get; set; } = string.Empty;
+        public double GuaranteedPower { get; set; }
+        public string ConstructionLevel { get; set; } = string.Empty;
+        public string KqKf { get; set; } = string.Empty;
+        public double DamElevation { get; set; }
+        public string AveragePumpTime { get; set; } = string.Empty;
+        public string MaximumPumpTime { get; set; } = string.Empty;
+        public string MinimumPumpTime { get; set; } = string.Empty;
+        public double MaximumDischargeFlowPre { get; set; }
+        public double CapacityPre { get; set; }
+        public double DownstreamWLPre { get; set; }
+        public double UpstreamWLPre { get; set; }
+        public double MinimumFlowPre { get; set; }
+        public double MaximumFlowPre { get; set; }
+        public DateTime? TimePre { get; set; }
+        public bool IsDisconnect { get; set; }
+        public bool IsError { get; set; }
+        public string Change { get; set; } = string.Empty;
+        public DateTime? CreatedTime { get; set; }
+        public string CreatedUser { get; set; } = string.Empty;
+        public DateTime? ModifiedTime { get; set; }
+        public string ModifiedUser { get; set; } = string.Empty;
+        public bool Status { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

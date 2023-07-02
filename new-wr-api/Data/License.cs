@@ -8,22 +8,22 @@ namespace new_wr_api.Data
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string? LicenseName { get; set; }
-        public string? LicenseNumber { get; set; }
-        public System.DateTime SignDate { get; set; }
-        public Nullable<System.DateTime> IssueDate { get; set; }
-        public Nullable<System.DateTime> ExpireDate { get; set; }
-        public string? Duration { get; set; }
-        public Nullable<int> LicensingAuthorities { get; set; }
-        public string? LicenseFile { get; set; }
-        public string? RelatedDocumentFile { get; set; }
-        public string? LicenseRequestFile { get; set; }
-        public Nullable<bool> IsRevoked { get; set; }
-        public Nullable<System.DateTime> CreatedTime { get; set; }
-        public string? CreatedUser { get; set; }
-        public Nullable<System.DateTime> ModifiedTime { get; set; }
-        public string? ModifiedUser { get; set; }
-        public Nullable<bool> Status { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public string LicenseName { get; set; } = string.Empty;
+        public string LicenseNumber { get; set; } = string.Empty;
+        public DateTime? SignDate { get; set; }
+        public DateTime? IssueDate { get; set; }
+        public DateTime? ExpireDate { get; set; }
+        public string Duration { get; set; } = string.Empty;
+        public int LicensingAuthorities { get; set; }
+        public string LicenseFile { get; set; } = string.Empty;
+        public string RelatedDocumentFile { get; set; } = string.Empty;
+        public string LicenseRequestFile { get; set; } = string.Empty;
+        public bool IsRevoked { get; set; }
+        public DateTime? CreatedTime { get; set; }
+        public string CreatedUser { get; set; } = string.Empty;
+        public DateTime? ModifiedTime { get; set; }
+        public string ModifiedUser { get; set; } = string.Empty;
+        public bool Status { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

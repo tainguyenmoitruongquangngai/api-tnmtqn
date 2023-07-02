@@ -1,74 +1,65 @@
-﻿using AutoMapper;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
-using new_wr_api.Models;
+using new_wr_api.Data.Dto;
+using new_wr_api.Service.Dashboard;
+using System.Linq;
 
-namespace new_wr_api.Service.Dashboard
+namespace new_wr_api.Service
 {
     public class DashboardService : IDashboardService
     {
         private readonly DatabaseContext _context;
-        private readonly IMapper _mapper;
 
-        public DashboardService(DatabaseContext context, IMapper mapper)
+        public DashboardService(DatabaseContext context, IHttpContextAccessor httpContext)
         {
             _context = context;
-            _mapper = mapper;
-        }
-        public async Task<bool> CreateDashboardAsync(DashboardModel model)
-        {
-            var newDashboard = _mapper.Map<Data.Dashboard>(model);
-            var currentDate = DateTime.Now;
-            newDashboard.IsDeleted = false;
-            newDashboard.Status = true;
-            newDashboard.CreatedTime = currentDate;
-            _context.Dashboard!.Add(newDashboard);
-            await _context.SaveChangesAsync();
-            return true;
         }
 
-        public async Task<bool> DeleteDashboardAsync(int Id)
+        public async Task<List<DashboardDto>> GetAllDashboardAsync()
         {
-            var dashboard = await _context.Dashboard!.FindAsync(Id);
-            if (Id == dashboard!.Id)
+            var dashboard = _context.Dashboard;
+
+            if (dashboard == null)
             {
-                var currentDate = DateTime.Now;
-                dashboard.IsDeleted = true;
-                dashboard.ModifiedTime = currentDate;
-                _context.Dashboard!.Update(dashboard);
-                await _context.SaveChangesAsync();
-                return true;
+                return new List<DashboardDto>();
             }
-            return false;
+
+            var items = await dashboard.Where(x => !x.IsDeleted).ToListAsync();
+            var ret = items.Select(s => new DashboardDto(s)).ToList();
+
+            return ret;
         }
 
-        public async Task<DashboardModel> GetDashboardAsync(int id)
+        public async Task<DashboardDto?> GetDashboardByIdAsync(int Id)
         {
-            var dashboard = await _context.Dashboard!.FindAsync(id);
-            return _mapper.Map<DashboardModel>(dashboard);
+            var dashboard = _context.Dashboard;
+
+            if (dashboard == null)
+            {
+                return null;
+            }
+
+            var res = await dashboard.FirstOrDefaultAsync(r => r.Id == Id);
+
+            if (res == null)
+            {
+                return null;
+            }
+
+            var dashboardDto = new DashboardDto(res);
+            return dashboardDto;
         }
 
-        public async Task<List<DashboardModel>> GetAllDashboardAsync()
+
+        public Task<IdentityResult> SaveDashboardAsync(DashboardDto dto)
         {
-            var dashboard = await _context.Dashboard!.Where(e => e.IsDeleted == false).ToListAsync();
-            return _mapper.Map<List<DashboardModel>>(dashboard);
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateDashboardAsync(int id, DashboardModel model)
+        public Task<bool> DeleteDashboardAsync(DashboardDto dto)
         {
-            var dashboard = await _context.Dashboard!.FindAsync(id);
-            if (dashboard == null) return false;
-
-            var currentDate = DateTime.Now;
-            dashboard.IsDeleted = false;
-            dashboard.ModifiedTime = currentDate;
-
-            _mapper.Map(model, dashboard);
-
-            await _context.SaveChangesAsync();
-
-            return true;
+            throw new NotImplementedException();
         }
-
     }
 }
