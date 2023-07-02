@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Repositories\LicenseTypes\**" />
-    <Content Remove="Repositories\LicenseTypes\**" />
-    <EmbeddedResource Remove="Repositories\LicenseTypes\**" />
-    <None Remove="Repositories\LicenseTypes\**" />
+    <Compile Remove="Service\LicenseTypes\**" />
+    <Content Remove="Service\LicenseTypes\**" />
+    <EmbeddedResource Remove="Service\LicenseTypes\**" />
+    <None Remove="Service\LicenseTypes\**" />
   </ItemGroup>
 
   <ItemGroup>

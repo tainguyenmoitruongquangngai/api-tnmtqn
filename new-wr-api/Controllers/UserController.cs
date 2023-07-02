@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Data.Dto;
-using new_wr_api.Models;
-using new_wr_api.Repositories;
+using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
@@ -12,9 +11,9 @@ namespace new_wr_api.Controllers
     //[Authorize(Roles = "Administrator")]
     public class UserController : ControllerBase
     {
-        private readonly UserRepositories _repo;
+        private readonly UserService _repo;
 
-        public UserController(UserRepositories repo)
+        public UserController(UserService repo)
         {
             _repo = repo;
         }
@@ -42,16 +41,15 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
-        public async Task<ActionResult<ApplicationUser>> CreateUser(UsersDto dto)
+        [Route("save")]
+        public async Task<ActionResult<ApplicationUser>> SaveUser(UsersDto dto)
         {
-            var res = await _repo.CreateUserAsync(dto);
+            var res = await _repo.SaveUserAsync(dto);
             if (res.Succeeded)
             {
                 return Ok(new
                 {
-                    message = "User is created",
-                    res = res
+                    message = res
                 });
             }
             return BadRequest(new
@@ -61,30 +59,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("update/{userName}")]
-        public async Task<ActionResult<ApplicationUser>> UpdateUser(string userName, UsersDto dto)
+        [Route("delete")]
+        public async Task<ActionResult<ApplicationUser>> DeleteUser(UsersDto dto)
         {
-            var res = await _repo.UpdateUserAsync(userName, dto);
-            if (res == null || res.Succeeded == false)
-            {
-                return BadRequest(new
-                {
-                    message = res
-                });
-            }
-            return Ok(new
-            {
-                message = "User is updated",
-                res = res
-            });
-
-        }
-
-        [HttpPost]
-        [Route("delete/{userId}")]
-        public async Task<ActionResult<ApplicationUser>> DeleteUser(string userId)
-        {
-            var res = await _repo.DeleteUserAsync(userId);
+            var res = await _repo.DeleteUserAsync(dto);
             if (res == false)
             {
                 return BadRequest(new

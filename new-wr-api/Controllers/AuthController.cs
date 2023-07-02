@@ -2,7 +2,7 @@
 using new_wr_api.Data;
 using new_wr_api.Data.Dto;
 using new_wr_api.Models;
-using new_wr_api.Repositories;
+using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
@@ -10,9 +10,9 @@ namespace new_wr_api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepositories _repo;
+        private readonly IAuthService _repo;
 
-        public AuthController(IAuthRepositories repo)
+        public AuthController(IAuthService repo)
         {
             _repo = repo;
         }
@@ -72,17 +72,27 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("set-role")]
-        public async Task<ActionResult<ApplicationUser>> AssignRole(SetRoleModel model)
+        public async Task<ActionResult<ApplicationUser>> AssignRole(AssignRoleModel model)
         {
-            var res = await _repo.AssignRoleAsync(model);
-            if (res == null)
+            if (model.userId == null || model.roleName == null)
             {
                 return BadRequest(new
+                {
+                    message = "User or Role not found"
+                });
+
+            }
+
+            var res = await _repo.AssignRoleAsync(model);
+
+            if (res)
+            {
+                return Ok(new
                 {
                     message = res
                 });
             }
-            return Ok(new
+            return BadRequest(new
             {
                 message = res
             });

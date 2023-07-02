@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
+using new_wr_api.Data.Dto;
 using new_wr_api.Models;
-using new_wr_api.Repositories;
+using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
@@ -11,9 +12,9 @@ namespace new_wr_api.Controllers
     //[Authorize(Roles = "Administrator")]
     public class RoleController : ControllerBase
     {
-        private readonly RoleRepositories _repo;
+        private readonly RoleService _repo;
 
-        public RoleController(RoleRepositories repo)
+        public RoleController(RoleService repo)
         {
             _repo = repo;
         }
@@ -33,35 +34,15 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("create")]
-        public async Task<ActionResult<ApplicationRole>> CreateRole(RoleViewModel model)
+        [Route("save")]
+        public async Task<ActionResult<ApplicationRole>> SaveRole(RoleDto dto)
         {
-            var res = await _repo.CreateRoleAsync(model.Name, model.isDefault);
+            var res = await _repo.SaveRoleAsync(dto);
             if (res.Succeeded)
             {
                 return Ok(new
                 {
-                    message = "Role is created",
-                    res = res
-                });
-            }
-            return BadRequest(new
-            {
-                message = res
-            });
-        }
-
-        [HttpPost]
-        [Route("update/{roleId}")]
-        public async Task<ActionResult<ApplicationRole>> UpdateRole(string roleId, RoleViewModel model)
-        {
-            var res = await _repo.UpdateRoleAsync(roleId, model);
-            if (res != null)
-            {
-                return Ok(new
-                {
-                    message = "Role is created",
-                    res = res
+                    message = res,
                 });
             }
             return BadRequest(new
