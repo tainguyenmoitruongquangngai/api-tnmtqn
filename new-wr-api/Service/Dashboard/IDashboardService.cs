@@ -8,6 +8,6 @@ namespace new_wr_api.Service.Dashboard
         public Task<List<DashboardDto>> GetAllDashboardAsync();
         public Task<DashboardDto?> GetDashboardByIdAsync(int Id);
         public Task<IdentityResult> SaveDashboardAsync(DashboardDto dto);
-        public Task<bool> DeleteDashboardAsync(DashboardDto dto);
+        public Task<IdentityResult> DeleteDashboardAsync(DashboardDto dto);
     }
 }

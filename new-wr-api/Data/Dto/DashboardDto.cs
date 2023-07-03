@@ -13,9 +13,9 @@
             this.Description = item.Description;
         }
 
-        public DashboardDto ToDashboardDto()
+        public Dashboard ToDashboard()
         {
-            DashboardDto res = new DashboardDto
+            Dashboard res = new Dashboard
             {
                 Id = this.Id,
                 Name = this.Name,

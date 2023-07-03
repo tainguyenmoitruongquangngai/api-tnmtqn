@@ -8,7 +8,6 @@ namespace new_wr_api.Helpers
     {
         public ApplicationMapper()
         {
-            CreateMap<Dashboard, DashboardDto>().ReverseMap();
         }
     }
 }

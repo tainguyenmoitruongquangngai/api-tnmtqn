@@ -46,15 +46,10 @@ namespace new_wr_api.Service
 
         public async Task<UsersDto?> GetUserByIdAsync(string userId)
         {
-            if (userId == null) { return null; }
-
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var roles = await _userManager.GetRolesAsync(user!);
 
-            if (user == null) { return null; }
-
-            var roles = await _userManager.GetRolesAsync(user);
-
-            var userDto = new UsersDto(user)
+            var userDto = new UsersDto(user!)
             {
                 Roles = roles?.Select(r => new RoleDto { Name = r }).ToList() ?? new List<RoleDto>()
             };
@@ -64,62 +59,48 @@ namespace new_wr_api.Service
 
         public async Task<IdentityResult> SaveUserAsync(UsersDto dto)
         {
-            var existingUser = await _userManager.FindByIdAsync(dto.Id);
+            var exitsItem = await _userManager.FindByIdAsync(dto.Id);
 
-            if (existingUser == null)
+            if (exitsItem == null)
             {
                 // Create a new user
                 ApplicationUser item = new ApplicationUser();
 
                 item = dto.ToUsersDto();
-                item.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
+                item.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "defaultUser";
                 item.CreatedTime = DateTime.Now;
                 item.IsDeleted = false;
                 item.Status = true;
 
                 var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
-
-                if (dto.PasswordHash == null) { return IdentityResult.Failed(new IdentityError { Description = "Password is null" }); }
-
-                var res = await _userManager.CreateAsync(item, dto.PasswordHash);
+                var res = await _userManager.CreateAsync(item, dto.PasswordHash!);
 
                 if (res.Succeeded)
                 {
                     // Add default role to the user
-                    if (role != null && role.Name != null && role.IsDefault)
+                    if (role!.IsDefault)
                     {
-                        await _userManager.AddToRoleAsync(item, role.Name);
+                        await _userManager.AddToRoleAsync(item, role.Name!);
                     }
                 }
-
-                return res;
             }
             else
             {
-                // Update an existing user
-                if (existingUser == null)
-                {
-                    return IdentityResult.Failed(new IdentityError { Description = "User does not exist" });
-                }
-
-                existingUser.FullName = dto.FullName;
-                existingUser.Email = dto.Email;
-                existingUser.PhoneNumber = dto.PhoneNumber;
-
-                var res = await _userManager.UpdateAsync(existingUser);
-                return res;
+                exitsItem.FullName = dto.FullName;
+                exitsItem.Email = dto.Email;
+                exitsItem.PhoneNumber = dto.PhoneNumber;
+                await _userManager.UpdateAsync(exitsItem);
             }
+            return IdentityResult.Success;
         }
 
-        public async Task<bool> DeleteUserAsync(UsersDto dto)
+        public async Task<IdentityResult> DeleteUserAsync(UsersDto dto)
         {
             var user = await _userManager.FindByIdAsync(dto.Id);
+            user!.IsDeleted = true;
+            await _userManager.UpdateAsync(user);
 
-            if (user == null) { return false; }
-
-            user.IsDeleted = true;
-            var res = await _userManager.UpdateAsync(user);
-            return res.Succeeded;
+            return IdentityResult.Success;
         }
     }
 }

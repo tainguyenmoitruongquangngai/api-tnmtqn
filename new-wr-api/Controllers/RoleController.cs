@@ -56,7 +56,7 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<ApplicationRole>> DeleteRole(string roleId)
         {
             var res = await _repo.DeleteRoleAsync(roleId);
-            if (res == false)
+            if (!res.Succeeded)
             {
                 return BadRequest(new
                 {

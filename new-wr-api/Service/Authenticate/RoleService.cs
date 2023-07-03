@@ -10,7 +10,7 @@ namespace new_wr_api.Service
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly DatabaseContext _context;
 
-        public RoleService(IServiceProvider serviceProvider, DatabaseContext context, IHttpContextAccessor httpContext)
+        public RoleService(IServiceProvider serviceProvider, DatabaseContext context)
         {
             _roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
             _context = context;
@@ -23,16 +23,15 @@ namespace new_wr_api.Service
 
         public async Task<ApplicationRole?> GetRoleByIdAsync(string roleId)
         {
-            if (roleId == null) { return null; }
             var res = await _roleManager.FindByIdAsync(roleId);
             return res;
         }
 
         public async Task<IdentityResult> SaveRoleAsync(RoleDto dto)
         {
-            var existingRole = await _roleManager.FindByIdAsync(dto.Id);
+            var exitsItem = await _roleManager.FindByIdAsync(dto.Id);
 
-            if (existingRole == null)
+            if (exitsItem == null)
             {
                 // Create a new user
                 ApplicationRole item = new ApplicationRole();
@@ -41,28 +40,27 @@ namespace new_wr_api.Service
                 item.IsDeleted = false;
                 item.Status = true;
 
-                var res = await _roleManager.CreateAsync(item);
-                return res;
+                await _roleManager.CreateAsync(item);
             }
             else
             {
-                existingRole.Name = dto.Name;
-                existingRole.IsDefault = dto.IsDefault;
+                exitsItem.Name = dto.Name;
+                exitsItem.IsDefault = dto.IsDefault;
 
-                var res = await _roleManager.UpdateAsync(existingRole);
-                return res;
+                await _roleManager.UpdateAsync(exitsItem);
             }
+            return IdentityResult.Success;
         }
 
-        public async Task<bool> DeleteRoleAsync(string roleId)
+        public async Task<IdentityResult> DeleteRoleAsync(string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
 
             // Update role properties based on the RegisterViewModel
-            if (role == null) { return false; }
-            role.IsDeleted = true;
+            role!.IsDeleted = true;
             var res = await _roleManager.UpdateAsync(role);
-            return true;
+
+            return IdentityResult.Success;
         }
     }
 }

@@ -63,7 +63,7 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<ApplicationUser>> DeleteUser(UsersDto dto)
         {
             var res = await _service.DeleteUserAsync(dto);
-            if (res == false)
+            if (!res.Succeeded)
             {
                 return BadRequest(new
                 {

@@ -27,7 +27,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{Id}")]
-        public async Task<ActionResult<ApplicationUser>> GetUserById(int Id)
+        public async Task<ActionResult<Dashboard>> GetDashboardById(int Id)
         {
             var res = await _service.GetDashboardByIdAsync(Id);
             if (res == null)
@@ -37,6 +37,42 @@ namespace new_wr_api.Controllers
             return Ok(new
             {
                 user = res
+            });
+        }
+
+        [HttpPost]
+        [Route("save")]
+        public async Task<ActionResult<Dashboard>> SaveDashboard(DashboardDto dto)
+        {
+            var res = await _service.SaveDashboardAsync(dto);
+            if (res.Succeeded)
+            {
+                return Ok(new
+                {
+                    message = res
+                });
+            }
+            return BadRequest(new
+            {
+                message = res
+            });
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public async Task<ActionResult<Dashboard>> DeleteDashboard(DashboardDto dto)
+        {
+            var res = await _service.DeleteDashboardAsync(dto);
+            if (res.Succeeded)
+            {
+                return Ok(new
+                {
+                    message = res
+                });
+            }
+            return BadRequest(new
+            {
+                message = res
             });
         }
     }

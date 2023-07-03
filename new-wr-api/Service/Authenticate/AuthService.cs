@@ -9,7 +9,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Newtonsoft.Json;
-using new_wr_api.Data.Dto;
 
 namespace new_wr_api.Service
 {
@@ -74,79 +73,58 @@ namespace new_wr_api.Service
             }
 
             var user = await _userManager.FindByNameAsync(model.UserName);
-            if (user != null)
+            var roles = await _userManager.GetRolesAsync(user!);
+
+            var claims = new List<Claim> {
+                new Claim(JwtRegisteredClaimNames.Sub, user!.Id),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Name, user.UserName ?? ""),
+            };
+
+            foreach (var role in roles)
             {
-                var roles = await _userManager.GetRolesAsync(user);
-
-                var claims = new List<Claim>
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.Name, user.UserName ?? ""),
-        };
-
-                foreach (var role in roles)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, role));
-                }
-
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? ""));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-                var token = new JwtSecurityToken(
-                    issuer: _configuration["Jwt:Issuer"],
-                    audience: _configuration["Jwt:Audience"],
-                    claims: claims,
-                    expires: DateTime.Now.AddDays(7),
-                    signingCredentials: creds
-                );
-
-                var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-                var response = new
-                {
-                    user = new
-                    {
-                        email = user.Email,
-                        fullName = user.FullName,
-                        phoneNumber = user.PhoneNumber,
-                        userName = user.UserName,
-                    },
-                    token = jwt,
-                    role = roles,
-                };
-
-                return JsonConvert.SerializeObject(response);
+                claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            return string.Empty;
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? ""));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(7),
+                signingCredentials: creds
+            );
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            var response = new
+            {
+                user = new
+                {
+                    email = user.Email,
+                    fullName = user.FullName,
+                    phoneNumber = user.PhoneNumber,
+                    userName = user.UserName,
+                },
+                token = jwt,
+                role = roles,
+            };
+            return JsonConvert.SerializeObject(response);
         }
 
         public async Task<IdentityResult?> UpdatePasswordAsync(UsersDto dto, string currentPassword, string newPassword)
         {
-            if (dto.UserName == null) { return null; }
-
-            var user = await _userManager.FindByNameAsync(dto.UserName);
-
-            if (user == null) { return null; }
-
-            var res = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+            var user = await _userManager.FindByNameAsync(dto.UserName!);
+            var res = await _userManager.ChangePasswordAsync(user!, currentPassword, newPassword);
             return res;
         }
 
         public async Task<bool> AssignRoleAsync(AssignRoleModel model)
         {
             var u = await _userManager.FindByIdAsync(model.userId);
-
-            var r = await _roleManager.FindByNameAsync(model.roleName);
-
-            if (u == null) { return false; }
-
-            if (r == null) { return false; }
-
-            await _userManager.AddToRoleAsync(u, model.roleName);
-
-            // Role assigned successfully
+            await _userManager.AddToRoleAsync(u!, model.roleName);
             return true;
         }
 
