@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
+using new_wr_api.Models;
 using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
@@ -19,9 +19,9 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<PermissionDto>> GetAllDashboarss()
+        public async Task<List<PermissionModel>> GetAllDashboarss()
         {
-            return await _service.GetAllPermissionAsync();
+            return (await _service.GetAllPermissionAsync());
         }
 
         [HttpGet]
@@ -41,9 +41,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<Permission>> SavePermission(PermissionDto dto)
+        public async Task<ActionResult<Permission>> SavePermission(PermissionModel moddel)
         {
-            var res = await _service.SavePermissionAsync(dto);
+            var res = await _service.SavePermissionAsync(moddel);
             if (res.Succeeded)
             {
                 return Ok(new
@@ -59,9 +59,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<Permission>> DeletePermission(PermissionDto dto)
+        public async Task<ActionResult<Permission>> DeletePermission(PermissionModel moddel)
         {
-            var res = await _service.DeletePermissionAsync(dto);
+            var res = await _service.DeletePermissionAsync(moddel);
             if (res.Succeeded)
             {
                 return Ok(new

@@ -1,77 +1,70 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
-using new_wr_api.Service.Permission;
+using new_wr_api.Models;
 using System.Security.Claims;
 
 namespace new_wr_api.Service
 {
-    public class PermissionService : IPermissionService
+    public class PermissionService
     {
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
 
-        public PermissionService(DatabaseContext context, IHttpContextAccessor httpContext)
+        public PermissionService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _context = context;
+            _mapper = mapper;
             _httpContext = httpContext;
         }
 
-        public async Task<List<PermissionDto>> GetAllPermissionAsync()
+        public async Task<List<PermissionModel>> GetAllPermissionAsync()
         {
             var items = await _context.Permission!.Where(x => !x.IsDeleted).ToListAsync();
-            var ret = items.Select(s => new PermissionDto(s)).ToList();
-
-            return ret;
+            return _mapper.Map<List<PermissionModel>>(items);
         }
 
-        public async Task<PermissionDto?> GetPermissionByIdAsync(int Id)
+        public async Task<PermissionModel?> GetPermissionByIdAsync(int Id)
         {
-            var res = await _context.Permission!.FirstOrDefaultAsync(r => r.Id == Id);
-
-            if (res == null) { return null; }
-
-            var dashboardDto = new PermissionDto(res);
-            return dashboardDto;
+            var item = await _context.Permission!.FindAsync(Id);
+            return _mapper.Map<PermissionModel>(item);
         }
 
 
-        public async Task<IdentityResult> SavePermissionAsync(PermissionDto dto)
+        public async Task<IdentityResult> SavePermissionAsync(PermissionModel model)
         {
-            var existingItem = await _context.Permission!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+            var existingItem = await _context.Permission!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
-            if (existingItem == null || dto.Id == 0)
+            if (existingItem == null || model.Id == 0)
             {
-                var item = dto.ToPermission();
-                item.IsDeleted = false;
-                item.Status = true;
-                item.CreatedTime = DateTime.Now;
-                item.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "defaultUser";
-                _context.Permission!.Add(item);
-                await _context.SaveChangesAsync();
+                var newItem = _mapper.Map<Permission>(model);
+                newItem.IsDeleted = false;
+                newItem.Status = true;
+                newItem.CreatedTime = DateTime.Now;
+                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                _context.Permission!.Add(newItem);
             }
             else
             {
-                existingItem.UserName = dto.UserName;
-                existingItem.UserId = dto.UserId;
-                existingItem.RoleId = dto.RoleId;
-                existingItem.RoleName = dto.RoleName;
-                existingItem.DashboardId = dto.DashboardId;
-                existingItem.PermitName = dto.PermitName;
-                existingItem.PermitCode = dto.PermitCode;
-                existingItem.ModifiedTime = DateTime.Now;
-                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "defaultUser";
-                _context.Update(existingItem);
-                await _context.SaveChangesAsync();
+                var updateItem = await _context.Permission!.FirstOrDefaultAsync(d => d.Id == model.Id);
+
+                updateItem = _mapper.Map(model, updateItem);
+
+                updateItem!.ModifiedTime = DateTime.Now;
+                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                _context.Permission!.Update(updateItem);
             }
+
+            await _context.SaveChangesAsync();
             return IdentityResult.Success;
         }
 
 
-        public async Task<IdentityResult> DeletePermissionAsync(PermissionDto dto)
+        public async Task<IdentityResult> DeletePermissionAsync(PermissionModel modle)
         {
-            var existingItem = await _context.Permission!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+            var existingItem = await _context.Permission!.FirstOrDefaultAsync(d => d.Id == modle.Id);
 
             existingItem!.IsDeleted = true;
             await _context.SaveChangesAsync();

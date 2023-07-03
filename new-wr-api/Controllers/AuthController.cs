@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
 using new_wr_api.Models;
+using new_wr_api.Models.Authenticate;
 using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
@@ -19,9 +19,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register(UsersDto dto)
+        public async Task<IActionResult> Register(UserModel modle)
         {
-            var res = await _repo.RegisterAsync(dto);
+            var res = await _repo.RegisterAsync(modle);
             if (res == null)
             {
                 return BadRequest(new
@@ -54,9 +54,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("change-password/{userId}")]
-        public async Task<ActionResult<ApplicationUser>> UpdatePassword(UsersDto dto, string currentPassword, string newPassword)
+        public async Task<ActionResult<ApplicationUser>> UpdatePassword(UserModel modle, string currentPassword, string newPassword)
         {
-            var res = await _repo.UpdatePasswordAsync(dto, currentPassword, newPassword);
+            var res = await _repo.UpdatePasswordAsync(modle, currentPassword, newPassword);
             if (res == null || res.Succeeded == false)
             {
                 return BadRequest(new

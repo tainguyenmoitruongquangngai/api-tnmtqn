@@ -1,73 +1,69 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
-using new_wr_api.Service.Dashboard;
+using new_wr_api.Models;
 using System.Security.Claims;
 
 namespace new_wr_api.Service
 {
-    public class DashboardService : IDashboardService
+    public class DashboardService
     {
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
 
-        public DashboardService(DatabaseContext context, IHttpContextAccessor httpContext)
+        public DashboardService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _context = context;
+            _mapper = mapper;
             _httpContext = httpContext;
         }
 
-        public async Task<List<DashboardDto>> GetAllDashboardAsync()
+        public async Task<List<DashboardModel>> GetAllDashboardAsync()
         {
             var items = await _context.Dashboard!.Where(x => !x.IsDeleted).ToListAsync();
-            var ret = items.Select(s => new DashboardDto(s)).ToList();
-
-            return ret;
+            return _mapper.Map<List<DashboardModel>>(items);
         }
 
-        public async Task<DashboardDto?> GetDashboardByIdAsync(int Id)
+        public async Task<DashboardModel?> GetDashboardByIdAsync(int Id)
         {
-            var res = await _context.Dashboard!.FirstOrDefaultAsync(r => r.Id == Id);
-
-            if (res == null) { return null; }
-
-            var dashboardDto = new DashboardDto(res);
-            return dashboardDto;
+            var item = await _context.Dashboard!.FindAsync(Id);
+            return _mapper.Map<DashboardModel>(item);
         }
 
 
-        public async Task<IdentityResult> SaveDashboardAsync(DashboardDto dto)
+        public async Task<IdentityResult> SaveDashboardAsync(DashboardModel model)
         {
-            var existingItem = await _context.Dashboard!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+            var existingItem = await _context.Dashboard!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
-            if (existingItem == null || dto.Id == 0)
+            if (existingItem == null || model.Id == 0)
             {
-                var item = dto.ToDashboard();
-                item.IsDeleted = false;
-                item.Status = true;
-                item.CreatedTime = DateTime.Now;
-                item.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "defaultUser";
-                _context.Dashboard!.Add(item);
-                await _context.SaveChangesAsync();
+                var newItem = _mapper.Map<Dashboard>(model);
+                newItem.IsDeleted = false;
+                newItem.Status = true;
+                newItem.CreatedTime = DateTime.Now;
+                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                _context.Dashboard!.Add(newItem);
             }
             else
             {
-                existingItem.Name = dto.Name;
-                existingItem.Path = dto.Path;
-                existingItem.Description = dto.Description;
-                existingItem.ModifiedTime = DateTime.Now;
-                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "defaultUser";
-                _context.Update(existingItem);
-                await _context.SaveChangesAsync();
+                var updateItem = await _context.Dashboard!.FirstOrDefaultAsync(d => d.Id == model.Id);
+
+                updateItem = _mapper.Map(model, updateItem);
+
+                updateItem!.ModifiedTime = DateTime.Now;
+                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                _context.Dashboard!.Update(updateItem);
             }
+
+            await _context.SaveChangesAsync();
             return IdentityResult.Success;
         }
 
-
-        public async Task<IdentityResult> DeleteDashboardAsync(DashboardDto dto)
+        public async Task<IdentityResult> DeleteDashboardAsync(DashboardModel model)
         {
-            var existingItem = await _context.Dashboard!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+            var existingItem = await _context.Dashboard!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
             existingItem!.IsDeleted = true;
             await _context.SaveChangesAsync();

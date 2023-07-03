@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
+using new_wr_api.Models;
 using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
@@ -34,9 +34,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<ApplicationRole>> SaveRole(RoleDto dto)
+        public async Task<ActionResult<ApplicationRole>> SaveRole(RoleModel model)
         {
-            var res = await _repo.SaveRoleAsync(dto);
+            var res = await _repo.SaveRoleAsync(model);
             if (res.Succeeded)
             {
                 return Ok(new

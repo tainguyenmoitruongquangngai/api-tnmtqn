@@ -1,104 +1,113 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
-using System.Data;
+using new_wr_api.Models;
 using System.Security.Claims;
 
 namespace new_wr_api.Service
 {
     public class UserService
     {
+        private readonly IMapper _mapper;
         private readonly DatabaseContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IHttpContextAccessor _httpContext;
 
 
-        public UserService(DatabaseContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IHttpContextAccessor httpContext)
+        public UserService(DatabaseContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IMapper mapper, IHttpContextAccessor httpContext)
         {
+            _mapper = mapper;
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _httpContext = httpContext;
         }
 
-        public async Task<List<UsersDto>> GetAllUsersAsync()
+        public async Task<List<UserModel>> GetAllUsersAsync()
         {
-            var users = await _context.Users
+            var items = await _context.Users!
                 .Where(u => u.IsDeleted == false)
                 .ToListAsync();
 
-            var userDtos = new List<UsersDto>();
+            var users = new List<UserModel>();
 
-            foreach (var user in users)
+            foreach (var u in items)
             {
-                var roles = await _userManager.GetRolesAsync(user);
-                var userDto = new UsersDto(user)
+                var roles = await _userManager.GetRolesAsync(u);
+                var user = new UserModel
                 {
-                    Roles = roles?.Select(r => new RoleDto { Name = r }).ToList() ?? new List<RoleDto>()
+                    Id = u.Id,
+                    UserName = u.UserName!,
+                    FullName = u.FullName,
+                    Email = u.Email!,
+                    PhoneNumber = u.PhoneNumber!,
+                    Roles = roles?.Select(r => new RoleModel { Name = r }).ToList() ?? new List<RoleModel>()
                 };
-                userDtos.Add(userDto);
+                users.Add(user);
             }
 
-            return userDtos;
+            return users;
         }
 
-        public async Task<UsersDto?> GetUserByIdAsync(string userId)
+        public async Task<UserModel> GetUserByIdAsync(string userId)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
-            var roles = await _userManager.GetRolesAsync(user!);
-
-            var userDto = new UsersDto(user!)
-            {
-                Roles = roles?.Select(r => new RoleDto { Name = r }).ToList() ?? new List<RoleDto>()
-            };
-
-            return userDto;
+            var user = await _userManager.FindByIdAsync(userId);
+            var userModel = _mapper.Map<UserModel>(user);
+            return userModel;
         }
 
-        public async Task<IdentityResult> SaveUserAsync(UsersDto dto)
+        public async Task<IdentityResult> SaveUserAsync(UserModel model)
         {
-            var exitsItem = await _userManager.FindByIdAsync(dto.Id);
-
-            if (exitsItem == null)
+            var exitsingItem = await _userManager.FindByIdAsync(model.Id);
+            ApplicationUser user;
+            if (string.IsNullOrEmpty(model.Id))
             {
                 // Create a new user
-                ApplicationUser item = new ApplicationUser();
-
-                item = dto.ToUsersDto();
-                item.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "defaultUser";
-                item.CreatedTime = DateTime.Now;
-                item.IsDeleted = false;
-                item.Status = true;
-
-                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
-                var res = await _userManager.CreateAsync(item, dto.PasswordHash!);
-
-                if (res.Succeeded)
+                user = new ApplicationUser
                 {
-                    // Add default role to the user
-                    if (role!.IsDefault)
-                    {
-                        await _userManager.AddToRoleAsync(item, role.Name!);
-                    }
+                    FullName = model.FullName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "",
+                    CreatedTime = DateTime.Now,
+                    IsDeleted = false,
+                    Status = true
+                };
+
+                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault);
+                var createResult = await _userManager.CreateAsync(user, model.PasswordHash);
+
+                if (createResult.Succeeded && role != null)
+                {
+                    await _userManager.AddToRoleAsync(user, role.Name!);
                 }
             }
             else
             {
-                exitsItem.FullName = dto.FullName;
-                exitsItem.Email = dto.Email;
-                exitsItem.PhoneNumber = dto.PhoneNumber;
-                await _userManager.UpdateAsync(exitsItem);
+                // Update an existing user
+                user = exitsingItem!;
+                if (user != null)
+                {
+                    user.FullName = model.FullName;
+                    user.Email = model.Email;
+                    user.PhoneNumber = model.PhoneNumber;
+                    await _userManager.UpdateAsync(user);
+                }
             }
+
             return IdentityResult.Success;
         }
 
-        public async Task<IdentityResult> DeleteUserAsync(UsersDto dto)
+        public async Task<IdentityResult> DeleteUserAsync(UserModel model)
         {
-            var user = await _userManager.FindByIdAsync(dto.Id);
-            user!.IsDeleted = true;
-            await _userManager.UpdateAsync(user);
+            var user = await _userManager.FindByIdAsync(model.Id);
+            if (user != null)
+            {
+                user.IsDeleted = true;
+                await _userManager.UpdateAsync(user);
+            }
 
             return IdentityResult.Success;
         }

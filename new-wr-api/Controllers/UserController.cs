@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
+using new_wr_api.Models;
 using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
@@ -20,7 +20,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<UsersDto>> GetAllUsers()
+        public async Task<List<UserModel>> GetAllUsers()
         {
             return await _service.GetAllUsersAsync();
         }
@@ -42,9 +42,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<ApplicationUser>> SaveUser(UsersDto dto)
+        public async Task<ActionResult<ApplicationUser>> SaveUser(UserModel model)
         {
-            var res = await _service.SaveUserAsync(dto);
+            var res = await _service.SaveUserAsync(model);
             if (res.Succeeded)
             {
                 return Ok(new
@@ -60,9 +60,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<ApplicationUser>> DeleteUser(UsersDto dto)
+        public async Task<ActionResult<ApplicationUser>> DeleteUser(UserModel model)
         {
-            var res = await _service.DeleteUserAsync(dto);
+            var res = await _service.DeleteUserAsync(model);
             if (!res.Succeeded)
             {
                 return BadRequest(new

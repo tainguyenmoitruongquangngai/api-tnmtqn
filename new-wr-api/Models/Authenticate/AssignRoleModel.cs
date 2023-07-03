@@ -1,4 +1,4 @@
-﻿namespace new_wr_api.Models
+﻿namespace new_wr_api.Models.Authenticate
 {
     public class AssignRoleModel
     {

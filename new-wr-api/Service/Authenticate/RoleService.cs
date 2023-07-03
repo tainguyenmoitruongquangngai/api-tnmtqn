@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
+using new_wr_api.Models;
 
 namespace new_wr_api.Service
 {
@@ -27,16 +27,16 @@ namespace new_wr_api.Service
             return res;
         }
 
-        public async Task<IdentityResult> SaveRoleAsync(RoleDto dto)
+        public async Task<IdentityResult> SaveRoleAsync(RoleModel model)
         {
-            var exitsItem = await _roleManager.FindByIdAsync(dto.Id);
+            var exitsItem = await _roleManager.FindByIdAsync(model.Id);
 
             if (exitsItem == null)
             {
                 // Create a new user
                 ApplicationRole item = new ApplicationRole();
-
-                item = dto.ToRoleDto();
+                item.Name = model.Name;
+                item.IsDefault = model.IsDefault;
                 item.IsDeleted = false;
                 item.Status = true;
 
@@ -44,8 +44,8 @@ namespace new_wr_api.Service
             }
             else
             {
-                exitsItem.Name = dto.Name;
-                exitsItem.IsDefault = dto.IsDefault;
+                exitsItem.Name = model.Name;
+                exitsItem.IsDefault = model.IsDefault;
 
                 await _roleManager.UpdateAsync(exitsItem);
             }

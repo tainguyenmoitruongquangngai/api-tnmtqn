@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using new_wr_api.Data;
-using new_wr_api.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Newtonsoft.Json;
+using new_wr_api.Models.Authenticate;
+using new_wr_api.Models;
 
 namespace new_wr_api.Service
 {
@@ -29,26 +30,26 @@ namespace new_wr_api.Service
             _configuration = configuration;
         }
 
-        public async Task<IdentityResult> RegisterAsync(UsersDto dto)
+        public async Task<IdentityResult> RegisterAsync(UserModel model)
         {
-            if (string.IsNullOrEmpty(dto.Id))
+            if (string.IsNullOrEmpty(model.Id))
             {
                 // Create a new user
                 var newUser = new ApplicationUser
                 {
-                    UserName = dto.UserName,
-                    Email = dto.Email,
-                    FullName = dto.FullName,
-                    PhoneNumber = dto.PhoneNumber,
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    FullName = model.FullName,
+                    PhoneNumber = model.PhoneNumber,
                     IsDeleted = false,
                     Status = true,
                 };
 
                 var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 
-                if (dto.PasswordHash == null) { return IdentityResult.Failed(); }
+                if (model.PasswordHash == null) { return IdentityResult.Failed(); }
 
-                var result = await _userManager.CreateAsync(newUser, dto.PasswordHash);
+                var result = await _userManager.CreateAsync(newUser, model.PasswordHash);
 
                 if (result.Succeeded)
                 {
@@ -114,9 +115,9 @@ namespace new_wr_api.Service
             return JsonConvert.SerializeObject(response);
         }
 
-        public async Task<IdentityResult?> UpdatePasswordAsync(UsersDto dto, string currentPassword, string newPassword)
+        public async Task<IdentityResult?> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword)
         {
-            var user = await _userManager.FindByNameAsync(dto.UserName!);
+            var user = await _userManager.FindByNameAsync(model.UserName!);
             var res = await _userManager.ChangePasswordAsync(user!, currentPassword, newPassword);
             return res;
         }

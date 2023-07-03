@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
-using new_wr_api.Data.Dto;
+using new_wr_api.Models;
 using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
@@ -19,7 +19,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<DashboardDto>> GetAllDashboarss()
+        public async Task<List<DashboardModel>> GetAllDashboarss()
         {
             return await _service.GetAllDashboardAsync();
         }
@@ -41,9 +41,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<Dashboard>> SaveDashboard(DashboardDto dto)
+        public async Task<ActionResult<Dashboard>> SaveDashboard(DashboardModel model)
         {
-            var res = await _service.SaveDashboardAsync(dto);
+            var res = await _service.SaveDashboardAsync(model);
             if (res.Succeeded)
             {
                 return Ok(new
@@ -59,9 +59,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<Dashboard>> DeleteDashboard(DashboardDto dto)
+        public async Task<ActionResult<Dashboard>> DeleteDashboard(DashboardModel model)
         {
-            var res = await _service.DeleteDashboardAsync(dto);
+            var res = await _service.DeleteDashboardAsync(model);
             if (res.Succeeded)
             {
                 return Ok(new

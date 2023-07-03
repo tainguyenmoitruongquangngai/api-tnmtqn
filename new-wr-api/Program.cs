@@ -4,8 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
 using new_wr_api.Service;
-using new_wr_api.Service.Dashboard;
-using new_wr_api.Service.Permission;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
