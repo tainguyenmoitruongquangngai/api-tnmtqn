@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
 using new_wr_api.Service;
 using new_wr_api.Service.Dashboard;
+using new_wr_api.Service.Permission;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ services.AddScoped<IAuthService, AuthService>();
 services.AddScoped<UserService>();
 services.AddScoped<RoleService>();
 services.AddScoped<DashboardService>();
+services.AddScoped<PermissionService>();
 
 
 services.AddIdentity<ApplicationUser, ApplicationRole>()
