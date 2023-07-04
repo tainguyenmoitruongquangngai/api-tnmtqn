@@ -27,7 +27,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{userId}")]
-        public async Task<ActionResult<ApplicationUser>> GetUserById(string userId)
+        public async Task<ActionResult<AspNetUsers>> GetUserById(string userId)
         {
             var res = await _service.GetUserByIdAsync(userId);
             if (res == null)
@@ -42,7 +42,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<ApplicationUser>> SaveUser(UserModel model)
+        public async Task<ActionResult<AspNetUsers>> SaveUser(UserModel model)
         {
             var res = await _service.SaveUserAsync(model);
             if (res.Succeeded)
@@ -60,7 +60,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<ApplicationUser>> DeleteUser(UserModel model)
+        public async Task<ActionResult<AspNetUsers>> DeleteUser(UserModel model)
         {
             var res = await _service.DeleteUserAsync(model);
             if (!res.Succeeded)

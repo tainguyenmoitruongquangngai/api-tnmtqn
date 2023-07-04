@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class License
+    public class Licenses
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

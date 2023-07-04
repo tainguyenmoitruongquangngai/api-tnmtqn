@@ -2,7 +2,7 @@
 
 namespace new_wr_api.Data
 {
-    public partial class ApplicationUser : IdentityUser
+    public partial class AspNetUsers : IdentityUser
     {
         public string PasswordSalt { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;

@@ -10,13 +10,13 @@ namespace new_wr_api.Helpers
         {
 
             //Authenticatiion
-            CreateMap<ApplicationUser, UserModel>().ReverseMap();
-            CreateMap<ApplicationRole, RoleModel>().ReverseMap();
+            CreateMap<AspNetUsers, UserModel>().ReverseMap();
+            CreateMap<AspNetRoles, RoleModel>().ReverseMap();
 
             //Other mapper
-            CreateMap<Dashboard, DashboardModel>().ReverseMap();
-            CreateMap<Permission, PermissionModel>().ReverseMap();
-            CreateMap<Construction, ConstructionModel>().ReverseMap();
+            CreateMap<Dashboards, DashboardModel>().ReverseMap();
+            CreateMap<Permissions, PermissionModel>().ReverseMap();
+            CreateMap<Constructions, ConstructionModel>().ReverseMap();
         }
     }
 }

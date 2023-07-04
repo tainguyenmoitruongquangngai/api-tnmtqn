@@ -8,30 +8,30 @@ namespace new_wr_api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize(Roles = "Administrator")]
-    public class DashboardController : ControllerBase
+    public class ConstructionController : ControllerBase
     {
-        private readonly DashboardService _service;
+        private readonly ConstructionService _service;
 
-        public DashboardController(DashboardService service)
+        public ConstructionController(ConstructionService service)
         {
             _service = service;
         }
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<DashboardModel>> GetAllDashboard()
+        public async Task<List<ConstructionModel>> GetAllConstruction()
         {
-            return await _service.GetAllDashboardAsync();
+            return (await _service.GetAllConstructionAsync());
         }
 
         [HttpGet]
         [Route("{Id}")]
-        public async Task<ActionResult<Dashboards>> GetDashboardById(int Id)
+        public async Task<ActionResult<Constructions>> GetConstructionById(int Id)
         {
-            var res = await _service.GetDashboardByIdAsync(Id);
+            var res = await _service.GetConstructionByIdAsync(Id);
             if (res == null)
             {
-                return NotFound(new { message = "Dashboard not found" });
+                return NotFound(new { message = "Construction not found" });
             }
             return Ok(new
             {
@@ -41,9 +41,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<Dashboards>> SaveDashboard(DashboardModel model)
+        public async Task<ActionResult<Constructions>> SaveConstruction(ConstructionModel moddel)
         {
-            var res = await _service.SaveDashboardAsync(model);
+            var res = await _service.SaveConstructionAsync(moddel);
             if (res.Succeeded)
             {
                 return Ok(new
@@ -59,9 +59,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<Dashboards>> DeleteDashboard(DashboardModel model)
+        public async Task<ActionResult<Constructions>> DeleteConstruction(ConstructionModel moddel)
         {
-            var res = await _service.DeleteDashboardAsync(model);
+            var res = await _service.DeleteConstructionAsync(moddel);
             if (res.Succeeded)
             {
                 return Ok(new

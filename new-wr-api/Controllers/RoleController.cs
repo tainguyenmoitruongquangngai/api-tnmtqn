@@ -11,32 +11,32 @@ namespace new_wr_api.Controllers
     //[Authorize(Roles = "Administrator")]
     public class RoleController : ControllerBase
     {
-        private readonly RoleService _repo;
+        private readonly RoleService _service;
 
-        public RoleController(RoleService repo)
+        public RoleController(RoleService service)
         {
-            _repo = repo;
+            _service = service;
         }
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<ApplicationRole>> GetAllRoles()
+        public async Task<List<AspNetRoles>> GetAllRoles()
         {
-            return await _repo.GetAllRolesAsync();
+            return await _service.GetAllRolesAsync();
         }
 
         [HttpGet]
         [Route("{roleId}")]
-        public async Task<ApplicationRole?> GetRoleById(string roleId)
+        public async Task<AspNetRoles?> GetRoleById(string roleId)
         {
-            return await _repo.GetRoleByIdAsync(roleId);
+            return await _service.GetRoleByIdAsync(roleId);
         }
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<ApplicationRole>> SaveRole(RoleModel model)
+        public async Task<ActionResult<AspNetRoles>> SaveRole(RoleModel model)
         {
-            var res = await _repo.SaveRoleAsync(model);
+            var res = await _service.SaveRoleAsync(model);
             if (res.Succeeded)
             {
                 return Ok(new
@@ -52,9 +52,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("detete/{roleId}")]
-        public async Task<ActionResult<ApplicationRole>> DeleteRole(string roleId)
+        public async Task<ActionResult<AspNetRoles>> DeleteRole(string roleId)
         {
-            var res = await _repo.DeleteRoleAsync(roleId);
+            var res = await _service.DeleteRoleAsync(roleId);
             if (!res.Succeeded)
             {
                 return BadRequest(new

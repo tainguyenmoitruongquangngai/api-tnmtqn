@@ -11,12 +11,12 @@ namespace new_wr_api.Service
     {
         private readonly IMapper _mapper;
         private readonly DatabaseContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly UserManager<AspNetUsers> _userManager;
+        private readonly RoleManager<AspNetRoles> _roleManager;
         private readonly IHttpContextAccessor _httpContext;
 
 
-        public UserService(DatabaseContext context, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IMapper mapper, IHttpContextAccessor httpContext)
+        public UserService(DatabaseContext context, UserManager<AspNetUsers> userManager, RoleManager<AspNetRoles> roleManager, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _mapper = mapper;
             _context = context;
@@ -61,11 +61,11 @@ namespace new_wr_api.Service
         public async Task<IdentityResult> SaveUserAsync(UserModel model)
         {
             var exitsingItem = await _userManager.FindByIdAsync(model.Id);
-            ApplicationUser user;
+            AspNetUsers user;
             if (string.IsNullOrEmpty(model.Id))
             {
                 // Create a new user
-                user = new ApplicationUser
+                user = new AspNetUsers
                 {
                     FullName = model.FullName,
                     Email = model.Email,

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class Construction
+    public class Constructions
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

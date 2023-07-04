@@ -15,14 +15,14 @@ namespace new_wr_api.Service
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly UserManager<AspNetUsers> _userManager;
+        private readonly RoleManager<AspNetRoles> _roleManager;
 
-        public SignInManager<ApplicationUser> _signInManager { get; }
+        public SignInManager<AspNetUsers> _signInManager { get; }
 
         private readonly IConfiguration _configuration;
 
-        public AuthService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, IConfiguration configuration)
+        public AuthService(UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, RoleManager<AspNetRoles> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -35,7 +35,7 @@ namespace new_wr_api.Service
             if (string.IsNullOrEmpty(model.Id))
             {
                 // Create a new user
-                var newUser = new ApplicationUser
+                var newUser = new AspNetUsers
                 {
                     UserName = model.UserName,
                     Email = model.Email,

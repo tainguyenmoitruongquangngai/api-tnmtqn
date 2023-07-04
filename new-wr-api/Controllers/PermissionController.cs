@@ -26,7 +26,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{Id}")]
-        public async Task<ActionResult<Permission>> GetPermissionById(int Id)
+        public async Task<ActionResult<Permissions>> GetPermissionById(int Id)
         {
             var res = await _service.GetPermissionByIdAsync(Id);
             if (res == null)
@@ -41,7 +41,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<Permission>> SavePermission(PermissionModel moddel)
+        public async Task<ActionResult<Permissions>> SavePermission(PermissionModel moddel)
         {
             var res = await _service.SavePermissionAsync(moddel);
             if (res.Succeeded)
@@ -59,7 +59,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<Permission>> DeletePermission(PermissionModel moddel)
+        public async Task<ActionResult<Permissions>> DeletePermission(PermissionModel moddel)
         {
             var res = await _service.DeletePermissionAsync(moddel);
             if (res.Succeeded)

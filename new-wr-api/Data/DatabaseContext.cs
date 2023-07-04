@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using new_wr_api.Data;
 
 namespace new_wr_api.Data
 {
-    public class DatabaseContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class DatabaseContext : IdentityDbContext<AspNetUsers, AspNetRoles, string>
     {
         private readonly IConfiguration configuration;
         public DatabaseContext(DbContextOptions options, IConfiguration configuration) : base(options)
@@ -18,11 +19,12 @@ namespace new_wr_api.Data
         }
         //
         #region DbSet
-        public DbSet<Construction>? Construction { get; set; }
-        public DbSet<License>? License { get; set; }
-        public DbSet<ConstructionType>? ConstructionType { get; set; }
-        public DbSet<Permission>? Permission { get; set; }
-        public DbSet<Dashboard>? Dashboard { get; set; }
+        public DbSet<Permissions>? Permissions { get; set; }
+        public DbSet<Dashboards>? Dashboards { get; set; }
+        public DbSet<ConstructionTypes>? ConstructionTypes { get; set; }
+        public DbSet<Constructions>? Constructions { get; set; }
+        public DbSet<Licenses>? Licenses { get; set; }
+        public DbSet<LicenseConstructions>? LicenseConstructions { get; set; }
         #endregion
     }
 }

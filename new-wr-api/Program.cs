@@ -18,10 +18,11 @@ services.AddScoped<IAuthService, AuthService>();
 services.AddScoped<UserService>();
 services.AddScoped<RoleService>();
 services.AddScoped<DashboardService>();
-services.AddScoped<PermissionService>();
+services.AddScoped<ConstructionService>();
+services.AddScoped<LicenseService>();
 
 
-services.AddIdentity<ApplicationUser, ApplicationRole>()
+services.AddIdentity<AspNetUsers, AspNetRoles>()
     .AddEntityFrameworkStores<DatabaseContext>()
     .AddDefaultTokenProviders();
 

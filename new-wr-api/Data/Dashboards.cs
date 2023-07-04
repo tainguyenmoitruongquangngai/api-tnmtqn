@@ -3,14 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class ConstructionType
+    public class Dashboards
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int ParentId { get; set; }
-        public string TypeName { get; set; } = string.Empty;
-        public string TypeSlug { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Path { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DateTime? CreatedTime { get; set; }
         public string CreatedUser { get; set; } = string.Empty;

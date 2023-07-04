@@ -7,63 +7,64 @@ using System.Security.Claims;
 
 namespace new_wr_api.Service
 {
-    public class DashboardService
+    public class ConstructionService
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
 
-        public DashboardService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
+        public ConstructionService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _context = context;
             _mapper = mapper;
             _httpContext = httpContext;
         }
 
-        public async Task<List<DashboardModel>> GetAllDashboardAsync()
+        public async Task<List<ConstructionModel>> GetAllConstructionAsync()
         {
-            var items = await _context.Dashboards!.Where(x => !x.IsDeleted).ToListAsync();
-            return _mapper.Map<List<DashboardModel>>(items);
+            var items = await _context.Constructions!.Where(x => !x.IsDeleted).ToListAsync();
+            return _mapper.Map<List<ConstructionModel>>(items);
         }
 
-        public async Task<DashboardModel?> GetDashboardByIdAsync(int Id)
+        public async Task<ConstructionModel?> GetConstructionByIdAsync(int Id)
         {
-            var item = await _context.Dashboards!.FindAsync(Id);
-            return _mapper.Map<DashboardModel>(item);
+            var item = await _context.Constructions!.FindAsync(Id);
+            return _mapper.Map<ConstructionModel>(item);
         }
 
 
-        public async Task<IdentityResult> SaveDashboardAsync(DashboardModel model)
+        public async Task<IdentityResult> SaveConstructionAsync(ConstructionModel model)
         {
-            var existingItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
             if (existingItem == null || model.Id == 0)
             {
-                var newItem = _mapper.Map<Dashboards>(model);
+                var newItem = _mapper.Map<Constructions>(model);
                 newItem.IsDeleted = false;
                 newItem.Status = true;
                 newItem.CreatedTime = DateTime.Now;
                 newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
-                _context.Dashboards!.Add(newItem);
+                _context.Constructions!.Add(newItem);
             }
             else
             {
-                var updateItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == model.Id);
+                var updateItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
                 updateItem = _mapper.Map(model, updateItem);
 
                 updateItem!.ModifiedTime = DateTime.Now;
                 updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
-                _context.Dashboards!.Update(updateItem);
+                _context.Constructions!.Update(updateItem);
             }
 
             await _context.SaveChangesAsync();
             return IdentityResult.Success;
         }
 
-        public async Task<IdentityResult> DeleteDashboardAsync(DashboardModel model)
+
+        public async Task<IdentityResult> DeleteConstructionAsync(ConstructionModel modle)
         {
-            var existingItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == modle.Id);
 
             existingItem!.IsDeleted = true;
             await _context.SaveChangesAsync();

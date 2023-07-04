@@ -7,21 +7,21 @@ namespace new_wr_api.Service
 {
     public class RoleService
     {
-        private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly RoleManager<AspNetRoles> _roleManager;
         private readonly DatabaseContext _context;
 
         public RoleService(IServiceProvider serviceProvider, DatabaseContext context)
         {
-            _roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            _roleManager = serviceProvider.GetRequiredService<RoleManager<AspNetRoles>>();
             _context = context;
         }
 
-        public async Task<List<ApplicationRole>> GetAllRolesAsync()
+        public async Task<List<AspNetRoles>> GetAllRolesAsync()
         {
             return await _context.Roles.Where(u => !u.IsDeleted).ToListAsync();
         }
 
-        public async Task<ApplicationRole?> GetRoleByIdAsync(string roleId)
+        public async Task<AspNetRoles?> GetRoleByIdAsync(string roleId)
         {
             var res = await _roleManager.FindByIdAsync(roleId);
             return res;
@@ -34,7 +34,7 @@ namespace new_wr_api.Service
             if (exitsItem == null)
             {
                 // Create a new user
-                ApplicationRole item = new ApplicationRole();
+                AspNetRoles item = new AspNetRoles();
                 item.Name = model.Name;
                 item.IsDefault = model.IsDefault;
                 item.IsDeleted = false;
