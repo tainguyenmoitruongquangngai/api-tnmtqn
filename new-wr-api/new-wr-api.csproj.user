@@ -4,6 +4,6 @@
     <ActiveDebugProfile>https</ActiveDebugProfile>
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
-    <NameOfLastUsedPublishProfile>C:\Users\webng\source\repos\api-tnmtqn\new-wr-api\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\webng\source\repos\tnmtqn\api-tnmtqn\new-wr-api\Properties\PublishProfiles\PublishApi.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

@@ -48,13 +48,12 @@ namespace new_wr_api.Service
             }
             else
             {
-                var updateItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
-                updateItem = _mapper.Map(model, updateItem);
+                existingItem = _mapper.Map(model, existingItem);
 
-                updateItem!.ModifiedTime = DateTime.Now;
-                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
-                _context.Licenses!.Update(updateItem);
+                existingItem!.ModifiedTime = DateTime.Now;
+                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                _context.Licenses!.Update(existingItem);
             }
 
             await _context.SaveChangesAsync();

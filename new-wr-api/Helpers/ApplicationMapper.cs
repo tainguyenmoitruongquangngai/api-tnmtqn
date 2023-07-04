@@ -17,6 +17,7 @@ namespace new_wr_api.Helpers
             CreateMap<Dashboards, DashboardModel>().ReverseMap();
             CreateMap<Permissions, PermissionModel>().ReverseMap();
             CreateMap<Constructions, ConstructionModel>().ReverseMap();
+            CreateMap<Licenses, LicenseModel>().ReverseMap();
         }
     }
 }

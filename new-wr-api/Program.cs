@@ -31,7 +31,7 @@ services.AddControllers();
 
 services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NEW WR API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WRQuangNgai API", Version = "v1" });
     var securityScheme = new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -81,7 +81,8 @@ services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("*")
+               .AllowAnyOrigin()
                .AllowAnyMethod()
                .AllowAnyHeader();
     });
@@ -96,7 +97,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "NEW WR API");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "WRQuangNgai API");
         //c.RoutePrefix = string.Empty;
     });
 }

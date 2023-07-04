@@ -32,37 +32,31 @@ namespace new_wr_api.Service
 
         public async Task<IdentityResult> RegisterAsync(UserModel model)
         {
-            if (string.IsNullOrEmpty(model.Id))
+            var existingItem = await _userManager.FindByIdAsync(model.Id);
+
+            if (existingItem != null)
             {
-                // Create a new user
-                var newUser = new AspNetUsers
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    FullName = model.FullName,
-                    PhoneNumber = model.PhoneNumber,
-                    IsDeleted = false,
-                    Status = true,
-                };
-
-                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
-
-                if (model.PasswordHash == null) { return IdentityResult.Failed(); }
-
-                var result = await _userManager.CreateAsync(newUser, model.PasswordHash);
-
-                if (result.Succeeded)
-                {
-                    // Add default role to the user
-                    if (role != null && role.Name != null && role.IsDefault)
-                    {
-                        await _userManager.AddToRoleAsync(newUser, role.Name);
-                    }
-                }
-
-                return result;
+                return IdentityResult.Failed(new IdentityError { Description = "User is exits!" });
             }
-            return IdentityResult.Failed();
+            // Create a new user
+            AspNetUsers user = new AspNetUsers();
+
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.FullName = model.FullName;
+            user.PhoneNumber = model.PhoneNumber;
+            user.IsDeleted = false;
+            user.Status = true;
+
+            var res = await _userManager.CreateAsync(user, model.Password);
+
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault);
+
+            if (res.Succeeded && role != null)
+            {
+                await _userManager.AddToRoleAsync(user, role.Name!);
+            }
+            return res;
         }
 
         public async Task<string> LoginAsync(LoginViewModel model)

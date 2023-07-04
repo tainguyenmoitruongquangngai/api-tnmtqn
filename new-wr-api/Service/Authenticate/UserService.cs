@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
+using System.ComponentModel;
+using System.Data;
 using System.Security.Claims;
 
 namespace new_wr_api.Service
@@ -36,6 +38,24 @@ namespace new_wr_api.Service
             foreach (var u in items)
             {
                 var roles = await _userManager.GetRolesAsync(u);
+                var roleModels = new List<RoleModel>();
+
+                foreach (var roleName in roles)
+                {
+                    var role = await _context.Roles
+                        .FirstOrDefaultAsync(r => r.Name == roleName);
+
+                    if (role != null)
+                    {
+                        roleModels.Add(new RoleModel
+                        {
+                            Id = role.Id,
+                            Name = roleName,
+                            IsDefault = role.IsDefault
+                        });
+                    }
+                }
+
                 var user = new UserModel
                 {
                     Id = u.Id,
@@ -43,13 +63,15 @@ namespace new_wr_api.Service
                     FullName = u.FullName,
                     Email = u.Email!,
                     PhoneNumber = u.PhoneNumber!,
-                    Roles = roles?.Select(r => new RoleModel { Name = r }).ToList() ?? new List<RoleModel>()
+                    Roles = roleModels
                 };
+
                 users.Add(user);
             }
 
             return users;
         }
+
 
         public async Task<UserModel> GetUserByIdAsync(string userId)
         {
@@ -60,49 +82,48 @@ namespace new_wr_api.Service
 
         public async Task<IdentityResult> SaveUserAsync(UserModel model)
         {
-            var exitsingItem = await _userManager.FindByIdAsync(model.Id);
-            AspNetUsers user;
-            if (string.IsNullOrEmpty(model.Id))
+            var existingItem = await _userManager.FindByIdAsync(model.Id);
+
+            if (existingItem == null)
             {
                 // Create a new user
-                user = new AspNetUsers
-                {
-                    FullName = model.FullName,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "",
-                    CreatedTime = DateTime.Now,
-                    IsDeleted = false,
-                    Status = true
-                };
+                AspNetUsers user = new AspNetUsers();
+
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.FullName = model.FullName;
+                user.PhoneNumber = model.PhoneNumber;
+                user.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                user.CreatedTime = DateTime.Now;
+                user.IsDeleted = false;
+                user.Status = true;
+
+                var res = await _userManager.CreateAsync(user, model.Password);
 
                 var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault);
-                var createResult = await _userManager.CreateAsync(user, model.PasswordHash);
 
-                if (createResult.Succeeded && role != null)
+                if (res.Succeeded && role != null)
                 {
                     await _userManager.AddToRoleAsync(user, role.Name!);
                 }
+                return res;
             }
             else
             {
                 // Update an existing user
-                user = exitsingItem!;
-                if (user != null)
-                {
-                    user.FullName = model.FullName;
-                    user.Email = model.Email;
-                    user.PhoneNumber = model.PhoneNumber;
-                    await _userManager.UpdateAsync(user);
-                }
+                existingItem.UserName = model.UserName;
+                existingItem.Email = model.Email;
+                existingItem.FullName = model.FullName;
+                existingItem.PhoneNumber = model.PhoneNumber;
+                existingItem.ModifiedTime = DateTime.Now;
+                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                return await _userManager.UpdateAsync(existingItem);
             }
-
-            return IdentityResult.Success;
         }
 
         public async Task<IdentityResult> DeleteUserAsync(UserModel model)
         {
-            var user = await _userManager.FindByIdAsync(model.Id);
+            var user = await _userManager.FindByIdAsync(model.Id!);
             if (user != null)
             {
                 user.IsDeleted = true;
