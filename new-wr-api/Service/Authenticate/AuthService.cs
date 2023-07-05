@@ -118,10 +118,34 @@ namespace new_wr_api.Service
 
         public async Task<bool> AssignRoleAsync(AssignRoleModel model)
         {
-            var u = await _userManager.FindByIdAsync(model.userId);
-            await _userManager.AddToRoleAsync(u!, model.roleName);
+            var user = await _userManager.FindByIdAsync(model.userId);
+
+            // Remove all existing roles of the user
+            var existingRoles = await _userManager.GetRolesAsync(user!);
+            await _userManager.RemoveFromRolesAsync(user, existingRoles);
+
+            // Add the new role to the user
+            await _userManager.AddToRoleAsync(user, model.roleName);
+
             return true;
         }
+
+        public async Task<bool> RemoveRoleAsync(AssignRoleModel model)
+        {
+            var u = await _userManager.FindByIdAsync(model.userId);
+            // Check if the user is already in the role
+            var isInRole = await _userManager.IsInRoleAsync(u!, model.roleName);
+            if (isInRole)
+            {
+                await _userManager.RemoveFromRoleAsync(u!, model.roleName);
+                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault);
+                await _userManager.AddToRoleAsync(u!, role!.Name!);
+
+                return true;
+            }
+            return false;
+        }
+
 
         public async Task<bool> LogoutAsync(HttpContext context)
         {

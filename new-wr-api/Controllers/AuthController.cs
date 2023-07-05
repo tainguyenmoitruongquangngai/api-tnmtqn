@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Models;
 using new_wr_api.Models.Authenticate;
 using new_wr_api.Service;
+using System.Data;
 
 namespace new_wr_api.Controllers
 {
@@ -71,7 +73,8 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("set-role")]
+        [Route("assign-role")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<AspNetUsers>> AssignRole(AssignRoleModel model)
         {
             if (model.userId == null || model.roleName == null)
@@ -84,6 +87,35 @@ namespace new_wr_api.Controllers
             }
 
             var res = await _repo.AssignRoleAsync(model);
+
+            if (res)
+            {
+                return Ok(new
+                {
+                    message = res
+                });
+            }
+            return BadRequest(new
+            {
+                message = res
+            });
+        }
+
+        [HttpPost]
+        [Route("remove-role")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult<AspNetUsers>> RemoveRole(AssignRoleModel model)
+        {
+            if (model.userId == null || model.roleName == null)
+            {
+                return BadRequest(new
+                {
+                    message = "User or Role not found"
+                });
+
+            }
+
+            var res = await _repo.RemoveRoleAsync(model);
 
             if (res)
             {

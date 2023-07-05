@@ -105,9 +105,11 @@ if (app.Environment.IsDevelopment())
 //Add CORS policy
 app.UseCors();
 
-//app.UseSwagger();
+app.UseSwagger();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+//app.UseStaticFiles();
 
 app.UseAuthentication();
 

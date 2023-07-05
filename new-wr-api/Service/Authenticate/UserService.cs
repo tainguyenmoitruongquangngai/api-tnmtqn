@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
-using System.ComponentModel;
 using System.Data;
 using System.Security.Claims;
 
@@ -29,49 +28,38 @@ namespace new_wr_api.Service
 
         public async Task<List<UserModel>> GetAllUsersAsync()
         {
-            var items = await _context.Users!
-                .Where(u => u.IsDeleted == false)
+            var items = await _context.Users
+                .Where(u => !u.IsDeleted)
                 .ToListAsync();
 
             var users = new List<UserModel>();
 
             foreach (var u in items)
             {
-                var roles = await _userManager.GetRolesAsync(u);
-                var roleModels = new List<RoleModel>();
-
-                foreach (var roleName in roles)
-                {
-                    var role = await _context.Roles
-                        .FirstOrDefaultAsync(r => r.Name == roleName);
-
-                    if (role != null)
-                    {
-                        roleModels.Add(new RoleModel
-                        {
-                            Id = role.Id,
-                            Name = roleName,
-                            IsDefault = role.IsDefault
-                        });
-                    }
-                }
-
                 var user = new UserModel
                 {
                     Id = u.Id,
                     UserName = u.UserName!,
                     FullName = u.FullName,
                     Email = u.Email!,
-                    PhoneNumber = u.PhoneNumber!,
-                    Roles = roleModels
+                    PhoneNumber = u.PhoneNumber!
                 };
+
+                var roles = await _userManager.GetRolesAsync(u);
+                if (roles.Count > 0)
+                {
+                    var role = await _roleManager.FindByNameAsync(roles[0]);
+                    if (role != null)
+                    {
+                        user.Role = role.Name;
+                    }
+                }
 
                 users.Add(user);
             }
 
             return users;
         }
-
 
         public async Task<UserModel> GetUserByIdAsync(string userId)
         {
