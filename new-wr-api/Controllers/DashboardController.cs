@@ -26,6 +26,14 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
+        [Route("listbyrole/{roleName}")]
+        public async Task<List<RoleDashboardModel>> GetAllDashboardByRole(string roleName)
+        {
+            return await _service.GetDashboardByRoleAsync(roleName);
+        }
+
+
+        [HttpGet]
         [Route("{Id}")]
         public async Task<DashboardModel?> GetDashboardById(int Id)
         {

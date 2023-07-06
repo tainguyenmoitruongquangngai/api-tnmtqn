@@ -58,7 +58,8 @@ namespace new_wr_api.Service
 
             if (exitsItem == null) { return false; }
 
-            _context.RoleDashboards.Remove(exitsItem!);
+            _context.RoleDashboards.Remove(exitsItem);
+            await _context.SaveChangesAsync();
 
             return true;
         }

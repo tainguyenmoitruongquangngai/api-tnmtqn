@@ -34,6 +34,61 @@ namespace new_wr_api.Service
             return dashboardModels;
         }
 
+        public async Task<List<RoleDashboardModel>> GetDashboardByRoleAsync(string roleName)
+        {
+            var role = await _context!.Roles!.FirstOrDefaultAsync(x => x!.Name!.ToLower().Contains(roleName));
+            var dashboards = await _context!.Dashboards!.Where(x => x.IsDeleted == false).ToListAsync();
+            var roleDashboards = new List<RoleDashboardModel>();
+
+            foreach (var dashboard in dashboards)
+            {
+                var rdash = await _context!.RoleDashboards!
+                    .FirstOrDefaultAsync(x => x.RoleName == roleName && x.DashboardId == dashboard.Id);
+
+                var model = new RoleDashboardModel
+                {
+                    DashboardId = dashboard.Id,
+                    DashboardName = dashboard.Name,
+                    FileControl = dashboard.Path,
+                    RoleId = role?.Id
+                };
+
+                if (rdash != null)
+                {
+                    model.Id = rdash.Id;
+                    model.RoleId = rdash.RoleId;
+                    model.RoleName = rdash.RoleName;
+                    model.PermitAccess = (bool)rdash.PermitAccess!;
+                }
+                else
+                {
+                    model.RoleId = role?.Id;
+                    model.RoleName = role?.Name;
+                    model.PermitAccess = false;
+                }
+
+                roleDashboards.Add(model);
+            }
+
+            return _mapper.Map<List<RoleDashboardModel>>(roleDashboards);
+        }
+
+
+        public async Task<List<DashboardModel>> GetDashboardByUserAsync(UserModel user)
+        {
+            var dashId = _context!.UserDashboards!.Where(x => x.UserId == user.Id).Select(x => x.DashboardId).ToList();
+            var dashboards = await _context!.Dashboards!.Where(x => dashId.Contains(x.Id)).ToListAsync();
+            var dashboardModels = _mapper.Map<List<DashboardModel>>(dashboards);
+
+            var allFunctions = await _context!.Functions!.ToListAsync();
+            foreach (var dashboardModel in dashboardModels)
+            {
+                dashboardModel.Functions = _mapper.Map<List<FunctionModel>>(allFunctions);
+            }
+
+            return dashboardModels;
+        }
+
         public async Task<DashboardModel?> GetDashboardByIdAsync(int Id)
         {
             var item = await _context!.Dashboards!.FindAsync(Id);

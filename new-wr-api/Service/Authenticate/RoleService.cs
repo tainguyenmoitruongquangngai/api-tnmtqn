@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
+using System.Data;
 
 namespace new_wr_api.Service
 {
@@ -35,6 +36,20 @@ namespace new_wr_api.Service
                 {
                     var functions = await _context!.Functions!.Where(x => x.Id > 0).ToListAsync();
                     dash.Functions = _mapper.Map<List<FunctionModel>>(functions);
+                    foreach (var function in dash.Functions)
+                    {
+                        var existingPermission = await _context.Permissions!.
+                            FirstOrDefaultAsync(d => d.FunctionId == function.Id && d.DashboardId == dash.Id && d.RoleId == item.Id);
+
+                        if (existingPermission != null)
+                        {
+                            function.Status = true;
+                        }
+                        else
+                        {
+                            function.Status = false;
+                        }
+                    }
                 }
             }
 
@@ -52,6 +67,20 @@ namespace new_wr_api.Service
             {
                 var functions = await _context!.Functions!.Where(x => x.Id > 0).ToListAsync();
                 dash.Functions = _mapper.Map<List<FunctionModel>>(functions);
+                foreach (var function in dash.Functions)
+                {
+                    var existingPermission = await _context.Permissions!.
+                        FirstOrDefaultAsync(d => d.FunctionId == function.Id && d.DashboardId == dash.Id && d.RoleId == role.Id);
+
+                    if (existingPermission != null)
+                    {
+                        function.Status = true;
+                    }
+                    else
+                    {
+                        function.Status = false;
+                    }
+                }
             }
 
             return role;

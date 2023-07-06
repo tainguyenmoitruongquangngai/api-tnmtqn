@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230706114520_Update_Collumn_FunctiomId_in_Permission_Table")]
+    partial class Update_Collumn_FunctiomId_in_Permission_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,7 +146,7 @@ namespace new_wr_api.Migrations
                     b.Property<string>("CreatedUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Discriminator")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsDefault")
@@ -819,8 +822,8 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DashboardId")
-                        .HasColumnType("int");
+                    b.Property<string>("DashboardId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FunctionCode")
                         .HasColumnType("nvarchar(max)");

@@ -7,8 +7,9 @@
         public string UserId { get; set; } = string.Empty;
         public string RoleId { get; set; } = string.Empty;
         public string RoleName { get; set; } = string.Empty;
-        public string DashboardId { get; set; } = string.Empty;
-        public string PermitName { get; set; } = string.Empty;
-        public string PermitCode { get; set; } = string.Empty;
+        public int DashboardId { get; set; }
+        public int FunctionId { get; set; }
+        public string FunctionName { get; set; } = string.Empty;
+        public string FunctionCode { get; set; } = string.Empty;
     }
 }
