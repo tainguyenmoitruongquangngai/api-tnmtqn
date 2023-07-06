@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<LicenseModel>> GetAllLicenseAsync()
         {
-            var items = await _context.Licenses!.Where(x => !x.IsDeleted).ToListAsync();
+            var items = await _context.Licenses!.Where(x => x.IsDeleted == false).ToListAsync();
             return _mapper.Map<List<LicenseModel>>(items);
         }
 
@@ -33,7 +33,7 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<IdentityResult> SaveLicenseAsync(LicenseModel model)
+        public async Task<bool> SaveLicenseAsync(LicenseModel model)
         {
             var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
@@ -57,19 +57,21 @@ namespace new_wr_api.Service
             }
 
             await _context.SaveChangesAsync();
-            return IdentityResult.Success;
+            return true;
         }
 
 
-        public async Task<IdentityResult> DeleteLicenseAsync(LicenseModel modle)
+        public async Task<bool> DeleteLicenseAsync(LicenseModel modle)
         {
             var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == modle.Id);
+
+            if (existingItem == null) { return false; }
 
             existingItem!.IsDeleted = true;
             _context.Licenses!.Update(existingItem);
             await _context.SaveChangesAsync();
 
-            return IdentityResult.Success;
+            return true;
         }
     }
 }

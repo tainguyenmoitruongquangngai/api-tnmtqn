@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<PermissionModel>> GetAllPermissionAsync()
         {
-            var items = await _context.Permissions!.Where(x => !x.IsDeleted).ToListAsync();
+            var items = await _context.Permissions!.Where(x => x.IsDeleted == false).ToListAsync();
             return _mapper.Map<List<PermissionModel>>(items);
         }
 
@@ -33,9 +33,10 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<IdentityResult> SavePermissionAsync(PermissionModel model)
+        public async Task<string> SavePermissionAsync(PermissionModel model)
         {
             var existingItem = await _context.Permissions!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var res = "";
 
             if (existingItem == null || model.Id == 0)
             {
@@ -43,8 +44,9 @@ namespace new_wr_api.Service
                 newItem.IsDeleted = false;
                 newItem.Status = true;
                 newItem.CreatedTime = DateTime.Now;
-                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
                 _context.Permissions!.Add(newItem);
+                res = "Thêm dữ liệu thành công";
             }
             else
             {
@@ -53,24 +55,25 @@ namespace new_wr_api.Service
                 updateItem = _mapper.Map(model, updateItem);
 
                 updateItem!.ModifiedTime = DateTime.Now;
-                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
                 _context.Permissions!.Update(updateItem);
+                res = "Cập nhật dữ liệu thành công";
             }
 
             await _context.SaveChangesAsync();
-            return IdentityResult.Success;
+            return res;
         }
 
 
-        public async Task<IdentityResult> DeletePermissionAsync(PermissionModel modle)
+        public async Task<string> DeletePermissionAsync(PermissionModel modle)
         {
             var existingItem = await _context.Permissions!.FirstOrDefaultAsync(d => d.Id == modle.Id);
 
-            existingItem!.IsDeleted = true;
+            if (existingItem == null) { return "Xóa dữ liệu thất bại"; }
+            existingItem.IsDeleted = true;
             _context.Permissions!.Update(existingItem);
             await _context.SaveChangesAsync();
-
-            return IdentityResult.Success;
+            return "Xóa dữ liệu thành công";
         }
     }
 }

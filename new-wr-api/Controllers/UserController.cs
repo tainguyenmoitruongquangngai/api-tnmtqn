@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Models;
@@ -27,54 +28,39 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{userId}")]
-        public async Task<ActionResult<AspNetUsers>> GetUserById(string userId)
+        public async Task<UserModel> GetUserById(string userId)
         {
-            var res = await _service.GetUserByIdAsync(userId);
-            if (res == null)
-            {
-                return NotFound(new { message = "User not found" });
-            }
-            return Ok(new
-            {
-                user = res
-            });
+            return await _service.GetUserByIdAsync(userId);
         }
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<AspNetUsers>> SaveUser(UserModel model)
+        public async Task<ActionResult> SaveUser(UserModel model)
         {
             var res = await _service.SaveUserAsync(model);
-            if (res.Succeeded)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "User: Dữ liệu đã được lưu" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return BadRequest(new { message = "User: Lỗi lưu dữ liệu" });
+            }
         }
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<AspNetUsers>> DeleteUser(UserModel model)
+        public async Task<ActionResult> DeleteUser(UserModel model)
         {
             var res = await _service.DeleteUserAsync(model);
-            if (!res.Succeeded)
+            if (res == true)
             {
-                return BadRequest(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "User: Dữ liệu đã được xóa" });
             }
-            return Ok(new
+            else
             {
-                message = "User is deleted."
-            });
+                return Ok(new { message = "User: Lỗi xóa dữ liệu" });
+            }
         }
-
     }
 }

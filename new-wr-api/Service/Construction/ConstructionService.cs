@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<ConstructionModel>> GetAllConstructionAsync()
         {
-            var items = await _context.Constructions!.Where(x => !x.IsDeleted).ToListAsync();
+            var items = await _context.Constructions!.Where(x => x.IsDeleted == false).ToListAsync();
             return _mapper.Map<List<ConstructionModel>>(items);
         }
 
@@ -33,7 +33,7 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<IdentityResult> SaveConstructionAsync(ConstructionModel model)
+        public async Task<bool> SaveConstructionAsync(ConstructionModel model)
         {
             var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
@@ -58,19 +58,21 @@ namespace new_wr_api.Service
             }
 
             await _context.SaveChangesAsync();
-            return IdentityResult.Success;
+            return true;
         }
 
 
-        public async Task<IdentityResult> DeleteConstructionAsync(ConstructionModel modle)
+        public async Task<bool> DeleteConstructionAsync(ConstructionModel modle)
         {
             var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == modle.Id);
+
+            if (existingItem == null) { return false; }
 
             existingItem!.IsDeleted = true;
             _context.Constructions!.Update(existingItem);
             await _context.SaveChangesAsync();
 
-            return IdentityResult.Success;
+            return true;
         }
     }
 }

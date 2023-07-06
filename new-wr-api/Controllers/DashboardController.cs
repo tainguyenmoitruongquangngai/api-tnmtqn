@@ -22,58 +22,44 @@ namespace new_wr_api.Controllers
         [Route("list")]
         public async Task<List<DashboardModel>> GetAllDashboard()
         {
-            return await _service.GetAllDashboardAsync();
+            return (await _service.GetAllDashboardAsync());
         }
 
         [HttpGet]
         [Route("{Id}")]
-        public async Task<ActionResult<Dashboards>> GetDashboardById(int Id)
+        public async Task<DashboardModel?> GetDashboardById(int Id)
         {
-            var res = await _service.GetDashboardByIdAsync(Id);
-            if (res == null)
-            {
-                return NotFound(new { message = "Dashboard not found" });
-            }
-            return Ok(new
-            {
-                user = res
-            });
+            return await _service.GetDashboardByIdAsync(Id);
         }
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<Dashboards>> SaveDashboard(DashboardModel model)
+        public async Task<ActionResult<Dashboards>> SaveDashboard(DashboardModel moddel)
         {
-            var res = await _service.SaveDashboardAsync(model);
-            if (res.Succeeded)
+            var res = await _service.SaveDashboardAsync(moddel);
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "Dashboard: Dữ liệu đã được lưu" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return BadRequest(new { message = "Dashboard: Lỗi lưu dữ liệu" });
+            }
         }
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<Dashboards>> DeleteDashboard(DashboardModel model)
+        public async Task<ActionResult<Dashboards>> DeleteDashboard(DashboardModel moddel)
         {
-            var res = await _service.DeleteDashboardAsync(model);
-            if (res.Succeeded)
+            var res = await _service.DeleteDashboardAsync(moddel);
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "Dashboard: Dữ liệu đã được xóa" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return Ok(new { message = "Dashboard: Lỗi xóa dữ liệu" });
+            }
         }
     }
 }

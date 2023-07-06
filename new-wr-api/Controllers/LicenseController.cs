@@ -27,17 +27,9 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{Id}")]
-        public async Task<ActionResult<Licenses>> GetLicenseById(int Id)
+        public async Task<LicenseModel?> GetLicenseById(int Id)
         {
-            var res = await _service.GetLicenseByIdAsync(Id);
-            if (res == null)
-            {
-                return NotFound(new { message = "License not found" });
-            }
-            return Ok(new
-            {
-                user = res
-            });
+            return await _service.GetLicenseByIdAsync(Id);
         }
 
         [HttpPost]
@@ -45,17 +37,14 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<Licenses>> SaveLicense(LicenseModel moddel)
         {
             var res = await _service.SaveLicenseAsync(moddel);
-            if (res.Succeeded)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "License: Dữ liệu đã được lưu" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return BadRequest(new { message = "License: Lỗi lưu dữ liệu" });
+            }
         }
 
         [HttpPost]
@@ -63,17 +52,14 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<Licenses>> DeleteLicense(LicenseModel moddel)
         {
             var res = await _service.DeleteLicenseAsync(moddel);
-            if (res.Succeeded)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "License: Dữ liệu đã được xóa" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return Ok(new { message = "License: Lỗi xóa dữ liệu" });
+            }
         }
     }
 }

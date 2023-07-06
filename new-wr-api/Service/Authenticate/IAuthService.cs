@@ -6,11 +6,11 @@ namespace new_wr_api.Service
 {
     public interface IAuthService
     {
-        public Task<IdentityResult> RegisterAsync(UserModel model);
+        public Task<bool> RegisterAsync(UserModel model);
         public Task<string> LoginAsync(LoginViewModel model);
         public Task<bool> LogoutAsync(HttpContext context);
         public Task<bool> AssignRoleAsync(AssignRoleModel model);
         public Task<bool> RemoveRoleAsync(AssignRoleModel model);
-        public Task<IdentityResult?> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword);
+        public Task<bool> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword);
     }
 }

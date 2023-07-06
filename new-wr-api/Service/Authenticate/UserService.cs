@@ -29,7 +29,7 @@ namespace new_wr_api.Service
         public async Task<List<UserModel>> GetAllUsersAsync()
         {
             var items = await _context.Users
-                .Where(u => !u.IsDeleted)
+                .Where(u => u.IsDeleted == false)
                 .ToListAsync();
 
             var users = new List<UserModel>();
@@ -68,7 +68,7 @@ namespace new_wr_api.Service
             return userModel;
         }
 
-        public async Task<IdentityResult> SaveUserAsync(UserModel model)
+        public async Task<bool> SaveUserAsync(UserModel model)
         {
             var existingItem = await _userManager.FindByIdAsync(model.Id);
 
@@ -88,13 +88,14 @@ namespace new_wr_api.Service
 
                 var res = await _userManager.CreateAsync(user, model.Password);
 
-                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault);
+                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 
                 if (res.Succeeded && role != null)
                 {
                     await _userManager.AddToRoleAsync(user, role.Name!);
+                    return true;
                 }
-                return res;
+                return false;
             }
             else
             {
@@ -105,20 +106,26 @@ namespace new_wr_api.Service
                 existingItem.PhoneNumber = model.PhoneNumber;
                 existingItem.ModifiedTime = DateTime.Now;
                 existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
-                return await _userManager.UpdateAsync(existingItem);
+                var res = await _userManager.UpdateAsync(existingItem);
+                if (res.Succeeded)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
-        public async Task<IdentityResult> DeleteUserAsync(UserModel model)
+        public async Task<bool> DeleteUserAsync(UserModel model)
         {
             var user = await _userManager.FindByIdAsync(model.Id!);
             if (user != null)
             {
                 user.IsDeleted = true;
                 await _userManager.UpdateAsync(user);
+                return true;
             }
+            return false;
 
-            return IdentityResult.Success;
         }
     }
 }

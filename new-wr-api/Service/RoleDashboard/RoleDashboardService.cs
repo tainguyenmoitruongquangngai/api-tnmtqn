@@ -3,21 +3,18 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
-using System.Security.Claims;
 
-namespace new_wr_api.Service.RoleDashboard
+namespace new_wr_api.Service
 {
     public class RoleDashboardService
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
-        private readonly IHttpContextAccessor _httpContext;
 
-        public RoleDashboardService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
+        public RoleDashboardService(DatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _httpContext = httpContext;
         }
 
         public async Task<List<RoleDashboardModel>> GetAllRoleDashboardAsync()
@@ -32,11 +29,12 @@ namespace new_wr_api.Service.RoleDashboard
             return _mapper.Map<RoleDashboardModel>(item);
         }
 
-        public async Task<IdentityResult> SaveRoleDashboardAsync(RoleDashboardModel model)
+        public async Task<bool> SaveRoleDashboardAsync(RoleDashboardModel model)
         {
             var exitsItem = await _context!.RoleDashboards!.FindAsync(model.Id);
 
-            if (exitsItem == null || model.Id == 0) {
+            if (exitsItem == null || model.Id == 0)
+            {
                 var newItem = _mapper.Map<RoleDashboards>(model);
 
                 _context.RoleDashboards!.Add(newItem);
@@ -50,16 +48,19 @@ namespace new_wr_api.Service.RoleDashboard
             }
 
             await _context.SaveChangesAsync();
-            return IdentityResult.Success;
+            return true;
         }
 
 
-        public async Task<IdentityResult> DeleteRoleDashboardAsync(RoleDashboardModel model)
+        public async Task<bool> DeleteRoleDashboardAsync(RoleDashboardModel model)
         {
             var exitsItem = await _context!.RoleDashboards!.FindAsync(model.Id);
+
+            if (exitsItem == null) { return false; }
+
             _context.RoleDashboards.Remove(exitsItem!);
 
-            return IdentityResult.Success;
+            return true;
         }
     }
 }

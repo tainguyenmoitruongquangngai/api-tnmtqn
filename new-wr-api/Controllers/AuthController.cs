@@ -21,35 +21,28 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register(UserModel modle)
+        public async Task<ActionResult> Register(UserModel modle)
         {
             var res = await _repo.RegisterAsync(modle);
-            if (res == null)
+            if (res == true)
             {
-                return BadRequest(new
-                {
-                    message = "Register Failed. User is already exits",
-                });
+                return Ok(new { message = "Đăng ký tài khoản thành công" });
             }
-            if (res.Succeeded == false)
+            else
             {
-                return BadRequest(res);
+                return BadRequest(new { message = "Đăng ký tài khoản thất bại, tài khoản này đã tồn tại" });
             }
-            return Ok(new
-            {
-                message = "User is registered",
-                res = res
-            });
+
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             var res = await _repo.LoginAsync(model);
             if (string.IsNullOrEmpty(res))
             {
-                return BadRequest(res);
+                return BadRequest(new { message = "Thông tin tài khoản hoặc mật khẩu không chính xác" });
             }
             return Ok(res);
         }
@@ -60,80 +53,53 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<AspNetUsers>> UpdatePassword(UserModel modle, string currentPassword, string newPassword)
         {
             var res = await _repo.UpdatePasswordAsync(modle, currentPassword, newPassword);
-            if (res == null || res.Succeeded == false)
+            if (res == true)
             {
-                return BadRequest(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "Đổi mật khẩu thành công" });
             }
-            return Ok(new
+            else
             {
-                message = "Password is updated"
-            });
+                return BadRequest(new { message = "Mật khẩu không chính xác" });
+            }
         }
 
         [HttpPost]
         [Route("assign-role")]
         //[Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<AspNetUsers>> AssignRole(AssignRoleModel model)
+        public async Task<ActionResult> AssignRole(AssignRoleModel model)
         {
-            if (model.userId == null || model.roleName == null)
-            {
-                return BadRequest(new
-                {
-                    message = "User or Role not found"
-                });
-
-            }
-
             var res = await _repo.AssignRoleAsync(model);
-
-            if (res)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "AssignRole: Dữ liệu đã được lưu" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return BadRequest(new { message = "AssignRole: Lỗi lưu dữ liệu" });
+            }
+
         }
 
         [HttpPost]
         [Route("remove-role")]
         [Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<AspNetUsers>> RemoveRole(AssignRoleModel model)
+        public async Task<ActionResult> RemoveRole(AssignRoleModel model)
         {
-            if (model.userId == null || model.roleName == null)
-            {
-                return BadRequest(new
-                {
-                    message = "User or Role not found"
-                });
-
-            }
-
             var res = await _repo.RemoveRoleAsync(model);
 
-            if (res)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "RemoveRole: Dữ liệu đã được xóa" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return Ok(new { message = "RemoveRole: Lỗi xóa dữ liệu" });
+            }
         }
 
         [HttpPost]
         [Route("logout")]
-        public async Task<IActionResult> Logout(HttpContext context)
+        public async Task<ActionResult> Logout(HttpContext context)
         {
             var res = await _repo.LogoutAsync(context);
             if (res == false)

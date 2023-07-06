@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using new_wr_api.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Models;
 using new_wr_api.Service;
 
@@ -34,38 +32,32 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<AspNetRoles>> SaveRole(RoleModel model)
+        public async Task<ActionResult> SaveRole(RoleModel model)
         {
             var res = await _service.SaveRoleAsync(model);
-            if (res.Succeeded)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res,
-                });
+                return Ok(new { message = "Role: Dữ liệu đã được lưu" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return BadRequest(new { message = "Role: Lỗi lưu dữ liệu" });
+            }
         }
 
         [HttpPost]
         [Route("detete/{roleId}")]
-        public async Task<ActionResult<AspNetRoles>> DeleteRole(string roleId)
+        public async Task<ActionResult> DeleteRole(string roleId)
         {
             var res = await _service.DeleteRoleAsync(roleId);
-            if (!res.Succeeded)
+            if (res == true)
             {
-                return BadRequest(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "Role: Dữ liệu đã được xóa" });
             }
-            return Ok(new
+            else
             {
-                message = "Role is deleted."
-            });
+                return Ok(new { message = "Role: Lỗi xóa dữ liệu" });
+            }
         }
     }
 }

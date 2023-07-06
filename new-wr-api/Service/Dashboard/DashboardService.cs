@@ -45,7 +45,7 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<IdentityResult> SaveDashboardAsync(DashboardModel model)
+        public async Task<bool> SaveDashboardAsync(DashboardModel model)
         {
             var existingItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
@@ -70,18 +70,20 @@ namespace new_wr_api.Service
             }
 
             await _context.SaveChangesAsync();
-            return IdentityResult.Success;
+            return true;
         }
 
-        public async Task<IdentityResult> DeleteDashboardAsync(DashboardModel model)
+        public async Task<bool> DeleteDashboardAsync(DashboardModel model)
         {
             var existingItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == model.Id);
+
+            if (existingItem == null) { return false; }
 
             existingItem!.IsDeleted = true;
             _context.Dashboards!.Update(existingItem);
             await _context.SaveChangesAsync();
 
-            return IdentityResult.Success;
+            return true;
         }
     }
 }

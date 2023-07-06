@@ -30,14 +30,8 @@ namespace new_wr_api.Service
             _configuration = configuration;
         }
 
-        public async Task<IdentityResult> RegisterAsync(UserModel model)
+        public async Task<bool> RegisterAsync(UserModel model)
         {
-            var existingItem = await _userManager.FindByIdAsync(model.Id);
-
-            if (existingItem != null)
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "User is exits!" });
-            }
             // Create a new user
             AspNetUsers user = new AspNetUsers();
 
@@ -55,8 +49,9 @@ namespace new_wr_api.Service
             if (res.Succeeded && role != null)
             {
                 await _userManager.AddToRoleAsync(user, role.Name!);
+                return true;
             }
-            return res;
+            return false;
         }
 
         public async Task<string> LoginAsync(LoginViewModel model)
@@ -109,11 +104,12 @@ namespace new_wr_api.Service
             return JsonConvert.SerializeObject(response);
         }
 
-        public async Task<IdentityResult?> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword)
+        public async Task<bool> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword)
         {
             var user = await _userManager.FindByNameAsync(model.UserName!);
             var res = await _userManager.ChangePasswordAsync(user!, currentPassword, newPassword);
-            return res;
+            if (res.Succeeded) { return true; }
+            return false;
         }
 
         public async Task<bool> AssignRoleAsync(AssignRoleModel model)
@@ -124,6 +120,7 @@ namespace new_wr_api.Service
             // Remove all existing roles of the user
             var existingRoles = await _userManager.GetRolesAsync(user);
             if (existingRoles == null) { return false; }
+
             await _userManager.RemoveFromRolesAsync(user!, existingRoles);
 
             // Add the new role to the user

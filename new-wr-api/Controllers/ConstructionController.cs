@@ -27,17 +27,9 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("{Id}")]
-        public async Task<ActionResult<Constructions>> GetConstructionById(int Id)
+        public async Task<ConstructionModel?> GetConstructionById(int Id)
         {
-            var res = await _service.GetConstructionByIdAsync(Id);
-            if (res == null)
-            {
-                return NotFound(new { message = "Construction not found" });
-            }
-            return Ok(new
-            {
-                user = res
-            });
+            return await _service.GetConstructionByIdAsync(Id);
         }
 
         [HttpPost]
@@ -45,17 +37,14 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<Constructions>> SaveConstruction(ConstructionModel moddel)
         {
             var res = await _service.SaveConstructionAsync(moddel);
-            if (res.Succeeded)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "Construction: Dữ liệu đã được lưu" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return BadRequest(new { message = "Construction: Lỗi lưu dữ liệu" });
+            }
         }
 
         [HttpPost]
@@ -63,17 +52,14 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<Constructions>> DeleteConstruction(ConstructionModel moddel)
         {
             var res = await _service.DeleteConstructionAsync(moddel);
-            if (res.Succeeded)
+            if (res == true)
             {
-                return Ok(new
-                {
-                    message = res
-                });
+                return Ok(new { message = "Construction: Dữ liệu đã được xóa" });
             }
-            return BadRequest(new
+            else
             {
-                message = res
-            });
+                return Ok(new { message = "Construction: Lỗi xóa dữ liệu" });
+            }
         }
     }
 }

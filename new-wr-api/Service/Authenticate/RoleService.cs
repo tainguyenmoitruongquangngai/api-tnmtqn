@@ -21,7 +21,9 @@ namespace new_wr_api.Service
 
         public async Task<List<RoleModel>> GetAllRolesAsync()
         {
-            var items = await _context.Roles.ToListAsync();
+            var items = await _context.Roles
+                .Where(u => u.IsDeleted == false)
+                .ToListAsync();
             var listItems = _mapper.Map<List<RoleModel>>(items);
 
             foreach (var item in listItems)
@@ -56,7 +58,7 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<IdentityResult> SaveRoleAsync(RoleModel model)
+        public async Task<bool> SaveRoleAsync(RoleModel model)
         {
             var exitsItem = await _roleManager.FindByIdAsync(model.Id);
 
@@ -64,12 +66,14 @@ namespace new_wr_api.Service
             {
                 // Create a new user
                 AspNetRoles item = new AspNetRoles();
+                if (model.Name == item.Name) { return false; }
                 item.Name = model.Name;
                 item.IsDefault = model.IsDefault;
                 item.IsDeleted = false;
                 item.Status = true;
 
                 await _roleManager.CreateAsync(item);
+                return true;
             }
             else
             {
@@ -77,19 +81,20 @@ namespace new_wr_api.Service
                 exitsItem.IsDefault = model.IsDefault;
 
                 await _roleManager.UpdateAsync(exitsItem);
+                return true;
             }
-            return IdentityResult.Success;
         }
 
-        public async Task<IdentityResult> DeleteRoleAsync(string roleId)
+        public async Task<bool> DeleteRoleAsync(string roleId)
         {
-            var role = await _roleManager.FindByIdAsync(roleId);
+            var item = await _roleManager.FindByIdAsync(roleId);
+
+            if (item == null) { return false; }
 
             // Update role properties based on the RegisterViewModel
-            role!.IsDeleted = true;
-            var res = await _roleManager.UpdateAsync(role);
-
-            return IdentityResult.Success;
+            item.IsDeleted = true;
+            await _roleManager.UpdateAsync(item);
+            return true;
         }
     }
 }
