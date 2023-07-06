@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Models;
@@ -21,7 +20,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<PermissionModel>> GetAllDashboarss()
+        public async Task<List<PermissionModel>> GetAllPermission()
         {
             return (await _service.GetAllPermissionAsync());
         }
@@ -35,24 +34,32 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult> SavePermission(PermissionModel moddel)
+        public async Task<ActionResult<Permissions>> SavePermission(PermissionModel moddel)
         {
             var res = await _service.SavePermissionAsync(moddel);
-            return Ok(new
+            if (res == true)
             {
-                message = res
-            });
+                return Ok(new { message = "Permission: Dữ liệu đã được lưu" });
+            }
+            else
+            {
+                return BadRequest(new { message = "Permission: Lỗi lưu dữ liệu" });
+            }
         }
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult> DeletePermission(PermissionModel moddel)
+        public async Task<ActionResult<Permissions>> DeletePermission(PermissionModel moddel)
         {
             var res = await _service.DeletePermissionAsync(moddel);
-            return Ok(new
+            if (res == true)
             {
-                message = res
-            });
+                return Ok(new { message = "Permission: Dữ liệu đã được xóa" });
+            }
+            else
+            {
+                return Ok(new { message = "Permission: Lỗi xóa dữ liệu" });
+            }
         }
     }
 }

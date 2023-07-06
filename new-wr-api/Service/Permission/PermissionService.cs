@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
@@ -33,10 +32,9 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<string> SavePermissionAsync(PermissionModel model)
+        public async Task<bool> SavePermissionAsync(PermissionModel model)
         {
             var existingItem = await _context.Permissions!.FirstOrDefaultAsync(d => d.Id == model.Id);
-            var res = "";
 
             if (existingItem == null || model.Id == 0)
             {
@@ -46,7 +44,6 @@ namespace new_wr_api.Service
                 newItem.CreatedTime = DateTime.Now;
                 newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
                 _context.Permissions!.Add(newItem);
-                res = "Thêm dữ liệu thành công";
             }
             else
             {
@@ -57,23 +54,22 @@ namespace new_wr_api.Service
                 updateItem!.ModifiedTime = DateTime.Now;
                 updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name);
                 _context.Permissions!.Update(updateItem);
-                res = "Cập nhật dữ liệu thành công";
             }
 
             await _context.SaveChangesAsync();
-            return res;
+            return true;
         }
 
 
-        public async Task<string> DeletePermissionAsync(PermissionModel modle)
+        public async Task<bool> DeletePermissionAsync(PermissionModel modle)
         {
             var existingItem = await _context.Permissions!.FirstOrDefaultAsync(d => d.Id == modle.Id);
 
-            if (existingItem == null) { return "Xóa dữ liệu thất bại"; }
+            if (existingItem == null) { return false; }
             existingItem.IsDeleted = true;
             _context.Permissions!.Update(existingItem);
             await _context.SaveChangesAsync();
-            return "Xóa dữ liệu thành công";
+            return true;
         }
     }
 }
