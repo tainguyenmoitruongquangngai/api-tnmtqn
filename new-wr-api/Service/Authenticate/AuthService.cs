@@ -50,7 +50,7 @@ namespace new_wr_api.Service
 
             var res = await _userManager.CreateAsync(user, model.Password);
 
-            var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault);
+            var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 
             if (res.Succeeded && role != null)
             {
@@ -119,9 +119,11 @@ namespace new_wr_api.Service
         public async Task<bool> AssignRoleAsync(AssignRoleModel model)
         {
             var user = await _userManager.FindByIdAsync(model.userId);
+            if (user == null) { return false; }
 
             // Remove all existing roles of the user
-            var existingRoles = await _userManager.GetRolesAsync(user!);
+            var existingRoles = await _userManager.GetRolesAsync(user);
+            if (existingRoles == null) { return false; }
             await _userManager.RemoveFromRolesAsync(user!, existingRoles);
 
             // Add the new role to the user
@@ -138,7 +140,7 @@ namespace new_wr_api.Service
             if (isInRole)
             {
                 await _userManager.RemoveFromRoleAsync(u!, model.roleName);
-                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault);
+                var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
                 await _userManager.AddToRoleAsync(u!, role!.Name!);
 
                 return true;

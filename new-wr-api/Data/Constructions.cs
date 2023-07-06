@@ -112,14 +112,14 @@ namespace new_wr_api.Data
         public double? MinimumFlowPre { get; set; }
         public double? MaximumFlowPre { get; set; }
         public DateTime? TimePre { get; set; }
-        public bool IsDisconnect { get; set; }
-        public bool IsError { get; set; }
+        public Nullable<bool> IsDisconnect { get; set; }
+        public Nullable<bool> IsError { get; set; }
         public string? Change { get; set; } = string.Empty;
         public DateTime? CreatedTime { get; set; }
         public string? CreatedUser { get; set; } = string.Empty;
         public DateTime? ModifiedTime { get; set; }
         public string? ModifiedUser { get; set; } = string.Empty;
-        public bool Status { get; set; }
-        public bool IsDeleted { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     }
 }

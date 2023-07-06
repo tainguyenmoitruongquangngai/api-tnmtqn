@@ -10,8 +10,8 @@ namespace new_wr_api.Data
         public int Id { get; set; }
         public string? RoleId { get; set; }
         public string? RoleName { get; set; }
-        public int DashboardId { get; set; }
+        public int? DashboardId { get; set; }
         public string? FileControl { get; set; }
-        public bool PermitAccess { get; set; }
+        public Nullable<bool> PermitAccess { get; set; }
     }
 }

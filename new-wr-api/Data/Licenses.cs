@@ -18,12 +18,12 @@ namespace new_wr_api.Data
         public string? LicenseFile { get; set; } = string.Empty;
         public string? RelatedDocumentFile { get; set; } = string.Empty;
         public string? LicenseRequestFile { get; set; } = string.Empty;
-        public bool IsRevoked { get; set; }
+        public Nullable<bool> IsRevoked { get; set; }
         public DateTime? CreatedTime { get; set; }
         public string? CreatedUser { get; set; } = string.Empty;
         public DateTime? ModifiedTime { get; set; }
         public string? ModifiedUser { get; set; } = string.Empty;
-        public bool Status { get; set; }
-        public bool IsDeleted { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     }
 }
