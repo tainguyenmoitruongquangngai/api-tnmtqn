@@ -12,7 +12,7 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230704031616_InitData")]
+    [Migration("20230706011416_InitData")]
     partial class InitData
     {
         /// <inheritdoc />
@@ -144,11 +144,9 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDefault")
@@ -161,7 +159,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -201,7 +198,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -212,7 +208,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -228,7 +223,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
@@ -243,7 +237,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordSalt")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -290,11 +283,9 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -304,21 +295,18 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<string>("TypeName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeSlug")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -334,172 +322,154 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("AmountWaterExploited")
+                    b.Property<double?>("AmountWaterExploited")
                         .HasColumnType("float");
 
-                    b.Property<int>("AquiferId")
+                    b.Property<int?>("AquiferId")
                         .HasColumnType("int");
 
-                    b.Property<double>("AverageDischargeFlow")
+                    b.Property<double?>("AverageDischargeFlow")
                         .HasColumnType("float");
 
                     b.Property<string>("AveragePumpTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("BasinArea")
+                    b.Property<double?>("BasinArea")
                         .HasColumnType("float");
 
-                    b.Property<int>("BasinId")
+                    b.Property<int?>("BasinId")
                         .HasColumnType("int");
 
-                    b.Property<double>("CapacityPre")
+                    b.Property<double?>("CapacityPre")
                         .HasColumnType("float");
 
                     b.Property<string>("Change")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("CheckFloodWL")
+                    b.Property<double?>("CheckFloodWL")
                         .HasColumnType("float");
 
-                    b.Property<int>("CommuneId")
+                    b.Property<int?>("CommuneId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConstructionCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionDetailLocation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionLevel")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionLocation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("DamElevation")
+                    b.Property<double?>("DamElevation")
                         .HasColumnType("float");
 
-                    b.Property<double>("DamHeight")
+                    b.Property<double?>("DamHeight")
                         .HasColumnType("float");
 
-                    b.Property<double>("DamWidth")
+                    b.Property<double?>("DamWidth")
                         .HasColumnType("float");
 
-                    b.Property<double>("DeadCapacity")
+                    b.Property<double?>("DeadCapacity")
                         .HasColumnType("float");
 
-                    b.Property<double>("DeadWL")
+                    b.Property<double?>("DeadWL")
                         .HasColumnType("float");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("DesignFloodLevel")
+                    b.Property<double?>("DesignFloodLevel")
                         .HasColumnType("float");
 
-                    b.Property<double>("DischargeFlow")
+                    b.Property<double?>("DischargeFlow")
                         .HasColumnType("float");
 
                     b.Property<string>("DischargeMethod")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DischargeMode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DischargeWS")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DistrictId")
+                    b.Property<int?>("DistrictId")
                         .HasColumnType("int");
 
-                    b.Property<double>("DownstreamWL")
+                    b.Property<double?>("DownstreamWL")
                         .HasColumnType("float");
 
-                    b.Property<double>("DownstreamWLPre")
+                    b.Property<double?>("DownstreamWLPre")
                         .HasColumnType("float");
 
-                    b.Property<double>("DrainDiameter")
+                    b.Property<double?>("DrainDiameter")
                         .HasColumnType("float");
 
-                    b.Property<double>("DrainElevation")
+                    b.Property<double?>("DrainElevation")
                         .HasColumnType("float");
 
-                    b.Property<double>("DrainLength")
+                    b.Property<double?>("DrainLength")
                         .HasColumnType("float");
 
-                    b.Property<double>("DrainSize")
+                    b.Property<double?>("DrainSize")
                         .HasColumnType("float");
 
                     b.Property<string>("DrillingDuration")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DrillingPurpose")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DrillingScale")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("DynamicWL")
+                    b.Property<double?>("DynamicWL")
                         .HasColumnType("float");
 
                     b.Property<string>("ExploitedWS")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExplorationPurposes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("FlootWL")
+                    b.Property<double?>("FlootWL")
                         .HasColumnType("float");
 
-                    b.Property<double>("FlowAvgForYears")
+                    b.Property<double?>("FlowAvgForYears")
                         .HasColumnType("float");
 
-                    b.Property<double>("FlowDesigned")
+                    b.Property<double?>("FlowDesigned")
                         .HasColumnType("float");
 
-                    b.Property<double>("GuaranteedFlow")
+                    b.Property<double?>("GuaranteedFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("GuaranteedPower")
+                    b.Property<double?>("GuaranteedPower")
                         .HasColumnType("float");
 
-                    b.Property<double>("Hmax")
+                    b.Property<double?>("Hmax")
                         .HasColumnType("float");
 
-                    b.Property<double>("Hmin")
+                    b.Property<double?>("Hmin")
                         .HasColumnType("float");
 
-                    b.Property<double>("Htt")
+                    b.Property<double?>("Htt")
                         .HasColumnType("float");
 
                     b.Property<bool>("IsDeleted")
@@ -512,195 +482,183 @@ namespace new_wr_api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("KqKf")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Lat")
+                    b.Property<double?>("Lat")
                         .HasColumnType("float");
 
-                    b.Property<int>("LicenseId")
+                    b.Property<int?>("LicenseId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Lng")
+                    b.Property<double?>("Lng")
                         .HasColumnType("float");
 
-                    b.Property<double>("LowWL")
+                    b.Property<double?>("LowWL")
                         .HasColumnType("float");
 
-                    b.Property<double>("MaximumDischargeFlow")
+                    b.Property<double?>("MaximumDischargeFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("MaximumDischargeFlowPre")
+                    b.Property<double?>("MaximumDischargeFlowPre")
                         .HasColumnType("float");
 
-                    b.Property<double>("MaximumFlow")
+                    b.Property<double?>("MaximumFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("MaximumFlowPre")
+                    b.Property<double?>("MaximumFlowPre")
                         .HasColumnType("float");
 
                     b.Property<string>("MaximumPumpTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("MaximumWasteWaterFlow")
+                    b.Property<double?>("MaximumWasteWaterFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("MinimumFlow")
+                    b.Property<double?>("MinimumFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("MinimumFlowPre")
+                    b.Property<double?>("MinimumFlowPre")
                         .HasColumnType("float");
 
                     b.Property<string>("MinimumPumpTime")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiningDuration")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("MiningMaxFlow")
+                    b.Property<double?>("MiningMaxFlow")
                         .HasColumnType("float");
 
                     b.Property<string>("MiningMethod")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiningMode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MiningPurpose")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("MonitoringWellWL")
+                    b.Property<double?>("MonitoringWellWL")
                         .HasColumnType("float");
 
-                    b.Property<double>("NumberMiningWells")
+                    b.Property<double?>("NumberMiningWells")
                         .HasColumnType("float");
 
-                    b.Property<double>("NumberMonitoringWells")
+                    b.Property<double?>("NumberMonitoringWells")
                         .HasColumnType("float");
 
-                    b.Property<double>("OverflowFlow")
+                    b.Property<double?>("OverflowFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("Power")
+                    b.Property<double?>("Power")
                         .HasColumnType("float");
 
-                    b.Property<double>("PreFlootMaxWL")
+                    b.Property<double?>("PreFlootMaxWL")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProvinceId")
+                    b.Property<int?>("ProvinceId")
                         .HasColumnType("int");
 
-                    b.Property<double>("PumpCapacity")
+                    b.Property<double?>("PumpCapacity")
                         .HasColumnType("float");
 
-                    b.Property<double>("PumpDesignFlow")
+                    b.Property<double?>("PumpDesignFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("PumpMaxFlow")
+                    b.Property<double?>("PumpMaxFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("PumpNumber")
+                    b.Property<double?>("PumpNumber")
                         .HasColumnType("float");
 
-                    b.Property<double>("RainAvgForYears")
+                    b.Property<double?>("RainAvgForYears")
                         .HasColumnType("float");
 
-                    b.Property<double>("RealityFlow")
+                    b.Property<double?>("RealityFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("RealityWateringArea")
+                    b.Property<double?>("RealityWateringArea")
                         .HasColumnType("float");
 
-                    b.Property<double>("RiseWL")
+                    b.Property<double?>("RiseWL")
                         .HasColumnType("float");
 
-                    b.Property<int>("RiverId")
+                    b.Property<int?>("RiverId")
                         .HasColumnType("int");
 
                     b.Property<string>("SmallPlanningArea")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StartDate")
+                    b.Property<int?>("StartDate")
                         .HasColumnType("int");
 
-                    b.Property<double>("StaticWL")
+                    b.Property<double?>("StaticWL")
                         .HasColumnType("float");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<double>("SuctionTankWL")
+                    b.Property<double?>("SuctionTankWL")
                         .HasColumnType("float");
 
                     b.Property<DateTime?>("TimePre")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("TotalCapacity")
+                    b.Property<double?>("TotalCapacity")
                         .HasColumnType("float");
 
-                    b.Property<int>("TypeOfConstructionId")
+                    b.Property<int?>("TypeOfConstructionId")
                         .HasColumnType("int");
 
-                    b.Property<double>("UpstreamWL")
+                    b.Property<double?>("UpstreamWL")
                         .HasColumnType("float");
 
-                    b.Property<double>("UpstreamWLPre")
+                    b.Property<double?>("UpstreamWLPre")
                         .HasColumnType("float");
 
-                    b.Property<double>("UsefulCapacity")
+                    b.Property<double?>("UsefulCapacity")
                         .HasColumnType("float");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VolumeOfExplorationItems")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("WaterDepthFrom")
+                    b.Property<double?>("WaterDepthFrom")
                         .HasColumnType("float");
 
-                    b.Property<double>("WaterDepthTo")
+                    b.Property<double?>("WaterDepthTo")
                         .HasColumnType("float");
 
-                    b.Property<double>("WaterExtractionFlowDesign")
+                    b.Property<double?>("WaterExtractionFlowDesign")
                         .HasColumnType("float");
 
-                    b.Property<double>("WaterExtractionFlowReality")
+                    b.Property<double?>("WaterExtractionFlowReality")
                         .HasColumnType("float");
 
-                    b.Property<double>("WaterSupplyFlow")
+                    b.Property<double?>("WaterSupplyFlow")
                         .HasColumnType("float");
 
-                    b.Property<double>("WateringAreaDesigned")
+                    b.Property<double?>("WateringAreaDesigned")
                         .HasColumnType("float");
 
                     b.Property<string>("WellNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("WellWL")
+                    b.Property<double?>("WellWL")
                         .HasColumnType("float");
 
-                    b.Property<double>("X")
+                    b.Property<double?>("X")
                         .HasColumnType("float");
 
-                    b.Property<double>("Y")
+                    b.Property<double?>("Y")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -720,11 +678,9 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -734,16 +690,16 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Path")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PermitAccess")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -751,6 +707,28 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dashboards");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Functions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermitCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermitName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Functions");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.LicenseConstructions", b =>
@@ -784,11 +762,9 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Duration")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ExpireDate")
@@ -804,33 +780,27 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LicenseFile")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LicenseName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LicenseNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LicenseRequestFile")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LicensingAuthorities")
+                    b.Property<int?>("LicensingAuthorities")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RelatedDocumentFile")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("SignDate")
@@ -856,11 +826,9 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DashboardId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -870,39 +838,88 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PermitCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PermitName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Permissions");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.RoleDashboards", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DashboardId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileControl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PermitAccess")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleDashboards");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.UserDashboards", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DashboardId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileControl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PermitAccess")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserDashboards");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

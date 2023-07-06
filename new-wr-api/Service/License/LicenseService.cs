@@ -66,6 +66,7 @@ namespace new_wr_api.Service
             var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == modle.Id);
 
             existingItem!.IsDeleted = true;
+            _context.Licenses!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return IdentityResult.Success;

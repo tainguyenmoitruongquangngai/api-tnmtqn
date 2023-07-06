@@ -22,14 +22,26 @@ namespace new_wr_api.Service
 
         public async Task<List<DashboardModel>> GetAllDashboardAsync()
         {
-            var items = await _context.Dashboards!.Where(x => !x.IsDeleted).ToListAsync();
-            return _mapper.Map<List<DashboardModel>>(items);
+            var dashboards = await _context!.Dashboards!.ToListAsync();
+            var dashboardModels = _mapper.Map<List<DashboardModel>>(dashboards);
+
+            var allFunctions = await _context!.Functions!.ToListAsync();
+            foreach (var dashboardModel in dashboardModels)
+            {
+                dashboardModel.Functions = _mapper.Map<List<FunctionModel>>(allFunctions);
+            }
+
+            return dashboardModels;
         }
 
         public async Task<DashboardModel?> GetDashboardByIdAsync(int Id)
         {
-            var item = await _context.Dashboards!.FindAsync(Id);
-            return _mapper.Map<DashboardModel>(item);
+            var item = await _context!.Dashboards!.FindAsync(Id);
+            var dash = _mapper.Map<DashboardModel>(item);
+            var functions = await _context!.Functions!.Where(x => x.Id > 0).ToListAsync();
+            dash.Functions = _mapper.Map<List<FunctionModel>>(functions);
+
+            return dash;
         }
 
 
@@ -66,6 +78,7 @@ namespace new_wr_api.Service
             var existingItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
             existingItem!.IsDeleted = true;
+            _context.Dashboards!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return IdentityResult.Success;

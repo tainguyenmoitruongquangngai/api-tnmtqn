@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class RoleController : ControllerBase
     {
         private readonly RoleService _service;
@@ -20,14 +20,14 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<AspNetRoles>> GetAllRoles()
+        public async Task<List<RoleModel>> GetAllRoles()
         {
             return await _service.GetAllRolesAsync();
         }
 
         [HttpGet]
         [Route("{roleId}")]
-        public async Task<AspNetRoles?> GetRoleById(string roleId)
+        public async Task<RoleModel?> GetRoleById(string roleId)
         {
             return await _service.GetRoleByIdAsync(roleId);
         }

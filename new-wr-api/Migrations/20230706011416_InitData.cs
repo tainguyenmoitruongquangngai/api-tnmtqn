@@ -17,11 +17,11 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -38,12 +38,12 @@ namespace new_wr_api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -72,117 +72,117 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeOfConstructionId = table.Column<int>(type: "int", nullable: false),
-                    ProvinceId = table.Column<int>(type: "int", nullable: false),
-                    DistrictId = table.Column<int>(type: "int", nullable: false),
-                    CommuneId = table.Column<int>(type: "int", nullable: false),
-                    RiverId = table.Column<int>(type: "int", nullable: false),
-                    BasinId = table.Column<int>(type: "int", nullable: false),
-                    LicenseId = table.Column<int>(type: "int", nullable: false),
-                    AquiferId = table.Column<int>(type: "int", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConstructionName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConstructionCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConstructionLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    X = table.Column<double>(type: "float", nullable: false),
-                    Y = table.Column<double>(type: "float", nullable: false),
-                    Lat = table.Column<double>(type: "float", nullable: false),
-                    Lng = table.Column<double>(type: "float", nullable: false),
-                    StartDate = table.Column<int>(type: "int", nullable: false),
-                    ExploitedWS = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MiningMode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MiningMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MiningPurpose = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DischargeMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DischargeMode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DischargeWS = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DischargeFlow = table.Column<double>(type: "float", nullable: false),
-                    MaximumDischargeFlow = table.Column<double>(type: "float", nullable: false),
-                    MiningMaxFlow = table.Column<double>(type: "float", nullable: false),
-                    MaximumFlow = table.Column<double>(type: "float", nullable: false),
-                    MinimumFlow = table.Column<double>(type: "float", nullable: false),
-                    MaximumWasteWaterFlow = table.Column<double>(type: "float", nullable: false),
-                    Power = table.Column<double>(type: "float", nullable: false),
-                    PumpCapacity = table.Column<double>(type: "float", nullable: false),
-                    OverflowFlow = table.Column<double>(type: "float", nullable: false),
-                    RiseWL = table.Column<double>(type: "float", nullable: false),
-                    DeadWL = table.Column<double>(type: "float", nullable: false),
-                    PreFlootMaxWL = table.Column<double>(type: "float", nullable: false),
-                    FlootWL = table.Column<double>(type: "float", nullable: false),
-                    UpstreamWL = table.Column<double>(type: "float", nullable: false),
-                    DownstreamWL = table.Column<double>(type: "float", nullable: false),
-                    DeadCapacity = table.Column<double>(type: "float", nullable: false),
-                    UsefulCapacity = table.Column<double>(type: "float", nullable: false),
-                    TotalCapacity = table.Column<double>(type: "float", nullable: false),
-                    DamHeight = table.Column<double>(type: "float", nullable: false),
-                    DamWidth = table.Column<double>(type: "float", nullable: false),
-                    DrainElevation = table.Column<double>(type: "float", nullable: false),
-                    DrainLength = table.Column<double>(type: "float", nullable: false),
-                    DrainDiameter = table.Column<double>(type: "float", nullable: false),
-                    DrainSize = table.Column<double>(type: "float", nullable: false),
-                    PumpNumber = table.Column<double>(type: "float", nullable: false),
-                    PumpDesignFlow = table.Column<double>(type: "float", nullable: false),
-                    PumpMaxFlow = table.Column<double>(type: "float", nullable: false),
-                    SuctionTankWL = table.Column<double>(type: "float", nullable: false),
-                    WaterSupplyFlow = table.Column<double>(type: "float", nullable: false),
-                    MiningDuration = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DrillingDuration = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DrillingPurpose = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExplorationPurposes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DrillingScale = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConstructionTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DesignFloodLevel = table.Column<double>(type: "float", nullable: false),
-                    CheckFloodWL = table.Column<double>(type: "float", nullable: false),
-                    NumberMiningWells = table.Column<double>(type: "float", nullable: false),
-                    AmountWaterExploited = table.Column<double>(type: "float", nullable: false),
-                    NumberMonitoringWells = table.Column<double>(type: "float", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WellNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MonitoringWellWL = table.Column<double>(type: "float", nullable: false),
-                    WellWL = table.Column<double>(type: "float", nullable: false),
-                    WaterDepthFrom = table.Column<double>(type: "float", nullable: false),
-                    WaterDepthTo = table.Column<double>(type: "float", nullable: false),
-                    LowWL = table.Column<double>(type: "float", nullable: false),
-                    StaticWL = table.Column<double>(type: "float", nullable: false),
-                    DynamicWL = table.Column<double>(type: "float", nullable: false),
-                    VolumeOfExplorationItems = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WaterExtractionFlowDesign = table.Column<double>(type: "float", nullable: false),
-                    WaterExtractionFlowReality = table.Column<double>(type: "float", nullable: false),
-                    ConstructionDetailLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RealityWateringArea = table.Column<double>(type: "float", nullable: false),
-                    WateringAreaDesigned = table.Column<double>(type: "float", nullable: false),
-                    GuaranteedFlow = table.Column<double>(type: "float", nullable: false),
-                    Hmax = table.Column<double>(type: "float", nullable: false),
-                    Hmin = table.Column<double>(type: "float", nullable: false),
-                    Htt = table.Column<double>(type: "float", nullable: false),
-                    RealityFlow = table.Column<double>(type: "float", nullable: false),
-                    FlowDesigned = table.Column<double>(type: "float", nullable: false),
-                    FlowAvgForYears = table.Column<double>(type: "float", nullable: false),
-                    RainAvgForYears = table.Column<double>(type: "float", nullable: false),
-                    BasinArea = table.Column<double>(type: "float", nullable: false),
-                    AverageDischargeFlow = table.Column<double>(type: "float", nullable: false),
-                    SmallPlanningArea = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GuaranteedPower = table.Column<double>(type: "float", nullable: false),
-                    ConstructionLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KqKf = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DamElevation = table.Column<double>(type: "float", nullable: false),
-                    AveragePumpTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaximumPumpTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MinimumPumpTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaximumDischargeFlowPre = table.Column<double>(type: "float", nullable: false),
-                    CapacityPre = table.Column<double>(type: "float", nullable: false),
-                    DownstreamWLPre = table.Column<double>(type: "float", nullable: false),
-                    UpstreamWLPre = table.Column<double>(type: "float", nullable: false),
-                    MinimumFlowPre = table.Column<double>(type: "float", nullable: false),
-                    MaximumFlowPre = table.Column<double>(type: "float", nullable: false),
+                    TypeOfConstructionId = table.Column<int>(type: "int", nullable: true),
+                    ProvinceId = table.Column<int>(type: "int", nullable: true),
+                    DistrictId = table.Column<int>(type: "int", nullable: true),
+                    CommuneId = table.Column<int>(type: "int", nullable: true),
+                    RiverId = table.Column<int>(type: "int", nullable: true),
+                    BasinId = table.Column<int>(type: "int", nullable: true),
+                    LicenseId = table.Column<int>(type: "int", nullable: true),
+                    AquiferId = table.Column<int>(type: "int", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConstructionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConstructionCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConstructionLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    X = table.Column<double>(type: "float", nullable: true),
+                    Y = table.Column<double>(type: "float", nullable: true),
+                    Lat = table.Column<double>(type: "float", nullable: true),
+                    Lng = table.Column<double>(type: "float", nullable: true),
+                    StartDate = table.Column<int>(type: "int", nullable: true),
+                    ExploitedWS = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiningMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiningMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MiningPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DischargeMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DischargeMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DischargeWS = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DischargeFlow = table.Column<double>(type: "float", nullable: true),
+                    MaximumDischargeFlow = table.Column<double>(type: "float", nullable: true),
+                    MiningMaxFlow = table.Column<double>(type: "float", nullable: true),
+                    MaximumFlow = table.Column<double>(type: "float", nullable: true),
+                    MinimumFlow = table.Column<double>(type: "float", nullable: true),
+                    MaximumWasteWaterFlow = table.Column<double>(type: "float", nullable: true),
+                    Power = table.Column<double>(type: "float", nullable: true),
+                    PumpCapacity = table.Column<double>(type: "float", nullable: true),
+                    OverflowFlow = table.Column<double>(type: "float", nullable: true),
+                    RiseWL = table.Column<double>(type: "float", nullable: true),
+                    DeadWL = table.Column<double>(type: "float", nullable: true),
+                    PreFlootMaxWL = table.Column<double>(type: "float", nullable: true),
+                    FlootWL = table.Column<double>(type: "float", nullable: true),
+                    UpstreamWL = table.Column<double>(type: "float", nullable: true),
+                    DownstreamWL = table.Column<double>(type: "float", nullable: true),
+                    DeadCapacity = table.Column<double>(type: "float", nullable: true),
+                    UsefulCapacity = table.Column<double>(type: "float", nullable: true),
+                    TotalCapacity = table.Column<double>(type: "float", nullable: true),
+                    DamHeight = table.Column<double>(type: "float", nullable: true),
+                    DamWidth = table.Column<double>(type: "float", nullable: true),
+                    DrainElevation = table.Column<double>(type: "float", nullable: true),
+                    DrainLength = table.Column<double>(type: "float", nullable: true),
+                    DrainDiameter = table.Column<double>(type: "float", nullable: true),
+                    DrainSize = table.Column<double>(type: "float", nullable: true),
+                    PumpNumber = table.Column<double>(type: "float", nullable: true),
+                    PumpDesignFlow = table.Column<double>(type: "float", nullable: true),
+                    PumpMaxFlow = table.Column<double>(type: "float", nullable: true),
+                    SuctionTankWL = table.Column<double>(type: "float", nullable: true),
+                    WaterSupplyFlow = table.Column<double>(type: "float", nullable: true),
+                    MiningDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DrillingDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DrillingPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExplorationPurposes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DrillingScale = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConstructionTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DesignFloodLevel = table.Column<double>(type: "float", nullable: true),
+                    CheckFloodWL = table.Column<double>(type: "float", nullable: true),
+                    NumberMiningWells = table.Column<double>(type: "float", nullable: true),
+                    AmountWaterExploited = table.Column<double>(type: "float", nullable: true),
+                    NumberMonitoringWells = table.Column<double>(type: "float", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WellNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MonitoringWellWL = table.Column<double>(type: "float", nullable: true),
+                    WellWL = table.Column<double>(type: "float", nullable: true),
+                    WaterDepthFrom = table.Column<double>(type: "float", nullable: true),
+                    WaterDepthTo = table.Column<double>(type: "float", nullable: true),
+                    LowWL = table.Column<double>(type: "float", nullable: true),
+                    StaticWL = table.Column<double>(type: "float", nullable: true),
+                    DynamicWL = table.Column<double>(type: "float", nullable: true),
+                    VolumeOfExplorationItems = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WaterExtractionFlowDesign = table.Column<double>(type: "float", nullable: true),
+                    WaterExtractionFlowReality = table.Column<double>(type: "float", nullable: true),
+                    ConstructionDetailLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RealityWateringArea = table.Column<double>(type: "float", nullable: true),
+                    WateringAreaDesigned = table.Column<double>(type: "float", nullable: true),
+                    GuaranteedFlow = table.Column<double>(type: "float", nullable: true),
+                    Hmax = table.Column<double>(type: "float", nullable: true),
+                    Hmin = table.Column<double>(type: "float", nullable: true),
+                    Htt = table.Column<double>(type: "float", nullable: true),
+                    RealityFlow = table.Column<double>(type: "float", nullable: true),
+                    FlowDesigned = table.Column<double>(type: "float", nullable: true),
+                    FlowAvgForYears = table.Column<double>(type: "float", nullable: true),
+                    RainAvgForYears = table.Column<double>(type: "float", nullable: true),
+                    BasinArea = table.Column<double>(type: "float", nullable: true),
+                    AverageDischargeFlow = table.Column<double>(type: "float", nullable: true),
+                    SmallPlanningArea = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GuaranteedPower = table.Column<double>(type: "float", nullable: true),
+                    ConstructionLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    KqKf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DamElevation = table.Column<double>(type: "float", nullable: true),
+                    AveragePumpTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaximumPumpTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MinimumPumpTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaximumDischargeFlowPre = table.Column<double>(type: "float", nullable: true),
+                    CapacityPre = table.Column<double>(type: "float", nullable: true),
+                    DownstreamWLPre = table.Column<double>(type: "float", nullable: true),
+                    UpstreamWLPre = table.Column<double>(type: "float", nullable: true),
+                    MinimumFlowPre = table.Column<double>(type: "float", nullable: true),
+                    MaximumFlowPre = table.Column<double>(type: "float", nullable: true),
                     TimePre = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDisconnect = table.Column<bool>(type: "bit", nullable: false),
                     IsError = table.Column<bool>(type: "bit", nullable: false),
-                    Change = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Change = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -197,14 +197,14 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ParentId = table.Column<int>(type: "int", nullable: false),
-                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeSlug = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: true),
+                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TypeSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -219,19 +219,35 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermitAccess = table.Column<bool>(type: "bit", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dashboards", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Functions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PermitCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermitName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Functions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -254,21 +270,21 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LicenseName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LicenseNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LicenseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LicenseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SignDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IssueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LicensingAuthorities = table.Column<int>(type: "int", nullable: false),
-                    LicenseFile = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RelatedDocumentFile = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LicenseRequestFile = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LicensingAuthorities = table.Column<int>(type: "int", nullable: true),
+                    LicenseFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RelatedDocumentFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LicenseRequestFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsRevoked = table.Column<bool>(type: "bit", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -283,23 +299,57 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DashboardId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PermitName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PermitCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DashboardId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermitName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermitCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Permissions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleDashboards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DashboardId = table.Column<int>(type: "int", nullable: false),
+                    FileControl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermitAccess = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleDashboards", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserDashboards",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DashboardId = table.Column<int>(type: "int", nullable: false),
+                    FileControl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermitAccess = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserDashboards", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -476,6 +526,9 @@ namespace new_wr_api.Migrations
                 name: "Dashboards");
 
             migrationBuilder.DropTable(
+                name: "Functions");
+
+            migrationBuilder.DropTable(
                 name: "LicenseConstructions");
 
             migrationBuilder.DropTable(
@@ -483,6 +536,12 @@ namespace new_wr_api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Permissions");
+
+            migrationBuilder.DropTable(
+                name: "RoleDashboards");
+
+            migrationBuilder.DropTable(
+                name: "UserDashboards");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

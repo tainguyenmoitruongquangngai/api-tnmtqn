@@ -122,10 +122,10 @@ namespace new_wr_api.Service
 
             // Remove all existing roles of the user
             var existingRoles = await _userManager.GetRolesAsync(user!);
-            await _userManager.RemoveFromRolesAsync(user, existingRoles);
+            await _userManager.RemoveFromRolesAsync(user!, existingRoles);
 
             // Add the new role to the user
-            await _userManager.AddToRoleAsync(user, model.roleName);
+            await _userManager.AddToRoleAsync(user!, model.roleName);
 
             return true;
         }

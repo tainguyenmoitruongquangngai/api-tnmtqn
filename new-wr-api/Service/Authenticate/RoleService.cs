@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
@@ -9,23 +10,51 @@ namespace new_wr_api.Service
     {
         private readonly RoleManager<AspNetRoles> _roleManager;
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
 
-        public RoleService(IServiceProvider serviceProvider, DatabaseContext context)
+        public RoleService(IServiceProvider serviceProvider, DatabaseContext context, IMapper mapper)
         {
             _roleManager = serviceProvider.GetRequiredService<RoleManager<AspNetRoles>>();
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<AspNetRoles>> GetAllRolesAsync()
+        public async Task<List<RoleModel>> GetAllRolesAsync()
         {
-            return await _context.Roles.Where(u => !u.IsDeleted).ToListAsync();
+            var items = await _context.Roles.ToListAsync();
+            var listItems = _mapper.Map<List<RoleModel>>(items);
+
+            foreach (var item in listItems)
+            {
+                var dashIds = _context!.RoleDashboards!.Where(x => x.RoleId == item.Id).Select(x => x.DashboardId).ToList();
+                var dashboards = await _context!.Dashboards!.Where(x => dashIds.Contains(x.Id)).ToListAsync();
+                item.Dashboards = _mapper.Map<List<DashboardModel>>(dashboards);
+                foreach (var dash in item.Dashboards)
+                {
+                    var functions = await _context!.Functions!.Where(x => x.Id > 0).ToListAsync();
+                    dash.Functions = _mapper.Map<List<FunctionModel>>(functions);
+                }
+            }
+
+            return listItems;
         }
 
-        public async Task<AspNetRoles?> GetRoleByIdAsync(string roleId)
+        public async Task<RoleModel> GetRoleByIdAsync(string roleId)
         {
-            var res = await _roleManager.FindByIdAsync(roleId);
-            return res;
+            var item = await _roleManager.FindByIdAsync(roleId);
+            var role = _mapper.Map<RoleModel>(item);
+            var dashIds = _context!.RoleDashboards!.Where(x => x.RoleId == roleId).Select(x => x.DashboardId).ToList();
+            var dashboards = await _context!.Dashboards!.Where(x => dashIds.Contains(x.Id)).ToListAsync();
+            role.Dashboards = _mapper.Map<List<DashboardModel>>(dashboards);
+            foreach (var dash in role.Dashboards)
+            {
+                var functions = await _context!.Functions!.Where(x => x.Id > 0).ToListAsync();
+                dash.Functions = _mapper.Map<List<FunctionModel>>(functions);
+            }
+
+            return role;
         }
+
 
         public async Task<IdentityResult> SaveRoleAsync(RoleModel model)
         {

@@ -40,7 +40,7 @@ namespace new_wr_api.Service
                 {
                     Id = u.Id,
                     UserName = u.UserName!,
-                    FullName = u.FullName,
+                    FullName = u.FullName!,
                     Email = u.Email!,
                     PhoneNumber = u.PhoneNumber!
                 };
