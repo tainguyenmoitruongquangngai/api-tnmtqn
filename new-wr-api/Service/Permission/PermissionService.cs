@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
-using System.Security.Claims;
 
 namespace new_wr_api.Service
 {
@@ -55,11 +54,22 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeletePermissionAsync(PermissionModel modle)
         {
-            var existingItem = await _context.Permissions!.FirstOrDefaultAsync(d => d.FunctionId == modle.FunctionId && d.DashboardId == modle.DashboardId);
+            if (modle.RoleId != null)
+            {
+                var existingItem = await _context.Permissions!.FirstOrDefaultAsync(d => d.FunctionId == modle.FunctionId && d.DashboardId == modle.DashboardId && d.RoleId == modle.RoleId);
 
-            if (existingItem == null) { return false; }
+                if (existingItem == null) { return false; }
 
-            _context.Permissions!.Remove(existingItem);
+                _context.Permissions!.Remove(existingItem);
+            }
+            else if (modle.UserId != null)
+            {
+                var existingItem = await _context.Permissions!.FirstOrDefaultAsync(d => d.FunctionId == modle.FunctionId && d.DashboardId == modle.DashboardId && d.UserId == modle.UserId);
+
+                if (existingItem == null) { return false; }
+
+                _context.Permissions!.Remove(existingItem);
+            }
             await _context.SaveChangesAsync();
             return true;
         }
