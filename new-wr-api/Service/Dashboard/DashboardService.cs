@@ -36,7 +36,7 @@ namespace new_wr_api.Service
 
         public async Task<List<RoleDashboardModel>> GetDashboardByRoleAsync(string roleName)
         {
-            var role = await _context!.Roles!.FirstOrDefaultAsync(x => x!.Name!.ToLower().Contains(roleName));
+            var role = await _context!.Roles!.FirstOrDefaultAsync(x => x!.Name!.ToLower() == roleName.ToLower());
             var dashboards = await _context!.Dashboards!.Where(x => x.IsDeleted == false).ToListAsync();
             var roleDashboards = new List<RoleDashboardModel>();
 
@@ -74,19 +74,43 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<List<DashboardModel>> GetDashboardByUserAsync(UserModel user)
+        public async Task<List<UserDashboardModel>> GetDashboardByUserAsync(string userName)
         {
-            var dashId = _context!.UserDashboards!.Where(x => x.UserId == user.Id).Select(x => x.DashboardId).ToList();
-            var dashboards = await _context!.Dashboards!.Where(x => dashId.Contains(x.Id)).ToListAsync();
-            var dashboardModels = _mapper.Map<List<DashboardModel>>(dashboards);
+            var user = await _context!.Users!.FirstOrDefaultAsync(x => x!.UserName!.ToLower() == userName.ToLower());
+            var dashboards = await _context!.Dashboards!.Where(x => x.IsDeleted == false).ToListAsync();
+            var userDashboards = new List<UserDashboardModel>();
 
-            var allFunctions = await _context!.Functions!.ToListAsync();
-            foreach (var dashboardModel in dashboardModels)
+            foreach (var dashboard in dashboards)
             {
-                dashboardModel.Functions = _mapper.Map<List<FunctionModel>>(allFunctions);
+                var udash = await _context!.UserDashboards!
+                    .FirstOrDefaultAsync(x => x.UserName == userName && x.DashboardId == dashboard.Id);
+
+                var model = new UserDashboardModel
+                {
+                    DashboardId = dashboard.Id,
+                    DashboardName = dashboard.Name,
+                    FileControl = dashboard.Path,
+                    UserId = user?.Id
+                };
+
+                if (udash != null)
+                {
+                    model.Id = udash.Id;
+                    model.UserId = udash.UserId;
+                    model.UserName = udash.UserName;
+                    model.PermitAccess = (bool)udash.PermitAccess!;
+                }
+                else
+                {
+                    model.UserId = user?.Id;
+                    model.UserName = user?.UserName;
+                    model.PermitAccess = false;
+                }
+
+                userDashboards.Add(model);
             }
 
-            return dashboardModels;
+            return _mapper.Map<List<UserDashboardModel>>(userDashboards);
         }
 
         public async Task<DashboardModel?> GetDashboardByIdAsync(int Id)

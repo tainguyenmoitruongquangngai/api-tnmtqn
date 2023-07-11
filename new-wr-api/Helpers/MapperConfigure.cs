@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using new_wr_api.Data;
 using new_wr_api.Models;
+using new_wr_api.Models.Authenticate;
 
 namespace new_wr_api.Helpers
 {
@@ -11,6 +12,10 @@ namespace new_wr_api.Helpers
 
             //Authenticatiion
             CreateMap<AspNetUsers, UserModel>().ReverseMap();
+            CreateMap<AspNetUsers, UserInfoModel>().ForMember(dest => dest.Dashboards, opt =>
+            {
+                opt.MapFrom((src, dest) => dest.Dashboards);
+            }).ReverseMap();
             CreateMap<AspNetRoles, RoleModel>()
             .ForMember(dest => dest.Dashboards, opt =>
             {

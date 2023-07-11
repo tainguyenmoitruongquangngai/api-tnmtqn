@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class DashboardController : ControllerBase
     {
         private readonly DashboardService _service;
@@ -30,6 +30,13 @@ namespace new_wr_api.Controllers
         public async Task<List<RoleDashboardModel>> GetAllDashboardByRole(string roleName)
         {
             return await _service.GetDashboardByRoleAsync(roleName);
+        }
+
+        [HttpGet]
+        [Route("listbyuser/{userName}")]
+        public async Task<List<UserDashboardModel>> GetAllDashboardByUser(string userName)
+        {
+            return await _service.GetDashboardByUserAsync(userName);
         }
 
 

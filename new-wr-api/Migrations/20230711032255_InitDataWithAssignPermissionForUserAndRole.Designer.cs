@@ -12,8 +12,8 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230706114303_Update_Collumn_PermitId_in_Permission_Table")]
-    partial class Update_Collumn_PermitId_in_Permission_Table
+    [Migration("20230711032255_InitDataWithAssignPermissionForUserAndRole")]
+    partial class InitDataWithAssignPermissionForUserAndRole
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,7 +146,7 @@ namespace new_wr_api.Migrations
                     b.Property<string>("CreatedUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsDefault")
@@ -822,16 +822,16 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DashboardId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PermitCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PermitId")
+                    b.Property<int?>("DashboardId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PermitName")
+                    b.Property<string>("FunctionCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FunctionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FunctionName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")

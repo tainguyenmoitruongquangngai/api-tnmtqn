@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Models;
+using new_wr_api.Models.Authenticate;
 using System.Data;
 using System.Security.Claims;
 
@@ -59,6 +60,42 @@ namespace new_wr_api.Service
             }
 
             return users;
+        }
+
+        public async Task<UserInfoModel> GetUserInfoByIdAsync(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            var userInfo = _mapper.Map<UserInfoModel>(user);
+
+            var roles = await _userManager.GetRolesAsync(user!);
+            var roleName = roles.FirstOrDefault();
+            userInfo.Role = roleName;
+
+            var dashIds = _context!.UserDashboards!.Where(x => x.UserId == userInfo.Id).Select(x => x.DashboardId).ToList();
+            var dashboards = await _context!.Dashboards!.Where(x => dashIds.Contains(x.Id)).ToListAsync();
+            userInfo.Dashboards = _mapper.Map<List<DashboardModel>>(dashboards);
+            foreach (var dash in userInfo.Dashboards)
+            {
+                var functions = await _context!.Functions!.Where(x => x.Id > 0).ToListAsync();
+                dash.Functions = _mapper.Map<List<FunctionModel>>(functions);
+                foreach (var function in dash.Functions)
+                {
+                    var existingPermission = await _context!.Permissions!
+                        .FirstOrDefaultAsync(d => d.FunctionId == function.Id && d.DashboardId == dash.Id && d.UserId == userInfo.Id);
+
+                    if (existingPermission != null)
+                    {
+                        function.Status = true;
+                    }
+                    else
+                    {
+                        function.Status = false;
+                    }
+                }
+            }
+
+            return userInfo;
+
         }
 
         public async Task<UserModel> GetUserByIdAsync(string userId)

@@ -19,6 +19,7 @@ services.AddScoped<UserService>();
 services.AddScoped<RoleService>();
 services.AddScoped<DashboardService>();
 services.AddScoped<RoleDashboardService>();
+services.AddScoped<UserDashboardService>();
 services.AddScoped<PermissionService>();
 
 //Other Service
@@ -109,7 +110,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "WRQuangNgai API");
-        //c.RoutePrefix = string.Empty;
     });
 }
 

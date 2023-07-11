@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Models;
+using new_wr_api.Models.Authenticate;
 using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
@@ -31,6 +32,13 @@ namespace new_wr_api.Controllers
         public async Task<UserModel> GetUserById(string userId)
         {
             return await _service.GetUserByIdAsync(userId);
+        }
+
+        [HttpGet]
+        [Route("getuserinfo/{userId}")]
+        public async Task<UserInfoModel> GetUserInfoByIdAsync(string userId)
+        {
+            return await _service.GetUserInfoByIdAsync(userId);
         }
 
         [HttpPost]

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitData : Migration
+    public partial class InitDataWithAssignPermissionForUserAndRole : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,14 +16,14 @@ namespace new_wr_api.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -44,8 +44,8 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -176,15 +176,15 @@ namespace new_wr_api.Migrations
                     MinimumFlowPre = table.Column<double>(type: "float", nullable: true),
                     MaximumFlowPre = table.Column<double>(type: "float", nullable: true),
                     TimePre = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsDisconnect = table.Column<bool>(type: "bit", nullable: false),
-                    IsError = table.Column<bool>(type: "bit", nullable: false),
+                    IsDisconnect = table.Column<bool>(type: "bit", nullable: true),
+                    IsError = table.Column<bool>(type: "bit", nullable: true),
                     Change = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -205,8 +205,8 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -222,13 +222,13 @@ namespace new_wr_api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PermitAccess = table.Column<bool>(type: "bit", nullable: false),
+                    PermitAccess = table.Column<bool>(type: "bit", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -280,13 +280,13 @@ namespace new_wr_api.Migrations
                     LicenseFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RelatedDocumentFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LicenseRequestFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsRevoked = table.Column<bool>(type: "bit", nullable: false),
+                    IsRevoked = table.Column<bool>(type: "bit", nullable: true),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Status = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -303,15 +303,10 @@ namespace new_wr_api.Migrations
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DashboardId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PermitName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PermitCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    DashboardId = table.Column<int>(type: "int", nullable: true),
+                    FunctionId = table.Column<int>(type: "int", nullable: true),
+                    FunctionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FunctionCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -326,9 +321,9 @@ namespace new_wr_api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DashboardId = table.Column<int>(type: "int", nullable: false),
+                    DashboardId = table.Column<int>(type: "int", nullable: true),
                     FileControl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PermitAccess = table.Column<bool>(type: "bit", nullable: false)
+                    PermitAccess = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -343,9 +338,9 @@ namespace new_wr_api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DashboardId = table.Column<int>(type: "int", nullable: false),
+                    DashboardId = table.Column<int>(type: "int", nullable: true),
                     FileControl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PermitAccess = table.Column<bool>(type: "bit", nullable: false)
+                    PermitAccess = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
