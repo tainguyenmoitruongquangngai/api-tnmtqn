@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Administrator")]
     public class DashboardController : ControllerBase
     {
         private readonly DashboardService _service;

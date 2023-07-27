@@ -49,7 +49,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("change-password/{userId}")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public async Task<ActionResult<AspNetUsers>> UpdatePassword(UserModel modle, string currentPassword, string newPassword)
         {
             var res = await _repo.UpdatePasswordAsync(modle, currentPassword, newPassword);
@@ -65,7 +65,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("assign-role")]
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public async Task<ActionResult> AssignRole(AssignRoleModel model)
         {
             var res = await _repo.AssignRoleAsync(model);
