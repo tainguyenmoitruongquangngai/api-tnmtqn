@@ -31,7 +31,8 @@ namespace new_wr_api.Data
         public DbSet<ConstructionTypes>? ConstructionTypes { get; set; }
         public DbSet<Constructions>? Constructions { get; set; }
         public DbSet<Licenses>? Licenses { get; set; }
-        public DbSet<LicenseConstructions>? LicenseConstructions { get; set; }
+        public DbSet<ConstructionLicense>? ConstructionLicense { get; set; }
+        public DbSet<Business>? Business { get; set; }
         #endregion
     }
 }

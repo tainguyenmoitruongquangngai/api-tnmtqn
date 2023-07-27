@@ -14,7 +14,6 @@ namespace new_wr_api.Data
         public int? CommuneId { get; set; }
         public int? RiverId { get; set; }
         public int? BasinId { get; set; }
-        public int? LicenseId { get; set; }
         public int? AquiferId { get; set; }
         public string? UserName { get; set; } = string.Empty;
         public string? ConstructionName { get; set; } = string.Empty;
