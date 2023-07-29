@@ -31,8 +31,8 @@ namespace new_wr_api.Service
             foreach (var item in listItems)
             {
                 //LicenseFee.SupplementLicenseFee
-                var supplementLicenseFee = await _context!.LicenseFees!.Where(lf => lf.Id == item.ChildrenId).ToListAsync();
-                item.SupplementLicenseFee = _mapper.Map<List<LicenseFeeModel>>(supplementLicenseFee);
+                var supplementLicenseFee = await _context!.LicenseFees!.FirstOrDefaultAsync(lf => lf.Id == item.ChildrenId);
+                item.SupplementLicenseFee = _mapper.Map<LicenseFeeModel>(supplementLicenseFee);
             }
             return listItems;
         }

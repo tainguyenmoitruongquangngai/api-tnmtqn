@@ -10,6 +10,6 @@
         public double TotalMoney { get; set; }
         public string? FilePDF { get; set; }
         public string? Description { get; set; }
-        public List<LicenseFeeModel>? SupplementLicenseFee { get; set; }
+        public LicenseFeeModel? SupplementLicenseFee { get; set; } = null;
     }
 }
