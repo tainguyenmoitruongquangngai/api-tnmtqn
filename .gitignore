@@ -163,3 +163,4 @@ new-wr-api/obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.new-wr-api.p
 new-wr-api/obj/project.nuget.cache
 *.vsidx
 *.vsidx
+*.dll
