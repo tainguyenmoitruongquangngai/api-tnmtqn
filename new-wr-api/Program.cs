@@ -25,6 +25,7 @@ services.AddScoped<PermissionService>();
 //Other Service
 services.AddScoped<ConstructionService>();
 services.AddScoped<LicenseService>();
+services.AddScoped<LicenseFeeService>();
 
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>

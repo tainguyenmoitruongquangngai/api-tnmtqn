@@ -33,6 +33,7 @@ namespace new_wr_api.Data
         public DbSet<Licenses>? Licenses { get; set; }
         public DbSet<ConstructionLicense>? ConstructionLicense { get; set; }
         public DbSet<Business>? Business { get; set; }
+        public DbSet<LicenseFees>? LicenseFees { get; set; }
         #endregion
     }
 }
