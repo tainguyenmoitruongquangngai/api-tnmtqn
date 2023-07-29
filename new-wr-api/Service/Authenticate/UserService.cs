@@ -118,7 +118,7 @@ namespace new_wr_api.Service
                 user.Email = model.Email;
                 user.FullName = model.FullName;
                 user.PhoneNumber = model.PhoneNumber;
-                user.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                user.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 user.CreatedTime = DateTime.Now;
                 user.IsDeleted = false;
                 user.Status = true;
@@ -142,7 +142,7 @@ namespace new_wr_api.Service
                 existingItem.FullName = model.FullName;
                 existingItem.PhoneNumber = model.PhoneNumber;
                 existingItem.ModifiedTime = DateTime.Now;
-                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 var res = await _userManager.UpdateAsync(existingItem);
                 if (res.Succeeded)
                 {

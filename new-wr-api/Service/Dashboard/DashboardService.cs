@@ -134,7 +134,7 @@ namespace new_wr_api.Service
                 newItem.IsDeleted = false;
                 newItem.Status = true;
                 newItem.CreatedTime = DateTime.Now;
-                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 _context.Dashboards!.Add(newItem);
             }
             else
@@ -144,7 +144,7 @@ namespace new_wr_api.Service
                 updateItem = _mapper.Map(model, updateItem);
 
                 updateItem!.ModifiedTime = DateTime.Now;
-                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 _context.Dashboards!.Update(updateItem);
             }
 

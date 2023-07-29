@@ -64,14 +64,14 @@ namespace new_wr_api.Service
                 newItem.IsDeleted = false;
                 newItem.Status = true;
                 newItem.CreatedTime = DateTime.Now;
-                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 _context.Licenses!.Add(newItem);
             }
             else
             {
                 existingItem = _mapper.Map(model, existingItem);
                 existingItem!.ModifiedTime = DateTime.Now;
-                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 _context.Licenses!.Update(existingItem);
             }
 
