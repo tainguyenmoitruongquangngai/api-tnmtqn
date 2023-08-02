@@ -25,7 +25,11 @@ services.AddScoped<PermissionService>();
 //Other Service
 services.AddScoped<ConstructionService>();
 services.AddScoped<LicenseService>();
+<<<<<<< Updated upstream
 services.AddScoped<LicenseFeeService>();
+=======
+services.AddScoped<BusinessService>();
+>>>>>>> Stashed changes
 
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
