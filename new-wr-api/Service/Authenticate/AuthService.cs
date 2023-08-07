@@ -40,7 +40,6 @@ namespace new_wr_api.Service
             user.FullName = model.FullName;
             user.PhoneNumber = model.PhoneNumber;
             user.IsDeleted = false;
-            user.Status = true;
 
             var res = await _userManager.CreateAsync(user, model.Password);
 

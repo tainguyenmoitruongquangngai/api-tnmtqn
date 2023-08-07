@@ -41,7 +41,6 @@ namespace new_wr_api.Service
             {
                 var newItem = _mapper.Map<Business>(model);
                 newItem.IsDeleted = false;
-                newItem.Status = true;
                 newItem.CreatedTime = DateTime.Now;
                 newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
                 _context.Business!.Add(newItem);

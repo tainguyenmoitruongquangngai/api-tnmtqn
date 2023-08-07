@@ -41,7 +41,6 @@ namespace new_wr_api.Service
             {
                 var newItem = _mapper.Map<Constructions>(model);
                 newItem.IsDeleted = false;
-                newItem.Status = true;
                 newItem.CreatedTime = DateTime.Now;
                 newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 _context.Constructions!.Add(newItem);
@@ -62,9 +61,9 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> DeleteConstructionAsync(ConstructionModel modle)
+        public async Task<bool> DeleteConstructionAsync(ConstructionModel model)
         {
-            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == modle.Id);
+            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
             if (existingItem == null) { return false; }
 

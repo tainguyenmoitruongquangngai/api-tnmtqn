@@ -99,7 +99,6 @@ namespace new_wr_api.Service
                 item.Name = model.Name;
                 item.IsDefault = model.IsDefault;
                 item.IsDeleted = false;
-                item.Status = true;
 
                 await _roleManager.CreateAsync(item);
                 return true;

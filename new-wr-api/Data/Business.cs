@@ -17,7 +17,6 @@
         public DateTime? ModifiedTime { get; set; }
         public string? CreatedUser { get; set; }
         public string? ModifiedUser { get; set; }
-        public bool? Status { get; set; }
         public bool? IsDeleted { get; set; }
     }
 }

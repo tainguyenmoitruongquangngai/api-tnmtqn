@@ -121,7 +121,6 @@ namespace new_wr_api.Service
                 user.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 user.CreatedTime = DateTime.Now;
                 user.IsDeleted = false;
-                user.Status = true;
 
                 var res = await _userManager.CreateAsync(user, model.Password);
 

@@ -132,7 +132,6 @@ namespace new_wr_api.Service
             {
                 var newItem = _mapper.Map<Dashboards>(model);
                 newItem.IsDeleted = false;
-                newItem.Status = true;
                 newItem.CreatedTime = DateTime.Now;
                 newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 _context.Dashboards!.Add(newItem);

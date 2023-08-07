@@ -11,7 +11,6 @@
         public string? CreatedUser { get; set; } = string.Empty;
         public DateTime? ModifiedTime { get; set; }
         public string? ModifiedUser { get; set; } = string.Empty;
-        public Nullable<bool> Status { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
     }
 }
