@@ -65,6 +65,10 @@ namespace new_wr_api.Service
                         item.LicenseValidity = "con-hieu-luc";
                     }
                 }
+                else
+                {
+                    item.LicenseValidity = "con-hieu-luc";
+                }
 
                 var licTypes = await _context!.LicenseTypes!.FirstOrDefaultAsync(l => l.Id == item.LicensingTypeId);
                 item.LicenseTypeName = licTypes?.TypeName;
@@ -72,10 +76,11 @@ namespace new_wr_api.Service
 
                 if (cons != null)
                 {
-                    item.ConstructionId = cons.Id;
+                    var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(l => l.Id == cons.ConstructionTypeId);
+                    item.ConstructionTypeSlug = consTypes?.TypeSlug;
+                    item.ConstructionName = cons.ConstructionName;
                     item.CommuneId = cons.CommuneId;
                     item.DistrictId = cons.DistrictId;
-                    item.ConstructionTypeId = cons.ConstructionTypeId;
                     item.BasinId = cons.BasinId;
                 }
             }
