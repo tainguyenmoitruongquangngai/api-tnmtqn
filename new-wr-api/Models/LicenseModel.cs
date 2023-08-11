@@ -20,16 +20,19 @@
 
         //More data
 
-        public List<ConstructionModel>? Constructions { get; set; }
+        public string? LicensingTypeSlug { get; set; }
+        public ConstructionModel? Constructions { get; set; }
         public BusinessModel? Business { get; set; }
         public List<LicenseModel>? OldLicenses { get; set; }
+        public string? LicenseTypeName { get; set; }
 
         //For fillter
-        public int? LicensingEffect { get; set; }
-        public List<int>? CommuneId { get; set; }
-        public List<int>? DistrictId { get; set; }
-        public List<int>? ConstructionTypeId { get; set; }
-        public List<int>? BasinId { get; set; }
-        public List<int>? ConstructionIds { get; set; }
+        public string? LicenseValidity { get; set; }
+        public string? LicenseTypeSlug { get; set; }
+        public int? CommuneId { get; set; }
+        public int? DistrictId { get; set; }
+        public int? ConstructionTypeId { get; set; }
+        public int? BasinId { get; set; }
+        public int? ConstructionId { get; set; }
     }
 }

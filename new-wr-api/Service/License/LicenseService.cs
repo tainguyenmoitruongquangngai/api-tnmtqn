@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using new_wr_api.Data;
 using new_wr_api.Models;
 using System.Security.Claims;
@@ -36,25 +37,46 @@ namespace new_wr_api.Service
 
                 //License.Constructions
                 var consIds = _context!.ConstructionLicense!.Where(x => x.LicenseId == item.Id).Select(x => x.ConstructionId).ToList();
-                var cons = await _context!.Constructions!.Where(x => consIds.Contains(x.Id)).ToListAsync();
-                item.Constructions = _mapper.Map<List<ConstructionModel>>(cons);
+                var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => consIds.Contains(x.Id));
+                item.Constructions = _mapper.Map<ConstructionModel>(cons);
 
                 //License.Business
                 var business = await _context!.Business!.FirstOrDefaultAsync(b => b.Id == item.BusinessId && b.IsDeleted == false);
                 item.Business = _mapper.Map<BusinessModel>(business);
 
                 //For fillter
-                if (business != null)
+                if (item.IsRevoked == true)
                 {
-                    item.BusinessId = business.Id;
+                    item.LicenseValidity = "da-bi-thu-hoi";
                 }
+                else if (item.ExpireDate.HasValue)
+                {
+                    DateTime expireDate = item.ExpireDate.Value; // Convert nullable DateTime? to non-nullable DateTime
+                    if (expireDate.AddDays(160) >= DateTime.Today)
+                    {
+                        item.LicenseValidity = "sap-het-hieu-luc";
+                    }
+                    else if (expireDate < DateTime.Today)
+                    {
+                        item.LicenseValidity = "het-hieu-luc";
+                    }
+                    else if (expireDate > DateTime.Today)
+                    {
+                        item.LicenseValidity = "con-hieu-luc";
+                    }
+                }
+
+                var licTypes = await _context!.LicenseTypes!.FirstOrDefaultAsync(l => l.Id == item.LicensingTypeId);
+                item.LicenseTypeName = licTypes?.TypeName;
+                item.LicenseTypeSlug = licTypes?.TypeSlug;
+
                 if (cons != null)
                 {
-                    item.ConstructionIds = cons.Select(c => c.Id).ToList();
-                    item.CommuneId = cons.Select(c => c.CommuneId ?? 0).ToList();
-                    item.DistrictId = cons.Select(c => c.DistrictId ?? 0).ToList();
-                    item.ConstructionTypeId = cons.Select(c => c.ConstructionTypeId ?? 0).ToList();
-                    item.BasinId = cons.Select(c => c.BasinId ?? 0).ToList();
+                    item.ConstructionId = cons.Id;
+                    item.CommuneId = cons.CommuneId;
+                    item.DistrictId = cons.DistrictId;
+                    item.ConstructionTypeId = cons.ConstructionTypeId;
+                    item.BasinId = cons.BasinId;
                 }
             }
 
