@@ -17,8 +17,19 @@
         public string RelatedDocumentFile { get; set; } = string.Empty;
         public string LicenseRequestFile { get; set; } = string.Empty;
         public bool IsRevoked { get; set; } = false;
+
+        //More data
+
         public List<ConstructionModel>? Constructions { get; set; }
         public BusinessModel? Business { get; set; }
         public List<LicenseModel>? OldLicenses { get; set; }
+
+        //For fillter
+        public int? LicensingEffect { get; set; }
+        public List<int>? CommuneId { get; set; }
+        public List<int>? DistrictId { get; set; }
+        public List<int>? ConstructionTypeId { get; set; }
+        public List<int>? BasinId { get; set; }
+        public List<int>? ConstructionIds { get; set; }
     }
 }

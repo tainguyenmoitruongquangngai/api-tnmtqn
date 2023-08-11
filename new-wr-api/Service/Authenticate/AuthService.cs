@@ -68,6 +68,9 @@ namespace new_wr_api.Service
                 new Claim(JwtRegisteredClaimNames.Sub, user!.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Name, user.UserName ?? ""),
+                new Claim(ClaimTypes.MobilePhone, user.PhoneNumber ?? ""),
+                new Claim(ClaimTypes.Email, user.Email ?? ""),
+                new Claim(ClaimTypes.NameIdentifier, user.FullName ?? ""),
             };
 
             foreach (var role in roles)
@@ -88,19 +91,7 @@ namespace new_wr_api.Service
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-            var response = new
-            {
-                user = new
-                {
-                    email = user.Email,
-                    fullName = user.FullName,
-                    phoneNumber = user.PhoneNumber,
-                    userName = user.UserName,
-                },
-                token = jwt,
-                role = roles,
-            };
-            return JsonConvert.SerializeObject(response);
+            return JsonConvert.SerializeObject(jwt);
         }
 
         public async Task<bool> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword)

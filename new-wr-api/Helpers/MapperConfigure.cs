@@ -56,6 +56,9 @@ namespace new_wr_api.Helpers
             //ConstructionTypes
             CreateMap<ConstructionTypes, ConstructionTypesModel>().ReverseMap();
 
+            //ConstructionLicense
+            CreateMap<ConstructionLicense, ConstructionLicenseModel>().ReverseMap();
+
             //Licenses
             CreateMap<Licenses, LicenseModel>()
                 .ForMember(cons => cons.Constructions, opt =>

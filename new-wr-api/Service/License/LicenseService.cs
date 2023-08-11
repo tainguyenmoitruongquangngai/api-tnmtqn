@@ -37,11 +37,25 @@ namespace new_wr_api.Service
                 //License.Constructions
                 var consIds = _context!.ConstructionLicense!.Where(x => x.LicenseId == item.Id).Select(x => x.ConstructionId).ToList();
                 var cons = await _context!.Constructions!.Where(x => consIds.Contains(x.Id)).ToListAsync();
-                item.Constructions = _mapper.Map<List<ConstructionModel>>(cons);                                                         
+                item.Constructions = _mapper.Map<List<ConstructionModel>>(cons);
 
                 //License.Business
                 var business = await _context!.Business!.FirstOrDefaultAsync(b => b.Id == item.BusinessId && b.IsDeleted == false);
                 item.Business = _mapper.Map<BusinessModel>(business);
+
+                //For fillter
+                if (business != null)
+                {
+                    item.BusinessId = business.Id;
+                }
+                if (cons != null)
+                {
+                    item.ConstructionIds = cons.Select(c => c.Id).ToList();
+                    item.CommuneId = cons.Select(c => c.CommuneId ?? 0).ToList();
+                    item.DistrictId = cons.Select(c => c.DistrictId ?? 0).ToList();
+                    item.ConstructionTypeId = cons.Select(c => c.ConstructionTypeId ?? 0).ToList();
+                    item.BasinId = cons.Select(c => c.BasinId ?? 0).ToList();
+                }
             }
 
             return listItems;
