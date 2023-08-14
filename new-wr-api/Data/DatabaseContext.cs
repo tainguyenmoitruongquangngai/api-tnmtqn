@@ -30,11 +30,16 @@ namespace new_wr_api.Data
         //Other database
         public DbSet<ConstructionTypes>? ConstructionTypes { get; set; }
         public DbSet<Constructions>? Constructions { get; set; }
+        public DbSet<ConstructionDetails>? ConstructionDetails { get; set; }
+        public DbSet<Locations>? Locations { get; set; }
         public DbSet<LicenseTypes>? LicenseTypes { get; set; }
         public DbSet<Licenses>? Licenses { get; set; }
         public DbSet<ConstructionLicense>? ConstructionLicense { get; set; }
         public DbSet<Business>? Business { get; set; }
         public DbSet<LicenseFees>? LicenseFees { get; set; }
+        public DbSet<Basins>? Basins { get; set; }
+        public DbSet<SubBasins>? SubBasins { get; set; }
+        public DbSet<Rivers>? Rivers { get; set; }
 
         #endregion
     }

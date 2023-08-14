@@ -61,9 +61,9 @@ namespace new_wr_api.Helpers
 
             //Licenses
             CreateMap<Licenses, LicenseModel>()
-                .ForMember(cons => cons.Constructions, opt =>
+                .ForMember(cons => cons.Construction, opt =>
                 {
-                    opt.MapFrom((src, cons) => cons.Constructions);
+                    opt.MapFrom((src, cons) => cons.Construction);
                 })
                 .ForMember(bus => bus.Business, opt =>
                 {

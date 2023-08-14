@@ -21,7 +21,7 @@
         //More data
 
         public string? LicensingTypeSlug { get; set; }
-        public ConstructionModel? Constructions { get; set; }
+        public ConstructionModel? Construction { get; set; }
         public BusinessModel? Business { get; set; }
         public List<LicenseModel>? OldLicenses { get; set; }
         public string? LicenseTypeName { get; set; }

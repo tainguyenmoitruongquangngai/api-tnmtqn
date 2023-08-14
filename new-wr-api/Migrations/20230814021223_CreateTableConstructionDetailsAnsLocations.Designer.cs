@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230814021223_CreateTableConstructionDetailsAnsLocations")]
+    partial class CreateTableConstructionDetailsAnsLocations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,40 +263,6 @@ namespace new_wr_api.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.Basins", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Basins");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Business", b =>
@@ -1172,61 +1141,6 @@ namespace new_wr_api.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.Rivers", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("BasinId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double?>("Lat")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("Long")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime?>("ModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Qtt")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("X")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Y")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rivers");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.RoleDashboards", b =>
                 {
                     b.Property<int>("Id")
@@ -1253,43 +1167,6 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RoleDashboards");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.SubBasins", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BasinId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ModifiedUser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SubBasins");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.UserDashboards", b =>

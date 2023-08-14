@@ -24,7 +24,7 @@ namespace new_wr_api.Service
         public async Task<List<LicenseModel>> GetAllLicenseAsync()
         {
             var items = await _context!.Licenses!
-                .Where(u => u.IsDeleted == false)
+                .Where(u => u.IsDeleted == false).OrderByDescending(l => l.SignDate)
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<LicenseModel>>(items);
@@ -38,7 +38,7 @@ namespace new_wr_api.Service
                 //License.Constructions
                 var consIds = _context!.ConstructionLicense!.Where(x => x.LicenseId == item.Id).Select(x => x.ConstructionId).ToList();
                 var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => consIds.Contains(x.Id));
-                item.Constructions = _mapper.Map<ConstructionModel>(cons);
+                item.Construction = _mapper.Map<ConstructionModel>(cons);
 
                 //License.Business
                 var business = await _context!.Business!.FirstOrDefaultAsync(b => b.Id == item.BusinessId && b.IsDeleted == false);
@@ -52,7 +52,7 @@ namespace new_wr_api.Service
                 else if (item.ExpireDate.HasValue)
                 {
                     DateTime expireDate = item.ExpireDate.Value; // Convert nullable DateTime? to non-nullable DateTime
-                    if (expireDate.AddDays(160) >= DateTime.Today)
+                    if (expireDate >= DateTime.Today && expireDate < DateTime.Today.AddDays(160))
                     {
                         item.LicenseValidity = "sap-het-hieu-luc";
                     }
@@ -60,7 +60,7 @@ namespace new_wr_api.Service
                     {
                         item.LicenseValidity = "het-hieu-luc";
                     }
-                    else if (expireDate > DateTime.Today)
+                    else if (expireDate > DateTime.Today.AddDays(160))
                     {
                         item.LicenseValidity = "con-hieu-luc";
                     }
