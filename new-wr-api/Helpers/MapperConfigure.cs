@@ -51,7 +51,11 @@ namespace new_wr_api.Helpers
             CreateMap<Business, BusinessModel>().ReverseMap();
 
             //Constructions
-            CreateMap<Constructions, ConstructionModel>().ReverseMap();
+            CreateMap<Constructions, ConstructionModel>()
+                .ForMember(consItem => consItem.ConstructionItems, opt =>
+                {
+                    opt.MapFrom((src, cons) => cons.ConstructionItems);
+                }).ReverseMap();
 
             //ConstructionTypes
             CreateMap<ConstructionTypes, ConstructionTypesModel>().ReverseMap();

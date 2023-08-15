@@ -23,7 +23,21 @@ namespace new_wr_api.Service
         public async Task<List<ConstructionModel>> GetAllConstructionAsync()
         {
             var items = await _context.Constructions!.Where(x => x.IsDeleted == false).ToListAsync();
-            return _mapper.Map<List<ConstructionModel>>(items);
+
+            var listItems = _mapper.Map<List<ConstructionModel>>(items);
+
+            foreach (var item in listItems)
+            {
+                var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(ct => ct.Id == item.ConstructionTypeId);
+                item.ConstructionTypeName = consTypes?.TypeName;
+                item.ConstructionTypeSlug = consTypes?.TypeSlug;
+
+                //Construcctions.ConstructionItems
+                var consItems = await _context!.ConstructionDetails!.Where(ci => ci.ConstructionId == item.Id).ToListAsync();
+                item.ConstructionItems = _mapper.Map<List<ConstructionDetailModel>>(consItems);
+            }
+
+            return listItems;
         }
 
         public async Task<ConstructionModel?> GetConstructionByIdAsync(int Id)
@@ -33,13 +47,16 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> SaveConstructionAsync(ConstructionModel model)
+        public async Task<int> SaveConstructionAsync(ConstructionModel model)
         {
+            var id = 0;
+            Constructions? newItem = null;
+
             var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
             if (existingItem == null || model.Id == 0)
             {
-                var newItem = _mapper.Map<Constructions>(model);
+                newItem = _mapper.Map<Constructions>(model);
                 newItem.IsDeleted = false;
                 newItem.CreatedTime = DateTime.Now;
                 newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
@@ -56,9 +73,24 @@ namespace new_wr_api.Service
                 _context.Constructions!.Update(updateItem);
             }
 
-            await _context.SaveChangesAsync();
+            var res = await _context.SaveChangesAsync();
+            if (res == 1)
+            {
+                if (newItem != null)
+                {
+                    id = newItem.Id;
+                }
+                else
+                {
+                    id = model.Id;
+                }
+            }
+            else
+            {
+                id = 0;
+            }
 
-            return true;
+            return id;
         }
 
 

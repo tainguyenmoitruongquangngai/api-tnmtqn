@@ -37,13 +37,13 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<Constructions>> SaveConstruction(ConstructionModel moddel)
         {
             var res = await _service.SaveConstructionAsync(moddel);
-            if (res == true)
+            if (res > 0)
             {
-                return Ok(new { message = "Construction: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Dữ liệu đã được lưu", id = res });
             }
             else
             {
-                return BadRequest(new { message = "Construction: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Lỗi lưu dữ liệu" });
             }
         }
 

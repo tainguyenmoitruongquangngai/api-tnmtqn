@@ -110,5 +110,11 @@
         public bool IsDisconnect { get; set; }
         public bool IsError { get; set; }
         public string Change { get; set; } = string.Empty;
+
+
+        //get more data
+        public List<ConstructionDetailModel>? ConstructionItems { get; set; }
+        public string? ConstructionTypeName { get; set; }
+        public string? ConstructionTypeSlug { get; set; }
     }
 }

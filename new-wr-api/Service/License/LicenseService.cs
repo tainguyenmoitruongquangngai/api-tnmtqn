@@ -95,13 +95,16 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> SaveLicenseAsync(LicenseModel model)
+        public async Task<int> SaveLicenseAsync(LicenseModel model)
         {
+            var id = 0;
+            Licenses? newItem = null;
+
             var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == model.Id);
 
             if (existingItem == null || model.Id == 0)
             {
-                var newItem = _mapper.Map<Licenses>(model);
+                newItem = _mapper.Map<Licenses>(model);
                 newItem.IsDeleted = false;
                 newItem.CreatedTime = DateTime.Now;
                 newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
@@ -115,8 +118,25 @@ namespace new_wr_api.Service
                 _context.Licenses!.Update(existingItem);
             }
 
-            await _context.SaveChangesAsync();
-            return true;
+            var res = await _context.SaveChangesAsync();
+
+            if (res == 1)
+            {
+                if (newItem != null)
+                {
+                    id = newItem.Id;
+                }
+                else
+                {
+                    id = model.Id;
+                }
+            }
+            else
+            {
+                id = 0;
+            }
+
+            return id;
         }
 
 
