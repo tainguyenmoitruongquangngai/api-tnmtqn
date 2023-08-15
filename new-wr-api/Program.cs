@@ -28,6 +28,7 @@ services.AddScoped<LicenseService>();
 services.AddScoped<LicenseFeeService>();
 services.AddScoped<BusinessService>();
 services.AddScoped<ConstructionService>();
+services.AddScoped<LocationService>();
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
 {

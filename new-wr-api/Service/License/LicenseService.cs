@@ -49,9 +49,9 @@ namespace new_wr_api.Service
                 {
                     item.LicenseValidity = "da-bi-thu-hoi";
                 }
-                else if (item.ExpireDate.HasValue)
+                else if (item.ExpriteDate.HasValue)
                 {
-                    DateTime expireDate = item.ExpireDate.Value; // Convert nullable DateTime? to non-nullable DateTime
+                    DateTime expireDate = item.ExpriteDate.Value; // Convert nullable DateTime? to non-nullable DateTime
                     if (expireDate >= DateTime.Today && expireDate < DateTime.Today.AddDays(160))
                     {
                         item.LicenseValidity = "sap-het-hieu-luc";

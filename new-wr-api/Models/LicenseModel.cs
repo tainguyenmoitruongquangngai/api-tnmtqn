@@ -10,7 +10,7 @@
         public string LicenseNumber { get; set; } = string.Empty;
         public DateTime? SignDate { get; set; }
         public DateTime? IssueDate { get; set; }
-        public DateTime? ExpireDate { get; set; }
+        public DateTime? ExpriteDate { get; set; }
         public string Duration { get; set; } = string.Empty;
         public int LicensingAuthorities { get; set; }
         public string LicenseFile { get; set; } = string.Empty;

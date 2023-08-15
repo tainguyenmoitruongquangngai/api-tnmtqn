@@ -3,7 +3,7 @@
     public class ConstructionModel
     {
         public int Id { get; set; }
-        public int TypeOfConstructionId { get; set; }
+        public int ConstructionTypeId { get; set; }
         public int ProvinceId { get; set; }
         public int DistrictId { get; set; }
         public int CommuneId { get; set; }
