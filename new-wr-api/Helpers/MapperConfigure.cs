@@ -50,6 +50,9 @@ namespace new_wr_api.Helpers
             //Business
             CreateMap<Business, BusinessModel>().ReverseMap();
 
+            //Basin
+            CreateMap<Basins, BasinModel>().ReverseMap();
+
             //Constructions
             CreateMap<Constructions, ConstructionModel>()
                 .ForMember(consItem => consItem.ConstructionItems, opt =>
@@ -78,10 +81,16 @@ namespace new_wr_api.Helpers
             //LicenseFees
             CreateMap<LicenseFees, LicenseFeeModel>().ReverseMap();
 
+            //LicenseTypes
+            CreateMap<LicenseTypes, LicenseTypesModel>().ReverseMap();
+
             //Locations
             CreateMap<Locations, LocationsModel>().ReverseMap();
             CreateMap<Locations, DistrictModel>().ReverseMap();
             CreateMap<Locations,CommuneModel>().ReverseMap();
+
+            //River
+            CreateMap<Rivers, RiverModel>().ReverseMap();
         }
     }
 }

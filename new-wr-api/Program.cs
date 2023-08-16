@@ -24,11 +24,13 @@ services.AddScoped<PermissionService>();
 
 //Other Service
 services.AddScoped<ConstructionTypesService>();
-services.AddScoped<LicenseService>();
+services.AddScoped<LicenseTypesService>();
 services.AddScoped<LicenseFeeService>();
 services.AddScoped<BusinessService>();
+services.AddScoped<BasinService>();
 services.AddScoped<ConstructionService>();
 services.AddScoped<LocationService>();
+services.AddScoped<RiverService>();
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
 {
