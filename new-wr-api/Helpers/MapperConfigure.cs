@@ -60,6 +60,9 @@ namespace new_wr_api.Helpers
                     opt.MapFrom((src, cons) => cons.ConstructionItems);
                 }).ReverseMap();
 
+            //ConstructionDetails 
+            CreateMap<ConstructionDetails, ConstructionDetailModel>().ReverseMap();
+
             //ConstructionTypes
             CreateMap<ConstructionTypes, ConstructionTypesModel>().ReverseMap();
 
@@ -87,7 +90,7 @@ namespace new_wr_api.Helpers
             //Locations
             CreateMap<Locations, LocationsModel>().ReverseMap();
             CreateMap<Locations, DistrictModel>().ReverseMap();
-            CreateMap<Locations,CommuneModel>().ReverseMap();
+            CreateMap<Locations, CommuneModel>().ReverseMap();
 
             //River
             CreateMap<Rivers, RiverModel>().ReverseMap();
