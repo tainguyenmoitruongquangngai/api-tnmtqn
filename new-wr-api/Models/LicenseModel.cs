@@ -24,6 +24,7 @@
         public ConstructionModel? Construction { get; set; }
         public BusinessModel? Business { get; set; }
         public List<LicenseModel>? OldLicenses { get; set; }
+        public List<LicenseFeeModel>? LicenseFees { get; set; }
         public string? LicenseTypeName { get; set; }
 
         //For fillter

@@ -58,7 +58,12 @@ namespace new_wr_api.Helpers
                 .ForMember(consItem => consItem.ConstructionItems, opt =>
                 {
                     opt.MapFrom((src, cons) => cons.ConstructionItems);
-                }).ReverseMap();
+                })
+                .ForMember(lic => lic.Licenses, opt =>
+                {
+                    opt.MapFrom((src, cons) => cons.Licenses);
+                })
+                .ReverseMap();
 
             //ConstructionDetails 
             CreateMap<ConstructionDetails, ConstructionDetailModel>().ReverseMap();
@@ -78,6 +83,10 @@ namespace new_wr_api.Helpers
                 .ForMember(bus => bus.Business, opt =>
                 {
                     opt.MapFrom((src, bus) => bus.Business);
+                })
+                .ForMember(licFee => licFee.LicenseFees, opt =>
+                {
+                    opt.MapFrom((src, licFee) => licFee.LicenseFees);
                 })
                 .ReverseMap();
 

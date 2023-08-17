@@ -37,6 +37,33 @@ namespace new_wr_api.Service
             return listItems;
         }
 
+        public async Task<List<LicenseFeeModel>> GetLicenseFeeByLicensingAuthoritiesAsync(string licensingAuthorities)
+        {
+            var query = _context!.LicenseFees!
+                .Where(u => u.IsDeleted == false);
+
+            if (licensingAuthorities == "minister")
+            {
+                query = query.Where(u => u.LicensingAuthorities == 0);
+            }
+            else if (licensingAuthorities == "province")
+            {
+                query = query.Where(u => u.LicensingAuthorities == 1);
+            }
+
+            var items = await query.ToListAsync();
+
+            var listItems = _mapper.Map<List<LicenseFeeModel>>(items);
+
+            foreach (var item in listItems)
+            {
+                var supplementLicenseFee = await _context!.LicenseFees!.FirstOrDefaultAsync(lf => lf.Id == item.ChildrenId);
+                item.SupplementLicenseFee = _mapper.Map<LicenseFeeModel>(supplementLicenseFee);
+            }
+
+            return listItems;
+        }
+
         public async Task<LicenseFeeModel?> GetLicenseFeeByIdAsync(int Id)
         {
             var item = await _context.LicenseFees!.FindAsync(Id);

@@ -26,6 +26,13 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
+        [Route("list/{licensingAuthorities}")]
+        public async Task<List<LicenseFeeModel>> GetLicenseFeeByLicensingAuthorities(string licensingAuthorities)
+        {
+            return (await _service.GetLicenseFeeByLicensingAuthoritiesAsync(licensingAuthorities));
+        }
+
+        [HttpGet]
         [Route("{Id}")]
         public async Task<LicenseFeeModel?> GetLicenseFeeById(int Id)
         {

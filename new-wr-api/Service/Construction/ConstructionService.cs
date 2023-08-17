@@ -22,23 +22,79 @@ namespace new_wr_api.Service
 
         public async Task<List<ConstructionModel>> GetAllConstructionAsync()
         {
-            var items = await _context.Constructions!.Where(x => x.IsDeleted == false).ToListAsync();
+            var items = await _context.Constructions!
+                                     .Where(x => x.IsDeleted == false)
+                                     .ToListAsync();
 
             var listItems = _mapper.Map<List<ConstructionModel>>(items);
 
             foreach (var item in listItems)
             {
-                var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(ct => ct.Id == item.ConstructionTypeId);
+                var consTypes = await _context!.ConstructionTypes!
+                                            .FirstOrDefaultAsync(ct => ct.Id == item.ConstructionTypeId);
+
                 item.ConstructionTypeName = consTypes?.TypeName;
+
                 item.ConstructionTypeSlug = consTypes?.TypeSlug;
 
-                //Construcctions.ConstructionItems
-                var consItems = await _context!.ConstructionDetails!.Where(ci => ci.ConstructionId == item.Id).ToListAsync();
+
+                var location = _context.Locations?
+                   .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString()).FirstOrDefault();
+
+                item.DistrictName = location?.DistrictName;
+                item.CommuneName = location?.CommuneName;
+
+                item.RiverName = _context.Rivers?
+                    .Where(r => r.Id == item.RiverId)
+                    .Select(r => r.Name).FirstOrDefault();
+
+                item.BasinName = _context.Basins?
+                    .Where(b => b.Id == item.BasinId)
+                    .Select(b => b.Name).FirstOrDefault();
+
+                item.SubBasinName = _context.SubBasins?
+                    .Where(sb => sb.Id == item.SubBasinId)
+                    .Select(sb => sb.Name).FirstOrDefault();
+
+                //get list license
+                var consLic = await _context.ConstructionLicense!
+                                            .Where(cl => cl.ConstructionId == item.Id)
+                                            .ToListAsync();
+
+                var licIds = consLic.Select(cl => cl.LicenseId).ToList();
+                var licenses = await _context!.Licenses!
+                                            .Where(lc => licIds.Contains(lc.Id))
+                                            .ToListAsync();
+
+                item.Licenses = _mapper.Map<List<LicenseModel>>(licenses);
+                if (item.Licenses != null)
+                {
+                    //get license fee
+                    foreach (var lic in item.Licenses)
+                    {
+                        var licLicfeeIds = await _context.LicenseLicenseFee!
+                                            .Where(llf => llf.LicenseId == lic.Id)
+                                            .Select(llf => llf.LicenseFeeId)
+                                            .ToListAsync();
+
+                        var licenseFees = await _context!.LicenseFees!
+                                            .Where(lc => licLicfeeIds.Contains(lc.Id))
+                                            .ToListAsync();
+
+                        lic.LicenseFees = _mapper.Map<List<LicenseFeeModel>>(licenseFees);
+                    }
+                }
+
+                //list construction items
+                var consItems = await _context!.ConstructionDetails!
+                                              .Where(ci => ci.ConstructionId == item.Id)
+                                              .ToListAsync();
                 item.ConstructionItems = _mapper.Map<List<ConstructionDetailModel>>(consItems);
             }
 
             return listItems;
         }
+
 
         public async Task<ConstructionModel?> GetConstructionByIdAsync(int Id)
         {

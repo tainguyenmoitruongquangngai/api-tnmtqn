@@ -9,6 +9,7 @@
         public int CommuneId { get; set; }
         public int RiverId { get; set; }
         public int BasinId { get; set; }
+        public int SubBasinId { get; set; }
         public int LicenseId { get; set; }
         public int AquiferId { get; set; }
         public string UserName { get; set; } = string.Empty;
@@ -114,7 +115,14 @@
 
         //get more data
         public List<ConstructionDetailModel>? ConstructionItems { get; set; }
+        public List<LicenseModel>? Licenses { get; set; }
         public string? ConstructionTypeName { get; set; }
         public string? ConstructionTypeSlug { get; set; }
+        public string? DistrictName { get; set; }
+        public string? CommuneName { get; set; }
+        public string? RiverName { get; set; }
+        public string? BasinName { get; set; }
+        public string? SubBasinName { get; set; }
+        public string? AquiferName { get; set; }
     }
 }
