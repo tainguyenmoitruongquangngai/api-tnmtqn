@@ -25,6 +25,7 @@ services.AddScoped<PermissionService>();
 //Other Service
 services.AddScoped<ConstructionTypesService>();
 services.AddScoped<LicenseTypesService>();
+services.AddScoped<LicenseService>();
 services.AddScoped<LicenseFeeService>();
 services.AddScoped<BusinessService>();
 services.AddScoped<BasinService>();
