@@ -23,7 +23,8 @@ namespace new_wr_api.Service
         public async Task<List<LocationsModel>> GetAllLocationAsync()
         {
             var items = await _context!.Locations!
-                .Where(u => u.IsDeleted == false)
+                .Where(x => x.IsDeleted == false)
+                .OrderBy(x => x.DistrictName)
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<LocationsModel>>(items);

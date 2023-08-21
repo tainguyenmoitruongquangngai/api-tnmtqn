@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<BasinModel>> GetAllBasinAsync()
         {
-            var items = await _context.Basins!.Where(x => x.IsDeleted == false).ToListAsync();
+            var items = await _context.Basins!.Where(b => b.IsDeleted == false).OrderBy(b => b.Name).ToListAsync();
             return _mapper.Map<List<BasinModel>>(items);
         }
 

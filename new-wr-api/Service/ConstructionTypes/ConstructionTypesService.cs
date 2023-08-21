@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<ConstructionTypesModel>> GetAllConstructionTypesAsync()
         {
-            var items = await _context.ConstructionTypes!.Where(x => x.IsDeleted == false).ToListAsync();
+            var items = await _context.ConstructionTypes!.Where(x => x.IsDeleted == false).OrderBy(x => x.TypeName).ToListAsync();
             return _mapper.Map<List<ConstructionTypesModel>>(items);
         }
 

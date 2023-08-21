@@ -24,7 +24,7 @@ namespace new_wr_api.Service
         public async Task<List<LicenseModel>> GetAllLicenseAsync()
         {
             var items = await _context!.Licenses!
-                .Where(u => u.IsDeleted == false).OrderByDescending(l => l.SignDate)
+                .Where(x => x.IsDeleted == false).OrderByDescending(x => x.SignDate)
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<LicenseModel>>(items);

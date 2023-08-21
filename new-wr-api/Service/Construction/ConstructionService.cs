@@ -24,6 +24,7 @@ namespace new_wr_api.Service
         {
             var items = await _context.Constructions!
                                      .Where(x => x.IsDeleted == false)
+                                     .OrderBy(x => x.ConstructionName)
                                      .ToListAsync();
 
             var listItems = _mapper.Map<List<ConstructionModel>>(items);

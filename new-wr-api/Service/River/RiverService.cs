@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<RiverModel>> GetAllRiverAsync()
         {
-            var items = await _context.Rivers!.Where(x => x.IsDeleted == false).ToListAsync();
+            var items = await _context.Rivers!.Where(x => x.IsDeleted == false).OrderBy(x => x.Name).ToListAsync();
 
             var listItems = _mapper.Map<List<RiverModel>>(items);
 

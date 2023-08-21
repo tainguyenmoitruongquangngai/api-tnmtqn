@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<DashboardModel>> GetAllDashboardAsync()
         {
-            var dashboards = await _context!.Dashboards!.ToListAsync();
+            var dashboards = await _context!.Dashboards!.OrderBy(x => x.Name).ToListAsync();
             var dashboardModels = _mapper.Map<List<DashboardModel>>(dashboards);
 
             var allFunctions = await _context!.Functions!.ToListAsync();
