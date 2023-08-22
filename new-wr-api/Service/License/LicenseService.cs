@@ -32,7 +32,7 @@ namespace new_wr_api.Service
             foreach (var item in listItems)
             {
                 //License.OldLicenses
-                var oldLicenses = await _context!.Licenses!.Where(ol => ol.ParentId == item.Id).ToListAsync();
+                var oldLicenses = await _context!.Licenses!.Where(ol => ol.Id == item.ChildId).ToListAsync();
                 item.OldLicenses = _mapper.Map<List<LicenseModel>>(oldLicenses);
 
                 //License.Constructions

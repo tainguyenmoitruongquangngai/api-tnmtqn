@@ -3,7 +3,7 @@
     public class LicenseModel
     {
         public int Id { get; set; }
-        public int ParentId { get; set; }
+        public int ChildId { get; set; }
         public int LicensingTypeId { get; set; }
         public int BusinessId { get; set; }
         public string LicenseName { get; set; } = string.Empty;
