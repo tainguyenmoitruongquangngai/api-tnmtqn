@@ -44,11 +44,11 @@ namespace new_wr_api.Service
 
             if (licensingAuthorities == "minister")
             {
-                query = query.Where(u => u.LicensingAuthorities == 0);
+                query = query.Where(u => u.LicensingAuthorities == "BTNMT");
             }
             else if (licensingAuthorities == "province")
             {
-                query = query.Where(u => u.LicensingAuthorities == 1);
+                query = query.Where(u => u.LicensingAuthorities == "UBNDT");
             }
 
             var items = await query.ToListAsync();

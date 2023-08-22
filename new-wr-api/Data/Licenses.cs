@@ -17,7 +17,7 @@ namespace new_wr_api.Data
         public DateTime? IssueDate { get; set; }
         public DateTime? ExpriteDate { get; set; }
         public string? Duration { get; set; } = string.Empty;
-        public int? LicensingAuthorities { get; set; }
+        public string? LicensingAuthorities { get; set; }
         public string? LicenseFile { get; set; } = string.Empty;
         public string? RelatedDocumentFile { get; set; } = string.Empty;
         public string? LicenseRequestFile { get; set; } = string.Empty;

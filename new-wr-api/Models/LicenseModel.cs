@@ -12,7 +12,7 @@
         public DateTime? IssueDate { get; set; }
         public DateTime? ExpriteDate { get; set; }
         public string? Duration { get; set; }
-        public int LicensingAuthorities { get; set; }
+        public string? LicensingAuthorities { get; set; }
         public string? LicenseFile { get; set; }
         public string? RelatedDocumentFile { get; set; }
         public string? LicenseRequestFile { get; set; }

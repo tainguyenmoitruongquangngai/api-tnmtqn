@@ -11,7 +11,7 @@ namespace new_wr_api.Data
         public int? ChildrenId { get; set; }
         public string? LicenseFeeNumber { get; set; }
         public DateTime? SignDate { get; set; }
-        public int? LicensingAuthorities { get; set; }
+        public string? LicensingAuthorities { get; set; }
         public double? TotalMoney { get; set; }
         public string? FilePDF { get; set; }
         public string? Description { get; set; }
