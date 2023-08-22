@@ -6,16 +6,16 @@
         public int ChildId { get; set; }
         public int LicensingTypeId { get; set; }
         public int BusinessId { get; set; }
-        public string LicenseName { get; set; } = string.Empty;
-        public string LicenseNumber { get; set; } = string.Empty;
+        public string? LicenseName { get; set; }
+        public string? LicenseNumber { get; set; }
         public DateTime? SignDate { get; set; }
         public DateTime? IssueDate { get; set; }
         public DateTime? ExpriteDate { get; set; }
-        public string Duration { get; set; } = string.Empty;
+        public string? Duration { get; set; }
         public int LicensingAuthorities { get; set; }
-        public string LicenseFile { get; set; } = string.Empty;
-        public string RelatedDocumentFile { get; set; } = string.Empty;
-        public string LicenseRequestFile { get; set; } = string.Empty;
+        public string? LicenseFile { get; set; }
+        public string? RelatedDocumentFile { get; set; }
+        public string? LicenseRequestFile { get; set; }
         public bool IsRevoked { get; set; } = false;
 
         //More data

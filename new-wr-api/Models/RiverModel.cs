@@ -12,11 +12,6 @@
         public double? Lat { get; set; }
         public double? Qtt { get; set; }
         public string? Description { get; set; }
-        public string? CreatedUser { get; set; }
-        public DateTime? CreatedTime { get; set; }
-        public string? ModifiedUser { get; set; }
-        public DateTime? ModifiedTime { get; set; }
-        public bool IsDeleted { get; set; }
 
         //More data
         public BasinModel? Basin { get; set; }
