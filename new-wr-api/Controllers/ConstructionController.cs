@@ -39,11 +39,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveConstructionAsync(moddel);
             if (res > 0)
             {
-                return Ok(new { message = "Dữ liệu đã được lưu", id = res });
+                return Ok(new { message = "Công trình: Dữ liệu đã được lưu", id = res });
             }
             else
             {
-                return BadRequest(new { message = "Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Công trình: Lỗi lưu dữ liệu" });
             }
         }
 
@@ -54,11 +54,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteConstructionAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Construction: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Công trình: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "Construction: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Công trình: Lỗi xóa dữ liệu" });
             }
         }
     }

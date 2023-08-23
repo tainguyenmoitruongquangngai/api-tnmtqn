@@ -44,13 +44,13 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<LicenseFees>> SaveLicenseFee(LicenseFeeModel moddel)
         {
             var res = await _service.SaveLicenseFeeAsync(moddel);
-            if (res == true)
+            if (res > 0)
             {
-                return Ok(new { message = "LicenseFee: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Tiền cấp quyền: Dữ liệu đã được lưu", id = res });
             }
             else
             {
-                return BadRequest(new { message = "LicenseFee: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Tiền cấp quyền: Lỗi lưu dữ liệu" });
             }
         }
 
@@ -61,11 +61,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteLicenseFeeAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "LicenseFee: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Tiền cấp quyền: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "LicenseFee: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Tiền cấp quyền: Lỗi xóa dữ liệu" });
             }
         }
     }

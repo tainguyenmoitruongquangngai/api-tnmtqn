@@ -102,6 +102,24 @@ namespace new_wr_api.Service
             return false;
         }
 
+        public async Task<bool> SetPasswordAsync(UserModel model, string newPassword)
+        {
+            var user = await _userManager.FindByNameAsync(model.UserName!);
+
+            if (user != null)
+            {
+                var removePasswordResult = await _userManager.RemovePasswordAsync(user);
+                if (removePasswordResult.Succeeded)
+                {
+                    var addPasswordResult = await _userManager.AddPasswordAsync(user, newPassword);
+                    return addPasswordResult.Succeeded;
+                }
+            }
+
+            return false;
+        }
+
+
         public async Task<bool> AssignRoleAsync(AssignRoleModel model)
         {
             var user = await _userManager.FindByIdAsync(model.userId);

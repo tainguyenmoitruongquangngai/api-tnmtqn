@@ -64,6 +64,22 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
+        [Route("set-password")]
+        //[Authorize(Roles = "Administrator")]
+        public async Task<ActionResult<AspNetUsers>> SetPassword(UserModel modle, string newPassword)
+        {
+            var res = await _repo.SetPasswordAsync(modle, newPassword);
+            if (res == true)
+            {
+                return Ok(new { message = "Đổi mật khẩu thành công" });
+            }
+            else
+            {
+                return BadRequest(new { message = "Mật khẩu không chính xác" });
+            }
+        }
+
+        [HttpPost]
         [Route("assign-role")]
         //[Authorize(Roles = "Administrator")]
         public async Task<ActionResult> AssignRole(AssignRoleModel model)
@@ -71,11 +87,11 @@ namespace new_wr_api.Controllers
             var res = await _repo.AssignRoleAsync(model);
             if (res == true)
             {
-                return Ok(new { message = "AssignRole: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "AssignRole: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Lỗi lưu dữ liệu" });
             }
 
         }
@@ -89,11 +105,11 @@ namespace new_wr_api.Controllers
 
             if (res == true)
             {
-                return Ok(new { message = "RemoveRole: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "RemoveRole: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Lỗi xóa dữ liệu" });
             }
         }
 

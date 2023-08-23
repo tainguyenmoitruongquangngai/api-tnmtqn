@@ -93,6 +93,9 @@ namespace new_wr_api.Helpers
             //LicenseFees
             CreateMap<LicenseFees, LicenseFeeModel>().ReverseMap();
 
+            //LicenseLicenseFee
+            CreateMap<LicenseLicenseFee, LicenseLicenseFeeModel>().ReverseMap();
+
             //LicenseTypes
             CreateMap<LicenseTypes, LicenseTypesModel>().ReverseMap();
 

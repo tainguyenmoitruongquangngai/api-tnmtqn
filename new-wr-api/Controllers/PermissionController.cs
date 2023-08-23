@@ -39,11 +39,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SavePermissionAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Permission: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Quyền hạn: Đã được thêm" });
             }
             else
             {
-                return BadRequest(new { message = "Permission: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Quyền hạn: Lỗi" });
             }
         }
 
@@ -54,11 +54,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeletePermissionAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Permission: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Quyền hạn: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "Permission: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Quyền hạn: Lỗi xóa dữ liệu" });
             }
         }
     }

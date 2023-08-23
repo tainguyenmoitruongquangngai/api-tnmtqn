@@ -48,11 +48,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveUserAsync(model);
             if (res == true)
             {
-                return Ok(new { message = "User: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Tài khoản: Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "User: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Tài khoản: Lỗi lưu dữ liệu" });
             }
         }
 
@@ -63,11 +63,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteUserAsync(model);
             if (res == true)
             {
-                return Ok(new { message = "User: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Tài khoản: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "User: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Tài khoản: Lỗi xóa dữ liệu" });
             }
         }
     }

@@ -46,11 +46,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveLocationAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Locations: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "Locations: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Lỗi lưu dữ liệu" });
             }
         }
 
@@ -61,11 +61,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteLocationAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Locations: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "Locations: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Lỗi xóa dữ liệu" });
             }
         }
     }

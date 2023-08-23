@@ -54,11 +54,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveDashboardAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Dashboard: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Màn hình chức năng: Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "Dashboard: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Màn hình chức năng: Lỗi lưu dữ liệu" });
             }
         }
 
@@ -69,11 +69,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteDashboardAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Dashboard: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Màn hình chức năng: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "Dashboard: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Màn hình chức năng: Lỗi xóa dữ liệu" });
             }
         }
     }

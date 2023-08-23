@@ -39,11 +39,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveLicenseAsync(moddel);
             if (res != 0)
             {
-                return Ok(new { message = "Dữ liệu đã được lưu", id = res });
+                return Ok(new { message = "Giấy phép: Dữ liệu đã được lưu", id = res });
             }
             else
             {
-                return BadRequest(new { message = "Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Giấy phép: Lỗi lưu dữ liệu" });
             }
         }
 
@@ -54,11 +54,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteLicenseAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "License: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Giấy phép: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "License: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Giấy phép: Lỗi xóa dữ liệu" });
             }
         }
     }

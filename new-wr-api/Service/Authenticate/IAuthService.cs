@@ -12,5 +12,7 @@ namespace new_wr_api.Service
         public Task<bool> AssignRoleAsync(AssignRoleModel model);
         public Task<bool> RemoveRoleAsync(AssignRoleModel model);
         public Task<bool> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword);
+        public Task<bool> SetPasswordAsync(UserModel model, string newPassword);
+
     }
 }

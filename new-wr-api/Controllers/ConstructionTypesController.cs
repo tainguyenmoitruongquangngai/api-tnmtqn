@@ -39,11 +39,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveConstructionTypesAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "ConstructionTypes: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Loại công trình: Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "ConstructionTypes: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Loại công trình: Lỗi lưu dữ liệu" });
             }
         }
 
@@ -54,11 +54,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteConstructionTypesAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "ConstructionTypes: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Loại công trình: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "ConstructionTypes: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Loại công trình: Lỗi xóa dữ liệu" });
             }
         }
     }

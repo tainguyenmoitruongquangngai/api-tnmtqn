@@ -39,11 +39,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveBasinAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Basin: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Lưu vực :Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "Basin: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Lưu vực :Lỗi lưu dữ liệu" });
             }
         }
 
@@ -54,11 +54,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteBasinAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Basin: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Lưu vực :Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "Basin: Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Lưu vực :Lỗi xóa dữ liệu" });
             }
         }
     }

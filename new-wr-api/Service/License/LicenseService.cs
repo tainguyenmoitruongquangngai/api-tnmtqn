@@ -40,6 +40,11 @@ namespace new_wr_api.Service
                 var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => consIds.Contains(x.Id));
                 item.Construction = _mapper.Map<ConstructionModel>(cons);
 
+                //License.LicenseFees
+                var licFeeIds = _context!.LicenseLicenseFee!.Where(x => x.LicenseId == item.Id).Select(x => x.LicenseFeeId).ToList();
+                var licFee = await _context!.LicenseFees!.Where(x => licFeeIds.Contains(x.Id)).ToListAsync();
+                item.LicenseFees = _mapper.Map<List<LicenseFeeModel>>(licFee);
+
                 //License.Business
                 var business = await _context!.Business!.FirstOrDefaultAsync(b => b.Id == item.BusinessId && b.IsDeleted == false);
                 item.Business = _mapper.Map<BusinessModel>(business);
