@@ -33,8 +33,10 @@ namespace new_wr_api.Service
 
         public async Task<List<DistrictModel>> GetAllDistrictAsync(string CityId)
         {
-            var items = await _context!.Locations!
-                .Where(u => u.IsDeleted == false && u.CityId == CityId)
+            var items = await _context.Locations!
+                .Where(l => l.CityId == CityId)
+                .GroupBy(l => new { l.CityId, l.DistrictId })
+                .Select(group => group.First())
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<DistrictModel>>(items);
@@ -43,8 +45,10 @@ namespace new_wr_api.Service
 
         public async Task<List<CommuneModel>> GetAllCommuneAsync(string DistrictId)
         {
-            var items = await _context!.Locations!
-                .Where(u => u.IsDeleted == false && u.DistrictId == DistrictId)
+            var items = await _context.Locations!
+                .Where(l => l.DistrictId == DistrictId)
+                .GroupBy(l => new { l.DistrictId, l.CommuneId })
+                .Select(group => group.First())
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<CommuneModel>>(items);
