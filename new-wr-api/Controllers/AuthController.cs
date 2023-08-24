@@ -30,7 +30,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Đăng ký tài khoản thất bại, tài khoản này đã tồn tại" });
+                return BadRequest(new { message = "Đăng ký tài khoản thất bại, tài khoản này đã tồn tại", error = true });
             }
 
         }
@@ -42,7 +42,7 @@ namespace new_wr_api.Controllers
             var res = await _repo.LoginAsync(model);
             if (string.IsNullOrEmpty(res))
             {
-                return BadRequest(new { message = "Thông tin tài khoản hoặc mật khẩu không chính xác" });
+                return BadRequest(new { message = "Thông tin tài khoản hoặc mật khẩu không chính xác", error = true });
             }
             return Ok(res);
         }
@@ -59,7 +59,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Mật khẩu không chính xác" });
+                return BadRequest(new { message = "Mật khẩu không chính xác", error = true });
             }
         }
 
@@ -75,7 +75,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Mật khẩu không chính xác" });
+                return BadRequest(new { message = "Mật khẩu không chính xác", error = true });
             }
         }
 
@@ -91,7 +91,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Lỗi lưu dữ liệu", error = true });
             }
 
         }
@@ -109,7 +109,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return Ok(new { message = "Lỗi xóa dữ liệu" });
+                return Ok(new { message = "Lỗi xóa dữ liệu", error = true });
             }
         }
 

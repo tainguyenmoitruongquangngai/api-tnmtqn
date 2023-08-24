@@ -43,7 +43,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Quyền hạn: Lỗi" });
+                return BadRequest(new { message = "Quyền hạn: Lỗi", error = true });
             }
         }
 
@@ -58,7 +58,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return Ok(new { message = "Quyền hạn: Lỗi xóa dữ liệu" });
+                return BadRequest(new { message = "Quyền hạn: Lỗi xóa dữ liệu", error = true });
             }
         }
     }

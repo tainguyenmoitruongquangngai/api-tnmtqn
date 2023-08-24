@@ -41,7 +41,7 @@ namespace new_wr_api.Service
 
                 //License.LicenseFees
                 var licFeeIds = _context!.LicenseLicenseFee!.Where(x => x.LicenseId == item.Id).Select(x => x.LicenseFeeId).ToList();
-                var licFee = await _context!.LicenseFees!.Where(x => licFeeIds.Contains(x.Id)).ToListAsync();
+                var licFee = await _context!.LicenseFees!.Where(x => licFeeIds.Contains(x.Id) && x.IsDeleted == false).ToListAsync();
                 item.LicenseFees = _mapper.Map<List<LicenseFeeModel>>(licFee);
 
                 //License.Business

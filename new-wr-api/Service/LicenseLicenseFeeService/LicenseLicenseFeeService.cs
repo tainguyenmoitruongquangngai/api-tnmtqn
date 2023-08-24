@@ -22,14 +22,14 @@ namespace new_wr_api.Service
 
         public async Task<bool> SaveLicenseLicenseFeeAsync(LicenseLicenseFeeModel model)
         {
-            var existingItem = await _context.LicenseLicenseFee!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.LicenseLicenseFee!.FirstOrDefaultAsync(d => d.LicenseFeeId == model.LicenseFeeId && d.LicenseId == model.LicenseId);
 
-            if (existingItem == null || model.Id == 0)
+            if (existingItem == null)
             {
                 var newItem = _mapper.Map<LicenseLicenseFee>(model);
                 _context.LicenseLicenseFee!.Add(newItem);
+                await _context.SaveChangesAsync();
             }
-            await _context.SaveChangesAsync();
             return true;
         }
 

@@ -43,7 +43,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "RoleDashboard: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "RoleDashboard: Lỗi lưu dữ liệu",  });
             }
         }
 
@@ -58,7 +58,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return Ok(new { message = "RoleDashboard: Lỗi xóa dữ liệu" });
+                return BadRequest(new { message = "RoleDashboard: Lỗi xóa dữ liệu",  });
             }
         }
     }

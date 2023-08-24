@@ -43,7 +43,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Lưu vực :Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Lưu vực :Lỗi lưu dữ liệu", error = true });
             }
         }
 
@@ -58,7 +58,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return Ok(new { message = "Lưu vực :Lỗi xóa dữ liệu" });
+                return BadRequest(new { message = "Lưu vực :Lỗi xóa dữ liệu", error = true });
             }
         }
     }

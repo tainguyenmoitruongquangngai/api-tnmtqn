@@ -52,7 +52,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Tài khoản: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Tài khoản: Lỗi lưu dữ liệu", error = true });
             }
         }
 
@@ -67,7 +67,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return Ok(new { message = "Tài khoản: Lỗi xóa dữ liệu" });
+                return BadRequest(new { message = "Tài khoản: Lỗi xóa dữ liệu", error = true });
             }
         }
     }

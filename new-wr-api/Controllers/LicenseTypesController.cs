@@ -43,7 +43,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Loại giấy phép: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Loại giấy phép: Lỗi lưu dữ liệu", error = true });
             }
         }
 
@@ -58,7 +58,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return Ok(new { message = "Loại giấy phép: Lỗi xóa dữ liệu" });
+                return BadRequest(new { message = "Loại giấy phép: Lỗi xóa dữ liệu", error = true });
             }
         }
     }

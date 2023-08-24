@@ -58,7 +58,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Màn hình chức năng: Lỗi lưu dữ liệu" });
+                return BadRequest(new { message = "Màn hình chức năng: Lỗi lưu dữ liệu", error = true });
             }
         }
 
@@ -73,7 +73,7 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return Ok(new { message = "Màn hình chức năng: Lỗi xóa dữ liệu" });
+                return BadRequest(new { message = "Màn hình chức năng: Lỗi xóa dữ liệu", error = true });
             }
         }
     }

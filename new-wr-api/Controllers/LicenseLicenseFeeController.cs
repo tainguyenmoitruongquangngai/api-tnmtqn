@@ -37,18 +37,18 @@ namespace new_wr_api.Controllers
                 }
                 else
                 {
-                    return BadRequest(new { message = "LicenseLicenseFee: Lỗi lưu dữ liệu" });
+                    return BadRequest(new { message = "LicenseLicenseFee: Lỗi lưu dữ liệu", error = true });
                 }
             }
             else
             {
                 if (licFee == null)
                 {
-                    return BadRequest(new { message = "Tiền cấp quyền không tồn tại" });
+                    return BadRequest(new { message = "Tiền cấp quyền không tồn tại", error = true });
                 }
                 else
                 {
-                    return BadRequest(new { message = "Giấy phép không tồn tại" });
+                    return BadRequest(new { message = "Giấy phép không tồn tại", error = true });
                 }
             }
         }
@@ -60,11 +60,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteLicenseLicenseFeeAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Dữ liệu đã được xóa" });
+                return Ok(new { message = "LicenseLicenseFee: Dữ liệu đã được xóa" });
             }
             else
             {
-                return Ok(new { message = "Lỗi xóa dữ liệu" });
+                return Ok(new { message = "LicenseLicenseFee: Lỗi xóa dữ liệu", error = true });
             }
         }
     }
