@@ -6,6 +6,7 @@
         public int ChildId { get; set; }
         public int LicensingTypeId { get; set; }
         public int BusinessId { get; set; }
+        public int ConstructionId { get; set; }
         public string? LicenseName { get; set; }
         public string? LicenseNumber { get; set; }
         public DateTime? SignDate { get; set; }
@@ -23,7 +24,7 @@
         public string? LicensingTypeSlug { get; set; }
         public ConstructionModel? Construction { get; set; }
         public BusinessModel? Business { get; set; }
-        public List<LicenseModel>? OldLicenses { get; set; }
+        public LicenseModel? OldLicense { get; set; }
         public List<LicenseFeeModel>? LicenseFees { get; set; }
         public string? LicenseTypeName { get; set; }
 

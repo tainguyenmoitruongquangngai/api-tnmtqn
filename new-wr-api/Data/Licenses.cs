@@ -8,9 +8,10 @@ namespace new_wr_api.Data
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int ChildId { get; set; }
+        public int? ChildId { get; set; }
         public int LicensingTypeId { get; set; }
         public int BusinessId { get; set; }
+        public int ConstructionId { get; set; }
         public string? LicenseName { get; set; } = string.Empty;
         public string? LicenseNumber { get; set; } = string.Empty;
         public DateTime? SignDate { get; set; }

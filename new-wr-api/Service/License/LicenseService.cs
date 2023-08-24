@@ -31,13 +31,12 @@ namespace new_wr_api.Service
 
             foreach (var item in listItems)
             {
-                //License.OldLicenses
-                var oldLicenses = await _context!.Licenses!.Where(ol => ol.Id == item.ChildId).ToListAsync();
-                item.OldLicenses = _mapper.Map<List<LicenseModel>>(oldLicenses);
+                //License.OldLicense
+                var oldLicense = await _context!.Licenses!.FirstOrDefaultAsync(ol => ol.Id == item.ChildId);
+                item.OldLicense = _mapper.Map<LicenseModel>(oldLicense);
 
-                //License.Constructions
-                var consIds = _context!.ConstructionLicense!.Where(x => x.LicenseId == item.Id).Select(x => x.ConstructionId).ToList();
-                var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => consIds.Contains(x.Id));
+                //License.Construction
+                var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => x.Id == item.ConstructionId);
                 item.Construction = _mapper.Map<ConstructionModel>(cons);
 
                 //License.LicenseFees
@@ -83,10 +82,29 @@ namespace new_wr_api.Service
                 {
                     var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(l => l.Id == cons.ConstructionTypeId);
                     item.ConstructionTypeSlug = consTypes?.TypeSlug;
+                    item.Construction.ConstructionTypeName = consTypes?.TypeName;
                     item.ConstructionName = cons.ConstructionName;
                     item.CommuneId = cons.CommuneId;
                     item.DistrictId = cons.DistrictId;
                     item.BasinId = cons.BasinId;
+
+                    var location = _context.Locations?
+                   .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString()).FirstOrDefault();
+
+                    item.Construction.DistrictName = location?.DistrictName;
+                    item.Construction.CommuneName = location?.CommuneName;
+
+                    item.Construction.RiverName = _context.Rivers?
+                        .Where(r => r.Id == cons.RiverId)
+                        .Select(r => r.Name).FirstOrDefault();
+
+                    item.Construction.BasinName = _context.Basins?
+                        .Where(b => b.Id == cons.BasinId)
+                        .Select(b => b.Name).FirstOrDefault();
+
+                    item.Construction.SubBasinName = _context.SubBasins?
+                        .Where(sb => sb.Id == cons.SubBasinId)
+                        .Select(sb => sb.Name).FirstOrDefault();
                 }
             }
 

@@ -463,25 +463,6 @@ namespace new_wr_api.Migrations
                     b.ToTable("ConstructionDetails");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.ConstructionLicense", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ConstructionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LicenseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ConstructionLicense");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.ConstructionTypes", b =>
                 {
                     b.Property<int>("Id")
@@ -809,7 +790,7 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("StaticWL")
                         .HasColumnType("float");
 
-                    b.Property<int>("SubBasinId")
+                    b.Property<int?>("SubBasinId")
                         .HasColumnType("int");
 
                     b.Property<double?>("SuctionTankWL")
@@ -1049,7 +1030,10 @@ namespace new_wr_api.Migrations
                     b.Property<int>("BusinessId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ChildId")
+                    b.Property<int?>("ChildId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConstructionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedTime")

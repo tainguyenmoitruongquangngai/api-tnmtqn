@@ -12,8 +12,8 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230811075141_Update-TypeofConsId-ToConsTypeId-In-ConsTable")]
-    partial class UpdateTypeofConsIdToConsTypeIdInConsTable
+    [Migration("20230824045909_InitDataBase")]
+    partial class InitDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -265,6 +265,40 @@ namespace new_wr_api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.Basins", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Basins");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.Business", b =>
                 {
                     b.Property<int>("Id")
@@ -323,7 +357,7 @@ namespace new_wr_api.Migrations
                     b.ToTable("Business");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.ConstructionLicense", b =>
+            modelBuilder.Entity("new_wr_api.Data.ConstructionDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -331,15 +365,105 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<double?>("AmountWaterExploited")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("AquiferId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("AverageDischargeFlow")
+                        .HasColumnType("float");
+
                     b.Property<int>("ConstructionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LicenseId")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("DepthFilterTubeFrom")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DepthFilterTubeTo")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DischargeMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DischargeMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DischargeWS")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("DynamicWL")
+                        .HasColumnType("float");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("KqKf")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Lat")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Lng")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("LowWL")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MaximumWasteWaterFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MiningMaxFlow")
+                        .HasColumnType("float");
+
+                    b.Property<string>("MiningMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("PumpCapacity")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("StaticWL")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("WaterDepthFrom")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("WaterDepthTo")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("WaterSupplyFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("X")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Y")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ConstructionLicense");
+                    b.ToTable("ConstructionDetails");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ConstructionTypes", b =>
@@ -669,6 +793,9 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("StaticWL")
                         .HasColumnType("float");
 
+                    b.Property<int>("SubBasinId")
+                        .HasColumnType("int");
+
                     b.Property<double?>("SuctionTankWL")
                         .HasColumnType("float");
 
@@ -819,8 +946,8 @@ namespace new_wr_api.Migrations
                     b.Property<string>("LicenseFeeNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LicensingAuthorities")
-                        .HasColumnType("int");
+                    b.Property<string>("LicensingAuthorities")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
@@ -839,6 +966,62 @@ namespace new_wr_api.Migrations
                     b.ToTable("LicenseFees");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.LicenseLicenseFee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("LicenseFeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LicenseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LicenseLicenseFee");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.LicenseTypes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LicenseTypes");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.Licenses", b =>
                 {
                     b.Property<int>("Id")
@@ -850,6 +1033,12 @@ namespace new_wr_api.Migrations
                     b.Property<int>("BusinessId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ChildId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConstructionId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
 
@@ -859,7 +1048,7 @@ namespace new_wr_api.Migrations
                     b.Property<string>("Duration")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ExpireDate")
+                    b.Property<DateTime?>("ExpriteDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("IsDeleted")
@@ -883,8 +1072,8 @@ namespace new_wr_api.Migrations
                     b.Property<string>("LicenseRequestFile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LicensingAuthorities")
-                        .HasColumnType("int");
+                    b.Property<string>("LicensingAuthorities")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LicensingTypeId")
                         .HasColumnType("int");
@@ -895,9 +1084,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("ModifiedUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("RelatedDocumentFile")
                         .HasColumnType("nvarchar(max)");
 
@@ -907,6 +1093,55 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Licenses");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Locations", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CityId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CityName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommuneId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommuneLevel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommuneName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedByUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DistrictId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DistrictName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedByUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Permissions", b =>
@@ -946,6 +1181,61 @@ namespace new_wr_api.Migrations
                     b.ToTable("Permissions");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.Rivers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BasinId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("Lat")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Long")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Qtt")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("X")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Y")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rivers");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.RoleDashboards", b =>
                 {
                     b.Property<int>("Id")
@@ -972,6 +1262,43 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RoleDashboards");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.SubBasins", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BasinId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubBasins");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.UserDashboards", b =>

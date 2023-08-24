@@ -5,31 +5,31 @@
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class ChangeTypeOfDataLicensingAuthoritiesFromIntToStringInLicenseFees : Migration
+    public partial class UpdateSubBasinIdInConstructionsToAllowNull : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "LicensingAuthorities",
-                table: "LicenseFees",
-                type: "nvarchar(max)",
+            migrationBuilder.AlterColumn<int>(
+                name: "SubBasinId",
+                table: "Constructions",
+                type: "int",
                 nullable: true,
                 oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
+                oldType: "int");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "LicensingAuthorities",
-                table: "LicenseFees",
+                name: "SubBasinId",
+                table: "Constructions",
                 type: "int",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
+                nullable: false,
+                defaultValue: 0,
+                oldClrType: typeof(int),
+                oldType: "int",
                 oldNullable: true);
         }
     }

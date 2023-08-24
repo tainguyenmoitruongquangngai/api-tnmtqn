@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDataWithAssignPermissionForUserAndRole : Migration
+    public partial class InitDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,6 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -44,7 +43,6 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -67,18 +65,108 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Basins",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Basins", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Business",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdentifierCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Fax = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Director = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AuthorityPerson = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LegalRepresentative = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Business", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConstructionDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConstructionId = table.Column<int>(type: "int", nullable: false),
+                    AquiferId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    X = table.Column<double>(type: "float", nullable: true),
+                    Y = table.Column<double>(type: "float", nullable: true),
+                    Lat = table.Column<double>(type: "float", nullable: true),
+                    Lng = table.Column<double>(type: "float", nullable: true),
+                    WaterSupplyFlow = table.Column<double>(type: "float", nullable: true),
+                    WaterDepthFrom = table.Column<double>(type: "float", nullable: true),
+                    WaterDepthTo = table.Column<double>(type: "float", nullable: true),
+                    DepthFilterTubeFrom = table.Column<double>(type: "float", nullable: true),
+                    DepthFilterTubeTo = table.Column<double>(type: "float", nullable: true),
+                    StaticWL = table.Column<double>(type: "float", nullable: true),
+                    DynamicWL = table.Column<double>(type: "float", nullable: true),
+                    MiningMaxFlow = table.Column<double>(type: "float", nullable: true),
+                    MiningMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AmountWaterExploited = table.Column<double>(type: "float", nullable: true),
+                    PumpCapacity = table.Column<double>(type: "float", nullable: true),
+                    MaximumWasteWaterFlow = table.Column<double>(type: "float", nullable: true),
+                    AverageDischargeFlow = table.Column<double>(type: "float", nullable: true),
+                    KqKf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DischargeWS = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DischargeMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DischargeMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LowWL = table.Column<double>(type: "float", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConstructionDetails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Constructions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeOfConstructionId = table.Column<int>(type: "int", nullable: true),
+                    ConstructionTypeId = table.Column<int>(type: "int", nullable: true),
                     ProvinceId = table.Column<int>(type: "int", nullable: true),
                     DistrictId = table.Column<int>(type: "int", nullable: true),
                     CommuneId = table.Column<int>(type: "int", nullable: true),
                     RiverId = table.Column<int>(type: "int", nullable: true),
                     BasinId = table.Column<int>(type: "int", nullable: true),
-                    LicenseId = table.Column<int>(type: "int", nullable: true),
+                    SubBasinId = table.Column<int>(type: "int", nullable: false),
                     AquiferId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConstructionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -183,7 +271,6 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
@@ -205,7 +292,6 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
@@ -227,7 +313,6 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
@@ -251,17 +336,41 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LicenseConstructions",
+                name: "LicenseFees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ConstructionId = table.Column<int>(type: "int", nullable: false),
-                    LicenseId = table.Column<int>(type: "int", nullable: false)
+                    ChildrenId = table.Column<int>(type: "int", nullable: true),
+                    LicenseFeeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SignDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LicensingAuthorities = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalMoney = table.Column<double>(type: "float", nullable: true),
+                    FilePDF = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LicenseConstructions", x => x.Id);
+                    table.PrimaryKey("PK_LicenseFees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LicenseLicenseFee",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LicenseId = table.Column<int>(type: "int", nullable: false),
+                    LicenseFeeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LicenseLicenseFee", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,13 +379,17 @@ namespace new_wr_api.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ChildId = table.Column<int>(type: "int", nullable: true),
+                    LicensingTypeId = table.Column<int>(type: "int", nullable: false),
+                    BusinessId = table.Column<int>(type: "int", nullable: false),
+                    ConstructionId = table.Column<int>(type: "int", nullable: false),
                     LicenseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LicenseNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SignDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IssueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ExpriteDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LicensingAuthorities = table.Column<int>(type: "int", nullable: true),
+                    LicensingAuthorities = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LicenseFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RelatedDocumentFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LicenseRequestFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -285,12 +398,55 @@ namespace new_wr_api.Migrations
                     CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Licenses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LicenseTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TypeSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LicenseTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CityId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DistrictName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DistrictId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CommuneName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CommuneId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CommuneLevel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedByUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedByUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -314,6 +470,32 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rivers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BasinId = table.Column<int>(type: "int", nullable: true),
+                    LocationId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    X = table.Column<double>(type: "float", nullable: true),
+                    Y = table.Column<double>(type: "float", nullable: true),
+                    Long = table.Column<double>(type: "float", nullable: true),
+                    Lat = table.Column<double>(type: "float", nullable: true),
+                    Qtt = table.Column<double>(type: "float", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rivers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoleDashboards",
                 columns: table => new
                 {
@@ -328,6 +510,26 @@ namespace new_wr_api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RoleDashboards", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubBasins",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BasinId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubBasins", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -512,6 +714,15 @@ namespace new_wr_api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Basins");
+
+            migrationBuilder.DropTable(
+                name: "Business");
+
+            migrationBuilder.DropTable(
+                name: "ConstructionDetails");
+
+            migrationBuilder.DropTable(
                 name: "Constructions");
 
             migrationBuilder.DropTable(
@@ -524,16 +735,31 @@ namespace new_wr_api.Migrations
                 name: "Functions");
 
             migrationBuilder.DropTable(
-                name: "LicenseConstructions");
+                name: "LicenseFees");
+
+            migrationBuilder.DropTable(
+                name: "LicenseLicenseFee");
 
             migrationBuilder.DropTable(
                 name: "Licenses");
 
             migrationBuilder.DropTable(
+                name: "LicenseTypes");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
+
+            migrationBuilder.DropTable(
                 name: "Permissions");
 
             migrationBuilder.DropTable(
+                name: "Rivers");
+
+            migrationBuilder.DropTable(
                 name: "RoleDashboards");
+
+            migrationBuilder.DropTable(
+                name: "SubBasins");
 
             migrationBuilder.DropTable(
                 name: "UserDashboards");

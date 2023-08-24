@@ -58,14 +58,7 @@ namespace new_wr_api.Service
                     .Select(sb => sb.Name).FirstOrDefault();
 
                 //get list license
-                var consLic = await _context.ConstructionLicense!
-                                            .Where(cl => cl.ConstructionId == item.Id)
-                                            .ToListAsync();
-
-                var licIds = consLic.Select(cl => cl.LicenseId).ToList();
-                var licenses = await _context!.Licenses!
-                                            .Where(lc => licIds.Contains(lc.Id))
-                                            .ToListAsync();
+                var licenses = await _context!.Licenses!.Where(l => l.ConstructionId == item.Id).ToListAsync();
 
                 item.Licenses = _mapper.Map<List<LicenseModel>>(licenses);
                 if (item.Licenses != null)

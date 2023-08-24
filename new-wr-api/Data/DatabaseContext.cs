@@ -35,7 +35,6 @@ namespace new_wr_api.Data
         public DbSet<LicenseTypes>? LicenseTypes { get; set; }
         public DbSet<Licenses>? Licenses { get; set; }
         public DbSet<LicenseLicenseFee>? LicenseLicenseFee { get; set; }
-        public DbSet<ConstructionLicense>? ConstructionLicense { get; set; }
         public DbSet<Business>? Business { get; set; }
         public DbSet<LicenseFees>? LicenseFees { get; set; }
         public DbSet<Basins>? Basins { get; set; }
