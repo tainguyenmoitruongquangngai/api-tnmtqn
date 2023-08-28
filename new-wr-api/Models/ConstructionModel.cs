@@ -22,15 +22,15 @@
         public double? Lng { get; set; }
         public int StartDate { get; set; }
         public string? ExploitedWS { get; set; }
-        public string? MiningMode { get; set; }
-        public string? MiningMethod { get; set; }
-        public string? MiningPurpose { get; set; }
+        public string? ExploitMode { get; set; }
+        public string? ExploitMethod { get; set; }
+        public string? ExploitPurpose { get; set; }
         public string? DischargeMethod { get; set; }
         public string? DischargeMode { get; set; }
         public string? DischargeWS { get; set; }
         public double? DischargeFlow { get; set; }
         public double? MaximumDischargeFlow { get; set; }
-        public double? MiningMaxFlow { get; set; }
+        public double? ExploitMaxFlow { get; set; }
         public double? MaximumFlow { get; set; }
         public double? MinimumFlow { get; set; }
         public double? MaximumWasteWaterFlow { get; set; }
@@ -57,7 +57,7 @@
         public double? PumpMaxFlow { get; set; }
         public double? SuctionTankWL { get; set; }
         public double? WaterSupplyFlow { get; set; }
-        public string? MiningDuration { get; set; }
+        public string? ExploitDuration { get; set; }
         public string? DrillingDuration { get; set; }
         public string? DrillingPurpose { get; set; }
         public string? ExplorationPurposes { get; set; }
@@ -65,7 +65,7 @@
         public string? ConstructionTime { get; set; }
         public double? DesignFloodLevel { get; set; }
         public double? CheckFloodWL { get; set; }
-        public double? NumberMiningWells { get; set; }
+        public double? NumberExploitWells { get; set; }
         public double? AmountWaterExploited { get; set; }
         public double? NumberMonitoringWells { get; set; }
         public string? Description { get; set; }

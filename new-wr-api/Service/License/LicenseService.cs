@@ -81,6 +81,7 @@ namespace new_wr_api.Service
                 if (cons != null)
                 {
                     var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(l => l.Id == cons.ConstructionTypeId);
+                    item.ConstructionTypeId = cons.ConstructionTypeId;
                     item.ConstructionTypeSlug = consTypes?.TypeSlug;
                     item.Construction.ConstructionTypeName = consTypes?.TypeName;
                     item.ConstructionName = cons.ConstructionName;
@@ -105,6 +106,12 @@ namespace new_wr_api.Service
                     item.Construction.SubBasinName = _context.SubBasins?
                         .Where(sb => sb.Id == cons.SubBasinId)
                         .Select(sb => sb.Name).FirstOrDefault();
+
+                    var constructionItems = await _context!.ConstructionDetails!
+                        .Where(cd => cd.ConstructionId == cons.Id) // Điều kiện lấy Construction Items
+                        .ToListAsync();
+
+                    item.Construction.ConstructionItems = _mapper.Map<List<ConstructionDetailModel>>(constructionItems);
                 }
             }
 

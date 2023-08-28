@@ -26,15 +26,15 @@ namespace new_wr_api.Data
         public double? Lng { get; set; }
         public int? StartDate { get; set; }
         public string? ExploitedWS { get; set; } = string.Empty;
-        public string? MiningMode { get; set; } = string.Empty;
-        public string? MiningMethod { get; set; } = string.Empty;
-        public string? MiningPurpose { get; set; } = string.Empty;
+        public string? ExploitMode { get; set; } = string.Empty;
+        public string? ExploitMethod { get; set; } = string.Empty;
+        public string? ExploitPurpose { get; set; } = string.Empty;
         public string? DischargeMethod { get; set; } = string.Empty;
         public string? DischargeMode { get; set; } = string.Empty;
         public string? DischargeWS { get; set; } = string.Empty;
         public double? DischargeFlow { get; set; }
         public double? MaximumDischargeFlow { get; set; }
-        public double? MiningMaxFlow { get; set; }
+        public double? ExploitMaxFlow { get; set; }
         public double? MaximumFlow { get; set; }
         public double? MinimumFlow { get; set; }
         public double? MaximumWasteWaterFlow { get; set; }
@@ -61,7 +61,7 @@ namespace new_wr_api.Data
         public double? PumpMaxFlow { get; set; }
         public double? SuctionTankWL { get; set; }
         public double? WaterSupplyFlow { get; set; }
-        public string? MiningDuration { get; set; } = string.Empty;
+        public string? ExploitDuration { get; set; } = string.Empty;
         public string? DrillingDuration { get; set; } = string.Empty;
         public string? DrillingPurpose { get; set; } = string.Empty;
         public string? ExplorationPurposes { get; set; } = string.Empty;
@@ -69,7 +69,7 @@ namespace new_wr_api.Data
         public string? ConstructionTime { get; set; } = string.Empty;
         public double? DesignFloodLevel { get; set; }
         public double? CheckFloodWL { get; set; }
-        public double? NumberMiningWells { get; set; }
+        public double? NumberExploitWells { get; set; }
         public double? AmountWaterExploited { get; set; }
         public double? NumberMonitoringWells { get; set; }
         public string? Description { get; set; } = string.Empty;

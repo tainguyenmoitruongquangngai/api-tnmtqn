@@ -23,8 +23,8 @@ namespace new_wr_api.Data
         public double? DepthFilterTubeTo { get; set; }
         public double? StaticWL { get; set; }
         public double? DynamicWL { get; set; }
-        public double? MiningMaxFlow { get; set; }
-        public string? MiningMode { get; set; }
+        public double? ExploitMaxFlow { get; set; }
+        public string? ExploitMode { get; set; }
         public double? AmountWaterExploited { get; set; }
         public double? PumpCapacity { get; set; }
         public double? MaximumWasteWaterFlow { get; set; }
