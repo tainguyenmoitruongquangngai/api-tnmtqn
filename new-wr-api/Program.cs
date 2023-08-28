@@ -31,6 +31,7 @@ services.AddScoped<LicenseLicenseFeeService>();
 services.AddScoped<BusinessService>();
 services.AddScoped<BasinService>();
 services.AddScoped<ConstructionService>();
+services.AddScoped<ConstructionDetailService>();
 services.AddScoped<LocationService>();
 services.AddScoped<RiverService>();
 

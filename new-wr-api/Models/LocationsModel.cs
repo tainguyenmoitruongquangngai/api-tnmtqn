@@ -19,6 +19,7 @@
     }
     public class CommuneModel
     {
+        public string? DistrictId { get; set; }
         public string? CommuneId { get; set; }
         public string? CommuneName { get; set; }
         public string? CommuneLevel { get; set; }

@@ -26,10 +26,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("list/commune/{districtId}")]
-        public async Task<List<CommuneModel>> GetAllCommunes(string districtId)
+        [Route("list/commune")]
+        public async Task<List<CommuneModel>> GetAllCommunes()
         {
-            return (await _service.GetAllCommuneAsync(districtId));
+            return (await _service.GetAllCommuneAsync());
         }
 
         [HttpGet]

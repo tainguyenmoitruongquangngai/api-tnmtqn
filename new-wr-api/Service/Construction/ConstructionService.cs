@@ -81,7 +81,7 @@ namespace new_wr_api.Service
 
                 //list construction items
                 var consItems = await _context!.ConstructionDetails!
-                                              .Where(ci => ci.ConstructionId == item.Id)
+                                              .Where(ci => ci.ConstructionId == item.Id && ci.IsDeleted == false)
                                               .ToListAsync();
                 item.ConstructionItems = _mapper.Map<List<ConstructionDetailModel>>(consItems);
             }

@@ -43,10 +43,10 @@ namespace new_wr_api.Service
             return listItems;
         }
 
-        public async Task<List<CommuneModel>> GetAllCommuneAsync(string DistrictId)
+        public async Task<List<CommuneModel>> GetAllCommuneAsync()
         {
             var items = await _context.Locations!
-                .Where(l => l.DistrictId == DistrictId)
+                .Where(l => l.CommuneId != null)
                 .GroupBy(l => new { l.DistrictId, l.CommuneId })
                 .Select(group => group.First())
                 .ToListAsync();
