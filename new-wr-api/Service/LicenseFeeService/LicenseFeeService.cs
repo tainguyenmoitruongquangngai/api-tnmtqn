@@ -31,7 +31,7 @@ namespace new_wr_api.Service
             foreach (var item in listItems)
             {
                 //LicenseFee.SupplementLicenseFee
-                var supplementLicenseFee = await _context!.LicenseFees!.FirstOrDefaultAsync(lf => lf.Id == item.ChildrenId);
+                var supplementLicenseFee = await _context!.LicenseFees!.FirstOrDefaultAsync(lf => lf.Id == item.ChildrenId && lf.IsDeleted == false);
                 item.SupplementLicenseFee = _mapper.Map<LicenseFeeModel>(supplementLicenseFee);
             }
             return listItems;
@@ -57,7 +57,7 @@ namespace new_wr_api.Service
 
             foreach (var item in listItems)
             {
-                var supplementLicenseFee = await _context!.LicenseFees!.FirstOrDefaultAsync(lf => lf.Id == item.ChildrenId);
+                var supplementLicenseFee = await _context!.LicenseFees!.FirstOrDefaultAsync(lf => lf.Id == item.ChildrenId && lf.IsDeleted == false);
                 item.SupplementLicenseFee = _mapper.Map<LicenseFeeModel>(supplementLicenseFee);
             }
 
@@ -73,7 +73,7 @@ namespace new_wr_api.Service
 
         public async Task<int> SaveLicenseFeeAsync(LicenseFeeModel model)
         {
-            var existingItem = await _context.LicenseFees!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.LicenseFees!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             var id = 0;
             LicenseFees? newItem = null;
@@ -88,7 +88,7 @@ namespace new_wr_api.Service
             }
             else
             {
-                var updateItem = await _context.LicenseFees!.FirstOrDefaultAsync(d => d.Id == model.Id);
+                var updateItem = await _context.LicenseFees!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
                 updateItem = _mapper.Map(model, updateItem);
 
@@ -121,7 +121,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteLicenseFeeAsync(LicenseFeeModel modle)
         {
-            var existingItem = await _context.LicenseFees!.FirstOrDefaultAsync(d => d.Id == modle.Id);
+            var existingItem = await _context.LicenseFees!.FirstOrDefaultAsync(d => d.Id == modle.Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 

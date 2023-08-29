@@ -24,7 +24,7 @@ namespace new_wr_api.Service
         public async Task<List<LicenseModel>> GetAllLicenseAsync()
         {
             var items = await _context!.Licenses!
-                .Where(x => x.IsDeleted == false).OrderByDescending(x => x.SignDate)
+                .Where(x => x.IsDeleted == false && x.IsDeleted == false).OrderByDescending(x => x.SignDate)
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<LicenseModel>>(items);
@@ -32,11 +32,11 @@ namespace new_wr_api.Service
             foreach (var item in listItems)
             {
                 //License.OldLicense
-                var oldLicense = await _context!.Licenses!.FirstOrDefaultAsync(ol => ol.Id == item.ChildId);
+                var oldLicense = await _context!.Licenses!.FirstOrDefaultAsync(ol => ol.Id == item.ChildId && ol.IsDeleted == false);
                 item.OldLicense = _mapper.Map<LicenseModel>(oldLicense);
 
                 //License.Construction
-                var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => x.Id == item.ConstructionId);
+                var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => x.Id == item.ConstructionId && x.IsDeleted == false);
                 item.Construction = _mapper.Map<ConstructionModel>(cons);
 
                 //License.LicenseFees
@@ -74,13 +74,13 @@ namespace new_wr_api.Service
                     item.LicenseValidity = "con-hieu-luc";
                 }
 
-                var licTypes = await _context!.LicenseTypes!.FirstOrDefaultAsync(l => l.Id == item.LicensingTypeId);
+                var licTypes = await _context!.LicenseTypes!.FirstOrDefaultAsync(l => l.Id == item.LicensingTypeId && l.IsDeleted == false);
                 item.LicenseTypeName = licTypes?.TypeName;
                 item.LicenseTypeSlug = licTypes?.TypeSlug;
 
                 if (cons != null)
                 {
-                    var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(l => l.Id == cons.ConstructionTypeId);
+                    var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(l => l.Id == cons.ConstructionTypeId && l.IsDeleted == false);
                     item.ConstructionTypeId = cons.ConstructionTypeId;
                     item.ConstructionTypeSlug = consTypes?.TypeSlug;
                     item.Construction.ConstructionTypeName = consTypes?.TypeName;
@@ -90,25 +90,25 @@ namespace new_wr_api.Service
                     item.BasinId = cons.BasinId;
 
                     var location = _context.Locations?
-                   .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString()).FirstOrDefault();
+                   .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString() && l.IsDeleted == false).FirstOrDefault();
 
                     item.Construction.DistrictName = location?.DistrictName;
                     item.Construction.CommuneName = location?.CommuneName;
 
                     item.Construction.RiverName = _context.Rivers?
-                        .Where(r => r.Id == cons.RiverId)
+                        .Where(r => r.Id == cons.RiverId && r.IsDeleted == false)
                         .Select(r => r.Name).FirstOrDefault();
 
                     item.Construction.BasinName = _context.Basins?
-                        .Where(b => b.Id == cons.BasinId)
+                        .Where(b => b.Id == cons.BasinId && b.IsDeleted == false)
                         .Select(b => b.Name).FirstOrDefault();
 
                     item.Construction.SubBasinName = _context.SubBasins?
-                        .Where(sb => sb.Id == cons.SubBasinId)
+                        .Where(sb => sb.Id == cons.SubBasinId && sb.IsDeleted == false)
                         .Select(sb => sb.Name).FirstOrDefault();
 
                     var constructionItems = await _context!.ConstructionDetails!
-                        .Where(cd => cd.ConstructionId == cons.Id) // Điều kiện lấy Construction Items
+                        .Where(cd => cd.ConstructionId == cons.Id && cd.IsDeleted == false) // Điều kiện lấy Construction Items
                         .ToListAsync();
 
                     item.Construction.ConstructionItems = _mapper.Map<List<ConstructionDetailModel>>(constructionItems);
@@ -130,7 +130,7 @@ namespace new_wr_api.Service
             var id = 0;
             Licenses? newItem = null;
 
-            var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null || model.Id == 0)
             {
@@ -172,7 +172,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteLicenseAsync(LicenseModel modle)
         {
-            var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == modle.Id);
+            var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == modle.Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 

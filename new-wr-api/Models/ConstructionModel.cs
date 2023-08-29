@@ -20,7 +20,7 @@
         public double? Y { get; set; }
         public double? Lat { get; set; }
         public double? Lng { get; set; }
-        public int StartDate { get; set; }
+        public int? StartDate { get; set; }
         public string? ExploitedWS { get; set; }
         public string? ExploitMode { get; set; }
         public string? ExploitMethod { get; set; }

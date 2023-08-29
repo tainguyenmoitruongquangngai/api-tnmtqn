@@ -23,7 +23,7 @@ namespace new_wr_api.Service
         public async Task<bool> SaveConstructionDetailAsync(ConstructionDetailModel model)
         {
 
-            var existingItem = await _context.ConstructionDetails!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.ConstructionDetails!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null || model.Id == 0)
             {
@@ -52,7 +52,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteConstructionDetailAsync(ConstructionDetailModel model)
         {
-            var existingItem = await _context.ConstructionDetails!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.ConstructionDetails!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 

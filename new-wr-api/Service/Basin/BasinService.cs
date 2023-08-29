@@ -35,7 +35,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> SaveBasinAsync(BasinModel model)
         {
-            var existingItem = await _context.Basins!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Basins!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null || model.Id == 0)
             {
@@ -47,7 +47,7 @@ namespace new_wr_api.Service
             }
             else
             {
-                var updateItem = await _context.Basins!.FirstOrDefaultAsync(d => d.Id == model.Id);
+                var updateItem = await _context.Basins!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
                 updateItem = _mapper.Map(model, updateItem);
 
@@ -63,7 +63,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteBasinAsync(BasinModel model)
         {
-            var existingItem = await _context.Basins!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Basins!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 

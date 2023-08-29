@@ -32,7 +32,7 @@ namespace new_wr_api.Service
             foreach (var item in listItems)
             {
                 var consTypes = await _context!.ConstructionTypes!
-                                            .FirstOrDefaultAsync(ct => ct.Id == item.ConstructionTypeId);
+                                            .FirstOrDefaultAsync(ct => ct.Id == item.ConstructionTypeId && ct.IsDeleted == false);
 
                 item.ConstructionTypeName = consTypes?.TypeName;
 
@@ -40,25 +40,25 @@ namespace new_wr_api.Service
 
 
                 var location = _context.Locations?
-                   .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString()).FirstOrDefault();
+                   .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString() && l.IsDeleted == false).FirstOrDefault();
 
                 item.DistrictName = location?.DistrictName;
                 item.CommuneName = location?.CommuneName;
 
                 item.RiverName = _context.Rivers?
-                    .Where(r => r.Id == item.RiverId)
+                    .Where(r => r.Id == item.RiverId && r.IsDeleted == false)
                     .Select(r => r.Name).FirstOrDefault();
 
                 item.BasinName = _context.Basins?
-                    .Where(b => b.Id == item.BasinId)
+                    .Where(b => b.Id == item.BasinId && b.IsDeleted == false)
                     .Select(b => b.Name).FirstOrDefault();
 
                 item.SubBasinName = _context.SubBasins?
-                    .Where(sb => sb.Id == item.SubBasinId)
+                    .Where(sb => sb.Id == item.SubBasinId && sb.IsDeleted == false)
                     .Select(sb => sb.Name).FirstOrDefault();
 
                 //get list license
-                var licenses = await _context!.Licenses!.Where(l => l.ConstructionId == item.Id).ToListAsync();
+                var licenses = await _context!.Licenses!.Where(l => l.ConstructionId == item.Id && l.IsDeleted == false).ToListAsync();
 
                 item.Licenses = _mapper.Map<List<LicenseModel>>(licenses);
                 if (item.Licenses != null)
@@ -102,7 +102,7 @@ namespace new_wr_api.Service
             var id = 0;
             Constructions? newItem = null;
 
-            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null || model.Id == 0)
             {
@@ -114,7 +114,7 @@ namespace new_wr_api.Service
             }
             else
             {
-                var updateItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
+                var updateItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
                 updateItem = _mapper.Map(model, updateItem);
 
@@ -146,7 +146,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteConstructionAsync(ConstructionModel model)
         {
-            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 

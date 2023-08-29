@@ -34,7 +34,7 @@ namespace new_wr_api.Service
         public async Task<List<DistrictModel>> GetAllDistrictAsync(string CityId)
         {
             var items = await _context.Locations!
-                .Where(l => l.CityId == CityId)
+                .Where(l => l.CityId == CityId && l.IsDeleted == false)
                 .GroupBy(l => new { l.CityId, l.DistrictId })
                 .Select(group => group.First())
                 .ToListAsync();
@@ -46,7 +46,7 @@ namespace new_wr_api.Service
         public async Task<List<CommuneModel>> GetAllCommuneAsync()
         {
             var items = await _context.Locations!
-                .Where(l => l.CommuneId != null)
+                .Where(l => l.CommuneId != null && l.IsDeleted == false)
                 .GroupBy(l => new { l.DistrictId, l.CommuneId })
                 .Select(group => group.First())
                 .ToListAsync();
@@ -64,7 +64,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> SaveLocationAsync(LocationsModel model)
         {
-            var existingItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null || model.Id == 0)
             {
@@ -76,7 +76,7 @@ namespace new_wr_api.Service
             }
             else
             {
-                var updateItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == model.Id);
+                var updateItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
                 updateItem = _mapper.Map(model, updateItem);
 
@@ -92,7 +92,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteLocationAsync(LocationsModel modle)
         {
-            var existingItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == modle.Id);
+            var existingItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == modle.Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 
