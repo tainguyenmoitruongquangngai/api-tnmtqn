@@ -14,8 +14,6 @@ namespace new_wr_api.Data
         public string? Location { get; set; }
         public double? X { get; set; }
         public double? Y { get; set; }
-        public double? Lat { get; set; }
-        public double? Lng { get; set; }
         public double? WaterSupplyFlow { get; set; }
         public double? WaterDepthFrom { get; set; }
         public double? WaterDepthTo { get; set; }

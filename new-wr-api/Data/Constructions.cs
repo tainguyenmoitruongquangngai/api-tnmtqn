@@ -22,8 +22,6 @@ namespace new_wr_api.Data
         public string? ConstructionLocation { get; set; } = string.Empty;
         public double? X { get; set; }
         public double? Y { get; set; }
-        public double? Lat { get; set; }
-        public double? Lng { get; set; }
         public int? StartDate { get; set; }
         public string? ExploitedWS { get; set; } = string.Empty;
         public string? ExploitMode { get; set; } = string.Empty;
