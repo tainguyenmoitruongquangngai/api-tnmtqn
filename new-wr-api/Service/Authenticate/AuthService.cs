@@ -80,6 +80,9 @@ namespace new_wr_api.Service
 
             foreach (var role in roles)
             {
+
+                claims.Add(new Claim(ClaimTypes.Role, role));
+
                 // Lấy danh sách quyền thuộc vai trò
                 var rolePermissions = await _context.Permissions!.Where(p => p.RoleName == role).ToListAsync();
 
