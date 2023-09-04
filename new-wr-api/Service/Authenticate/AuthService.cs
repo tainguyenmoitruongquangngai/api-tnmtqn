@@ -10,11 +10,13 @@ using System.Text;
 using Newtonsoft.Json;
 using new_wr_api.Models.Authenticate;
 using new_wr_api.Models;
+using System.Linq;
 
 namespace new_wr_api.Service
 {
     public class AuthService : IAuthService
     {
+        private readonly DatabaseContext _context;
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly RoleManager<AspNetRoles> _roleManager;
 
@@ -22,8 +24,9 @@ namespace new_wr_api.Service
 
         private readonly IConfiguration _configuration;
 
-        public AuthService(UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, RoleManager<AspNetRoles> roleManager, IConfiguration configuration)
+        public AuthService(UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, RoleManager<AspNetRoles> roleManager, IConfiguration configuration, DatabaseContext context)
         {
+            _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
@@ -33,13 +36,14 @@ namespace new_wr_api.Service
         public async Task<bool> RegisterAsync(UserModel model)
         {
             // Create a new user
-            AspNetUsers user = new AspNetUsers();
-
-            user.UserName = model.UserName;
-            user.Email = model.Email;
-            user.FullName = model.FullName;
-            user.PhoneNumber = model.PhoneNumber;
-            user.IsDeleted = false;
+            AspNetUsers user = new AspNetUsers
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FullName = model.FullName,
+                PhoneNumber = model.PhoneNumber,
+                IsDeleted = false
+            };
 
             var res = await _userManager.CreateAsync(user, model.Password);
 
@@ -64,17 +68,79 @@ namespace new_wr_api.Service
             var user = await _userManager.FindByNameAsync(model.UserName);
             var roles = await _userManager.GetRolesAsync(user!);
 
-            var claims = new List<Claim> {
+            var claims = new List<Claim>
+            {
                 new Claim(JwtRegisteredClaimNames.Sub, user!.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Name, user.UserName ?? ""),
                 new Claim(ClaimTypes.NameIdentifier, user.FullName ?? ""),
             };
 
+            var addedPermissions = new HashSet<string>(); // Sử dụng HashSet để lưu trữ các quyền đã thêm vào danh sách
+
             foreach (var role in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                // Lấy danh sách quyền thuộc vai trò
+                var rolePermissions = await _context.Permissions!.Where(p => p.RoleName == role).ToListAsync();
+
+                // Thêm quyền vào danh sách claims
+                foreach (var permission in rolePermissions)
+                {
+                    // Lấy thông tin dashSrc từ SQL
+                    var dashSrc = await _context.Dashboards!.Where(d => d.Id == permission.DashboardId).Select(d => d.Path).FirstOrDefaultAsync();
+
+                    // Tạo một quyền dưới dạng đối tượng JSON
+                    var permissionObject = new
+                    {
+                        funcCode = permission.FunctionCode,
+                        dashSrc = dashSrc!
+                    };
+
+                    var permissionJson = JsonConvert.SerializeObject(permissionObject);
+
+                    // Kiểm tra xem quyền đã được thêm vào danh sách chưa
+                    if (!addedPermissions.Contains(permissionJson))
+                    {
+                        // Thêm quyền vào danh sách claims
+                        var permissionClaim = new Claim("Permission", permissionJson);
+                        claims.Add(permissionClaim);
+
+                        // Đánh dấu quyền đã được thêm vào danh sách
+                        addedPermissions.Add(permissionJson);
+                    }
+                }
             }
+
+            // Lấy danh sách quyền theo tên người dùng
+            var userPermissions = await _context.Permissions!.Where(p => p.UserName == user.UserName).ToListAsync();
+
+            // Thêm quyền vào danh sách claims
+            foreach (var permission in userPermissions)
+            {
+                // Lấy thông tin dashSrc từ SQL
+                var dashSrc = await _context.Dashboards!.Where(d => d.Id == permission.DashboardId).Select(d => d.Path).FirstOrDefaultAsync();
+
+                // Tạo một quyền dưới dạng đối tượng JSON
+                var permissionObject = new
+                {
+                    funcCode = permission.FunctionCode,
+                    dashSrc = dashSrc!
+                };
+
+                var permissionJson = JsonConvert.SerializeObject(permissionObject);
+
+                // Kiểm tra xem quyền đã được thêm vào danh sách chưa
+                if (!addedPermissions.Contains(permissionJson))
+                {
+                    // Thêm quyền vào danh sách claims
+                    var permissionClaim = new Claim("Permission", permissionJson);
+                    claims.Add(permissionClaim);
+
+                    // Đánh dấu quyền đã được thêm vào danh sách
+                    addedPermissions.Add(permissionJson);
+                }
+            }
+
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? ""));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
@@ -91,6 +157,7 @@ namespace new_wr_api.Service
 
             return JsonConvert.SerializeObject(jwt);
         }
+
 
         public async Task<bool> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword)
         {

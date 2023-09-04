@@ -112,15 +112,16 @@ namespace new_wr_api.Service
             if (existingItem == null)
             {
                 // Create a new user
-                AspNetUsers user = new AspNetUsers();
-
-                user.UserName = model.UserName;
-                user.Email = model.Email;
-                user.FullName = model.FullName;
-                user.PhoneNumber = model.PhoneNumber;
-                user.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                user.CreatedTime = DateTime.Now;
-                user.IsDeleted = false;
+                AspNetUsers user = new AspNetUsers
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    FullName = model.FullName,
+                    PhoneNumber = model.PhoneNumber,
+                    CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null,
+                    CreatedTime = DateTime.Now,
+                    IsDeleted = false
+                };
 
                 var res = await _userManager.CreateAsync(user, model.Password);
 
