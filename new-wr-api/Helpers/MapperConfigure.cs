@@ -103,6 +103,12 @@ namespace new_wr_api.Helpers
 
             //River
             CreateMap<Rivers, RiverModel>().ReverseMap();
+
+            //Aquifer
+            CreateMap<Aquifers, AquiferModel>().ReverseMap();
+
+            //SubBasin
+            CreateMap<SubBasins, SubBasinModel>().ReverseMap();
         }
     }
 }

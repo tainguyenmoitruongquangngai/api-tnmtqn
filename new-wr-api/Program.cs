@@ -34,6 +34,8 @@ services.AddScoped<ConstructionService>();
 services.AddScoped<ConstructionDetailService>();
 services.AddScoped<LocationService>();
 services.AddScoped<RiverService>();
+services.AddScoped<AquiferService>();
+services.AddScoped<SubBasinService>();
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
 {
