@@ -54,18 +54,27 @@ namespace new_wr_api.Controllers
             }
         }
 
-        [HttpGet("getfile")]
-        public IActionResult GetFile([FromQuery] GetModel getFile)
+        [HttpGet("readfile")]
+        public IActionResult ReadFile([FromQuery] GetModel getFile)
         {
-            var filePath = Path.Combine($"{_uploadDirectory}/{getFile.FilePath}", getFile.FileName);
-            if (System.IO.File.Exists(filePath))
+            try
             {
-                var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                return File(fileStream, "application/octet-stream");
+                var filePath = Path.Combine($"{_uploadDirectory}/{getFile.FilePath}", getFile.FileName);
+
+                if (System.IO.File.Exists(filePath))
+                {
+                    var fileBytes = System.IO.File.ReadAllBytes(filePath);
+
+                    return File(fileBytes, "application/octet-stream", getFile.FileName);
+                }
+                else
+                {
+                    return NotFound("File not found");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
     }
