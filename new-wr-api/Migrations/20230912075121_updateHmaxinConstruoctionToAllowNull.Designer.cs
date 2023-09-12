@@ -12,15 +12,15 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230906092836_create_Aquifer_migration")]
-    partial class create_Aquifer_migration
+    [Migration("20230912075121_updateHmaxinConstruoctionToAllowNull")]
+    partial class updateHmaxinConstruoctionToAllowNull
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -391,7 +391,7 @@ namespace new_wr_api.Migrations
                     b.ToTable("Business");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.ConstructionDetails", b =>
+            modelBuilder.Entity("new_wr_api.Data.ConstructionItems", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -399,14 +399,8 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("AmountWaterExploited")
-                        .HasColumnType("float");
-
                     b.Property<int?>("AquiferId")
                         .HasColumnType("int");
-
-                    b.Property<double?>("AverageDischargeFlow")
-                        .HasColumnType("float");
 
                     b.Property<int>("ConstructionId")
                         .HasColumnType("int");
@@ -417,47 +411,14 @@ namespace new_wr_api.Migrations
                     b.Property<string>("CreatedUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("DepthFilterTubeFrom")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DepthFilterTubeTo")
-                        .HasColumnType("float");
-
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DischargeMethod")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DischargeMode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DischargeWS")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("DynamicWL")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("ExploitMaxFlow")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ExploitMode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("KqKf")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("LowWL")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MaximumWasteWaterFlow")
-                        .HasColumnType("float");
 
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
@@ -468,10 +429,197 @@ namespace new_wr_api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double?>("X")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Y")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConstructionItems");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.ConstructionSpecifications", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double?>("AmountWaterExploited")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("AverageDischargeFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("AveragePumpTime")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("BasinArea")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CheckFloodWL")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ConstructionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ConstructionItemId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("ConstructionLevel")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("DamElevation")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DamHeight")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DamWidth")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DeadCapacity")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DeadWL")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DepthFilterTubeFrom")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DepthFilterTubeTo")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DesignFloodLevel")
+                        .HasColumnType("float");
+
+                    b.Property<string>("DischargeMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DischargeMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DischargeWS")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("DrainDiameter")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DrainElevation")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DrainLength")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DrainSize")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("DynamicWL")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("ExploitAquifer")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("ExploitMaxFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("ExploitMethod")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ExploitMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("FlowAvgForYears")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("FlowDesigned")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("GuaranteedFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("GuaranteedPower")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Hmax")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Hmin")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Htt")
+                        .HasColumnType("float");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("KqKf")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LowWL")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MaximumFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MaximumPumpTime")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MaximumWasteWaterFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MinimumFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("MinimumPumpTime")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("MonitoringWellWL")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Power")
+                        .HasColumnType("float");
+
                     b.Property<double?>("PumpCapacity")
                         .HasColumnType("float");
 
+                    b.Property<double?>("PumpNumber")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RainAvgForYears")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RealityFlow")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RealityWateringArea")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("RiseWL")
+                        .HasColumnType("float");
+
                     b.Property<double?>("StaticWL")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("TotalCapacity")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("UsefulCapacity")
                         .HasColumnType("float");
 
                     b.Property<double?>("WaterDepthFrom")
@@ -483,15 +631,15 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("WaterSupplyFlow")
                         .HasColumnType("float");
 
-                    b.Property<double?>("X")
+                    b.Property<double?>("WateringAreaDesigned")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Y")
+                    b.Property<double?>("WellWL")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ConstructionDetails");
+                    b.ToTable("ConstructionSpecifications");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ConstructionTypes", b =>
@@ -542,20 +690,8 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("AmountWaterExploited")
-                        .HasColumnType("float");
-
                     b.Property<int?>("AquiferId")
                         .HasColumnType("int");
-
-                    b.Property<double?>("AverageDischargeFlow")
-                        .HasColumnType("float");
-
-                    b.Property<string>("AveragePumpTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("BasinArea")
-                        .HasColumnType("float");
 
                     b.Property<int?>("BasinId")
                         .HasColumnType("int");
@@ -566,19 +702,10 @@ namespace new_wr_api.Migrations
                     b.Property<string>("Change")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("CheckFloodWL")
-                        .HasColumnType("float");
-
                     b.Property<int?>("CommuneId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConstructionCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConstructionDetailLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConstructionLevel")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConstructionLocation")
@@ -599,26 +726,8 @@ namespace new_wr_api.Migrations
                     b.Property<string>("CreatedUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("DamElevation")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DamHeight")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DamWidth")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DeadCapacity")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DeadWL")
-                        .HasColumnType("float");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("DesignFloodLevel")
-                        .HasColumnType("float");
 
                     b.Property<double?>("DischargeFlow")
                         .HasColumnType("float");
@@ -641,18 +750,6 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("DownstreamWLPre")
                         .HasColumnType("float");
 
-                    b.Property<double?>("DrainDiameter")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DrainElevation")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DrainLength")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DrainSize")
-                        .HasColumnType("float");
-
                     b.Property<string>("DrillingDuration")
                         .HasColumnType("nvarchar(max)");
 
@@ -662,17 +759,11 @@ namespace new_wr_api.Migrations
                     b.Property<string>("DrillingScale")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("DynamicWL")
-                        .HasColumnType("float");
-
                     b.Property<string>("ExploitDuration")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("ExploitMaxFlow")
                         .HasColumnType("float");
-
-                    b.Property<string>("ExploitMethod")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExploitMode")
                         .HasColumnType("nvarchar(max)");
@@ -689,27 +780,6 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("FlootWL")
                         .HasColumnType("float");
 
-                    b.Property<double?>("FlowAvgForYears")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("FlowDesigned")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("GuaranteedFlow")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("GuaranteedPower")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Hmax")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Hmin")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Htt")
-                        .HasColumnType("float");
-
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -719,47 +789,23 @@ namespace new_wr_api.Migrations
                     b.Property<bool?>("IsError")
                         .HasColumnType("bit");
 
-                    b.Property<string>("KqKf")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("LowWL")
-                        .HasColumnType("float");
-
                     b.Property<double?>("MaximumDischargeFlow")
                         .HasColumnType("float");
 
                     b.Property<double?>("MaximumDischargeFlowPre")
                         .HasColumnType("float");
 
-                    b.Property<double?>("MaximumFlow")
-                        .HasColumnType("float");
-
                     b.Property<double?>("MaximumFlowPre")
-                        .HasColumnType("float");
-
-                    b.Property<string>("MaximumPumpTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("MaximumWasteWaterFlow")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MinimumFlow")
                         .HasColumnType("float");
 
                     b.Property<double?>("MinimumFlowPre")
                         .HasColumnType("float");
-
-                    b.Property<string>("MinimumPumpTime")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModifiedUser")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("MonitoringWellWL")
-                        .HasColumnType("float");
 
                     b.Property<double?>("NumberExploitWells")
                         .HasColumnType("float");
@@ -768,9 +814,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("float");
 
                     b.Property<double?>("OverflowFlow")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Power")
                         .HasColumnType("float");
 
                     b.Property<double?>("PreFlootMaxWL")
@@ -788,21 +831,6 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("PumpMaxFlow")
                         .HasColumnType("float");
 
-                    b.Property<double?>("PumpNumber")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("RainAvgForYears")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("RealityFlow")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("RealityWateringArea")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("RiseWL")
-                        .HasColumnType("float");
-
                     b.Property<int?>("RiverId")
                         .HasColumnType("int");
 
@@ -811,9 +839,6 @@ namespace new_wr_api.Migrations
 
                     b.Property<int?>("StartDate")
                         .HasColumnType("int");
-
-                    b.Property<double?>("StaticWL")
-                        .HasColumnType("float");
 
                     b.Property<int?>("SubBasinId")
                         .HasColumnType("int");
@@ -824,16 +849,10 @@ namespace new_wr_api.Migrations
                     b.Property<DateTime?>("TimePre")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("TotalCapacity")
-                        .HasColumnType("float");
-
                     b.Property<double?>("UpstreamWL")
                         .HasColumnType("float");
 
                     b.Property<double?>("UpstreamWLPre")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("UsefulCapacity")
                         .HasColumnType("float");
 
                     b.Property<string>("UserName")
@@ -842,11 +861,8 @@ namespace new_wr_api.Migrations
                     b.Property<string>("VolumeOfExplorationItems")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("WaterDepthFrom")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("WaterDepthTo")
-                        .HasColumnType("float");
+                    b.Property<string>("WasteDischargeLocation")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("WaterExtractionFlowDesign")
                         .HasColumnType("float");
@@ -854,17 +870,8 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("WaterExtractionFlowReality")
                         .HasColumnType("float");
 
-                    b.Property<double?>("WaterSupplyFlow")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("WateringAreaDesigned")
-                        .HasColumnType("float");
-
                     b.Property<string>("WellNumber")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("WellWL")
-                        .HasColumnType("float");
 
                     b.Property<double?>("X")
                         .HasColumnType("float");

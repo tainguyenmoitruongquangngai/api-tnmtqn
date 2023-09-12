@@ -12,8 +12,8 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230824074006_UpdateConstructionTypes")]
-    partial class UpdateConstructionTypes
+    [Migration("20230912021726_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,6 +129,40 @@ namespace new_wr_api.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Aquifers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AquiferSymbol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Aquifers");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.AspNetRoles", b =>
@@ -404,17 +438,17 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("DynamicWL")
                         .HasColumnType("float");
 
+                    b.Property<double?>("ExploitMaxFlow")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ExploitMode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("KqKf")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Lat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Lng")
-                        .HasColumnType("float");
 
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
@@ -424,12 +458,6 @@ namespace new_wr_api.Migrations
 
                     b.Property<double?>("MaximumWasteWaterFlow")
                         .HasColumnType("float");
-
-                    b.Property<double?>("MiningMaxFlow")
-                        .HasColumnType("float");
-
-                    b.Property<string>("MiningMode")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
@@ -492,8 +520,8 @@ namespace new_wr_api.Migrations
                     b.Property<string>("ModifiedUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Parent")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("TypeName")
                         .HasColumnType("nvarchar(max)");
@@ -637,6 +665,21 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("DynamicWL")
                         .HasColumnType("float");
 
+                    b.Property<string>("ExploitDuration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("ExploitMaxFlow")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ExploitMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExploitMode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExploitPurpose")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ExploitedWS")
                         .HasColumnType("nvarchar(max)");
 
@@ -679,12 +722,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("KqKf")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Lat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Lng")
-                        .HasColumnType("float");
-
                     b.Property<double?>("LowWL")
                         .HasColumnType("float");
 
@@ -715,21 +752,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("MinimumPumpTime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MiningDuration")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("MiningMaxFlow")
-                        .HasColumnType("float");
-
-                    b.Property<string>("MiningMethod")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MiningMode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MiningPurpose")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ModifiedTime")
                         .HasColumnType("datetime2");
 
@@ -739,7 +761,7 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("MonitoringWellWL")
                         .HasColumnType("float");
 
-                    b.Property<double?>("NumberMiningWells")
+                    b.Property<double?>("NumberExploitWells")
                         .HasColumnType("float");
 
                     b.Property<double?>("NumberMonitoringWells")

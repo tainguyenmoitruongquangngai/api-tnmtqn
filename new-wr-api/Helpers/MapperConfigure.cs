@@ -59,14 +59,25 @@ namespace new_wr_api.Helpers
                 {
                     opt.MapFrom((src, cons) => cons.ConstructionItems);
                 })
+                .ForMember(consSpec => consSpec.ConstructionSpecification, opt =>
+                {
+                    opt.MapFrom((src, cons) => cons.ConstructionSpecification);
+                })
                 .ForMember(lic => lic.Licenses, opt =>
                 {
                     opt.MapFrom((src, cons) => cons.Licenses);
                 })
                 .ReverseMap();
 
-            //ConstructionDetails 
-            CreateMap<ConstructionDetails, ConstructionDetailModel>().ReverseMap();
+            //ConstructionItems
+            CreateMap<ConstructionItems, ConstructionItemModel>()
+                .ForMember(consSpec => consSpec.ConstructionSpecification, opt =>
+                {
+                    opt.MapFrom((src, consItems) => consItems.ConstructionSpecification);
+                }).ReverseMap();
+
+            //ConstructionSpecifications
+            CreateMap<ConstructionSpecifications, ConstructionSpecificationModel>().ReverseMap();
 
             //ConstructionTypes
             CreateMap<ConstructionTypes, ConstructionTypesModel>().ReverseMap();

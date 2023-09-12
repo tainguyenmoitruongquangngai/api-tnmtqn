@@ -11,16 +11,16 @@ namespace new_wr_api.Controllers
     //[Authorize(Roles = "Administrator")]
     public class ConstructionDetailController : ControllerBase
     {
-        private readonly ConstructionDetailService _service;
+        private readonly ConstructionItemService _service;
 
-        public ConstructionDetailController(ConstructionDetailService service)
+        public ConstructionDetailController(ConstructionItemService service)
         {
             _service = service;
         }
 
         [HttpPost]
         [Route("save")]
-        public async Task<ActionResult<ConstructionDetails>> SaveConstructionDetail(ConstructionDetailModel moddel)
+        public async Task<ActionResult<ConstructionItems>> SaveConstructionDetail(ConstructionItemModel moddel)
         {
             var res = await _service.SaveConstructionDetailAsync(moddel);
             if (res)
@@ -35,7 +35,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<ConstructionDetails>> DeleteConstructionDetail(ConstructionDetailModel moddel)
+        public async Task<ActionResult<ConstructionItems>> DeleteConstructionDetail(ConstructionItemModel moddel)
         {
             var res = await _service.DeleteConstructionDetailAsync(moddel);
             if (res == true)

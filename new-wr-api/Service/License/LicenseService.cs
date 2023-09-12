@@ -107,11 +107,26 @@ namespace new_wr_api.Service
                         .Where(sb => sb.Id == cons.SubBasinId && sb.IsDeleted == false)
                         .Select(sb => sb.Name).FirstOrDefault();
 
-                    var constructionItems = await _context!.ConstructionDetails!
-                        .Where(cd => cd.ConstructionId == cons.Id && cd.IsDeleted == false) // Điều kiện lấy Construction Items
-                        .ToListAsync();
+                    //list construction items
+                    var consItems = await _context!.ConstructionItems!
+                                                   .Where(cd => cd.ConstructionId == cons.Id && cd.IsDeleted == false)
+                                                  .ToListAsync();
+                    item.Construction.ConstructionItems = _mapper.Map<List<ConstructionItemModel>>(consItems);
+                    if (item.Construction.ConstructionItems != null)
+                    {
+                        //get construction specifications
+                        foreach (var conItems in item.Construction.ConstructionItems)
+                        {
+                            var consSpecit = await _context!.ConstructionSpecifications!
+                                                  .FirstOrDefaultAsync(ci => ci.ConstructionItemId == conItems.Id && ci.IsDeleted == false);
+                            conItems.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpecit);
+                        }
+                    }
 
-                    item.Construction.ConstructionItems = _mapper.Map<List<ConstructionDetailModel>>(constructionItems);
+                    //construction specifications
+                    var consSpeci = await _context!.ConstructionSpecifications!
+                                                  .FirstOrDefaultAsync(ci => ci.ConstructionId == cons.Id && ci.IsDeleted == false);
+                    item.Construction.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpeci);
                 }
             }
 

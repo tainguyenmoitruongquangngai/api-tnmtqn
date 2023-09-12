@@ -80,10 +80,25 @@ namespace new_wr_api.Service
                 }
 
                 //list construction items
-                var consItems = await _context!.ConstructionDetails!
+                var consItems = await _context!.ConstructionItems!
                                               .Where(ci => ci.ConstructionId == item.Id && ci.IsDeleted == false)
                                               .ToListAsync();
-                item.ConstructionItems = _mapper.Map<List<ConstructionDetailModel>>(consItems);
+                item.ConstructionItems = _mapper.Map<List<ConstructionItemModel>>(consItems);
+                if (item.ConstructionItems != null)
+                {
+                    //get conItems
+                    foreach (var conItems in item.ConstructionItems)
+                    {
+                        var consSpecit = await _context!.ConstructionSpecifications!
+                                              .FirstOrDefaultAsync(ci => ci.ConstructionItemId == item.Id && ci.IsDeleted == false);
+                        conItems.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpecit);
+                    }
+                }
+
+                //construction specifications
+                var consSpeci = await _context!.ConstructionSpecifications!
+                                              .FirstOrDefaultAsync(ci => ci.ConstructionId == item.Id && ci.IsDeleted == false);
+                item.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpeci);
             }
 
             return listItems;

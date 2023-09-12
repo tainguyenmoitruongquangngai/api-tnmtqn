@@ -6,11 +6,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDataBase : Migration
+    public partial class InitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Aquifers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AquiferSymbol = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModifiedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Aquifers", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -122,8 +141,6 @@ namespace new_wr_api.Migrations
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     X = table.Column<double>(type: "float", nullable: true),
                     Y = table.Column<double>(type: "float", nullable: true),
-                    Lat = table.Column<double>(type: "float", nullable: true),
-                    Lng = table.Column<double>(type: "float", nullable: true),
                     WaterSupplyFlow = table.Column<double>(type: "float", nullable: true),
                     WaterDepthFrom = table.Column<double>(type: "float", nullable: true),
                     WaterDepthTo = table.Column<double>(type: "float", nullable: true),
@@ -131,8 +148,8 @@ namespace new_wr_api.Migrations
                     DepthFilterTubeTo = table.Column<double>(type: "float", nullable: true),
                     StaticWL = table.Column<double>(type: "float", nullable: true),
                     DynamicWL = table.Column<double>(type: "float", nullable: true),
-                    MiningMaxFlow = table.Column<double>(type: "float", nullable: true),
-                    MiningMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExploitMaxFlow = table.Column<double>(type: "float", nullable: true),
+                    ExploitMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AmountWaterExploited = table.Column<double>(type: "float", nullable: true),
                     PumpCapacity = table.Column<double>(type: "float", nullable: true),
                     MaximumWasteWaterFlow = table.Column<double>(type: "float", nullable: true),
@@ -166,7 +183,7 @@ namespace new_wr_api.Migrations
                     CommuneId = table.Column<int>(type: "int", nullable: true),
                     RiverId = table.Column<int>(type: "int", nullable: true),
                     BasinId = table.Column<int>(type: "int", nullable: true),
-                    SubBasinId = table.Column<int>(type: "int", nullable: false),
+                    SubBasinId = table.Column<int>(type: "int", nullable: true),
                     AquiferId = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ConstructionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -174,19 +191,17 @@ namespace new_wr_api.Migrations
                     ConstructionLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     X = table.Column<double>(type: "float", nullable: true),
                     Y = table.Column<double>(type: "float", nullable: true),
-                    Lat = table.Column<double>(type: "float", nullable: true),
-                    Lng = table.Column<double>(type: "float", nullable: true),
                     StartDate = table.Column<int>(type: "int", nullable: true),
                     ExploitedWS = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MiningMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MiningMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MiningPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExploitMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExploitMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExploitPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DischargeMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DischargeMode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DischargeWS = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DischargeFlow = table.Column<double>(type: "float", nullable: true),
                     MaximumDischargeFlow = table.Column<double>(type: "float", nullable: true),
-                    MiningMaxFlow = table.Column<double>(type: "float", nullable: true),
+                    ExploitMaxFlow = table.Column<double>(type: "float", nullable: true),
                     MaximumFlow = table.Column<double>(type: "float", nullable: true),
                     MinimumFlow = table.Column<double>(type: "float", nullable: true),
                     MaximumWasteWaterFlow = table.Column<double>(type: "float", nullable: true),
@@ -213,7 +228,7 @@ namespace new_wr_api.Migrations
                     PumpMaxFlow = table.Column<double>(type: "float", nullable: true),
                     SuctionTankWL = table.Column<double>(type: "float", nullable: true),
                     WaterSupplyFlow = table.Column<double>(type: "float", nullable: true),
-                    MiningDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExploitDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DrillingDuration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DrillingPurpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExplorationPurposes = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -221,7 +236,7 @@ namespace new_wr_api.Migrations
                     ConstructionTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DesignFloodLevel = table.Column<double>(type: "float", nullable: true),
                     CheckFloodWL = table.Column<double>(type: "float", nullable: true),
-                    NumberMiningWells = table.Column<double>(type: "float", nullable: true),
+                    NumberExploitWells = table.Column<double>(type: "float", nullable: true),
                     AmountWaterExploited = table.Column<double>(type: "float", nullable: true),
                     NumberMonitoringWells = table.Column<double>(type: "float", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -698,6 +713,9 @@ namespace new_wr_api.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Aquifers");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
