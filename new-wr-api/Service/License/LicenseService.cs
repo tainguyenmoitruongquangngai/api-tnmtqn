@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using new_wr_api.Data;
 using new_wr_api.Models;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security.Claims;
 
 namespace new_wr_api.Service
@@ -21,116 +23,188 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
-        public async Task<List<LicenseModel>> GetAllLicenseAsync()
+        public async Task<List<LicenseModel>> GetAllLicenseAsync(string? LicenseNumber, string? LicensingAuthorities, int? LicenseTypeId, string? LicenseValidity, int? BusinessId, int? ConstructionId, int? ConstructionTypeId, int? DistrictId, int? CommuneId, int? SubBasinId, int PageIndex, int PageSize)
         {
-            var items = await _context!.Licenses!
-                .Where(x => x.IsDeleted == false && x.IsDeleted == false).OrderByDescending(x => x.SignDate)
-                .ToListAsync();
+            //TRUY VẤN DỮ LIỆU
+            var query = from license in _context.Licenses
+                        where license.IsDeleted == false
+                            && (string.IsNullOrEmpty(LicenseNumber) || license.LicenseNumber!.ToLower().Contains(LicenseNumber.ToLower()))
+                            && (string.IsNullOrEmpty(LicensingAuthorities) || license.LicensingAuthorities!.ToLower().Contains(LicensingAuthorities.ToLower()))
+                            && (LicenseTypeId == 0 || license.LicensingTypeId == LicenseTypeId)
+                            && (BusinessId == 0 || license.BusinessId == BusinessId)
+                            && (ConstructionId == 0 || license.ConstructionId == ConstructionId)
+                        orderby license.SignDate descending
+                        select new
+                        {
+                            License = license,
+                            Construction = _context.Constructions!
+                                .FirstOrDefault(c => c.Id == license.ConstructionId && c.IsDeleted == false)
+                        };
 
-            var listItems = _mapper.Map<List<LicenseModel>>(items);
+            query = query
+                .Where(x =>
+                    (ConstructionTypeId == 0 || x.Construction.ConstructionTypeId == ConstructionTypeId) &&
+                    (DistrictId == 0 || x.Construction.DistrictId == DistrictId) &&
+                    (CommuneId == 0 || x.Construction.CommuneId == CommuneId) &&
+                    (SubBasinId == 0 || x.Construction.SubBasinId == SubBasinId));
 
-            foreach (var item in listItems)
+            if (!string.IsNullOrEmpty(LicenseValidity))
             {
-                //License.OldLicense
-                var oldLicense = await _context!.Licenses!.FirstOrDefaultAsync(ol => ol.Id == item.ChildId && ol.IsDeleted == false);
-                item.OldLicense = _mapper.Map<LicenseModel>(oldLicense);
-
-                //License.Construction
-                var cons = await _context!.Constructions!.FirstOrDefaultAsync(x => x.Id == item.ConstructionId && x.IsDeleted == false);
-                item.Construction = _mapper.Map<ConstructionModel>(cons);
-
-                //License.LicenseFees
-                var licFeeIds = _context!.LicenseLicenseFee!.Where(x => x.LicenseId == item.Id).Select(x => x.LicenseFeeId).ToList();
-                var licFee = await _context!.LicenseFees!.Where(x => licFeeIds.Contains(x.Id) && x.IsDeleted == false).ToListAsync();
-                item.LicenseFees = _mapper.Map<List<LicenseFeeModel>>(licFee);
-
-                //License.Business
-                var business = await _context!.Business!.FirstOrDefaultAsync(b => b.Id == item.BusinessId && b.IsDeleted == false);
-                item.Business = _mapper.Map<BusinessModel>(business);
-
-                //For fillter
-                if (item.IsRevoked == true)
+                switch (LicenseValidity.ToLower())
                 {
-                    item.LicenseValidity = "da-bi-thu-hoi";
+                    case "sap-het-hieu-luc":
+                        query = query
+                            .Where(x => x.License.ExpriteDate.HasValue &&
+                                        x.License.ExpriteDate >= DateTime.Today &&
+                                        x.License.ExpriteDate < DateTime.Today.AddDays(160) &&
+                                        x.License.IsRevoked == false);
+                        break;
+                    case "het-hieu-luc":
+                        query = query
+                            .Where(x => x.License.ExpriteDate.HasValue &&
+                                        x.License.ExpriteDate < DateTime.Today &&
+                                        x.License.IsRevoked == false);
+                        break;
+                    case "con-hieu-luc":
+                        query = query
+                            .Where(x => x.License.ExpriteDate.HasValue &&
+                                        x.License.ExpriteDate > DateTime.Today.AddDays(160) &&
+                                        x.License.IsRevoked == false);
+                        break;
+                    case "da-bi-thu-hoi":
+                        query = query.Where(x => x.License.IsRevoked == true);
+                        break;
+                    default: break;
                 }
-                else if (item.ExpriteDate.HasValue)
+            }
+
+
+
+            if (PageSize > 0)
+            {
+                if (PageIndex < 1) PageIndex = 1;
+                query = query.Skip((PageIndex - 1) * PageSize).Take(PageSize);
+            }
+
+            var queryResults = await query.ToListAsync();
+
+            var listItems = new List<LicenseModel>();
+
+            // THIẾT LẬP DỮ LIỆU KHÁC NGOÀI GIẤY PHÉP
+            foreach (var queryResult in queryResults)
+            {
+                var constructionId = queryResult.Construction?.Id;
+
+                var licenseModel = new LicenseModel
                 {
-                    DateTime expireDate = item.ExpriteDate.Value; // Convert nullable DateTime? to non-nullable DateTime
+                    Construction = new ConstructionModel(),
+                    Business = new BusinessModel()
+                };
+
+                // Ánh xạ dữ liệu License
+                _mapper.Map(queryResult.License, licenseModel);
+
+                //Ánh xạ dữ liệu OldLicense
+                var oldLicense = await _context!.Licenses!.FirstOrDefaultAsync(ol => ol.Id == licenseModel.ChildId && ol.IsDeleted == false);
+                licenseModel.OldLicense = _mapper.Map<LicenseModel>(oldLicense);
+
+                // Ánh xạ dữ liệu Business
+                _mapper.Map(await _context.Business!.FirstOrDefaultAsync(b => b.Id == queryResult.License.BusinessId && b.IsDeleted == false), licenseModel.Business);
+
+                // Lấy danh sách LicenseFees và ánh xạ vào LicenseModel
+                var licFeeIds = await _context.LicenseLicenseFee!
+                    .Where(x => x.LicenseId == licenseModel.Id)
+                    .Select(x => x.LicenseFeeId)
+                    .ToListAsync();
+
+                var licFees = await _context.LicenseFees!
+                    .Where(x => licFeeIds.Contains(x.Id) && !x.IsDeleted)
+                    .ToListAsync();
+
+                licenseModel.LicenseFees = _mapper.Map<List<LicenseFeeModel>>(licFees);
+
+                // Ánh xạ dữ liệu Construction
+                _mapper.Map(queryResult.Construction, licenseModel.Construction);
+
+                // Ánh xạ dữ liệu ConstructionItems
+                licenseModel.Construction!.ConstructionItems = _mapper.Map<List<ConstructionItemModel>>(await _context.ConstructionItems!
+                    .Where(x => x.ConstructionId == constructionId && x.IsDeleted == false)
+                    .ToListAsync());
+
+                //Loại công trình
+                var consType = await _context.ConstructionTypes!.FirstOrDefaultAsync(x => x.Id == licenseModel.Construction.ConstructionTypeId);
+                licenseModel.Construction.ConstructionTypeName = consType?.TypeName;
+
+                //Lấy Huyện, Xã, Sông, Lưu vực sông, Tiểu vùng quy hoạch
+                var location = await _context.Locations!
+                    .FirstOrDefaultAsync(
+                           l => l.DistrictId == licenseModel.Construction.DistrictId.ToString()
+                        && l.CommuneId == licenseModel.Construction.CommuneId.ToString()
+                        && l.IsDeleted == false);
+
+                //Huyện
+                licenseModel.Construction.DistrictName = location?.DistrictName;
+
+                //Xã
+                licenseModel.Construction.CommuneName = location?.CommuneName;
+
+                //Sông
+                licenseModel.Construction.RiverName = await _context.Rivers!
+                    .Where(r => r.Id == licenseModel.Construction.RiverId && r.IsDeleted == false)
+                    .Select(r => r.Name)
+                    .FirstOrDefaultAsync();
+
+                //Lưu vực sông
+                licenseModel.Construction.BasinName = await _context.Basins!
+                    .Where(b => b.Id == licenseModel.Construction.BasinId && b.IsDeleted == false)
+                    .Select(b => b.Name)
+                    .FirstOrDefaultAsync();
+
+                //Tiểu vùng quy hoạch
+                licenseModel.Construction.SubBasinName = await _context.SubBasins!
+                    .Where(sb => sb.Id == licenseModel.Construction.SubBasinId && sb.IsDeleted == false)
+                    .Select(sb => sb.Name)
+                    .FirstOrDefaultAsync();
+
+                //Hiệu lực giấy phép
+                if (licenseModel.IsRevoked == true)
+                {
+                    licenseModel.LicenseValidity = "da-bi-thu-hoi";
+                }
+                else if (licenseModel.ExpriteDate.HasValue)
+                {
+                    DateTime expireDate = licenseModel.ExpriteDate.Value;
                     if (expireDate >= DateTime.Today && expireDate < DateTime.Today.AddDays(160))
                     {
-                        item.LicenseValidity = "sap-het-hieu-luc";
+                        licenseModel.LicenseValidity = "sap-het-hieu-luc";
                     }
                     else if (expireDate < DateTime.Today)
                     {
-                        item.LicenseValidity = "het-hieu-luc";
+                        licenseModel.LicenseValidity = "het-hieu-luc";
                     }
                     else if (expireDate > DateTime.Today.AddDays(160))
                     {
-                        item.LicenseValidity = "con-hieu-luc";
+                        licenseModel.LicenseValidity = "con-hieu-luc";
                     }
                 }
                 else
                 {
-                    item.LicenseValidity = "con-hieu-luc";
+                    licenseModel.LicenseValidity = "con-hieu-luc";
                 }
 
-                var licTypes = await _context!.LicenseTypes!.FirstOrDefaultAsync(l => l.Id == item.LicensingTypeId && l.IsDeleted == false);
-                item.LicenseTypeName = licTypes?.TypeName;
-                item.LicenseTypeSlug = licTypes?.TypeSlug;
+                var licTypes = await _context.LicenseTypes!.FirstOrDefaultAsync(l => l.Id == licenseModel.LicensingTypeId && l.IsDeleted == false);
+                licenseModel.LicenseTypeName = licTypes?.TypeName;
 
-                if (cons != null)
-                {
-                    var consTypes = await _context!.ConstructionTypes!.FirstOrDefaultAsync(l => l.Id == cons.ConstructionTypeId && l.IsDeleted == false);
-                    item.ConstructionTypeId = cons.ConstructionTypeId;
-                    item.ConstructionTypeSlug = consTypes?.TypeSlug;
-                    item.Construction.ConstructionTypeName = consTypes?.TypeName;
-                    item.ConstructionName = cons.ConstructionName;
-                    item.CommuneId = cons.CommuneId;
-                    item.DistrictId = cons.DistrictId;
-                    item.BasinId = cons.BasinId;
-
-                    var location = _context.Locations?
-                   .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString() && l.IsDeleted == false).FirstOrDefault();
-
-                    item.Construction.DistrictName = location?.DistrictName;
-                    item.Construction.CommuneName = location?.CommuneName;
-
-                    item.Construction.RiverName = _context.Rivers?
-                        .Where(r => r.Id == cons.RiverId && r.IsDeleted == false)
-                        .Select(r => r.Name).FirstOrDefault();
-
-                    item.Construction.BasinName = _context.Basins?
-                        .Where(b => b.Id == cons.BasinId && b.IsDeleted == false)
-                        .Select(b => b.Name).FirstOrDefault();
-
-                    item.Construction.SubBasinName = _context.SubBasins?
-                        .Where(sb => sb.Id == cons.SubBasinId && sb.IsDeleted == false)
-                        .Select(sb => sb.Name).FirstOrDefault();
-
-                    //list construction items
-                    var consItems = await _context!.ConstructionItems!
-                                                   .Where(cd => cd.ConstructionId == cons.Id && cd.IsDeleted == false)
-                                                  .ToListAsync();
-                    item.Construction.ConstructionItems = _mapper.Map<List<ConstructionItemModel>>(consItems);
-                    if (item.Construction.ConstructionItems != null)
-                    {
-                        //get construction specifications
-                        foreach (var conItems in item.Construction.ConstructionItems)
-                        {
-                            var consSpecit = await _context!.ConstructionSpecifications!
-                                                  .FirstOrDefaultAsync(ci => ci.ConstructionItemId == conItems.Id && ci.IsDeleted == false);
-                            conItems.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpecit);
-                        }
-                    }
-
-                    //construction specifications
-                    var consSpeci = await _context!.ConstructionSpecifications!
-                                                  .FirstOrDefaultAsync(ci => ci.ConstructionId == cons.Id && ci.IsDeleted == false);
-                    item.Construction.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpeci);
-                }
+                listItems.Add(licenseModel);
             }
 
             return listItems;
+        }
+
+        public async Task<List<LicenseModel>?> GetLicenseForCountAsync()
+        {
+            var item = await _context.Licenses!.Where(x => x.IsDeleted == false).ToListAsync();
+            return _mapper.Map<List<LicenseModel>>(item);
         }
 
         public async Task<LicenseModel?> GetLicenseByIdAsync(int Id)

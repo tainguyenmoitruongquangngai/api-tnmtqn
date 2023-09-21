@@ -26,16 +26,11 @@
         public BusinessModel? Business { get; set; }
         public LicenseModel? OldLicense { get; set; }
         public List<LicenseFeeModel>? LicenseFees { get; set; }
-        public string? LicenseTypeName { get; set; }
 
         //For fillter
+        public string? LicenseTypeName { get; set; }
         public string? LicenseValidity { get; set; }
-        public string? LicenseTypeSlug { get; set; }
-        public string? ConstructionTypeSlug { get; set; }
-        public string? ConstructionName { get; set; }
-        public int? ConstructionTypeId { get; set; }
         public int? CommuneId { get; set; }
         public int? DistrictId { get; set; }
-        public int? BasinId { get; set; }
     }
 }

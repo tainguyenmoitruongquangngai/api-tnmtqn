@@ -20,9 +20,16 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<LicenseModel>> GetAllLicense()
+        public async Task<List<LicenseModel>> GetAllLicense(string? LicenseNumber, string? LicensingAuthorities, int? LicenseTypeId, string? LicenseValidity, int? BusinessId, int? ConstructionId, int? ConstructionTypeId, int? DistrictId, int? CommuneId, int? SubBasinId, int PageIndex, int PageSize)
         {
-            return (await _service.GetAllLicenseAsync());
+            return (await _service.GetAllLicenseAsync(LicenseNumber, LicensingAuthorities, LicenseTypeId, LicenseValidity, BusinessId, ConstructionId, ConstructionTypeId, DistrictId, CommuneId, SubBasinId, PageIndex, PageSize));
+        }
+
+        [HttpGet]
+        [Route("list-for-count")]
+        public async Task<List<LicenseModel>?> GetAllLicenseForCount()
+        {
+            return (await _service.GetLicenseForCountAsync());
         }
 
         [HttpGet]
