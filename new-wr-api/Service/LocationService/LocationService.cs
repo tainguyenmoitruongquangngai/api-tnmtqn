@@ -55,6 +55,18 @@ namespace new_wr_api.Service
             return listItems;
         }
 
+        public async Task<List<CommuneModel>> GetAllCommuneByDistrictAsync(string DistrictId)
+        {
+            var items = await _context.Locations!
+                .Where(l => l.DistrictId == DistrictId && l.IsDeleted == false)
+                .GroupBy(l => new { l.DistrictId, l.CommuneId })
+                .Select(group => group.First())
+                .ToListAsync();
+
+            var listItems = _mapper.Map<List<CommuneModel>>(items);
+            return listItems;
+        }
+
         public async Task<LocationsModel?> GetLocationByIdAsync(int Id)
         {
             var item = await _context.Locations!.FindAsync(Id);

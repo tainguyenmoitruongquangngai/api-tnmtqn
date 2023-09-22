@@ -33,6 +33,13 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
+        [Route("list/commune/get-by-distric/{districId}")]
+        public async Task<List<CommuneModel>> GetAllCommunesByDistrict(string districId)
+        {
+            return (await _service.GetAllCommuneByDistrictAsync(districId));
+        }
+
+        [HttpGet]
         [Route("{Id}")]
         public async Task<LocationsModel?> GetLocationsById(int Id)
         {
