@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.IdentityModel.Tokens;
 using new_wr_api.Data;
 using new_wr_api.Models;
 using System.Collections.Generic;
@@ -44,8 +45,8 @@ namespace new_wr_api.Service
             query = query
                 .Where(x =>
                     (ConstructionTypeId == 0 || x.Construction.ConstructionTypeId == ConstructionTypeId) &&
-                    (DistrictId == 0 || x.Construction.DistrictId == DistrictId) &&
-                    (CommuneId == 0 || x.Construction.CommuneId == CommuneId) &&
+                    (DistrictId == 0 || x.Construction.DistrictId.ToString() == DistrictId.ToString()) &&
+                    (CommuneId == 0 || x.Construction.CommuneId.ToString() == CommuneId.ToString()) &&
                     (SubBasinId == 0 || x.Construction.SubBasinId == SubBasinId));
 
             if (!string.IsNullOrEmpty(LicenseValidity))
