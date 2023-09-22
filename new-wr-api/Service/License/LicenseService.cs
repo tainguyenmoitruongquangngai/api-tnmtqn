@@ -7,6 +7,7 @@ using new_wr_api.Data;
 using new_wr_api.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Security.Claims;
 
 namespace new_wr_api.Service
@@ -42,9 +43,37 @@ namespace new_wr_api.Service
                                 .FirstOrDefault(c => c.Id == license.ConstructionId && c.IsDeleted == false)
                         };
 
+            if (ConstructionTypeId > 0)
+            {
+                List<int> TOCparrentId = new List<int>(new int[] { });
+                if (ConstructionTypeId == 1)
+                {
+                    TOCparrentId = new List<int>(new int[] { 4, 5, 6, 10, 11, 12, 13, 14 });
+                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
+                }
+                else if (ConstructionTypeId == 2)
+                {
+                    TOCparrentId = new List<int>(new int[] { 7, 8, 9, 23 });
+                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
+                }
+                else if (ConstructionTypeId == 3)
+                {
+                    TOCparrentId = new List<int>(new int[] { 16, 17, 18, 19, 20, 21, 22 });
+                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
+                }
+                else if (ConstructionTypeId == 24)
+                {
+                    TOCparrentId = new List<int>(new int[] { 25 });
+                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
+                }
+                else
+                {
+                    query = query.Where(x => ConstructionTypeId == 0 || x.Construction.ConstructionTypeId == ConstructionTypeId);
+                }
+            }
+
             query = query
                 .Where(x =>
-                    (ConstructionTypeId == 0 || x.Construction.ConstructionTypeId == ConstructionTypeId) &&
                     (DistrictId == 0 || x.Construction.DistrictId.ToString() == DistrictId.ToString()) &&
                     (CommuneId == 0 || x.Construction.CommuneId.ToString() == CommuneId.ToString()) &&
                     (SubBasinId == 0 || x.Construction.SubBasinId == SubBasinId));
