@@ -164,6 +164,7 @@ namespace new_wr_api.Service
                 //Loại công trình
                 var consType = await _context.ConstructionTypes!.FirstOrDefaultAsync(x => x.Id == licenseModel.Construction.ConstructionTypeId);
                 licenseModel.Construction.ConstructionTypeName = consType?.TypeName;
+                licenseModel.Construction.ConstructionTypeSlug = consType?.TypeSlug;
 
                 //Lấy Huyện, Xã, Sông, Lưu vực sông, Tiểu vùng quy hoạch
                 var location = await _context.Locations!
