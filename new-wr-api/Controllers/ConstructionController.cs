@@ -20,9 +20,9 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<List<ConstructionModel>> GetAllConstruction()
+        public async Task<List<ConstructionModel>> GetAllConstruction(string? ConstructionName, string? ExploitedWS, int ConstructionTypeId, int BusinessId, int DistrictId, int CommuneId, int PageIndex, int PageSize)
         {
-            return (await _service.GetAllConstructionAsync());
+            return (await _service.GetAllConstructionAsync(ConstructionName, ExploitedWS, ConstructionTypeId, BusinessId, DistrictId, CommuneId, PageIndex, PageSize));
         }
 
         [HttpGet]
