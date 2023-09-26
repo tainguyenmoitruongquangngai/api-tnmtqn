@@ -20,90 +20,6 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
-        //public async Task<List<ConstructionModel>> GetAllConstructionAsync()
-        //{
-        //    var items = await _context.Constructions!
-        //                             .Where(x => x.IsDeleted == false)
-        //                             .OrderBy(x => x.ConstructionName)
-        //                             .ToListAsync();
-
-        //    var listItems = _mapper.Map<List<ConstructionModel>>(items);
-
-        //    foreach (var item in listItems)
-        //    {
-        //        var consTypes = await _context!.ConstructionTypes!
-        //                                    .FirstOrDefaultAsync(ct => ct.Id == item.ConstructionTypeId && ct.IsDeleted == false);
-
-        //        item.ConstructionTypeName = consTypes?.TypeName;
-
-        //        item.ConstructionTypeSlug = consTypes?.TypeSlug;
-
-
-        //        var location = _context.Locations?
-        //           .Where(l => l.DistrictId == item.DistrictId.ToString() && l.CommuneId == item.CommuneId.ToString() && l.IsDeleted == false).FirstOrDefault();
-
-        //        item.DistrictName = location?.DistrictName;
-        //        item.CommuneName = location?.CommuneName;
-
-        //        item.RiverName = _context.Rivers?
-        //            .Where(r => r.Id == item.RiverId && r.IsDeleted == false)
-        //            .Select(r => r.Name).FirstOrDefault();
-
-        //        item.BasinName = _context.Basins?
-        //            .Where(b => b.Id == item.BasinId && b.IsDeleted == false)
-        //            .Select(b => b.Name).FirstOrDefault();
-
-        //        item.SubBasinName = _context.SubBasins?
-        //            .Where(sb => sb.Id == item.SubBasinId && sb.IsDeleted == false)
-        //            .Select(sb => sb.Name).FirstOrDefault();
-
-        //        //get list license
-        //        var licenses = await _context!.Licenses!.Where(l => l.ConstructionId == item.Id && l.IsDeleted == false).ToListAsync();
-
-        //        item.Licenses = _mapper.Map<List<LicenseModel>>(licenses);
-        //        if (item.Licenses != null)
-        //        {
-        //            //get license fee
-        //            foreach (var lic in item.Licenses)
-        //            {
-        //                var licLicfeeIds = await _context.LicenseLicenseFee!
-        //                                    .Where(llf => llf.LicenseId == lic.Id)
-        //                                    .Select(llf => llf.LicenseFeeId)
-        //                                    .ToListAsync();
-
-        //                var licenseFees = await _context!.LicenseFees!
-        //                                    .Where(lc => licLicfeeIds.Contains(lc.Id))
-        //                                    .ToListAsync();
-
-        //                lic.LicenseFees = _mapper.Map<List<LicenseFeeModel>>(licenseFees);
-        //            }
-        //        }
-
-        //        //list construction items
-        //        var consItems = await _context!.ConstructionItems!
-        //                                      .Where(ci => ci.ConstructionId == item.Id && ci.IsDeleted == false)
-        //                                      .ToListAsync();
-        //        item.ConstructionItems = _mapper.Map<List<ConstructionItemModel>>(consItems);
-        //        if (item.ConstructionItems != null)
-        //        {
-        //            //get conItems
-        //            foreach (var conItems in item.ConstructionItems)
-        //            {
-        //                var consSpecit = await _context!.ConstructionSpecifications!
-        //                                      .FirstOrDefaultAsync(ci => ci.ConstructionItemId == item.Id && ci.IsDeleted == false);
-        //                conItems.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpecit);
-        //            }
-        //        }
-
-        //        //construction specifications
-        //        var consSpeci = await _context!.ConstructionSpecifications!
-        //                                      .FirstOrDefaultAsync(ci => ci.ConstructionId == item.Id && ci.IsDeleted == false);
-        //        item.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(consSpeci);
-        //    }
-
-        //    return listItems;
-        //}
-
         public async Task<List<ConstructionModel>> GetAllConstructionAsync(string? ConstructionName, string? ExploitedWS, int ConstructionTypeId, int BusinessId, int DistrictId, int CommuneId, int PageIndex, int PageSize)
         {
             //TRUY VẤN DỮ LIỆU
@@ -166,16 +82,68 @@ namespace new_wr_api.Service
             {
                 var constructionId = queryResult.Construction?.Id;
 
-                var constructionModel = new ConstructionModel
-                {
-                    Licenses = new List<LicenseModel>()
-                };
+                var constructionModel = new ConstructionModel();
 
                 // Ánh xạ dữ liệu Construction
                 _mapper.Map(queryResult.Construction, constructionModel);
 
                 // Ánh xạ dữ liệu License
                 _mapper.Map(queryResult.Licenses, constructionModel.Licenses);
+
+                foreach (var lic in constructionModel.Licenses!)
+                {
+                    var licLicfeeIds = await _context.LicenseLicenseFee!
+                                            .Where(llf => llf.LicenseId == lic.Id)
+                                            .Select(llf => llf.LicenseFeeId)
+                                            .ToListAsync();
+
+                    var licenseFees = await _context!.LicenseFees!
+                                        .Where(lc => licLicfeeIds.Contains(lc.Id))
+                                        .ToListAsync();
+
+                    lic.LicenseFees = _mapper.Map<List<LicenseFeeModel>>(licenseFees);
+
+                }
+
+                var consItems = _mapper.Map<List<ConstructionItemModel>>(await _context!.ConstructionItems!
+                              .Where(ct => ct.Id == constructionModel.ConstructionTypeId && ct.IsDeleted == false).ToListAsync());
+
+                foreach (var constructionItemModel in consItems)
+                {
+                    constructionItemModel.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(await _context!.ConstructionSpecifications!
+                                            .FirstOrDefaultAsync(ct => ct.ConstructionItemId == constructionItemModel.Id && ct.IsDeleted == false));
+                }
+
+                // Assign the modified list to constructionModel.ConstructionItems
+                constructionModel.ConstructionItems = consItems;
+
+                constructionModel.ConstructionSpecification = _mapper.Map<ConstructionSpecificationModel>(await _context!.ConstructionSpecifications!
+                                              .FirstOrDefaultAsync(ci => ci.ConstructionId == constructionModel.Id && ci.IsDeleted == false));
+
+
+                var consTypes = await _context!.ConstructionTypes!
+                                            .FirstOrDefaultAsync(ct => ct.Id == constructionModel.ConstructionTypeId && ct.IsDeleted == false);
+
+                constructionModel.ConstructionTypeName = consTypes?.TypeName;
+                constructionModel.ConstructionTypeSlug = consTypes?.TypeSlug;
+
+                var location = _context.Locations?
+                           .Where(l => l.DistrictId == constructionModel.DistrictId.ToString() && l.CommuneId == constructionModel.CommuneId.ToString() && l.IsDeleted == false).FirstOrDefault();
+
+                constructionModel.DistrictName = location?.DistrictName;
+                constructionModel.CommuneName = location?.CommuneName;
+
+                constructionModel.RiverName = _context.Rivers?
+                    .Where(r => r.Id == constructionModel.RiverId && r.IsDeleted == false)
+                    .Select(r => r.Name).FirstOrDefault();
+
+                constructionModel.BasinName = _context.Basins?
+                    .Where(b => b.Id == constructionModel.BasinId && b.IsDeleted == false)
+                    .Select(b => b.Name).FirstOrDefault();
+
+                constructionModel.SubBasinName = _context.SubBasins?
+                    .Where(sb => sb.Id == constructionModel.SubBasinId && sb.IsDeleted == false)
+                    .Select(sb => sb.Name).FirstOrDefault();
 
                 listItems.Add(constructionModel);
             }
