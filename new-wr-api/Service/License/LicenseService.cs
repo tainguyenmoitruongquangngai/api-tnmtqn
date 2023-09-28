@@ -17,12 +17,14 @@ namespace new_wr_api.Service
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly UserManager<AspNetUsers> _userManager;
 
-        public LicenseService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
+        public LicenseService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext, UserManager<AspNetUsers> userManager)
         {
             _context = context;
             _mapper = mapper;
             _httpContext = httpContext;
+            _userManager = userManager;
         }
 
         public async Task<List<LicenseModel>> GetAllLicenseAsync(string? LicenseNumber, string? LicensingAuthorities, int? LicenseTypeId, string? LicenseValidity, int? BusinessId, int? ConstructionId, int? ConstructionTypeId, int? DistrictId, int? CommuneId, int? SubBasinId, int PageIndex, int PageSize)
@@ -230,48 +232,76 @@ namespace new_wr_api.Service
 
         public async Task<int> SaveLicenseAsync(LicenseModel model)
         {
-            var id = 0;
-            Licenses? newItem = null;
+            int id = 0;
+            Notification? notify = new Notification();
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+            Licenses? item = null; // Declare item variable
 
             var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null || model.Id == 0)
             {
-                newItem = _mapper.Map<Licenses>(model);
-                newItem.IsDeleted = false;
-                newItem.CreatedTime = DateTime.Now;
-                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.Licenses!.Add(newItem);
+                item = _mapper.Map<Licenses>(model);
+                item.IsDeleted = false;
+                item.CreatedTime = DateTime.Now;
+                item.CreatedUser = currentUser!.UserName;
+
+                _context.Licenses!.Add(item);
+
+                // Notification
+                notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
+                notify.NotifyContent = "Tài khoản " + currentUser.UserName + " đã thêm 1 bản ghi: " + item.LicenseNumber;
             }
             else
             {
-                existingItem = _mapper.Map(model, existingItem);
-                existingItem!.ModifiedTime = DateTime.Now;
-                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.Licenses!.Update(existingItem);
+                item = existingItem; // Assign existingItem to item
+
+                _mapper.Map(model, item); // Map properties from model to item
+                item.ModifiedTime = DateTime.Now;
+                item.ModifiedUser = currentUser!.UserName;
+                _context.Licenses!.Update(item);
+
+                // Notification
+                notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
+                notify.NotifyContent = "Tài khoản " + currentUser.UserName + " đã sửa 1 bản ghi: " + item.LicenseNumber;
             }
+
+            if (item.LicensingTypeId == 5)
+            {
+                var oldLicense = await _context.Licenses.FirstOrDefaultAsync(x => item.ChildId == x.Id);
+                if (oldLicense != null)
+                {
+                    oldLicense.IsRevoked = true;
+                    _context.Licenses!.Update(oldLicense);
+                }
+            }
+
+            var cons = await _context.Constructions!.FirstOrDefaultAsync(c => c.Id == item.ConstructionId);
+            notify.Url = "/giay-phep/" + GetUrl((int)(cons?.ConstructionParentTypeId != 2 ? cons?.ConstructionParentTypeId! : cons.ConstructionTypeId!)) + "?licenseNumber=" + item.LicenseNumber;
+            notify.Time = DateTime.Now;
+            _context.Notification!.Add(notify);
 
             var res = await _context.SaveChangesAsync();
 
-            if (res == 1)
-            {
-                if (newItem != null)
-                {
-                    id = newItem.Id;
-                }
-                else
-                {
-                    id = model.Id;
-                }
-            }
-            else
-            {
-                id = 0;
-            }
+            // Simplified assignment of id
+            id = (int)(res > 0 ? item.Id : 0);
 
             return id;
         }
 
+
+        private string GetUrl(int ParentTypeId)
+        {
+            switch (ParentTypeId)
+            {
+                case 1: return "nuoc-mat";
+                case 3: return "xa-thai";
+                case 7: return "nuoc-duoi-dat/khai-thac-su-dung";
+                case 8: return "nuoc-duoi-dat/tham-do";
+                case 9: return "nuoc-duoi-dat/hanh-nghe-khoan";
+                default: return "";
+            }
+        }
 
         public async Task<bool> DeleteLicenseAsync(LicenseModel modle)
         {
