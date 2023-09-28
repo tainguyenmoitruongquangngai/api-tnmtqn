@@ -8,6 +8,7 @@ namespace new_wr_api.Data
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public int? ConstructionParentTypeId { get; set; }
         public int? ConstructionTypeId { get; set; }
         public int? ProvinceId { get; set; }
         public int? DistrictId { get; set; }

@@ -43,28 +43,13 @@ namespace new_wr_api.Service
 
             if (ConstructionTypeId > 0)
             {
-                List<int> TOCparrentId = new List<int>(new int[] { });
-                switch (ConstructionTypeId)
+                if (ConstructionTypeId == 1 || ConstructionTypeId == 2 || ConstructionTypeId == 3 || ConstructionTypeId == 24)
                 {
-                    case 1:
-                        TOCparrentId = new List<int>(new int[] { 4, 5, 6, 10, 11, 12, 13, 14 });
-                        query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
-                        break;
-                    case 2:
-                        TOCparrentId = new List<int>(new int[] { 7, 8, 9, 23 });
-                        query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
-                        break;
-                    case 3:
-                        TOCparrentId = new List<int>(new int[] { 16, 17, 18, 19, 20, 21, 22 });
-                        query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
-                        break;
-                    case 24:
-                        TOCparrentId = new List<int>(new int[] { 25 });
-                        query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
-                        break;
-                    default:
-                        query = query.Where(x => ConstructionTypeId == 0 || x.Construction.ConstructionTypeId == ConstructionTypeId);
-                        break;
+                    query = query.Where(x => x.Construction.ConstructionParentTypeId! == ConstructionTypeId);
+                }
+                else
+                {
+                    query = query.Where(x => x.Construction.ConstructionTypeId == ConstructionTypeId);
                 }
             }
 
@@ -77,7 +62,7 @@ namespace new_wr_api.Service
 
             var listItems = new List<ConstructionModel>();
 
-            // THIẾT LẬP DỮ LIỆU KHÁC NGOÀI GIẤY PHÉP
+            // THIẾT LẬP DỮ LIỆU KHÁC NGOÀI CÔNG TRÌNH
             foreach (var queryResult in queryResults)
             {
                 var constructionId = queryResult.Construction?.Id;

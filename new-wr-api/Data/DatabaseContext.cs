@@ -42,6 +42,7 @@ namespace new_wr_api.Data
         public DbSet<SubBasins>? SubBasins { get; set; }
         public DbSet<Rivers>? Rivers { get; set; }
         public DbSet<Aquifers>? Aquifers { get; set; }
+        public DbSet<Notification>? Notification { get; set; }
 
         #endregion
     }

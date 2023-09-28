@@ -45,30 +45,13 @@ namespace new_wr_api.Service
 
             if (ConstructionTypeId > 0)
             {
-                List<int> TOCparrentId = new List<int>(new int[] { });
-                if (ConstructionTypeId == 1)
+                if (ConstructionTypeId == 1 || ConstructionTypeId == 2 || ConstructionTypeId == 3 || ConstructionTypeId == 24)
                 {
-                    TOCparrentId = new List<int>(new int[] { 4, 5, 6, 10, 11, 12, 13, 14 });
-                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
-                }
-                else if (ConstructionTypeId == 2)
-                {
-                    TOCparrentId = new List<int>(new int[] { 7, 8, 9, 23 });
-                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
-                }
-                else if (ConstructionTypeId == 3)
-                {
-                    TOCparrentId = new List<int>(new int[] { 16, 17, 18, 19, 20, 21, 22 });
-                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
-                }
-                else if (ConstructionTypeId == 24)
-                {
-                    TOCparrentId = new List<int>(new int[] { 25 });
-                    query = query.Where(x => TOCparrentId.Contains((int)x.Construction.ConstructionTypeId!));
+                    query = query.Where(x => x.Construction.ConstructionParentTypeId! == ConstructionTypeId);
                 }
                 else
                 {
-                    query = query.Where(x => ConstructionTypeId == 0 || x.Construction.ConstructionTypeId == ConstructionTypeId);
+                    query = query.Where(x => x.Construction.ConstructionTypeId == ConstructionTypeId);
                 }
             }
 
