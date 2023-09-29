@@ -103,8 +103,7 @@ services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("*")
-               .AllowAnyOrigin()
+        builder.WithOrigins("http://localhost:3000", "https://tnmt.vercel.app")
                .AllowAnyMethod()
                .AllowAnyHeader();
     });

@@ -233,7 +233,7 @@ namespace new_wr_api.Service
         public async Task<int> SaveLicenseAsync(LicenseModel model)
         {
             int id = 0;
-            Notification? notify = new Notification();
+            //Notification? notify = new Notification();
             var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
             Licenses? item = null; // Declare item variable
 
@@ -249,8 +249,8 @@ namespace new_wr_api.Service
                 _context.Licenses!.Add(item);
 
                 // Notification
-                notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
-                notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã thêm 1 bản ghi: " + item.LicenseNumber;
+                //notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
+                //notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã thêm 1 bản ghi: " + item.LicenseNumber;
             }
             else
             {
@@ -262,8 +262,8 @@ namespace new_wr_api.Service
                 _context.Licenses!.Update(item);
 
                 // Notification
-                notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
-                notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã sửa 1 bản ghi: " + item.LicenseNumber;
+                //notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
+                //notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã sửa 1 bản ghi: " + item.LicenseNumber;
             }
 
             if (item.LicensingTypeId == 5)
@@ -276,10 +276,10 @@ namespace new_wr_api.Service
                 }
             }
 
-            var cons = await _context.Constructions!.FirstOrDefaultAsync(c => c.Id == item.ConstructionId);
-            notify.Url = "/giay-phep/" + GetUrl((int)(cons?.ConstructionParentTypeId != 2 ? cons?.ConstructionParentTypeId! : cons.ConstructionTypeId!)) + "?licenseNumber=" + item.LicenseNumber;
-            notify.Time = DateTime.Now;
-            _context.Notification!.Add(notify);
+            //var cons = await _context.Constructions!.FirstOrDefaultAsync(c => c.Id == item.ConstructionId);
+            //notify.Url = "/giay-phep/" + GetUrl((int)(cons?.ConstructionParentTypeId != 2 ? cons?.ConstructionParentTypeId! : cons.ConstructionTypeId!)) + "?licenseNumber=" + item.LicenseNumber;
+            //notify.Time = DateTime.Now;
+            //_context.Notification!.Add(notify);
 
             var res = await _context.SaveChangesAsync();
 
@@ -303,9 +303,9 @@ namespace new_wr_api.Service
             }
         }
 
-        public async Task<bool> DeleteLicenseAsync(LicenseModel modle)
+        public async Task<bool> DeleteLicenseAsync(int Id)
         {
-            var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == modle.Id && d.IsDeleted == false);
+            var existingItem = await _context.Licenses!.FirstOrDefaultAsync(d => d.Id == Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 
