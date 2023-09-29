@@ -56,9 +56,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<Licenses>> DeleteLicense(LicenseModel moddel)
+        public async Task<ActionResult<Licenses>> DeleteLicense(int Id)
         {
-            var res = await _service.DeleteLicenseAsync(moddel);
+            var res = await _service.DeleteLicenseAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Giấy phép: Dữ liệu đã được xóa" });
