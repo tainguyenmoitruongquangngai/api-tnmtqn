@@ -12,12 +12,14 @@ namespace new_wr_api.Service
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly UserManager<AspNetUsers> _userManager;
 
-        public ConstructionService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
+        public ConstructionService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext, UserManager<AspNetUsers> userManager)
         {
             _context = context;
             _mapper = mapper;
             _httpContext = httpContext;
+            _userManager = userManager;
         }
 
         public async Task<List<ConstructionModel>> GetAllConstructionAsync(string? ConstructionName, string? ExploitedWS, int ConstructionTypeId, int BusinessId, int DistrictId, int CommuneId, int PageIndex, int PageSize)
@@ -146,54 +148,57 @@ namespace new_wr_api.Service
 
         public async Task<int> SaveConstructionAsync(ConstructionModel model)
         {
-            var id = 0;
-            Constructions? newItem = null;
+            int id = 0;
+            //Notification? notify = new Notification();
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+            Constructions? item = null; // Declare item variable
 
             var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
 
             if (existingItem == null || model.Id == 0)
             {
-                newItem = _mapper.Map<Constructions>(model);
-                newItem.IsDeleted = false;
-                newItem.CreatedTime = DateTime.Now;
-                newItem.CreatedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.Constructions!.Add(newItem);
+                item = _mapper.Map<Constructions>(model);
+                item.IsDeleted = false;
+                item.CreatedTime = DateTime.Now;
+                item.CreatedUser = currentUser != null ? currentUser.UserName : null;
+
+                _context.Constructions!.Add(item);
+
+                // Notification
+                //notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
+                //notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã thêm 1 bản ghi: " + item.LicenseNumber;
             }
             else
             {
-                var updateItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
+                item = existingItem; // Assign existingItem to item
 
-                updateItem = _mapper.Map(model, updateItem);
+                _mapper.Map(model, item); // Map properties from model to item
+                item.ModifiedTime = DateTime.Now;
+                item.ModifiedUser = currentUser != null ? currentUser.UserName : null;
+                _context.Constructions!.Update(item);
 
-                updateItem!.ModifiedTime = DateTime.Now;
-                updateItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.Constructions!.Update(updateItem);
+                // Notification
+                //notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
+                //notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã sửa 1 bản ghi: " + item.LicenseNumber;
             }
+
+            //var cons = await _context.Constructions!.FirstOrDefaultAsync(c => c.Id == item.ConstructionId);
+            //notify.Url = "/giay-phep/" + GetUrl((int)(cons?.ConstructionParentTypeId != 2 ? cons?.ConstructionParentTypeId! : cons.ConstructionTypeId!)) + "?licenseNumber=" + item.LicenseNumber;
+            //notify.Time = DateTime.Now;
+            //_context.Notification!.Add(notify);
 
             var res = await _context.SaveChangesAsync();
-            if (res == 1)
-            {
-                if (newItem != null)
-                {
-                    id = newItem.Id;
-                }
-                else
-                {
-                    id = model.Id;
-                }
-            }
-            else
-            {
-                id = 0;
-            }
+
+            // Simplified assignment of id
+            id = (int)(res > 0 ? item.Id : 0);
 
             return id;
         }
 
 
-        public async Task<bool> DeleteConstructionAsync(ConstructionModel model)
+        public async Task<bool> DeleteConstructionAsync(int Id)
         {
-            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
+            var existingItem = await _context.Constructions!.FirstOrDefaultAsync(d => d.Id == Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 
