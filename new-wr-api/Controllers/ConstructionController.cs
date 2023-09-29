@@ -48,7 +48,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
+        [Route("delete/{Id}")]
         public async Task<ActionResult<Constructions>> DeleteConstruction(int Id)
         {
             var res = await _service.DeleteConstructionAsync(Id);
