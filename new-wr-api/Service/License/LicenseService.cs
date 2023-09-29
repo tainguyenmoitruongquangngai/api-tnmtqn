@@ -244,13 +244,13 @@ namespace new_wr_api.Service
                 item = _mapper.Map<Licenses>(model);
                 item.IsDeleted = false;
                 item.CreatedTime = DateTime.Now;
-                item.CreatedUser = currentUser!.UserName;
+                item.CreatedUser = currentUser != null ? currentUser.UserName : null;
 
                 _context.Licenses!.Add(item);
 
                 // Notification
                 notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
-                notify.NotifyContent = "Tài khoản " + currentUser.UserName + " đã thêm 1 bản ghi: " + item.LicenseNumber;
+                notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã thêm 1 bản ghi: " + item.LicenseNumber;
             }
             else
             {
@@ -258,12 +258,12 @@ namespace new_wr_api.Service
 
                 _mapper.Map(model, item); // Map properties from model to item
                 item.ModifiedTime = DateTime.Now;
-                item.ModifiedUser = currentUser!.UserName;
+                item.ModifiedUser = currentUser != null ? currentUser.UserName : null;
                 _context.Licenses!.Update(item);
 
                 // Notification
                 notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
-                notify.NotifyContent = "Tài khoản " + currentUser.UserName + " đã sửa 1 bản ghi: " + item.LicenseNumber;
+                notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã sửa 1 bản ghi: " + item.LicenseNumber;
             }
 
             if (item.LicensingTypeId == 5)
