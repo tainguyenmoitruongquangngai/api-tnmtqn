@@ -151,9 +151,9 @@ namespace new_wr_api.Service
             return true;
         }
 
-        public async Task<bool> DeleteDashboardAsync(DashboardModel model)
+        public async Task<bool> DeleteDashboardAsync(int Id)
         {
-            var existingItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == model.Id);
+            var existingItem = await _context.Dashboards!.FirstOrDefaultAsync(d => d.Id == Id);
 
             if (existingItem == null) { return false; }
 

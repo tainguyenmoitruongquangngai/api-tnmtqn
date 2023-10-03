@@ -61,9 +61,9 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> DeleteAquiferAsync(AquiferModel model)
+        public async Task<bool> DeleteAquiferAsync(int Id)
         {
-            var existingItem = await _context.Aquifers!.FirstOrDefaultAsync(d => d.Id == model.Id && d.IsDeleted == false);
+            var existingItem = await _context.Aquifers!.FirstOrDefaultAsync(d => d.Id == Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 

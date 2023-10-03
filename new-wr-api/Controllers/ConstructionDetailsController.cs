@@ -34,10 +34,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
-        public async Task<ActionResult<ConstructionItems>> DeleteConstructionDetail(ConstructionItemModel moddel)
+        [Route("delete/{Id}")]
+        public async Task<ActionResult<ConstructionItems>> DeleteConstructionDetail(int Id)
         {
-            var res = await _service.DeleteConstructionDetailAsync(moddel);
+            var res = await _service.DeleteConstructionDetailAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Hạng mục công trình: Dữ liệu đã được xóa" });

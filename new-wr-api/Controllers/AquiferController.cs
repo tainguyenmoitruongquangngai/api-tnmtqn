@@ -48,10 +48,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
-        public async Task<ActionResult<Aquifers>> DeleteAquifer(AquiferModel moddel)
+        [Route("delete/{Id}")]
+        public async Task<ActionResult<Aquifers>> DeleteAquifer(int Id)
         {
-            var res = await _service.DeleteAquiferAsync(moddel);
+            var res = await _service.DeleteAquiferAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Tầng chứa nước :Dữ liệu đã được xóa" });

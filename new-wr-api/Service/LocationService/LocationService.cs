@@ -102,9 +102,9 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> DeleteLocationAsync(LocationsModel modle)
+        public async Task<bool> DeleteLocationAsync(int Id)
         {
-            var existingItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == modle.Id && d.IsDeleted == false);
+            var existingItem = await _context.Locations!.FirstOrDefaultAsync(d => d.Id == Id && d.IsDeleted == false);
 
             if (existingItem == null) { return false; }
 

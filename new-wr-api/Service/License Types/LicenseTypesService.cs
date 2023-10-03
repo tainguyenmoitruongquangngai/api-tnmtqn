@@ -59,9 +59,9 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> DeleteLicenseTypesAsync(LicenseTypesModel modle)
+        public async Task<bool> DeleteLicenseTypesAsync(int Id)
         {
-            var existingItem = await _context.LicenseTypes!.FirstOrDefaultAsync(d => d.Id == modle.Id);
+            var existingItem = await _context.LicenseTypes!.FirstOrDefaultAsync(d => d.Id == Id);
 
             if (existingItem == null) { return false; }
 
