@@ -49,9 +49,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("delete")]
-        public async Task<ActionResult<SubBasins>> DeleteSubBasin(SubBasinModel moddel)
+        public async Task<ActionResult<SubBasins>> DeleteSubBasin(int Id)
         {
-            var res = await _service.DeleteSubBasinAsync(moddel);
+            var res = await _service.DeleteSubBasinAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Tiểu vùng quy hoạch :Dữ liệu đã được xóa" });

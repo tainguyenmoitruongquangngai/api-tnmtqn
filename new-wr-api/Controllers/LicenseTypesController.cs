@@ -48,10 +48,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
-        public async Task<ActionResult<LicenseTypes>> DeleteLicenseType(LicenseTypesModel moddel)
+        [Route("delete/{Id}")]
+        public async Task<ActionResult<LicenseTypes>> DeleteLicenseType(int Id)
         {
-            var res = await _service.DeleteLicenseTypesAsync(moddel);
+            var res = await _service.DeleteLicenseTypesAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Loại giấy phép: Dữ liệu đã được xóa" });

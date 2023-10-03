@@ -63,10 +63,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
-        public async Task<ActionResult<Dashboards>> DeleteDashboard(DashboardModel moddel)
+        [Route("delete/{Id}")]
+        public async Task<ActionResult<Dashboards>> DeleteDashboard(int Id)
         {
-            var res = await _service.DeleteDashboardAsync(moddel);
+            var res = await _service.DeleteDashboardAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Màn hình chức năng: Dữ liệu đã được xóa" });

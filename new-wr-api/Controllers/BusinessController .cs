@@ -48,10 +48,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("delete")]
-        public async Task<ActionResult<Business>> DeleteBusiness(BusinessModel moddel)
+        [Route("delete/{Id}")]
+        public async Task<ActionResult<Business>> DeleteBusiness(int Id)
         {
-            var res = await _service.DeleteBusinessAsync(moddel);
+            var res = await _service.DeleteBusinessAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Doanh nghiệp: Dữ liệu đã được xóa" });
