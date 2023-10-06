@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Models.Files;
 using System;
 using System.IO;
@@ -8,6 +9,7 @@ namespace new_wr_api.Controllers
 {
     [ApiController]
     [Route("api")]
+    [Authorize]
     public class FileController : ControllerBase
     {
         private readonly string _uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "FileUploads");

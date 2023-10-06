@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize]
     public class SubBasinController : ControllerBase
     {
         private readonly SubBasinService _service;

@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize]
     public class LicenseLicenseFeeController : ControllerBase
     {
         private readonly LicenseLicenseFeeService _service;
