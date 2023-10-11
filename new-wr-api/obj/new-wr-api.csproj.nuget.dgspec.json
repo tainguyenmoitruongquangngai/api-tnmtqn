@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\webng\\source\\repos\\tnmtqn\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj": {}
+    "D:\\Project\\QuangNgai\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\webng\\source\\repos\\tnmtqn\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj": {
+    "D:\\Project\\QuangNgai\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\webng\\source\\repos\\tnmtqn\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj",
+        "projectUniqueName": "D:\\Project\\QuangNgai\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj",
         "projectName": "new-wr-api",
-        "projectPath": "C:\\Users\\webng\\source\\repos\\tnmtqn\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj",
-        "packagesPath": "C:\\Users\\webng\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\webng\\source\\repos\\tnmtqn\\api-tnmtqn\\new-wr-api\\obj\\",
+        "projectPath": "D:\\Project\\QuangNgai\\api-tnmtqn\\new-wr-api\\new-wr-api.csproj",
+        "packagesPath": "C:\\Users\\DngNT\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\QuangNgai\\api-tnmtqn\\new-wr-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\webng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DngNT\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -27,7 +27,6 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,29 +51,29 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.0.12, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -86,7 +85,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[6.27.0, )"
+              "version": "[7.0.2, )"
             }
           },
           "imports": [
@@ -108,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
