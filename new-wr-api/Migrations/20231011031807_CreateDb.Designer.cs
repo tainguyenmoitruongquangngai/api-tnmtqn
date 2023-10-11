@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231011031807_CreateDb")]
+    partial class CreateDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,52 +263,6 @@ namespace new_wr_api.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.BieuMauSoHai", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double?>("MuaKhoBaoCao")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaKhoKyTruoc")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaKhoThayDoi")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaMuaBaoCao")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaMuaKyTruoc")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaMuaThayDoi")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaNamBaoCao")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaNamKyTruoc")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MuaNamThayDoi")
-                        .HasColumnType("float");
-
-                    b.Property<string>("TenTram")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThoiKyQuanTrac")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BieuMauSoHai");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_HangMuc", b =>
