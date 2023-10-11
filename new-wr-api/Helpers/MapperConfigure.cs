@@ -66,6 +66,9 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.tochuc_canhan, opt => opt.MapFrom(src => src.ToChuc_CaNhan));
 
             CreateMap<ToChuc_CaNhan, ToChuc_CaNhanDto>().ReverseMap();
+
+            //baocaobieumau
+            CreateMap<BieuMauSoHai, BieuMauHaiDto>().ReverseMap();
         }
     }
 }

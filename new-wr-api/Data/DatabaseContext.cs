@@ -37,6 +37,8 @@ namespace new_wr_api.Data
         public DbSet<GP_Loai>? GP_Loai { get; set; }
         public DbSet<GP_ThongTin>? GP_ThongTin { get; set; }
 
+        public DbSet<BieuMauSoHai>? BieuMauSoHai { get; set; }
+
         #endregion
     }
 }

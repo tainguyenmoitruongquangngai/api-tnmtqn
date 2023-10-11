@@ -8,10 +8,10 @@ namespace new_wr_api.Service
 {
     public class RoleDashboardService
     {
-        private readonly Data.DatabaseContext _context;
+        private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
 
-        public RoleDashboardService(Data.DatabaseContext context, IMapper mapper)
+        public RoleDashboardService(DatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
