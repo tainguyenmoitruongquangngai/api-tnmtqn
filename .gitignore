@@ -184,3 +184,7 @@ new-wr-api/bin/Release/net7.0/new-wr-api.dll
 new-wr-api/bin/Release/net7.0/appsettings.json
 .vs/ProjectEvaluation/new-wr-api.projects.v7.bin
 .vs/ProjectEvaluation/new-wr-api.metadata.v7.bin
+new-wr-api/obj/project.assets.json
+.vs/ProjectEvaluation/new-wr-api.metadata.v7.bin
+.vs/ProjectEvaluation/new-wr-api.projects.v7.bin
+new-wr-api/obj/new-wr-api.csproj.nuget.dgspec.json
