@@ -29,10 +29,11 @@ namespace new_wr_api.Service
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
                 .Include(ct => ct.GiayPhep!).ThenInclude(tc => tc.ToChuc_CaNhan)
-                .Where(ct => ct.DaXoa == false && ct.LoaiCT!.DaXoa == false && ct.HangMuc!.Any(hm => hm.DaXoa == false) == false && ct.ThongSo!.DaXoa == false && ct.GiayPhep!.Any(gp => gp.DaXoa == false))
+                .Where(ct => ct.DaXoa == false)
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 
+            //.Where(ct => ct.DaXoa == false && ct.LoaiCT!.DaXoa == false && ct.HangMuc!.Any(hm => hm.DaXoa == false) == false && ct.ThongSo!.DaXoa == false && ct.GiayPhep!.Any(gp => gp.DaXoa == false)
 
             if (IdLoaiCT > 0)
             {
