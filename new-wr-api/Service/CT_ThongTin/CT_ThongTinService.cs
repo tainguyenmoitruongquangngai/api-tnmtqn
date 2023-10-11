@@ -22,18 +22,16 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
             _userManager = userManager;
         }
-        public async Task<List<CT_ThongTinDto>> GetAllAsync(int? IdLoaiCT, string? IdHuyen, string? IdXa, int? IdSong, int? IdLuuVuc, int? IdTieuLuuVuc, int? IdTangChuaNuoc, int IdTCCN)
+        public async Task<List<CT_ThongTinDto>> GetAllAsync(int? IdLoaiCT, string? IdHuyen, string? IdXa, int? IdSong, int? IdLuuVuc, int? IdTieuLuuVuc, int? IdTangChuaNuoc, int IdTCCN, string? NguonNuocKT)
         {
             var query = _context.CT_ThongTin!
+                .Where(ct => ct.DaXoa == false)
                 .Include(ct => ct.LoaiCT)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
                 .Include(ct => ct.GiayPhep!).ThenInclude(tc => tc.ToChuc_CaNhan)
-                .Where(ct => ct.DaXoa == false)
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
-
-            //.Where(ct => ct.DaXoa == false && ct.LoaiCT!.DaXoa == false && ct.HangMuc!.Any(hm => hm.DaXoa == false) == false && ct.ThongSo!.DaXoa == false && ct.GiayPhep!.Any(gp => gp.DaXoa == false)
 
             if (IdLoaiCT > 0)
             {
@@ -75,6 +73,11 @@ namespace new_wr_api.Service
                 query = query.Where(ct => ct.GiayPhep!.Any(gp => gp.IdTCCN == IdTCCN));
             }
 
+            if (!string.IsNullOrEmpty(NguonNuocKT))
+            {
+                query = query.Where(ct => ct.NguonNuocKT!.Contains(NguonNuocKT.ToString()!));
+            }
+
 
             var congtrinh = await query.ToListAsync();
 
@@ -82,7 +85,7 @@ namespace new_wr_api.Service
 
             foreach (var dto in congTrinhDtos)
             {
-                dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.hangmuc);
+                dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.hangmuc!.Where(x => x.DaXoa == false));
 
                 dto.loaiCT = _mapper.Map<CT_LoaiDto>(dto.loaiCT);
 
@@ -99,7 +102,7 @@ namespace new_wr_api.Service
 
                 dto.thongso = _mapper.Map<CT_ThongSoDto>(dto.thongso);
 
-                dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(dto.giayphep);
+                dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(dto.giayphep!.Where(x => x.DaXoa == false));
 
                 foreach (var dtoGP in dto.giayphep)
                 {
@@ -152,7 +155,6 @@ namespace new_wr_api.Service
         public async Task<int> SaveAsync(CT_ThongTinDto model)
         {
             int id = 0;
-            //Notification? notify = new Notification();
             var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
             CT_ThongTin? item = null; // Declare item variable
 
@@ -163,13 +165,9 @@ namespace new_wr_api.Service
                 item = _mapper.Map<CT_ThongTin>(model);
                 item.DaXoa = false;
                 item.ThoiGianTao = DateTime.Now;
-                item.TaiKhoan = currentUser != null ? currentUser.UserName : null;
+                item.TaiKhoanTao = currentUser != null ? currentUser.UserName : null;
 
                 _context.CT_ThongTin!.Add(item);
-
-                // Notification
-                //notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
-                //notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã thêm 1 bản ghi: " + item.LicenseNumber;
             }
             else
             {
@@ -179,16 +177,7 @@ namespace new_wr_api.Service
                 item.ThoiGianSua = DateTime.Now;
                 item.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
                 _context.CT_ThongTin!.Update(item);
-
-                // Notification
-                //notify.NotifyTitle = "Giấy phép: " + item.LicenseNumber;
-                //notify.NotifyContent = "Tài khoản " + currentUser!.UserName + " đã sửa 1 bản ghi: " + item.LicenseNumber;
             }
-
-            //var cons = await _context.Constructions!.FirstOrDefaultAsync(c => c.Id == item.ConstructionId);
-            //notify.Url = "/giay-phep/" + GetUrl((int)(cons?.ConstructionParentTypeId != 2 ? cons?.ConstructionParentTypeId! : cons.ConstructionTypeId!)) + "?licenseNumber=" + item.LicenseNumber;
-            //notify.Time = DateTime.Now;
-            //_context.Notification!.Add(notify);
 
             var res = await _context.SaveChangesAsync();
 

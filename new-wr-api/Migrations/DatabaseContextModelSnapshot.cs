@@ -1004,13 +1004,13 @@ namespace new_wr_api.Migrations
                     b.Property<int?>("IdTCCN")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("NgayCap")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("NgayCoHieuLuc")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("NgayHetHieuLuc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayKy")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SoGP")

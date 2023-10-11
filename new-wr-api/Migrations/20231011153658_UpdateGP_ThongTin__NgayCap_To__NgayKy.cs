@@ -5,24 +5,24 @@
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class Update_CT_ThongTin : Migration
+    public partial class UpdateGP_ThongTin__NgayCap_To__NgayKy : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "IdHuyen",
-                table: "CT_ThongTin",
-                type: "nvarchar(max)",
-                nullable: true);
+            migrationBuilder.RenameColumn(
+                name: "NgayCap",
+                table: "GP_ThongTin",
+                newName: "NgayKy");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "IdHuyen",
-                table: "CT_ThongTin");
+            migrationBuilder.RenameColumn(
+                name: "NgayKy",
+                table: "GP_ThongTin",
+                newName: "NgayCap");
         }
     }
 }

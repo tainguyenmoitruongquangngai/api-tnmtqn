@@ -7,7 +7,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class RoleController : ControllerBase
     {
         private readonly RoleService _service;

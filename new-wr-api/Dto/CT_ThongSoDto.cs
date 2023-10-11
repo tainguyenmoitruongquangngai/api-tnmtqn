@@ -69,5 +69,6 @@
         public double? QMaxXaThai { get; set; }
         public double? QKhaiThac { get; set; }
         public double? QMaxKT { get; set; }
+        public bool? DaXoa { get; set; }
     }
 }

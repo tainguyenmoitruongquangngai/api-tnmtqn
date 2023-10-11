@@ -10,5 +10,6 @@
         public string? TenXa { get; set; }
         public string? IdXa { get; set; }
         public string? CapHanhChinh { get; set; }
+        public bool? DaXoa { get; set; }
     }
 }

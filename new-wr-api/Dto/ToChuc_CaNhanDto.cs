@@ -13,5 +13,6 @@
         public string? NguoiDuocUyQuyen { get; set; }
         public string? NguoiDaiDienPhapLuat { get; set; }
         public string? TaiKhoan { get; set; }
+        public bool? DaXoa { get; set; }
     }
 }

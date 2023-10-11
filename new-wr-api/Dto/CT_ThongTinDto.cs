@@ -49,6 +49,7 @@ namespace new_wr_api.Dto
         public double? ThoiGianTT { get; set; }
         public int? MatKetNoi { get; set; }
         public int? Loi { get; set; }
+        public bool? DaXoa { get; set; }
 
         public CT_LoaiDto? loaiCT { get; set; }
         public List<CT_HangMucDto>? hangmuc { get; set; }

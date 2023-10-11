@@ -14,7 +14,7 @@ namespace new_wr_api.Data
         public int? IdCT { get; set; }
         public string? TenGP { get; set; }
         public string? SoGP { get; set; }
-        public DateTime? NgayCap { get; set; }
+        public DateTime? NgayKy { get; set; }
         public DateTime? NgayCoHieuLuc { get; set; }
         public DateTime? NgayHetHieuLuc { get; set; }
         public string? ThoiHan { get; set; }

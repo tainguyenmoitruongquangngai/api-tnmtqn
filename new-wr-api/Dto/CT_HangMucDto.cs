@@ -10,6 +10,7 @@
         public double? X { get; set; }
         public double? Y { get; set; }
         public string? ChuThich { get; set; }
+        public bool? DaXoa { get; set; }
         public CT_ThongSoDto? thongso { get; set; }
     }
 }

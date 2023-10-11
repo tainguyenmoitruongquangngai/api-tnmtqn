@@ -7,5 +7,6 @@
         public string? TenLoaiCT { get; set; }
         public string? MaLoaiCT { get; set; }
         public string? ChuThich { get; set; }
+        public bool? DaXoa { get; set; }
     }
 }

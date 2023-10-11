@@ -8,24 +8,24 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CongTrinh : ControllerBase
+    public class CongTrinhController : ControllerBase
     {
         private readonly CT_ThongTinService _service;
 
-        public CongTrinh(CT_ThongTinService service)
+        public CongTrinhController(CT_ThongTinService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        [Route("danhsach")]
-        public async Task<List<CT_ThongTinDto>> GetAllData(int? loai_ct, string? huyen, string? xa, int? song, int? luuvuc, int? tieu_luuvuc, int? tang_chuanuoc, int tochuc_canhan)
+        [Route("danh-sach")]
+        public async Task<List<CT_ThongTinDto>> GetAllData(int? loai_ct, string? huyen, string? xa, int? song, int? luuvuc, int? tieu_luuvuc, int? tang_chuanuoc, int tochuc_canhan, string? nguonnuoc_kt)
         {
-            return await _service.GetAllAsync(loai_ct, huyen, xa, song, luuvuc, tieu_luuvuc, tang_chuanuoc, tochuc_canhan);
+            return await _service.GetAllAsync(loai_ct, huyen, xa, song, luuvuc, tieu_luuvuc, tang_chuanuoc, tochuc_canhan, nguonnuoc_kt);
         }
 
         [HttpGet]
-        [Route("laytheoid/{Id}")]
+        [Route("lay-theo-id/{Id}")]
         public async Task<CT_ThongTinDto?> GetOneData(int Id)
         {
             return await _service.GetByIdAsync(Id);

@@ -26,6 +26,7 @@ services.AddScoped<PermissionService>();
 
 //Other Service
 services.AddScoped<CT_ThongTinService>();
+services.AddScoped<GP_ThongTinService>();
 services.AddScoped<BieuMauHaiService>();
 
 

@@ -6,5 +6,6 @@
         public string? TenLoaiGP { get; set; }
         public string? MaLoaiGP { get; set; }
         public string? GhiChu { get; set; }
+        public bool? DaXoa { get; set; }
     }
 }
