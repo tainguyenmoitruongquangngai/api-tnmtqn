@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231010094042_Add_RelationshipGP_TCQ")]
+    partial class Add_RelationshipGP_TCQ
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -946,6 +949,9 @@ namespace new_wr_api.Migrations
                     b.Property<string>("FileGiayToLienQuan")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("GP_LoaiId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("IdCT")
                         .HasColumnType("int");
 
@@ -989,6 +995,8 @@ namespace new_wr_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GP_LoaiId");
 
                     b.HasIndex("IdCT");
 
@@ -1306,12 +1314,16 @@ namespace new_wr_api.Migrations
 
             modelBuilder.Entity("new_wr_api.Data.GP_ThongTin", b =>
                 {
+                    b.HasOne("new_wr_api.Data.GP_Loai", null)
+                        .WithMany("GiayPhep")
+                        .HasForeignKey("GP_LoaiId");
+
                     b.HasOne("new_wr_api.Data.CT_ThongTin", "CongTrinh")
                         .WithMany("GiayPhep")
                         .HasForeignKey("IdCT");
 
-                    b.HasOne("new_wr_api.Data.GP_Loai", "LoaiGP")
-                        .WithMany("GiayPhep")
+                    b.HasOne("new_wr_api.Data.CT_Loai", "LoaiGP")
+                        .WithMany()
                         .HasForeignKey("IdLoaiGP");
 
                     b.HasOne("new_wr_api.Data.ToChuc_CaNhan", "ToChuc_CaNhan")

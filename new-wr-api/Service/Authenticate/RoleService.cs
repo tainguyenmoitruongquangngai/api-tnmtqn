@@ -10,10 +10,10 @@ namespace new_wr_api.Service
     public class RoleService
     {
         private readonly RoleManager<AspNetRoles> _roleManager;
-        private readonly DatabaseContext _context;
+        private readonly Data.DatabaseContext _context;
         private readonly IMapper _mapper;
 
-        public RoleService(IServiceProvider serviceProvider, DatabaseContext context, IMapper mapper)
+        public RoleService(IServiceProvider serviceProvider, Data.DatabaseContext context, IMapper mapper)
         {
             _roleManager = serviceProvider.GetRequiredService<RoleManager<AspNetRoles>>();
             _context = context;

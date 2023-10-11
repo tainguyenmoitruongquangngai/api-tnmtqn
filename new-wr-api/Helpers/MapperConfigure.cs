@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using new_wr_api.Data;
+using new_wr_api.Dto;
 using new_wr_api.Models;
 using new_wr_api.Models.Authenticate;
 
@@ -47,79 +48,24 @@ namespace new_wr_api.Helpers
 
             //-------------Other mapper--------------------
 
-            //Business
-            CreateMap<Business, BusinessModel>().ReverseMap();
+            CreateMap<CT_Loai, CT_LoaiDto>().ReverseMap();
+            CreateMap<CT_HangMuc, CT_HangMucDto>().ReverseMap();
+            CreateMap<CT_ThongSo, CT_ThongSoDto>().ReverseMap();
+            CreateMap<CT_ThongTin, CT_ThongTinDto>()
+                .ForMember(dest => dest.loaiCT, opt => opt.MapFrom(src => src.LoaiCT))
+                .ForMember(dest => dest.hangmuc, opt => opt.MapFrom(src => src.HangMuc))
+                .ForMember(dest => dest.thongso, opt => opt.MapFrom(src => src.ThongSo))
+                .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
+                .ForMember(dest => dest.giayphep, opt => opt.MapFrom(src => src.GiayPhep))
+            .ReverseMap();
 
-            //Basin
-            CreateMap<Basins, BasinModel>().ReverseMap();
+            CreateMap<DonViHC, DonViHCDto>().ReverseMap();
 
-            //Constructions
-            CreateMap<Constructions, ConstructionModel>()
-                .ForMember(consItem => consItem.ConstructionItems, opt =>
-                {
-                    opt.MapFrom((src, cons) => cons.ConstructionItems);
-                })
-                .ForMember(consSpec => consSpec.ConstructionSpecification, opt =>
-                {
-                    opt.MapFrom((src, cons) => cons.ConstructionSpecification);
-                })
-                .ForMember(lic => lic.Licenses, opt =>
-                {
-                    opt.MapFrom((src, cons) => cons.Licenses);
-                })
-                .ReverseMap();
+            CreateMap<GP_Loai, GP_LoaiDto>().ReverseMap();
+            CreateMap<GP_ThongTin, GP_ThongTinDto>()
+                .ForMember(dest => dest.tochuc_canhan, opt => opt.MapFrom(src => src.ToChuc_CaNhan));
 
-            //ConstructionItems
-            CreateMap<ConstructionItems, ConstructionItemModel>()
-                .ForMember(consSpec => consSpec.ConstructionSpecification, opt =>
-                {
-                    opt.MapFrom((src, consItems) => consItems.ConstructionSpecification);
-                }).ReverseMap();
-
-            //ConstructionSpecifications
-            CreateMap<ConstructionSpecifications, ConstructionSpecificationModel>().ReverseMap();
-
-            //ConstructionTypes
-            CreateMap<ConstructionTypes, ConstructionTypesModel>().ReverseMap();
-
-            //Licenses
-            CreateMap<Licenses, LicenseModel>()
-                .ForMember(cons => cons.Construction, opt =>
-                {
-                    opt.MapFrom((src, cons) => cons.Construction);
-                })
-                .ForMember(bus => bus.Business, opt =>
-                {
-                    opt.MapFrom((src, bus) => bus.Business);
-                })
-                .ForMember(licFee => licFee.LicenseFees, opt =>
-                {
-                    opt.MapFrom((src, licFee) => licFee.LicenseFees);
-                })
-                .ReverseMap();
-
-            //LicenseFees
-            CreateMap<LicenseFees, LicenseFeeModel>().ReverseMap();
-
-            //LicenseLicenseFee
-            CreateMap<LicenseLicenseFee, LicenseLicenseFeeModel>().ReverseMap();
-
-            //LicenseTypes
-            CreateMap<LicenseTypes, LicenseTypesModel>().ReverseMap();
-
-            //Locations
-            CreateMap<Locations, LocationsModel>().ReverseMap();
-            CreateMap<Locations, DistrictModel>().ReverseMap();
-            CreateMap<Locations, CommuneModel>().ReverseMap();
-
-            //River
-            CreateMap<Rivers, RiverModel>().ReverseMap();
-
-            //Aquifer
-            CreateMap<Aquifers, AquiferModel>().ReverseMap();
-
-            //SubBasin
-            CreateMap<SubBasins, SubBasinModel>().ReverseMap();
+            CreateMap<ToChuc_CaNhan, ToChuc_CaNhanDto>().ReverseMap();
         }
     }
 }

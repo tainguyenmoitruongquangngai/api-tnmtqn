@@ -12,13 +12,13 @@ namespace new_wr_api.Service
     public class UserService
     {
         private readonly IMapper _mapper;
-        private readonly DatabaseContext _context;
+        private readonly Data.DatabaseContext _context;
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly RoleManager<AspNetRoles> _roleManager;
         private readonly IHttpContextAccessor _httpContext;
 
 
-        public UserService(DatabaseContext context, UserManager<AspNetUsers> userManager, RoleManager<AspNetRoles> roleManager, IMapper mapper, IHttpContextAccessor httpContext)
+        public UserService(Data.DatabaseContext context, UserManager<AspNetUsers> userManager, RoleManager<AspNetRoles> roleManager, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _mapper = mapper;
             _context = context;

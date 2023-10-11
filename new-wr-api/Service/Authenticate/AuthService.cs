@@ -16,7 +16,7 @@ namespace new_wr_api.Service
 {
     public class AuthService : IAuthService
     {
-        private readonly DatabaseContext _context;
+        private readonly Data.DatabaseContext _context;
         private readonly UserManager<AspNetUsers> _userManager;
         private readonly RoleManager<AspNetRoles> _roleManager;
 
@@ -24,7 +24,7 @@ namespace new_wr_api.Service
 
         private readonly IConfiguration _configuration;
 
-        public AuthService(UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, RoleManager<AspNetRoles> roleManager, IConfiguration configuration, DatabaseContext context)
+        public AuthService(UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, RoleManager<AspNetRoles> roleManager, IConfiguration configuration, Data.DatabaseContext context)
         {
             _context = context;
             _userManager = userManager;

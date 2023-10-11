@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using new_wr_api.Data;
 
 namespace new_wr_api.Data
 {
@@ -28,21 +27,15 @@ namespace new_wr_api.Data
         public DbSet<Functions>? Functions { get; set; }
 
         //Other database
-        public DbSet<ConstructionTypes>? ConstructionTypes { get; set; }
-        public DbSet<Constructions>? Constructions { get; set; }
-        public DbSet<ConstructionItems>? ConstructionItems { get; set; }
-        public DbSet<ConstructionSpecifications>? ConstructionSpecifications { get; set; }
-        public DbSet<Locations>? Locations { get; set; }
-        public DbSet<LicenseTypes>? LicenseTypes { get; set; }
-        public DbSet<Licenses>? Licenses { get; set; }
-        public DbSet<LicenseLicenseFee>? LicenseLicenseFee { get; set; }
-        public DbSet<Business>? Business { get; set; }
-        public DbSet<LicenseFees>? LicenseFees { get; set; }
-        public DbSet<Basins>? Basins { get; set; }
-        public DbSet<SubBasins>? SubBasins { get; set; }
-        public DbSet<Rivers>? Rivers { get; set; }
-        public DbSet<Aquifers>? Aquifers { get; set; }
-        public DbSet<Notification>? Notification { get; set; }
+        public DbSet<CT_Loai>? CT_Loai { get; set; }
+        public DbSet<CT_ThongTin>? CT_ThongTin { get; set; }
+        public DbSet<CT_HangMuc>? CT_HangMuc { get; set; }
+        public DbSet<CT_ThongSo>? CT_ThongSo { get; set; }
+
+        public DbSet<DonViHC>? DonViHC { get; set; }
+
+        public DbSet<GP_Loai>? GP_Loai { get; set; }
+        public DbSet<GP_ThongTin>? GP_ThongTin { get; set; }
 
         #endregion
     }

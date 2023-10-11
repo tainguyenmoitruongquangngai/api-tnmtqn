@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
 using new_wr_api.Service;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -23,19 +24,7 @@ services.AddScoped<UserDashboardService>();
 services.AddScoped<PermissionService>();
 
 //Other Service
-services.AddScoped<ConstructionTypesService>();
-services.AddScoped<LicenseTypesService>();
-services.AddScoped<LicenseService>();
-services.AddScoped<LicenseFeeService>();
-services.AddScoped<LicenseLicenseFeeService>();
-services.AddScoped<BusinessService>();
-services.AddScoped<BasinService>();
-services.AddScoped<ConstructionService>();
-services.AddScoped<ConstructionItemService>();
-services.AddScoped<LocationService>();
-services.AddScoped<RiverService>();
-services.AddScoped<AquiferService>();
-services.AddScoped<SubBasinService>();
+services.AddScoped<CT_ThongTinService>();
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
 {
@@ -47,6 +36,13 @@ services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
 })
     .AddEntityFrameworkStores<DatabaseContext>()
     .AddDefaultTokenProviders();
+
+services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+
 
 
 services.AddControllers();

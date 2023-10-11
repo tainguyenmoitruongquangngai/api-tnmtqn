@@ -1,0 +1,11 @@
+﻿namespace new_wr_api.Dto
+{
+    public class CT_LoaiDto
+    {
+        public int? Id { get; set; }
+        public int? IdCha { get; set; }
+        public string? TenLoaiCT { get; set; }
+        public string? MaLoaiCT { get; set; }
+        public string? ChuThich { get; set; }
+    }
+}

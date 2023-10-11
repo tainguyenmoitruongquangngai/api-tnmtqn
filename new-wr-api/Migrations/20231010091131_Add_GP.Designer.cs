@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231010091131_Add_GP")]
+    partial class Add_GP
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -897,29 +900,6 @@ namespace new_wr_api.Migrations
                     b.ToTable("GP_Loai");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.GP_TCQ", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("IdGP")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTCQ")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdGP");
-
-                    b.HasIndex("IdTCQ");
-
-                    b.ToTable("GP_TCQ");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.GP_ThongTin", b =>
                 {
                     b.Property<int>("Id")
@@ -945,6 +925,9 @@ namespace new_wr_api.Migrations
 
                     b.Property<string>("FileGiayToLienQuan")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GP_LoaiId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("IdCT")
                         .HasColumnType("int");
@@ -990,11 +973,11 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GP_LoaiId");
+
                     b.HasIndex("IdCT");
 
                     b.HasIndex("IdLoaiGP");
-
-                    b.HasIndex("IdTCCN");
 
                     b.ToTable("GP_ThongTin");
                 });
@@ -1062,113 +1045,6 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RoleDashboards");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.TCQ_ThongTin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CoQuanCP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FilePDF")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IdCon")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("NgayKy")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SoQDTCQ")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanSua")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanTao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ThoiGianSua")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ThoiGianTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double?>("TongTienCQ")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TCQ_ThongTin");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.ToChuc_CaNhan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("DiaChi")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fax")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GiamDoc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MaSoThue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NguoiDaiDienPhapLuat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NguoiDuocUyQuyen")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SDT")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoan")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanSua")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanTao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TenTCCN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ThoiGianSua")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ThoiGianTao")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ToChuc_CaNhan");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.UserDashboards", b =>
@@ -1285,44 +1161,23 @@ namespace new_wr_api.Migrations
                     b.Navigation("LoaiCT");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.GP_TCQ", b =>
-                {
-                    b.HasOne("new_wr_api.Data.GP_ThongTin", "GP_ThongTin")
-                        .WithMany("GP_TCQ")
-                        .HasForeignKey("IdGP")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("new_wr_api.Data.TCQ_ThongTin", "TCQ_ThongTin")
-                        .WithMany("GP_TCQ")
-                        .HasForeignKey("IdTCQ")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GP_ThongTin");
-
-                    b.Navigation("TCQ_ThongTin");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.GP_ThongTin", b =>
                 {
+                    b.HasOne("new_wr_api.Data.GP_Loai", null)
+                        .WithMany("GiayPhep")
+                        .HasForeignKey("GP_LoaiId");
+
                     b.HasOne("new_wr_api.Data.CT_ThongTin", "CongTrinh")
                         .WithMany("GiayPhep")
                         .HasForeignKey("IdCT");
 
-                    b.HasOne("new_wr_api.Data.GP_Loai", "LoaiGP")
-                        .WithMany("GiayPhep")
+                    b.HasOne("new_wr_api.Data.CT_Loai", "LoaiGP")
+                        .WithMany()
                         .HasForeignKey("IdLoaiGP");
-
-                    b.HasOne("new_wr_api.Data.ToChuc_CaNhan", "ToChuc_CaNhan")
-                        .WithMany("GiayPhep")
-                        .HasForeignKey("IdTCCN");
 
                     b.Navigation("CongTrinh");
 
                     b.Navigation("LoaiGP");
-
-                    b.Navigation("ToChuc_CaNhan");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_HangMuc", b =>
@@ -1345,21 +1200,6 @@ namespace new_wr_api.Migrations
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GP_Loai", b =>
-                {
-                    b.Navigation("GiayPhep");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.GP_ThongTin", b =>
-                {
-                    b.Navigation("GP_TCQ");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.TCQ_ThongTin", b =>
-                {
-                    b.Navigation("GP_TCQ");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.ToChuc_CaNhan", b =>
                 {
                     b.Navigation("GiayPhep");
                 });
