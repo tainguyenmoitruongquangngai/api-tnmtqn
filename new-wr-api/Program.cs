@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
 using new_wr_api.Service;
-using new_wr_api.Service.BaoCaoBieuMau;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -26,7 +25,13 @@ services.AddScoped<PermissionService>();
 
 //Other Service
 services.AddScoped<CT_ThongTinService>();
+services.AddScoped<CT_ThongSoService>();
+services.AddScoped<CT_LoaiService>();
+services.AddScoped<CT_HangMucService>();
+
 services.AddScoped<GP_ThongTinService>();
+services.AddScoped<GP_LoaiService>();
+
 services.AddScoped<BieuMauHaiService>();
 
 

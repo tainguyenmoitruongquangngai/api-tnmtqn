@@ -1,4 +1,4 @@
-﻿namespace new_wr_api.Models.Authenticate
+﻿namespace new_wr_api.Models
 {
     public class UserInfoModel
     {

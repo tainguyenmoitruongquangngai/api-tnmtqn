@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Models.Files;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace new_wr_api.Controllers
 {

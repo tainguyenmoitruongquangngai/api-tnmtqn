@@ -9,11 +9,11 @@ namespace new_wr_api.Service
 {
     public class DashboardService
     {
-        private readonly Data.DatabaseContext _context;
+        private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
 
-        public DashboardService(Data.DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
+        public DashboardService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _context = context;
             _mapper = mapper;

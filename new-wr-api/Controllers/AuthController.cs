@@ -4,7 +4,6 @@ using new_wr_api.Data;
 using new_wr_api.Models;
 using new_wr_api.Models.Authenticate;
 using new_wr_api.Service;
-using System.Data;
 
 namespace new_wr_api.Controllers
 {

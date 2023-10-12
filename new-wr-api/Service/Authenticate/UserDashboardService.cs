@@ -8,10 +8,10 @@ namespace new_wr_api.Service
 {
     public class UserDashboardService
     {
-        private readonly Data.DatabaseContext _context;
+        private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
 
-        public UserDashboardService(Data.DatabaseContext context, IMapper mapper)
+        public UserDashboardService(DatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using new_wr_api.Data;
 using new_wr_api.Models;
-using new_wr_api.Models.Authenticate;
 using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
