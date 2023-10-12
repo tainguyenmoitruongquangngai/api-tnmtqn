@@ -2,14 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Dto;
-using new_wr_api.Models;
 using new_wr_api.Service;
 
-namespace new_wr_api.Controllers.CongTrinh
+namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ThongSoCongTrinhController : ControllerBase
     {
         private readonly CT_ThongSoService _service;

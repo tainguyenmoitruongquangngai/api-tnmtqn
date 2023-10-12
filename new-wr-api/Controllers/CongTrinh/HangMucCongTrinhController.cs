@@ -2,14 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Dto;
-using new_wr_api.Models;
 using new_wr_api.Service;
 
-namespace new_wr_api.Controllers.CongTrinh
+namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class HangMucCongTrinhController : ControllerBase
     {
         private readonly CT_HangMucService _service;
@@ -21,7 +20,7 @@ namespace new_wr_api.Controllers.CongTrinh
 
         [HttpPost]
         [Route("luu")]
-        public async Task<ActionResult<CT_HangMuc>> SaveDetail(CT_HangMucDto dto)
+        public async Task<ActionResult<CT_HangMuc>> Save(CT_HangMucDto dto)
         {
             var res = await _service.SaveAsync(dto);
             if (res)
