@@ -11,5 +11,7 @@
         public string? FilePDF { get; set; }
         public string? GhiChu { get; set; }
         public bool? DaXoa { get; set; }
+
+        public TCQ_ThongTinDto? qd_bosung { get; set; }
     }
 }

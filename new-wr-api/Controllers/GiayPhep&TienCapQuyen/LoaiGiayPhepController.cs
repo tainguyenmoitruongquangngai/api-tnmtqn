@@ -20,21 +20,21 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("list")]
+        [Route("danh-sach")]
         public async Task<List<GP_LoaiDto>> GetAllGP_Loai()
         {
             return (await _service.GetAllAsync());
         }
 
         [HttpGet]
-        [Route("{Id}")]
+        [Route("lay-theo-id/{Id}")]
         public async Task<GP_LoaiDto?> GetGP_LoaiById(int Id)
         {
             return await _service.GetGP_LoaiByIdAsync(Id);
         }
 
         [HttpPost]
-        [Route("save")]
+        [Route("luu")]
         public async Task<ActionResult<GP_Loai>> SaveGP_Loai(GP_LoaiDto dto)
         {
             var res = await _service.SaveAsync(dto);
@@ -49,7 +49,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("delete/{Id}")]
+        [Route("xoa/{Id}")]
         public async Task<ActionResult<GP_Loai>> DeleteLicenseType(int Id)
         {
             var res = await _service.DeleteAsync(Id);

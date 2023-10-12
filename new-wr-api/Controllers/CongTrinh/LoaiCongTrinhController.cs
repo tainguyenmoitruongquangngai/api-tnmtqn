@@ -34,9 +34,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("luu")]
-        public async Task<ActionResult<CT_Loai>> Save(CT_LoaiDto moddel)
+        public async Task<ActionResult<CT_Loai>> Save(CT_LoaiDto dto)
         {
-            var res = await _service.SaveAsync(moddel);
+            var res = await _service.SaveAsync(dto);
             if (res == true)
             {
                 return Ok(new { message = "Loại công trình: Dữ liệu đã được lưu" });
