@@ -25,13 +25,13 @@ namespace new_wr_api.Service
             var query = _context.CT_ThongTin!
                 .Where(ct => ct.DaXoa == false)
                 .Include(ct => ct.LoaiCT)
+                .Include(ct => ct.TangChuaNuoc)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
-
 
             if (IdLoaiCT > 0)
             {

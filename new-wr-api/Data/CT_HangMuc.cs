@@ -25,5 +25,8 @@ namespace new_wr_api.Data
         [ForeignKey("IdCT")]
         public virtual CT_ThongTin? CongTrinh { get; set; }
         public virtual CT_ThongSo? ThongSo { get; set; }
+
+        [ForeignKey("IdTangChuaNuoc")]
+        public virtual TangChuaNuoc? TangChuaNuoc { get; set; }
     }
 }

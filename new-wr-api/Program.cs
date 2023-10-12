@@ -34,6 +34,8 @@ services.AddScoped<GP_LoaiService>();
 services.AddScoped<GP_TCQService>();
 services.AddScoped<TCQ_ThongTinService>();
 
+services.AddScoped<TangChuaNuocService>();
+
 services.AddScoped<BieuMauHaiService>();
 
 

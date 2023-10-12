@@ -51,6 +51,7 @@ namespace new_wr_api.Dto
         }
 
         public GP_LoaiDto? loaiGP { get; set; }
+        public TangChuaNuocDto? tangchuanuoc { get; set; }
         public CT_ThongTinDto? congtrinh { get; set; }
         public ToChuc_CaNhanDto? tochuc_canhan { get; set; }
         public List<GP_TCQDto>? gp_tcq { get; set; }
