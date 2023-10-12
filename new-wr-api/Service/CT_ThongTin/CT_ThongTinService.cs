@@ -5,6 +5,7 @@ using new_wr_api.Data;
 using new_wr_api.Dto;
 using new_wr_api.Models;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace new_wr_api.Service
 {
@@ -29,9 +30,11 @@ namespace new_wr_api.Service
                 .Include(ct => ct.LoaiCT)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
-                .Include(ct => ct.GiayPhep!).ThenInclude(tc => tc.ToChuc_CaNhan)
+                .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
+                .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
+
 
             if (IdLoaiCT > 0)
             {
@@ -87,26 +90,25 @@ namespace new_wr_api.Service
             {
                 dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.hangmuc!.Where(x => x.DaXoa == false));
 
-                dto.loaiCT = _mapper.Map<CT_LoaiDto>(dto.loaiCT);
-
                 if (!string.IsNullOrEmpty(dto.IdXa))
                 {
                     dto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
                         .FirstOrDefaultAsync(dv => dv.IdXa == dto.IdXa));
                 }
 
-                foreach (var dtoHM in dto.hangmuc)
-                {
-                    dtoHM.thongso = _mapper.Map<CT_ThongSoDto>(dtoHM.thongso);
-                }
-
-                dto.thongso = _mapper.Map<CT_ThongSoDto>(dto.thongso);
-
                 dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(dto.giayphep!.Where(x => x.DaXoa == false));
 
                 foreach (var dtoGP in dto.giayphep)
                 {
-                    dtoGP.tochuc_canhan = _mapper.Map<ToChuc_CaNhanDto>(dtoGP.tochuc_canhan);
+                    var tcqIds = dtoGP.gp_tcq!.Select(x => x.IdTCQ).ToList();
+
+                    var tcqThongTinList = await _context.TCQ_ThongTin!
+                        .Where(x => tcqIds.Contains(x.Id) && x.DaXoa == false)
+                        .ToListAsync();
+
+                    dtoGP.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
+
+                    dtoGP.gp_tcq = null;
                 }
             }
 
@@ -116,40 +118,44 @@ namespace new_wr_api.Service
         public async Task<CT_ThongTinDto?> GetByIdAsync(int Id)
         {
             var query = _context.CT_ThongTin!
+                .Where(ct => ct.Id == Id && ct.DaXoa == false)
                 .Include(ct => ct.LoaiCT)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
-                .Include(ct => ct.GiayPhep!).ThenInclude(tc => tc.ToChuc_CaNhan)
+                .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
+                .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
+                .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 
-            var congtrinh = await query.FirstOrDefaultAsync(x => x.Id == Id);
 
-            var CT_Dto = _mapper.Map<CT_ThongTinDto>(congtrinh);
+            var congtrinh = await query.ToListAsync();
 
-            CT_Dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(CT_Dto.hangmuc);
+            var congTrinhDto = _mapper.Map<CT_ThongTinDto>(congtrinh);
 
-            CT_Dto.loaiCT = _mapper.Map<CT_LoaiDto>(CT_Dto.loaiCT);
+            congTrinhDto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(congTrinhDto.hangmuc!.Where(x => x.DaXoa == false));
 
-            if (!string.IsNullOrEmpty(CT_Dto.IdXa))
+            if (!string.IsNullOrEmpty(congTrinhDto.IdXa))
             {
-                CT_Dto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
-                    .FirstOrDefaultAsync(dv => dv.IdXa == CT_Dto.IdXa));
+                congTrinhDto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
+                    .FirstOrDefaultAsync(dv => dv.IdXa == congTrinhDto.IdXa));
             }
 
-            foreach (var dtoHM in CT_Dto.hangmuc)
+            congTrinhDto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(congTrinhDto.giayphep!.Where(x => x.DaXoa == false));
+
+            foreach (var dtoGP in congTrinhDto.giayphep)
             {
-                dtoHM.thongso = _mapper.Map<CT_ThongSoDto>(dtoHM.thongso);
+                var tcqIds = dtoGP.gp_tcq!.Select(x => x.IdTCQ).ToList();
+
+                var tcqThongTinList = await _context.TCQ_ThongTin!
+                    .Where(x => tcqIds.Contains(x.Id) && x.DaXoa == false)
+                    .ToListAsync();
+
+                dtoGP.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
+
+                dtoGP.gp_tcq = null;
             }
 
-            CT_Dto.thongso = _mapper.Map<CT_ThongSoDto>(CT_Dto.thongso);
-
-            CT_Dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(CT_Dto.giayphep);
-
-            foreach (var dtoGP in CT_Dto.giayphep)
-            {
-                dtoGP.tochuc_canhan = _mapper.Map<ToChuc_CaNhanDto>(dtoGP.tochuc_canhan);
-            }
-            return CT_Dto;
+            return congTrinhDto;
         }
 
         public async Task<int> SaveAsync(CT_ThongTinDto model)

@@ -28,7 +28,8 @@ namespace new_wr_api.Service
                 .Where(gp => gp.DaXoa == false)
                 .Include(gp => gp.LoaiGP)
                 .Include(gp => gp.ToChuc_CaNhan)
-                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc)
+                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc!).ThenInclude(hm => hm!.ThongSo)
+                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.ThongSo)
                 .Include(gp => gp.GP_TCQ)
                 .OrderBy(x => x.NgayKy)
                 .AsQueryable();
@@ -97,14 +98,7 @@ namespace new_wr_api.Service
 
             foreach (var dto in giayPhepDtos)
             {
-                dto.loaiGP = _mapper.Map<GP_LoaiDto>(dto.loaiGP);
-                dto.tochuc_canhan = _mapper.Map<ToChuc_CaNhanDto>(dto.tochuc_canhan);
-
-                dto.congtrinh = _mapper.Map<CT_ThongTinDto>(dto.congtrinh);
-                dto.congtrinh.thongso = _mapper.Map<CT_ThongSoDto>(_context.CT_ThongSo!.FirstOrDefault(x => x.IdCT == dto.congtrinh.Id));
-                dto.congtrinh.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.congtrinh.hangmuc);
-                dto.congtrinh.loaiCT = _mapper.Map<CT_LoaiDto>(_context.CT_Loai!.FirstOrDefault(x => x.Id == dto.congtrinh.IdLoaiCT));
-                dto.congtrinh.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
+                dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
 
                 // Assuming this code is within an async method
                 var tcqIds = dto.gp_tcq!.Select(x => x.IdTCQ).ToList();
@@ -115,32 +109,7 @@ namespace new_wr_api.Service
 
                 dto.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
 
-
-                //Hiệu lực giấy phép
-                if (dto.DaBiThuHoi == true)
-                {
-                    dto.hieuluc_gp = "da-bi-thu-hoi";
-                }
-                else if (dto.NgayHetHieuLuc.HasValue)
-                {
-                    DateTime ngayhethan = dto.NgayHetHieuLuc.Value;
-                    if (ngayhethan >= DateTime.Today && ngayhethan < DateTime.Today.AddDays(160))
-                    {
-                        dto.hieuluc_gp = "sap-het-hieu-luc";
-                    }
-                    else if (ngayhethan < DateTime.Today)
-                    {
-                        dto.hieuluc_gp = "het-hieu-luc";
-                    }
-                    else if (ngayhethan > DateTime.Today.AddDays(160))
-                    {
-                        dto.hieuluc_gp = "con-hieu-luc";
-                    }
-                }
-                else
-                {
-                    dto.hieuluc_gp = "con-hieu-luc";
-                }
+                dto.gp_tcq = null;
             }
 
             return giayPhepDtos;
@@ -152,7 +121,8 @@ namespace new_wr_api.Service
                 .Where(gp => gp.Id == Id && gp.DaXoa == false)
                 .Include(gp => gp.LoaiGP)
                 .Include(gp => gp.ToChuc_CaNhan)
-                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc)
+                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc!).ThenInclude(hm => hm!.ThongSo)
+                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.ThongSo)
                 .Include(gp => gp.GP_TCQ)
                 .OrderBy(x => x.NgayKy)
                 .AsQueryable();
@@ -160,15 +130,7 @@ namespace new_wr_api.Service
             var giayphep = await query.FirstOrDefaultAsync();
 
             var giayPhepDto = _mapper.Map<GP_ThongTinDto>(giayphep);
-
-            giayPhepDto.loaiGP = _mapper.Map<GP_LoaiDto>(giayPhepDto.loaiGP);
-            giayPhepDto.tochuc_canhan = _mapper.Map<ToChuc_CaNhanDto>(giayPhepDto.tochuc_canhan);
-
-            giayPhepDto.congtrinh = _mapper.Map<CT_ThongTinDto>(giayPhepDto.congtrinh);
-            giayPhepDto.congtrinh.thongso = _mapper.Map<CT_ThongSoDto>(_context.CT_ThongSo!.FirstOrDefault(x => x.IdCT == giayPhepDto.congtrinh.Id));
-            giayPhepDto.congtrinh.hangmuc = _mapper.Map<List<CT_HangMucDto>>(giayPhepDto.congtrinh.hangmuc);
-            giayPhepDto.congtrinh.loaiCT = _mapper.Map<CT_LoaiDto>(_context.CT_Loai!.FirstOrDefault(x => x.Id == giayPhepDto.congtrinh.IdLoaiCT));
-            giayPhepDto.congtrinh.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(giayPhepDto.congtrinh.IdXa!)));
+            giayPhepDto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(giayPhepDto.congtrinh.IdXa!)));
 
             // Assuming this code is within an async method
             var tcqIds = giayPhepDto.gp_tcq!.Select(x => x.IdTCQ).ToList();
@@ -179,31 +141,7 @@ namespace new_wr_api.Service
 
             giayPhepDto.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
 
-            //Hiệu lực giấy phép
-            if (giayPhepDto.DaBiThuHoi == true)
-            {
-                giayPhepDto.hieuluc_gp = "da-bi-thu-hoi";
-            }
-            else if (giayPhepDto.NgayHetHieuLuc.HasValue)
-            {
-                DateTime ngayhethan = giayPhepDto.NgayHetHieuLuc.Value;
-                if (ngayhethan >= DateTime.Today && ngayhethan < DateTime.Today.AddDays(160))
-                {
-                    giayPhepDto.hieuluc_gp = "sap-het-hieu-luc";
-                }
-                else if (ngayhethan < DateTime.Today)
-                {
-                    giayPhepDto.hieuluc_gp = "het-hieu-luc";
-                }
-                else if (ngayhethan > DateTime.Today.AddDays(160))
-                {
-                    giayPhepDto.hieuluc_gp = "con-hieu-luc";
-                }
-            }
-            else
-            {
-                giayPhepDto.hieuluc_gp = "con-hieu-luc";
-            }
+            giayPhepDto.gp_tcq = null;
 
             return giayPhepDto;
         }

@@ -22,12 +22,38 @@ namespace new_wr_api.Dto
         public bool? DaBiThuHoi { get; set; }
         public bool? DaXoa { get; set; }
 
-        public string? hieuluc_gp {  get; set; }
+        public string? hieuluc_gp
+        {
+            get
+            {
+                if (DaBiThuHoi == true)
+                {
+                    return "da-bi-thu-hoi";
+                }
+                else if (NgayHetHieuLuc.HasValue)
+                {
+                    DateTime ngayhethan = NgayHetHieuLuc.Value;
+                    if (ngayhethan >= DateTime.Today && ngayhethan < DateTime.Today.AddDays(160))
+                    {
+                        return "sap-het-hieu-luc";
+                    }
+                    else if (ngayhethan < DateTime.Today)
+                    {
+                        return "het-hieu-luc";
+                    }
+                    else if (ngayhethan > DateTime.Today.AddDays(160))
+                    {
+                        return "con-hieu-luc";
+                    }
+                }
+                return "con-hieu-luc";
+            }
+        }
 
         public GP_LoaiDto? loaiGP { get; set; }
         public CT_ThongTinDto? congtrinh { get; set; }
         public ToChuc_CaNhanDto? tochuc_canhan { get; set; }
         public List<GP_TCQDto>? gp_tcq { get; set; }
-        public List<TCQ_ThongTinDto>? tiencq {  get; set; }
+        public List<TCQ_ThongTinDto>? tiencq { get; set; }
     }
 }

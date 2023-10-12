@@ -305,7 +305,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BieuMauSoHai");
+                    b.ToTable("BieuMauSoHai", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_HangMuc", b =>
@@ -356,7 +356,7 @@ namespace new_wr_api.Migrations
 
                     b.HasIndex("IdCT");
 
-                    b.ToTable("CT_HangMuc");
+                    b.ToTable("CT_HangMuc", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_Loai", b =>
@@ -396,7 +396,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CT_Loai");
+                    b.ToTable("CT_Loai", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_ThongSo", b =>
@@ -630,7 +630,7 @@ namespace new_wr_api.Migrations
                         .IsUnique()
                         .HasFilter("[IdHangMucCT] IS NOT NULL");
 
-                    b.ToTable("CT_ThongSo");
+                    b.ToTable("CT_ThongSo", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_ThongTin", b =>
@@ -792,7 +792,7 @@ namespace new_wr_api.Migrations
 
                     b.HasIndex("IdLoaiCT");
 
-                    b.ToTable("CT_ThongTin");
+                    b.ToTable("CT_ThongTin", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Dashboards", b =>
@@ -832,7 +832,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dashboards");
+                    b.ToTable("Dashboards", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.DonViHC", b =>
@@ -881,7 +881,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DonViHC");
+                    b.ToTable("DonViHC", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Functions", b =>
@@ -903,7 +903,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Functions");
+                    b.ToTable("Functions", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GP_Loai", b =>
@@ -940,7 +940,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GP_Loai");
+                    b.ToTable("GP_Loai", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GP_TCQ", b =>
@@ -963,7 +963,7 @@ namespace new_wr_api.Migrations
 
                     b.HasIndex("IdTCQ");
 
-                    b.ToTable("GP_TCQ");
+                    b.ToTable("GP_TCQ", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GP_ThongTin", b =>
@@ -1042,7 +1042,7 @@ namespace new_wr_api.Migrations
 
                     b.HasIndex("IdTCCN");
 
-                    b.ToTable("GP_ThongTin");
+                    b.ToTable("GP_ThongTin", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GS_DuLieu", b =>
@@ -1079,7 +1079,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GS_DuLieu");
+                    b.ToTable("GS_DuLieu", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GS_TaiKhoanTruyen", b =>
@@ -1131,7 +1131,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GS_TaiKhoanTruyen");
+                    b.ToTable("GS_TaiKhoanTruyen", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.LuuVucSong", b =>
@@ -1165,7 +1165,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LuuVucSong");
+                    b.ToTable("LuuVucSong", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Permissions", b =>
@@ -1202,7 +1202,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions");
+                    b.ToTable("Permissions", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.RoleDashboards", b =>
@@ -1230,7 +1230,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoleDashboards");
+                    b.ToTable("RoleDashboards", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Song", b =>
@@ -1285,7 +1285,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Song");
+                    b.ToTable("Song", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TCQ_ThongTin", b =>
@@ -1334,7 +1334,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TCQ_ThongTin");
+                    b.ToTable("TCQ_ThongTin", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TLN_NuocDuoiDat_SoLuong", b =>
@@ -1362,7 +1362,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TLN_NuocDuoiDat_SoLuong");
+                    b.ToTable("TLN_NuocDuoiDat_SoLuong", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TLN_NuocDuoiDat_TongLuong", b =>
@@ -1405,7 +1405,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TLN_NuocDuoiDat_TongLuong");
+                    b.ToTable("TLN_NuocDuoiDat_TongLuong", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TLN_NuocMat_ChatLuong", b =>
@@ -1436,7 +1436,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TLN_NuocMat_ChatLuong");
+                    b.ToTable("TLN_NuocMat_ChatLuong", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TLN_NuocMat_SoLuong", b =>
@@ -1482,7 +1482,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TLN_NuocMat_SoLuong");
+                    b.ToTable("TLN_NuocMat_SoLuong", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TLN_NuocMat_TongLuong", b =>
@@ -1543,7 +1543,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TLN_NuocMat_TongLuong");
+                    b.ToTable("TLN_NuocMat_TongLuong", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TLN_NuocMua_TongLuong", b =>
@@ -1595,7 +1595,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TLN_NuocMua_TongLuong");
+                    b.ToTable("TLN_NuocMua_TongLuong", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TangChuaNuoc", b =>
@@ -1629,7 +1629,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TangChuaNuoc");
+                    b.ToTable("TangChuaNuoc", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TieuVungLuuVuc", b =>
@@ -1666,7 +1666,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TieuVungLuuVuc");
+                    b.ToTable("TieuVungLuuVuc", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ToChuc_CaNhan", b =>
@@ -1724,7 +1724,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ToChuc_CaNhan");
+                    b.ToTable("ToChuc_CaNhan", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Tram_LoaiTram", b =>
@@ -1764,7 +1764,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tram_LoaiTram");
+                    b.ToTable("Tram_LoaiTram", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Tram_ThongTin", b =>
@@ -1837,7 +1837,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tram_ThongTin");
+                    b.ToTable("Tram_ThongTin", (string)null);
                 });
 
             modelBuilder.Entity("new_wr_api.Data.UserDashboards", b =>
@@ -1865,7 +1865,7 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserDashboards");
+                    b.ToTable("UserDashboards", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
