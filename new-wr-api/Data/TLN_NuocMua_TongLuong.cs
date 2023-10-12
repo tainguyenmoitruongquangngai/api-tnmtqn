@@ -21,5 +21,10 @@ namespace new_wr_api.Data
         public double? Thang10 { get; set; }
         public double? Thang11 { get; set; }
         public double? Thang12 { get; set; }
+        public DateTime? ThoiGianTao { get; set; }
+        public string? TaiKhoanTao { get; set; }
+        public DateTime? ThoiGianSua { get; set; }
+        public string? TaiKhoanSua { get; set; }
+        public bool? DaXoa { get; set; }
     }
 }

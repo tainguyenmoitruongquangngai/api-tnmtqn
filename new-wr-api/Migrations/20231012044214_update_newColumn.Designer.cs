@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231012044214_update_newColumn")]
+    partial class update_newColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -792,8 +795,6 @@ namespace new_wr_api.Migrations
 
                     b.HasIndex("IdLoaiCT");
 
-                    b.HasIndex("IdTangChuaNuoc");
-
                     b.ToTable("CT_ThongTin");
                 });
 
@@ -1348,67 +1349,6 @@ namespace new_wr_api.Migrations
                     b.ToTable("TCQ_ThongTin");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.TLN_NuocDuoiDat_ChatLuong", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double?>("AsenAvg")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("AsenMax")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("AsenMin")
-                        .HasColumnType("float");
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
-
-                    b.Property<double?>("DoCungAvg")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DoCungMax")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DoCungMin")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("NitratAvg")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("NitratMax")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("NitratMin")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("PHAvg")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("SulfatAvg")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("SulfatMax")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("SulfatMin")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("pHMax")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("pHMin")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TLN_NuocDuoiDat_ChatLuong");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.TLN_NuocDuoiDat_SoLuong", b =>
                 {
                     b.Property<int>("Id")
@@ -1422,9 +1362,6 @@ namespace new_wr_api.Migrations
 
                     b.Property<double?>("ChieuSauPhanBoTu")
                         .HasColumnType("float");
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
 
                     b.Property<double?>("DienTichPhanBo")
                         .HasColumnType("float");
@@ -1474,9 +1411,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("IdTangChuaNuoc")
                         .HasColumnType("int");
@@ -1539,9 +1473,6 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("DOMin")
                         .HasColumnType("float");
 
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("GiaTriWQI")
                         .HasColumnType("int");
 
@@ -1578,9 +1509,6 @@ namespace new_wr_api.Migrations
 
                     b.Property<double?>("ChieuDai")
                         .HasColumnType("float");
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("IdHuyenCuoiSong")
                         .HasColumnType("int");
@@ -1621,9 +1549,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("IdHuyen")
                         .HasColumnType("int");
@@ -1686,17 +1611,8 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("IdTram")
                         .HasColumnType("int");
-
-                    b.Property<string>("TaiKhoanSua")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanTao")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Thang1")
                         .HasColumnType("float");
@@ -1733,12 +1649,6 @@ namespace new_wr_api.Migrations
 
                     b.Property<double?>("Thang9")
                         .HasColumnType("float");
-
-                    b.Property<DateTime?>("ThoiGianSua")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ThoiGianTao")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -2101,13 +2011,7 @@ namespace new_wr_api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("new_wr_api.Data.TangChuaNuoc", "TangChuaNuoc")
-                        .WithMany("CongTrinh")
-                        .HasForeignKey("IdTangChuaNuoc");
-
                     b.Navigation("LoaiCT");
-
-                    b.Navigation("TangChuaNuoc");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GP_TCQ", b =>
@@ -2182,11 +2086,6 @@ namespace new_wr_api.Migrations
             modelBuilder.Entity("new_wr_api.Data.TCQ_ThongTin", b =>
                 {
                     b.Navigation("GP_TCQ");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.TangChuaNuoc", b =>
-                {
-                    b.Navigation("CongTrinh");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ToChuc_CaNhan", b =>

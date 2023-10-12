@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace new_wr_api.Data
+﻿namespace new_wr_api.Dto
 {
-    public class TLN_NuocMat_SoLuong
+    public class TLN_NuocMat_SoLuongDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int? IdSong { get; set; }
         public string? ChayRa { get; set; }
@@ -19,6 +14,5 @@ namespace new_wr_api.Data
         public double? YCuoiSong { get; set; }
         public int? IdXaCuoiSong { get; set; }
         public int? IdHuyenCuoiSong { get; set; }
-        public bool? DaXoa { get; set; }
     }
 }
