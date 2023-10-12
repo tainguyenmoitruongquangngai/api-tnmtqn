@@ -4,7 +4,7 @@ using new_wr_api.Data;
 using new_wr_api.Dto;
 using new_wr_api.Service;
 
-namespace new_wr_api.Controllers
+namespace new_wr_api.Controllers.CongTrinh
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -33,7 +33,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("luu")]
-        public async Task<ActionResult<CT_ThongTin>> SaveConstruction(CT_ThongTinDto dto)
+        public async Task<ActionResult<CT_ThongTin>> Save(CT_ThongTinDto dto)
         {
             var res = await _service.SaveAsync(dto);
             if (res > 0)
@@ -48,7 +48,7 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("xoa/{Id}")]
-        public async Task<ActionResult<CT_ThongTin>> DeleteConstruction(int Id)
+        public async Task<ActionResult<CT_ThongTin>> Delete(int Id)
         {
             var res = await _service.DeleteAsync(Id);
             if (res == true)
