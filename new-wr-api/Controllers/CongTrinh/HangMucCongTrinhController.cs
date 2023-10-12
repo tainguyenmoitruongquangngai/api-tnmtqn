@@ -23,7 +23,7 @@ namespace new_wr_api.Controllers.CongTrinh
         [Route("luu")]
         public async Task<ActionResult<CT_HangMuc>> SaveDetail(CT_HangMucDto dto)
         {
-            var res = await _service.SaveDetailAsync(dto);
+            var res = await _service.SaveAsync(dto);
             if (res)
             {
                 return Ok(new { message = "Hạng mục công trình: Dữ liệu đã được lưu" });
@@ -36,9 +36,9 @@ namespace new_wr_api.Controllers.CongTrinh
 
         [HttpPost]
         [Route("xoa/{Id}")]
-        public async Task<ActionResult<CT_HangMuc>> DeleteDetail(int Id)
+        public async Task<ActionResult<CT_HangMuc>> Delete(int Id)
         {
-            var res = await _service.DeleteDetailAsync(Id);
+            var res = await _service.DeleteAsync(Id);
             if (res == true)
             {
                 return Ok(new { message = "Hạng mục công trình: Dữ liệu đã được xóa" });
