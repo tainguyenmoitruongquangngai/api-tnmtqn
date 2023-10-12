@@ -20,7 +20,7 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
             _userManager = userManager;
         }
-        public async Task<List<CT_ThongTinDto>> GetAllAsync(int? IdLoaiCT, string? IdHuyen, string? IdXa, int? IdSong, int? IdLuuVuc, int? IdTieuLuuVuc, int? IdTangChuaNuoc, int IdTCCN, string? NguonNuocKT)
+        public async Task<List<CT_ThongTinDto>> GetAllAsync(string? TenCT, int? IdLoaiCT, int? IdHuyen, int? IdXa, int? IdSong, int? IdLuuVuc, int? IdTieuLuuVuc, int? IdTangChuaNuoc, int IdTCCN, string? NguonNuocKT)
         {
             var query = _context.CT_ThongTin!
                 .Where(ct => ct.DaXoa == false)
@@ -33,17 +33,22 @@ namespace new_wr_api.Service
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 
+            if (!string.IsNullOrEmpty(TenCT!.ToString()))
+            {
+                query = query.Where(ct => ct.TenCT!.Contains(TenCT));
+            }
+
             if (IdLoaiCT > 0)
             {
                 query = query.Where(ct => IdLoaiCT == 1 || IdLoaiCT == 2 || IdLoaiCT == 3 || IdLoaiCT == 24 ? ct.LoaiCT!.IdCha == IdLoaiCT : ct.LoaiCT!.Id == IdLoaiCT);
             }
 
-            if (!string.IsNullOrEmpty(IdXa))
+            if (!string.IsNullOrEmpty(IdXa.ToString()))
             {
                 query = query.Where(ct => ct.IdXa!.Contains(IdXa.ToString()!));
             }
 
-            if (!string.IsNullOrEmpty(IdHuyen))
+            if (!string.IsNullOrEmpty(IdHuyen.ToString()))
             {
                 query = query.Where(ct => ct.IdHuyen!.Contains(IdHuyen.ToString()!));
             }

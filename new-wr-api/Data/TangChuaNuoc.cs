@@ -17,6 +17,6 @@ namespace new_wr_api.Data
         public bool? DaXoa { get; set; }
 
         public virtual ICollection<CT_ThongTin>? CongTrinh { get; set; }
-        public virtual ICollection<CT_HangMuc>? HangMuc { get; set; }
+
     }
 }

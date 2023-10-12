@@ -19,9 +19,9 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("danh-sach")]
-        public async Task<List<CT_ThongTinDto>> GetAllData(int? loai_ct, string? huyen, string? xa, int? song, int? luuvuc, int? tieu_luuvuc, int? tang_chuanuoc, int tochuc_canhan, string? nguonnuoc_kt)
+        public async Task<List<CT_ThongTinDto>> GetAllData(string? tenct, int? loai_ct, int? huyen, int? xa, int? song, int? luuvuc, int? tieu_luuvuc, int? tang_chuanuoc, int tochuc_canhan, string? nguonnuoc_kt)
         {
-            return await _service.GetAllAsync(loai_ct, huyen, xa, song, luuvuc, tieu_luuvuc, tang_chuanuoc, tochuc_canhan, nguonnuoc_kt);
+            return await _service.GetAllAsync(tenct, loai_ct, huyen, xa, song, luuvuc, tieu_luuvuc, tang_chuanuoc, tochuc_canhan, nguonnuoc_kt);
         }
 
         [HttpGet]
