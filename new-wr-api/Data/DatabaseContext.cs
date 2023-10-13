@@ -38,9 +38,9 @@ namespace new_wr_api.Data
         public DbSet<GP_ThongTin>? GP_ThongTin { get; set; }
         public DbSet<GS_DuLieu>? GS_DuLieu { get; set; }
         public DbSet<GS_TaiKhoanTruyen>? GS_TaiKhoanTruyen { get; set; }
+        public DbSet<TangChuaNuoc>? TangChuaNuoc { get; set; }
         public DbSet<LuuVucSong>? LuuVucSong { get; set; }
         public DbSet<Song>? Song { get; set; }
-        public DbSet<TangChuaNuoc>? TangChuaNuoc { get; set; }
         public DbSet<TCQ_ThongTin>? TCQ_ThongTin { get; set; }
         public DbSet<TieuVungLuuVuc>? TieuVungLuuVuc { get; set; }
         public DbSet<TLN_NuocDuoiDat_SoLuong>? TLN_NuocDuoiDat_SoLuong { get; set; }

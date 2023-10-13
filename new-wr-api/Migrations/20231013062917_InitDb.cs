@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDB : Migration
+    public partial class InitDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -241,6 +241,9 @@ namespace new_wr_api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenLVS = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChuGiai = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ViTriQT = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NgayBatDau = table.Column<int>(type: "int", nullable: true),
+                    NgayKetThuc = table.Column<int>(type: "int", nullable: true),
                     ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -323,6 +326,7 @@ namespace new_wr_api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenTCN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     KyHieuTCN = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SoLuongGiengQT = table.Column<int>(type: "int", nullable: true),
                     ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -379,6 +383,34 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TLN_NuocDuoiDat_ChatLuong",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    pHMax = table.Column<double>(type: "float", nullable: true),
+                    pHMin = table.Column<double>(type: "float", nullable: true),
+                    PHAvg = table.Column<double>(type: "float", nullable: true),
+                    DoCungMax = table.Column<double>(type: "float", nullable: true),
+                    DoCungMin = table.Column<double>(type: "float", nullable: true),
+                    DoCungAvg = table.Column<double>(type: "float", nullable: true),
+                    NitratMax = table.Column<double>(type: "float", nullable: true),
+                    NitratMin = table.Column<double>(type: "float", nullable: true),
+                    NitratAvg = table.Column<double>(type: "float", nullable: true),
+                    SulfatMax = table.Column<double>(type: "float", nullable: true),
+                    SulfatMin = table.Column<double>(type: "float", nullable: true),
+                    SulfatAvg = table.Column<double>(type: "float", nullable: true),
+                    AsenMax = table.Column<double>(type: "float", nullable: true),
+                    AsenMin = table.Column<double>(type: "float", nullable: true),
+                    AsenAvg = table.Column<double>(type: "float", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TLN_NuocDuoiDat_ChatLuong", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TLN_NuocDuoiDat_SoLuong",
                 columns: table => new
                 {
@@ -388,7 +420,17 @@ namespace new_wr_api.Migrations
                     DienTichPhanBo = table.Column<double>(type: "float", nullable: true),
                     ChieuSauPhanBoTu = table.Column<double>(type: "float", nullable: true),
                     ChieuSauPhanBoDen = table.Column<double>(type: "float", nullable: true),
-                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    HmaxKyTruoc = table.Column<double>(type: "float", nullable: true),
+                    HmaxBaoCao = table.Column<double>(type: "float", nullable: true),
+                    HmaxThayDoi = table.Column<double>(type: "float", nullable: true),
+                    HTBKyTruoc = table.Column<double>(type: "float", nullable: true),
+                    HTBBaoCao = table.Column<double>(type: "float", nullable: true),
+                    HTBThayDoi = table.Column<double>(type: "float", nullable: true),
+                    HminKyTruoc = table.Column<double>(type: "float", nullable: true),
+                    HminBaoCao = table.Column<double>(type: "float", nullable: true),
+                    HminThayDoi = table.Column<double>(type: "float", nullable: true),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -410,7 +452,8 @@ namespace new_wr_api.Migrations
                     NuocMan_DienTichPhanBo = table.Column<double>(type: "float", nullable: true),
                     NuocMan_IdXa = table.Column<int>(type: "int", nullable: true),
                     NuocMan_IdHuyen = table.Column<int>(type: "int", nullable: true),
-                    NuocMan_TruLuong = table.Column<double>(type: "float", nullable: true)
+                    NuocMan_TruLuong = table.Column<double>(type: "float", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -428,7 +471,14 @@ namespace new_wr_api.Migrations
                     IdTinh = table.Column<int>(type: "int", nullable: true),
                     IdLuuVucSong = table.Column<int>(type: "int", nullable: true),
                     GiaTriWQI = table.Column<int>(type: "int", nullable: true),
-                    ThoiGian = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    BOD5Max = table.Column<double>(type: "float", nullable: true),
+                    BOD5Min = table.Column<double>(type: "float", nullable: true),
+                    CODMax = table.Column<double>(type: "float", nullable: true),
+                    CODMin = table.Column<double>(type: "float", nullable: true),
+                    DOMax = table.Column<double>(type: "float", nullable: true),
+                    DOMin = table.Column<double>(type: "float", nullable: true),
+                    ThoiGian = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -451,7 +501,8 @@ namespace new_wr_api.Migrations
                     XCuoiSong = table.Column<double>(type: "float", nullable: true),
                     YCuoiSong = table.Column<double>(type: "float", nullable: true),
                     IdXaCuoiSong = table.Column<int>(type: "int", nullable: true),
-                    IdHuyenCuoiSong = table.Column<int>(type: "int", nullable: true)
+                    IdHuyenCuoiSong = table.Column<int>(type: "int", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -479,7 +530,8 @@ namespace new_wr_api.Migrations
                     Thang9 = table.Column<double>(type: "float", nullable: true),
                     Thang10 = table.Column<double>(type: "float", nullable: true),
                     Thang11 = table.Column<double>(type: "float", nullable: true),
-                    Thang12 = table.Column<double>(type: "float", nullable: true)
+                    Thang12 = table.Column<double>(type: "float", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -504,7 +556,12 @@ namespace new_wr_api.Migrations
                     Thang9 = table.Column<double>(type: "float", nullable: true),
                     Thang10 = table.Column<double>(type: "float", nullable: true),
                     Thang11 = table.Column<double>(type: "float", nullable: true),
-                    Thang12 = table.Column<double>(type: "float", nullable: true)
+                    Thang12 = table.Column<double>(type: "float", nullable: true),
+                    ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaiKhoanSua = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -721,8 +778,8 @@ namespace new_wr_api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdLoaiCT = table.Column<int>(type: "int", nullable: false),
-                    IdXa = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IdHuyen = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdXa = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IdSong = table.Column<int>(type: "int", nullable: true),
                     IdLuuVuc = table.Column<int>(type: "int", nullable: true),
                     IdTieuLuuVuc = table.Column<int>(type: "int", nullable: true),
@@ -779,6 +836,11 @@ namespace new_wr_api.Migrations
                         principalTable: "CT_Loai",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CT_ThongTin_TangChuaNuoc_IdTangChuaNuoc",
+                        column: x => x.IdTangChuaNuoc,
+                        principalTable: "TangChuaNuoc",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -822,7 +884,7 @@ namespace new_wr_api.Migrations
                     IdCT = table.Column<int>(type: "int", nullable: true),
                     TenGP = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SoGP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NgayCap = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    NgayKy = table.Column<DateTime>(type: "datetime2", nullable: true),
                     NgayCoHieuLuc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     NgayHetHieuLuc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ThoiHan = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -1040,6 +1102,11 @@ namespace new_wr_api.Migrations
                 column: "IdLoaiCT");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CT_ThongTin_IdTangChuaNuoc",
+                table: "CT_ThongTin",
+                column: "IdTangChuaNuoc");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GP_TCQ_IdGP",
                 table: "GP_TCQ",
                 column: "IdGP");
@@ -1120,10 +1187,10 @@ namespace new_wr_api.Migrations
                 name: "Song");
 
             migrationBuilder.DropTable(
-                name: "TangChuaNuoc");
+                name: "TieuVungLuuVuc");
 
             migrationBuilder.DropTable(
-                name: "TieuVungLuuVuc");
+                name: "TLN_NuocDuoiDat_ChatLuong");
 
             migrationBuilder.DropTable(
                 name: "TLN_NuocDuoiDat_SoLuong");
@@ -1178,6 +1245,9 @@ namespace new_wr_api.Migrations
 
             migrationBuilder.DropTable(
                 name: "CT_Loai");
+
+            migrationBuilder.DropTable(
+                name: "TangChuaNuoc");
         }
     }
 }

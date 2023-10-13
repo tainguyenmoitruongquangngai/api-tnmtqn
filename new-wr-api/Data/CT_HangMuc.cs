@@ -22,6 +22,9 @@ namespace new_wr_api.Data
         public bool? DaXoa { get; set; }
 
         // Navigation property to represent the relationship
+        [ForeignKey("IdTangChuaNuoc")]
+        public virtual TangChuaNuoc? TangChuaNuoc { get; set; }
+
         [ForeignKey("IdCT")]
         public virtual CT_ThongTin? CongTrinh { get; set; }
         public virtual CT_ThongSo? ThongSo { get; set; }
