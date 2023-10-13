@@ -26,6 +26,7 @@ namespace new_wr_api.Service
                 .Where(gp => gp.DaXoa == false)
                 .Include(gp => gp.LoaiGP)
                 .Include(gp => gp.ToChuc_CaNhan)
+                .Include(gp => gp.CongTrinh)
                 .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc!).ThenInclude(hm => hm!.ThongSo)
                 .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.ThongSo)
                 .Include(gp => gp.GP_TCQ)
@@ -96,7 +97,11 @@ namespace new_wr_api.Service
 
             foreach (var dto in giayPhepDtos)
             {
-                dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
+                if(dto.congtrinh != null)
+                {
+                    dto.congtrinh!.giayphep = null;
+                    dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
+                }
 
                 // Assuming this code is within an async method
                 var tcqIds = dto.gp_tcq!.Select(x => x.IdTCQ).ToList();

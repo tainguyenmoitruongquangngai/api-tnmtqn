@@ -17,5 +17,8 @@
         public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
         public int? PartRiverId { get; set; }
+
+        public LuuVucSongDto? luuvuc_song { get; set; }
+        public DonViHCDto? donvi_hc {  get; set; }
     }
 }
