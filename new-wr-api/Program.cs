@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
 using new_wr_api.Service;
+using new_wr_api.Service.BaoCaoBieuMau;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -37,8 +38,9 @@ services.AddScoped<TCQ_ThongTinService>();
 services.AddScoped<TangChuaNuocService>();
 
 services.AddScoped<BieuMauHaiService>();
+services.AddScoped<BieuMauBaService>();
 services.AddScoped<Tram_ThongTinService>();
-    services.AddScoped<NMua_TongLuongService>();
+services.AddScoped<NMua_TongLuongService>();
 
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>

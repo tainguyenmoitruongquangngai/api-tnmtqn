@@ -56,6 +56,8 @@ namespace new_wr_api.Data
 
         public DbSet<BieuMauSoHai>? BieuMauSoHai { get; set; }
 
+        public DbSet<BieuMauSoBa>? BieuMauSoBa { get; set; }
+
         #endregion
     }
 }
