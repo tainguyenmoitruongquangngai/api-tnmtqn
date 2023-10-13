@@ -38,6 +38,7 @@ services.AddScoped<TCQ_ThongTinService>();
 services.AddScoped<TangChuaNuocService>();
 
 services.AddScoped<SongService>();
+services.AddScoped<LuuVucSongService>();
 services.AddScoped<DonViHCService>();
 
 services.AddScoped<BieuMauHaiService>();

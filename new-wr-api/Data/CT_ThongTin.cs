@@ -50,6 +50,7 @@ namespace new_wr_api.Data
         public double? HThuongLuuTT { get; set; }
         public double? QMinTT { get; set; }
         public double? QMaxTT { get; set; }
+        public double? QXaTranTT { get; set; }
         public double? ThoiGianTT { get; set; }
         public int? MatKetNoi { get; set; }
         public int? Loi { get; set; }
