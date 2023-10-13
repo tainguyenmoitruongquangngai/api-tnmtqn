@@ -33,7 +33,7 @@ namespace new_wr_api.Service
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(TenCT!.ToString()))
+            if (!string.IsNullOrEmpty(TenCT))
             {
                 query = query.Where(ct => ct.TenCT!.Contains(TenCT));
             }
