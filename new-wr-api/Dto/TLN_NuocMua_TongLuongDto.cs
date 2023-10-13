@@ -1,17 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace new_wr_api.Data
+﻿namespace new_wr_api.Dto
 {
-    public class TLN_NuocMat_TongLuong
+    public class TLN_NuocMua_TongLuongDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int? IdLuuVucSong { get; set; }
-        public int? Nam { get; set; }
-        public int? IdXa { get; set; }
-        public int? IdHuyen { get; set; }
+        public int? IdTram { get; set; }
+        public string? TenTram { get; set; }
+        public string? TenXa { get; set; }
+        public string? TenHuyen { get; set; }
+        public int? NgayBatDau { get; set; }
+        public int? NgayKetThuc { get; set; }
         public double? Thang1 { get; set; }
         public double? Thang2 { get; set; }
         public double? Thang3 { get; set; }
@@ -24,6 +21,6 @@ namespace new_wr_api.Data
         public double? Thang10 { get; set; }
         public double? Thang11 { get; set; }
         public double? Thang12 { get; set; }
-        public bool? DaXoa { get; set; }
+        public bool? Daxoa { get; set; }
     }
 }

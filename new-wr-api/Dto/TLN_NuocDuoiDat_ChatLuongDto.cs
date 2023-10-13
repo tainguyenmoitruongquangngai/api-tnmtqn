@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace new_wr_api.Data
+﻿namespace new_wr_api.Dto
 {
-    public class TLN_NuocDuoiDat_ChatLuong
+    public class TLN_NuocDuoiDat_ChatLuongDto
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public double? pHMax { get; set; }
         public double? pHMin { get; set; }
@@ -23,6 +18,5 @@ namespace new_wr_api.Data
         public double? AsenMax { get; set; }
         public double? AsenMin { get; set; }
         public double? AsenAvg { get; set; }
-        public bool? DaXoa { get; set; }
     }
 }

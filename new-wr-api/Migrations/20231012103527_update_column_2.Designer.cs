@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231012103527_update_column_2")]
+    partial class update_column_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -791,8 +794,6 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IdLoaiCT");
-
-                    b.HasIndex("IdTangChuaNuoc");
 
                     b.ToTable("CT_ThongTin");
                 });
@@ -2101,13 +2102,7 @@ namespace new_wr_api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("new_wr_api.Data.TangChuaNuoc", "TangChuaNuoc")
-                        .WithMany("CongTrinh")
-                        .HasForeignKey("IdTangChuaNuoc");
-
                     b.Navigation("LoaiCT");
-
-                    b.Navigation("TangChuaNuoc");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.GP_TCQ", b =>
@@ -2182,11 +2177,6 @@ namespace new_wr_api.Migrations
             modelBuilder.Entity("new_wr_api.Data.TCQ_ThongTin", b =>
                 {
                     b.Navigation("GP_TCQ");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.TangChuaNuoc", b =>
-                {
-                    b.Navigation("CongTrinh");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ToChuc_CaNhan", b =>

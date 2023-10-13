@@ -37,6 +37,8 @@ services.AddScoped<TCQ_ThongTinService>();
 services.AddScoped<TangChuaNuocService>();
 
 services.AddScoped<BieuMauHaiService>();
+services.AddScoped<Tram_ThongTinService>();
+    services.AddScoped<NMua_TongLuongService>();
 
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
