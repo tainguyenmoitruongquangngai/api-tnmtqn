@@ -83,7 +83,6 @@ namespace new_wr_api.Service
                 query = query.Where(ct => ct.NguonNuocKT!.Contains(NguonNuocKT.ToString()!));
             }
 
-
             var congtrinh = await query.ToListAsync();
 
             var congTrinhDtos = _mapper.Map<List<CT_ThongTinDto>>(congtrinh);
