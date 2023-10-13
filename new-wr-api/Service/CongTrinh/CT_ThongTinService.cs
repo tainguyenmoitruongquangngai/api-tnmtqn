@@ -33,7 +33,7 @@ namespace new_wr_api.Service
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(TenCT!.ToString()))
+            if (!string.IsNullOrEmpty(TenCT))
             {
                 query = query.Where(ct => ct.TenCT!.Contains(TenCT));
             }
@@ -43,12 +43,12 @@ namespace new_wr_api.Service
                 query = query.Where(ct => IdLoaiCT == 1 || IdLoaiCT == 2 || IdLoaiCT == 3 || IdLoaiCT == 24 ? ct.LoaiCT!.IdCha == IdLoaiCT : ct.LoaiCT!.Id == IdLoaiCT);
             }
 
-            if (!string.IsNullOrEmpty(IdXa.ToString()))
+            if (IdXa > 0)
             {
                 query = query.Where(ct => ct.IdXa!.Contains(IdXa.ToString()!));
             }
 
-            if (!string.IsNullOrEmpty(IdHuyen.ToString()))
+            if (IdHuyen > 0)
             {
                 query = query.Where(ct => ct.IdHuyen!.Contains(IdHuyen.ToString()!));
             }
@@ -80,9 +80,8 @@ namespace new_wr_api.Service
 
             if (!string.IsNullOrEmpty(NguonNuocKT))
             {
-                query = query.Where(ct => ct.NguonNuocKT!.Contains(NguonNuocKT.ToString()!));
+                query = query.Where(ct => ct.NguonNuocKT!.Contains(NguonNuocKT));
             }
-
 
             var congtrinh = await query.ToListAsync();
 

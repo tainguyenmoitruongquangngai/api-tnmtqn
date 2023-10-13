@@ -60,14 +60,15 @@ namespace new_wr_api.Data
         public bool? DaXoa { get; set; }
 
         // Navigation property to represent the relationship
-        [ForeignKey("IdLoaiCT")]
-        public virtual CT_Loai? LoaiCT { get; set; }
-        public virtual CT_ThongSo? ThongSo { get; set; }
-        public virtual ICollection<CT_HangMuc>? HangMuc { get; set; }
-        public virtual ICollection<GP_ThongTin>? GiayPhep { get; set; }
-
 
         [ForeignKey("IdTangChuaNuoc")]
         public virtual TangChuaNuoc? TangChuaNuoc { get; set; }
+
+        [ForeignKey("IdLoaiCT")]
+        public virtual CT_Loai? LoaiCT { get; set; }
+
+        public virtual CT_ThongSo? ThongSo { get; set; }
+        public virtual ICollection<CT_HangMuc>? HangMuc { get; set; }
+        public virtual ICollection<GP_ThongTin>? GiayPhep { get; set; }
     }
 }

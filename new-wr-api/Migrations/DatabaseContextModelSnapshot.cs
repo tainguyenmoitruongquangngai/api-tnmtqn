@@ -417,6 +417,8 @@ namespace new_wr_api.Migrations
 
                     b.HasIndex("IdCT");
 
+                    b.HasIndex("IdTangChuaNuoc");
+
                     b.ToTable("CT_HangMuc");
                 });
 
@@ -2136,7 +2138,13 @@ namespace new_wr_api.Migrations
                         .WithMany("HangMuc")
                         .HasForeignKey("IdCT");
 
+                    b.HasOne("new_wr_api.Data.TangChuaNuoc", "TangChuaNuoc")
+                        .WithMany("HangMucCT")
+                        .HasForeignKey("IdTangChuaNuoc");
+
                     b.Navigation("CongTrinh");
+
+                    b.Navigation("TangChuaNuoc");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_ThongSo", b =>
@@ -2248,6 +2256,8 @@ namespace new_wr_api.Migrations
             modelBuilder.Entity("new_wr_api.Data.TangChuaNuoc", b =>
                 {
                     b.Navigation("CongTrinh");
+
+                    b.Navigation("HangMucCT");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ToChuc_CaNhan", b =>
