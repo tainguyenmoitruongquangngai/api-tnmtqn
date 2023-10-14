@@ -44,6 +44,7 @@ services.AddScoped<DonViHCService>();
 services.AddScoped<BieuMauHaiService>();
 services.AddScoped<BieuMauBaService>();
 services.AddScoped<BieuMauBonService>();
+services.AddScoped<BieuMauNamService>();
 services.AddScoped<Tram_ThongTinService>();
 services.AddScoped<NMua_TongLuongService>();
 
