@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Dto;
@@ -97,7 +98,7 @@ namespace new_wr_api.Service
 
             foreach (var dto in giayPhepDtos)
             {
-                if(dto.congtrinh != null)
+                if (dto.congtrinh != null)
                 {
                     dto.congtrinh!.giayphep = null;
                     dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
@@ -116,6 +117,28 @@ namespace new_wr_api.Service
             }
 
             return giayPhepDtos;
+        }
+
+        public async Task<CountDataDto> CountFollowLicensingAuthoritiesAsync()
+        {
+            var totalCount = await _context.GP_ThongTin!
+                .Where(gp => gp.DaXoa == false)
+                .CountAsync();
+
+            var btnmtCount = await _context.GP_ThongTin!
+                .Where(gp => gp.DaXoa == false && gp.CoQuanCapPhep!.ToLower() == "btnmt")
+                .CountAsync();
+
+            var ubndtCount = await _context.GP_ThongTin!
+                .Where(gp => gp.DaXoa == false && gp.CoQuanCapPhep!.ToLower() == "ubndt")
+                .CountAsync();
+
+            return new CountDataDto
+            {
+                Total = totalCount,
+                Btnmt = btnmtCount,
+                Ubndt = ubndtCount
+            };
         }
 
         public async Task<GP_ThongTinDto> GetByIdAsync(int Id)

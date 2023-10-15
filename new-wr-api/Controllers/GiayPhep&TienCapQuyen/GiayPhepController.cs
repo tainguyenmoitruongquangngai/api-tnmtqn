@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/giay-phep")]
     [ApiController]
     public class GiayPhepController : ControllerBase
     {
@@ -22,6 +22,13 @@ namespace new_wr_api.Controllers
         public async Task<List<GP_ThongTinDto>> GetAllData(string? sogp, int? tochuc_canhan, int? congtrinh, int? loaigp, int? loaict, string? hieuluc)
         {
             return await _service.GetAllAsync(sogp, tochuc_canhan, congtrinh, loaigp, loaict, hieuluc);
+        }
+
+        [HttpGet]
+        [Route("dem-theo-co-quan-cp")]
+        public async Task<CountDataDto> CountFollowLicensingAuthorities()
+        {
+            return await _service.CountFollowLicensingAuthoritiesAsync();
         }
 
         [HttpGet]

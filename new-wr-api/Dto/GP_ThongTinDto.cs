@@ -57,4 +57,11 @@ namespace new_wr_api.Dto
         public List<GP_TCQDto>? gp_tcq { get; set; }
         public List<TCQ_ThongTinDto>? tiencq { get; set; }
     }
+
+    public class CountDataDto
+    {
+        public int Total { get; set; } = 0;
+        public int Btnmt { get; set; } = 0;
+        public int Ubndt { get; set; } = 0;
+    }
 }
