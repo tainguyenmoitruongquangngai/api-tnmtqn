@@ -39,6 +39,7 @@ services.AddScoped<TangChuaNuocService>();
 
 services.AddScoped<SongService>();
 services.AddScoped<LuuVucSongService>();
+services.AddScoped<TieuVungLuuVucService>();
 services.AddScoped<DonViHCService>();
 
 services.AddScoped<BieuMauHaiService>();
