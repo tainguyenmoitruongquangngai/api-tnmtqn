@@ -54,8 +54,9 @@ namespace new_wr_api.Data
         public DbSet<Tram_LoaiTram>? Tram_LoaiTram { get; set; }
         public DbSet<Tram_ThongTin>? Tram_ThongTin { get; set; }
 
+        
+        public DbSet<BieuMauSoMot>? BieuMauSoMot { get; set; }
         public DbSet<BieuMauSoHai>? BieuMauSoHai { get; set; }
-
         public DbSet<BieuMauSoBa>? BieuMauSoBa { get; set; }
         public DbSet<BieuMauSoBon>? BieuMauSoBon { get; set; }
         public DbSet<BieuMauSoNam>? BieuMauSoNam { get; set; }

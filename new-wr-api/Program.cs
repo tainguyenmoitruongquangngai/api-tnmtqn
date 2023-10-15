@@ -42,6 +42,7 @@ services.AddScoped<LuuVucSongService>();
 services.AddScoped<TieuVungLuuVucService>();
 services.AddScoped<DonViHCService>();
 
+services.AddScoped<BieuMauMotService>();
 services.AddScoped<BieuMauHaiService>();
 services.AddScoped<BieuMauBaService>();
 services.AddScoped<BieuMauBonService>();
