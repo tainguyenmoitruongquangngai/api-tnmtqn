@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tien-cap-quyen")]
     [ApiController]
     //[Authorize]
     public class TienCapQuyenController : ControllerBase
