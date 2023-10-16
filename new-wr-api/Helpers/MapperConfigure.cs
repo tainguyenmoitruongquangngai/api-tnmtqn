@@ -82,6 +82,7 @@ namespace new_wr_api.Helpers
             CreateMap<BieuMauSoBa, BieuMauBaDto>().ReverseMap();
             CreateMap<BieuMauSoBon, BieuMauBonDto>().ReverseMap();
             CreateMap<BieuMauSoNam, BieuMauNamDto>().ReverseMap();
+            CreateMap<BieuMauSoSau, BieuMauSauDto>().ReverseMap();
 
 
             //TruLuongNuoc

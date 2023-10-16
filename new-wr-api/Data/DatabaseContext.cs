@@ -60,7 +60,7 @@ namespace new_wr_api.Data
         public DbSet<BieuMauSoBa>? BieuMauSoBa { get; set; }
         public DbSet<BieuMauSoBon>? BieuMauSoBon { get; set; }
         public DbSet<BieuMauSoNam>? BieuMauSoNam { get; set; }
-
+        public DbSet<BieuMauSoSau>? BieuMauSoSau { get; set; }
 
         #endregion
     }
