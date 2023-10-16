@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231016082548_BieuMauSoChin")]
+    partial class BieuMauSoChin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -530,43 +533,6 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BieuMauSoMot");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.BieuMauSoMuoi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double?>("CTMucDichKhacNuocDuoiDat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("CTMucDichKhacNuocMat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("CTThuyDien")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("CTTuoiNuocDuoiDat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("CTTuoiNuocMat")
-                        .HasColumnType("float");
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LuuVucSong")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("TongCongTrinh")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BieuMauSoMuoi");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.BieuMauSoNam", b =>
