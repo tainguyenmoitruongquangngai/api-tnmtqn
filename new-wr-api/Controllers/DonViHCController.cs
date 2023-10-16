@@ -6,9 +6,9 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/hanh-chinh")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class DonViHCController : ControllerBase
     {
         private readonly DonViHCService _service;
@@ -19,21 +19,21 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("danh-sach/huyen/{id_tinh}")]
-        public async Task<List<HuyenDto>> GetAllDistricts(string id_tinh)
+        [Route("huyen/danh-sach")]
+        public async Task<List<HuyenDto>> GetAllDistricts()
         {
-            return (await _service.GetAllDistrictAsync(id_tinh));
+            return (await _service.GetAllDistrictAsync());
         }
 
         [HttpGet]
-        [Route("danh-sach/xa")]
+        [Route("xa/danh-sach")]
         public async Task<List<XaDto>> GetAllCommunes()
         {
             return (await _service.GetAllCommuneAsync());
         }
 
         [HttpGet]
-        [Route("danh-sach/xa/lay-theo-huyen/{id_huyen}")]
+        [Route("xa/danh-sach/{id_huyen}")]
         public async Task<List<XaDto>> GetAllCommunesByDistrict(string id_huyen)
         {
             return (await _service.GetAllCommuneByDistrictAsync(id_huyen));

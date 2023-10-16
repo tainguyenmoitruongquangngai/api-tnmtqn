@@ -7,7 +7,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/loai-gp")]
     [ApiController]
     //[Authorize]
     public class LoaiGiayPhepController : ControllerBase
@@ -27,7 +27,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("lay-theo-id/{Id}")]
+        [Route("{Id}")]
         public async Task<GP_LoaiDto?> GetGP_LoaiById(int Id)
         {
             return await _service.GetGP_LoaiByIdAsync(Id);

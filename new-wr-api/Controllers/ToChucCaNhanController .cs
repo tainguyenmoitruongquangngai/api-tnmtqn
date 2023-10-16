@@ -6,59 +6,59 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/to-chuc-ca-nhan")]
     [ApiController]
     //[Authorize]
-    public class SongController : ControllerBase
+    public class ToChucCaNhanController : ControllerBase
     {
-        private readonly SongService _service;
+        private readonly ToChucCaNhanService _service;
 
-        public SongController(SongService service)
+        public ToChucCaNhanController(ToChucCaNhanService service)
         {
             _service = service;
         }
 
         [HttpGet]
         [Route("danh-sach")]
-        public async Task<List<SongDto>> GetAllSong()
+        public async Task<List<ToChuc_CaNhanDto>> GetAll()
         {
             return (await _service.GetAllAsync());
         }
 
         [HttpGet]
         [Route("{Id}")]
-        public async Task<SongDto?> GetById(int Id)
+        public async Task<ToChuc_CaNhanDto?> GetById(int Id)
         {
             return await _service.GetByIdAsync(Id);
         }
 
         [HttpPost]
         [Route("luu")]
-        public async Task<ActionResult<Song>> Save(SongDto moddel)
+        public async Task<ActionResult<ToChuc_CaNhan>> Save(ToChuc_CaNhanDto moddel)
         {
             var res = await _service.SaveAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Sông: Dữ liệu đã được lưu", id = res });
+                return Ok(new { message = "Doanh nghiệp: Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "Sông: Lỗi lưu dữ liệu", error = true });
+                return BadRequest(new { message = "Doanh nghiệp: Lỗi lưu dữ liệu", error = true });
             }
         }
 
         [HttpPost]
         [Route("xoa/{Id}")]
-        public async Task<ActionResult<Song>> Delete(int Id)
+        public async Task<ActionResult<ToChuc_CaNhan>> Delete(int Id)
         {
             var res = await _service.DeleteAsync(Id);
             if (res == true)
             {
-                return Ok(new { message = "Sông: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Doanh nghiệp: Dữ liệu đã được xóa" });
             }
             else
             {
-                return BadRequest(new { message = "Sông: Lỗi xóa dữ liệu", error = true });
+                return BadRequest(new { message = "Doanh nghiệp: Lỗi xóa dữ liệu" });
             }
         }
     }

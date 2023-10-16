@@ -60,6 +60,8 @@ namespace new_wr_api.Helpers
             .ReverseMap();
 
             CreateMap<DonViHC, DonViHCDto>().ReverseMap();
+            CreateMap<DonViHC, HuyenDto>().ReverseMap();
+            CreateMap<DonViHC, XaDto>().ReverseMap();
 
             CreateMap<GP_Loai, GP_LoaiDto>().ReverseMap();
             CreateMap<GP_ThongTin, GP_ThongTinDto>()
@@ -73,8 +75,6 @@ namespace new_wr_api.Helpers
             CreateMap<TCQ_ThongTin, TCQ_ThongTinDto>();
 
             CreateMap<ToChuc_CaNhan, ToChuc_CaNhanDto>().ReverseMap();
-
-
 
             //baocaobieumau
             CreateMap<BieuMauSoMot, BieuMauMotDto>().ReverseMap();

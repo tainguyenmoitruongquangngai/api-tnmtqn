@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/hang-muc-ct")]
     [ApiController]
     //[Authorize]
     public class HangMucCongTrinhController : ControllerBase

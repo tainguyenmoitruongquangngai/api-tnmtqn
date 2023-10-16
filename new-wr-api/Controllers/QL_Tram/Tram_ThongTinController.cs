@@ -27,7 +27,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("lay-theo-id/{Id}")]
+        [Route("{Id}")]
         public async Task<Tram_ThongTinDto?> GetById(int Id)
         {
             return await _service.GetByIdAsync(Id);

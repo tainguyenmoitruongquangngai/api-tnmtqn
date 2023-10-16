@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/loai-ct")]
     [ApiController]
     //[Authorize]
     public class LoaiCongTrinhController : ControllerBase
@@ -26,7 +26,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("lay-theo-id/{Id}")]
+        [Route("{Id}")]
         public async Task<CT_LoaiDto?> GetById(int Id)
         {
             return await _service.GetByIdAsync(Id);

@@ -31,10 +31,10 @@ namespace new_wr_api.Service
             return listItems;
         }
 
-        public async Task<List<HuyenDto>> GetAllDistrictAsync(string IdTinh)
+        public async Task<List<HuyenDto>> GetAllDistrictAsync()
         {
             var items = await _context.DonViHC!
-                .Where(l => l.IdTinh == IdTinh && l.DaXoa == false)
+                .Where(l => l.IdTinh!.Contains("51")&& l.DaXoa == false)
                 .GroupBy(l => new { l.IdTinh, l.IdHuyen })
                 .Select(group => group.First())
                 .ToListAsync();
