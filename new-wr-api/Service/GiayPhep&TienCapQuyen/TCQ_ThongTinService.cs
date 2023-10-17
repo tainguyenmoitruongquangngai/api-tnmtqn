@@ -118,7 +118,6 @@ namespace new_wr_api.Service
                 item.DaXoa = false;
                 item.ThoiGianTao = DateTime.Now;
                 item.TaiKhoanTao = currentUser != null ? currentUser.UserName : null;
-
                 _context.TCQ_ThongTin!.Add(item);
             }
             else
