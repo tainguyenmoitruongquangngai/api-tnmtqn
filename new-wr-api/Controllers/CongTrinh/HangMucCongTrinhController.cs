@@ -33,7 +33,7 @@ namespace new_wr_api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("xoa/{Id}")]
         public async Task<ActionResult<CT_HangMuc>> Delete(int Id)
         {

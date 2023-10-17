@@ -48,7 +48,7 @@ namespace new_wr_api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("xoa/{Id}")]
         public async Task<ActionResult<GP_Loai>> DeleteLicenseType(int Id)
         {

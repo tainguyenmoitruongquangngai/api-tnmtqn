@@ -54,7 +54,7 @@ namespace new_wr_api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("xoa/{Id}")]
         public async Task<ActionResult<DonViHC>> Delete(int Id)
         {
