@@ -72,7 +72,9 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.tiencq, opt => opt.MapFrom((src, dest) => dest.tiencq));
 
             CreateMap<GP_TCQ, GP_TCQDto>();
-            CreateMap<TCQ_ThongTin, TCQ_ThongTinDto>();
+            CreateMap<TCQ_ThongTin, TCQ_ThongTinDto>()
+                .ForMember(dest => dest.giayphep, opt => opt.MapFrom((src, dest) => dest.giayphep))
+                .ForMember(dest => dest.congtrinh, opt => opt.MapFrom((src, dest) => dest.congtrinh));
 
             CreateMap<ToChuc_CaNhan, ToChuc_CaNhanDto>().ReverseMap();
 

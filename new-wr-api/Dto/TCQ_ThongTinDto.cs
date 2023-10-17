@@ -13,5 +13,9 @@
         public bool? DaXoa { get; set; }
 
         public TCQ_ThongTinDto? qd_bosung { get; set; }
+        public List<GP_TCQDto>? gp_tcq { get; set; }
+        public List<GP_ThongTinDto>? giayphep {  get; set; }
+        public List<CT_ThongTinDto>? congtrinh { get; set; }
+
     }
 }
