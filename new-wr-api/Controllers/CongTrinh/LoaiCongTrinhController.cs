@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/loai-ct")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class LoaiCongTrinhController : ControllerBase
     {
         private readonly CT_LoaiService _service;

@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/to-chuc-ca-nhan")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ToChucCaNhanController : ControllerBase
     {
         private readonly ToChucCaNhanService _service;

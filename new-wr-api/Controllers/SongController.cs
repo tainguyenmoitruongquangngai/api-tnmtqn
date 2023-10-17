@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class SongController : ControllerBase
     {
         private readonly SongService _service;

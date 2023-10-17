@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/hanh-chinh")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class DonViHCController : ControllerBase
     {
         private readonly DonViHCService _service;

@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/tien-cap-quyen")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class TienCapQuyenController : ControllerBase
     {
         private readonly TCQ_ThongTinService _service;

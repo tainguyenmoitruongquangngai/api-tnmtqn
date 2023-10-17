@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/loai-gp")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class LoaiGiayPhepController : ControllerBase
     {
         private readonly GP_LoaiService _service;

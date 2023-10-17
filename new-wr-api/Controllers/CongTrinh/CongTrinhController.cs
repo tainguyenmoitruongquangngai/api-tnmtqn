@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Dto;
@@ -8,6 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/cong-trinh")]
     [ApiController]
+    [Authorize]
     public class CongTrinhController : ControllerBase
     {
         private readonly CT_ThongTinService _service;

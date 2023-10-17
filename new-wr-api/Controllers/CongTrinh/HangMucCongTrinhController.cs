@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/hang-muc-ct")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class HangMucCongTrinhController : ControllerBase
     {
         private readonly CT_HangMucService _service;

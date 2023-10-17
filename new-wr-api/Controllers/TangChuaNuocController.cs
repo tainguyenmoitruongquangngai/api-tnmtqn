@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class TangChuaNuocController : ControllerBase
     {
         private readonly TangChuaNuocService _service;
