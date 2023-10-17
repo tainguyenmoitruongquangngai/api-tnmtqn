@@ -6,7 +6,7 @@ namespace new_wr_api.Controllers
 {
     [ApiController]
     [Route("api")]
-    [Authorize]
+
     public class FileController : ControllerBase
     {
         private readonly string _uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "FileUploads");
@@ -20,6 +20,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost("upload")]
+        [Authorize]
         public async Task<IActionResult> UploadFile([FromForm] UploadModel uploadFile)
         {
             try
