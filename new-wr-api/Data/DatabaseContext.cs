@@ -54,7 +54,7 @@ namespace new_wr_api.Data
         public DbSet<Tram_LoaiTram>? Tram_LoaiTram { get; set; }
         public DbSet<Tram_ThongTin>? Tram_ThongTin { get; set; }
 
-        
+
         public DbSet<BieuMauSoMot>? BieuMauSoMot { get; set; }
         public DbSet<BieuMauSoHai>? BieuMauSoHai { get; set; }
         public DbSet<BieuMauSoBa>? BieuMauSoBa { get; set; }
@@ -66,6 +66,17 @@ namespace new_wr_api.Data
         public DbSet<BieuMauSoChin>? BieuMauSoChin { get; set; }
         public DbSet<BieuMauSoMuoi>? BieuMauSoMuoi { get; set; }
         public DbSet<BieuMauSoMuoiMot>? BieuMauSoMuoiMot { get; set; }
+
+        //MoreDatabase
+        public DbSet<TramBomSinhHoat>? TramBomSinhHoat { get; set; }
+        public DbSet<TramBomSanXuat>? TramBomSanXuat { get; set; }
+        public DbSet<ToaDoCongTrinh>? ToaDoCongTrinh { get; set; }
+        public DbSet<ThongTinCongTrinh>? ThongTinCongTrinh { get; set; }
+        public DbSet<ThongSoVanHanhThucTe>? ThongSoVanHanhThucTe { get; set; }
+        public DbSet<ThongSoKyThuatCongTrinh>? ThongSoKyThuatCongTrinh { get; set; }
+        public DbSet<CheDoKhaiThacCongTrinh>? CheDoKhaiThacCongTrinh { get; set; }
+        public DbSet<ThoiGianVanHanhCongTrinh>? ThoiGianVanHanhCongTrinh { get; set; }
+        public DbSet<PhanCapCongTrinhCong>? PhanCapCongTrinhCong { get; set; }
 
         #endregion
     }

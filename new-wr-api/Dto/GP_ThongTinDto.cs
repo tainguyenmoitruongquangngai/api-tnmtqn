@@ -58,10 +58,56 @@ namespace new_wr_api.Dto
         public List<TCQ_ThongTinDto>? tiencq { get; set; }
     }
 
-    public class CountDataDto
+    public class GPFilterFormDto
+    {
+        public string? so_gp { get; set; }
+        public int? cong_trinh { get; set; }
+        public string? coquan_cp { get; set; }
+        public int? loaihinh_cp { get; set; }
+        public string? hieuluc_gp { get; set; }
+        public int? loai_ct { get; set; }
+        public int? tang_chuanuoc { get; set; }
+        public int? huyen { get; set; }
+        public int? xa { get; set; }
+        public int? tieuvung_qh { get; set; }
+        public int? tochuc_canhan { get; set; }
+        public int? tu_nam { get; set; }
+        public int? den_nam { get; set; }
+    }
+
+    public class CountFolowLicensingAuthoritiesDto
     {
         public int Total { get; set; } = 0;
         public int Btnmt { get; set; } = 0;
         public int Ubndt { get; set; } = 0;
+    }
+
+    public class CountFolowConstructionTypesDto
+    {
+        public CountFolowConsTypesData? ktsd_nm { get; set; }
+        public CountFolowConsTypesData? ktsd_ndd { get; set; }
+        public CountFolowConsTypesData? thamdo_ndd { get; set; }
+        public CountFolowConsTypesData? hnk_ndd { get; set; }
+        public CountFolowConsTypesData? xathai { get; set; }
+    }
+
+    public class CountFolowConsTypesData
+    {
+        public int total { get; set; }
+        public int con_hieuluc { get; set; }
+        public int bo_cap { get; set; }
+        public int tinh_cap { get; set; }
+    }
+
+    public class LicenseStatisticsDto
+    {
+        public string[]? color { get; set; }
+        public int[]? year { get; set; }
+        public List<ApexChartSeriesDto>? series { get; set; }
+    }
+    public class ApexChartSeriesDto
+    {
+        public string? name { get; set; }
+        public List<int>? data { get; set; }
     }
 }

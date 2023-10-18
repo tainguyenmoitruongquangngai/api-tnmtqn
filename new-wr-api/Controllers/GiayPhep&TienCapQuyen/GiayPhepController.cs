@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/giay-phep")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class GiayPhepController : ControllerBase
     {
         private readonly GP_ThongTinService _service;
@@ -21,16 +21,30 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("danh-sach")]
-        public async Task<List<GP_ThongTinDto>> GetAllData(string? sogp, int? tochuc_canhan, int? congtrinh, int? loaigp, int? loaict, string? hieuluc)
+        public async Task<List<GP_ThongTinDto>> GetAllData([FromQuery] GPFilterFormDto filterFormDto)
         {
-            return await _service.GetAllAsync(sogp, tochuc_canhan, congtrinh, loaigp, loaict, hieuluc);
+            return await _service.GetAllAsync(filterFormDto);
         }
 
         [HttpGet]
         [Route("dem-theo-co-quan-cp")]
-        public async Task<CountDataDto> CountFollowLicensingAuthorities()
+        public async Task<CountFolowLicensingAuthoritiesDto> CountFolowLicensingAuthorities()
         {
-            return await _service.CountFollowLicensingAuthoritiesAsync();
+            return await _service.CountFolowLicensingAuthoritiesAsync();
+        }
+
+        [HttpGet]
+        [Route("dem-theo-loai-ct")]
+        public async Task<CountFolowConstructionTypesDto> CountFolowConstructionTypes()
+        {
+            return await _service.CountFolowConstructionTypesAsync();
+        }
+
+        [HttpGet]
+        [Route("thong-ke-gp")]
+        public async Task<LicenseStatisticsDto> LicenseStatistics([FromQuery] GPFilterFormDto filterFormDto)
+        {
+            return await _service.LicenseStatisticsAsync(filterFormDto);
         }
 
         [HttpGet]
