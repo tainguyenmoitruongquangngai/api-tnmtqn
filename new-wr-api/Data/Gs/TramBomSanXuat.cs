@@ -11,5 +11,9 @@ namespace new_wr_api.Data
         public int MaTramBomSanXuat { get; set; }
         public int? MaThongTinCongTrinh { get; set; }
         public string? MaToaDoCongTrinh { get; set; }
+
+        //tạo  khoá ngoại
+        [ForeignKey("MaThongTinCongTrinh ")]
+        public virtual ThongTinCongTrinh? ThongTinCongTrinh { get; set; }
     }
 }

@@ -14,5 +14,9 @@ namespace new_wr_api.Data
         public string? ToaDoY_CT { get; set; }
         public string? ToaDoLat_CT { get; set; }
         public DateTime? ToaDoLng_CT { get; set; }
+
+        //tạo  khoá ngoại
+        [ForeignKey("MaThongTinCongTrinh ")]
+        public virtual ThongTinCongTrinh? ThongTinCongTrinh { get; set; }
     }
 }

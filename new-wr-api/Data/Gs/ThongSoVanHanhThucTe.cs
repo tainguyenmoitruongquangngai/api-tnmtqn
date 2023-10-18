@@ -13,5 +13,12 @@ namespace new_wr_api.Data
         public string? LuuLuongKhaiThacThucTe { get; set; }
         public string? LuuLuongKhaiThacYeuCau { get; set; }
         public string? LuuLuongKhaiThacChenhLech { get; set; }
+
+        //tạo  khoá ngoại
+        [ForeignKey("MaThongTinCongTrinh ")]
+        //nối khoá ngoại với khoá chính của bảng thôgn tin công trình
+        public virtual ThongTinCongTrinh? ThongTinCongTrinh { get; set; }
+
+        public virtual ThongSoKyThuatCongTrinh? ThongSoKyThuatCongTrinh { get; set; }
     }
 }

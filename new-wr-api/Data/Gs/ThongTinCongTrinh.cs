@@ -13,5 +13,14 @@ namespace new_wr_api.Data
         public string? DiaDiemCongTrinh_Xa { get; set; }
         public string? DiaDiemCongTrinh_Huyen { get; set; }
         public string? SoCongTrinh{ get; set; }
+
+        public virtual CheDoKhaiThacCongTrinh? CheDoKhaiThacCongTrinh { get; set; }
+        public virtual PhanCapCongTrinhCong? PhanCapCongTrinhCong { get; set; }
+        public virtual ToaDoCongTrinh? ToaDoCongTrinh { get; set; }
+        public virtual TramBomSanXuat? TramBomSanXuat { get; set; }
+        public virtual TramBomSinhHoat? TramBomSinhHoat { get; set; }
+        public virtual ThongSoKyThuatCongTrinh? ThongSoKyThuatCongTrinh { get; set; }
+        public virtual ThoiGianVanHanhCongTrinh? ThoiGianVanHanhCongTrinh { get; set; }
+
     }
 }
