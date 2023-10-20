@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231020094949_TruLuongNuocBaoBao")]
+    partial class TruLuongNuocBaoBao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2337,9 +2340,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("KyHieuCT")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MaTangChuaNuoc")
-                        .HasColumnType("int");
-
                     b.Property<string>("TenCT")
                         .HasColumnType("nvarchar(max)");
 
@@ -2350,8 +2350,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("MaCT");
-
-                    b.HasIndex("MaTangChuaNuoc");
 
                     b.ToTable("TLN_CongTrinh");
                 });
@@ -2994,9 +2992,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("GiaiPhapKhacPhucONhiemNuoc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MaChiTieu")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MaCt")
                         .HasColumnType("int");
 
@@ -3010,8 +3005,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("MaThongTinVeChatLuongNuoc");
-
-                    b.HasIndex("MaChiTieu");
 
                     b.HasIndex("MaCt")
                         .IsUnique()
@@ -3887,15 +3880,6 @@ namespace new_wr_api.Migrations
                     b.Navigation("TLN_LuuVucSong");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.TLN_CongTrinh", b =>
-                {
-                    b.HasOne("new_wr_api.Data.TLN_TangChuaNuoc", "TLN_TangChuaNuoc")
-                        .WithMany()
-                        .HasForeignKey("MaTangChuaNuoc");
-
-                    b.Navigation("TLN_TangChuaNuoc");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.TLN_LuuVucSong", b =>
                 {
                     b.HasOne("new_wr_api.Data.DacTrungSongSuoi", "DacTrungSongSuoi")
@@ -3942,17 +3926,11 @@ namespace new_wr_api.Migrations
 
             modelBuilder.Entity("new_wr_api.Data.ThongTinVeChatLuongNuoc", b =>
                 {
-                    b.HasOne("new_wr_api.Data.ThongTinVeCacChiTieuPhanTichCLN", "ThongTinVeCacChiTieuPhanTichCLN")
-                        .WithMany()
-                        .HasForeignKey("MaChiTieu");
-
                     b.HasOne("new_wr_api.Data.TLN_CongTrinh", "TLN_CongTrinh")
                         .WithOne("ThongTinVeChatLuongNuoc")
                         .HasForeignKey("new_wr_api.Data.ThongTinVeChatLuongNuoc", "MaCt");
 
                     b.Navigation("TLN_CongTrinh");
-
-                    b.Navigation("ThongTinVeCacChiTieuPhanTichCLN");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ThongTinVeHoatDongCuaCongTrinh", b =>
