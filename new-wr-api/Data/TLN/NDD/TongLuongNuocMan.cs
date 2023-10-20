@@ -17,6 +17,6 @@ namespace new_wr_api.Data
         public string? GhiChu { get; set; }
         //tạo  khoá ngoại
         [ForeignKey("MaTangChuaNuoc ")]
-        public virtual TLN_TangChuaNuoc? TLN_TangChuaNuoc { get; set; }
+        public virtual QLC_TangChuaNuoc? QLC_TangChuaNuoc { get; set; }
     }
 }

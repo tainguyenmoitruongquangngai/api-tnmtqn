@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class TLN_TangChuaNuoc
+    public class QLC_TangChuaNuoc
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

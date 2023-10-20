@@ -19,7 +19,7 @@ namespace new_wr_api.Data
         public string? GiaiPhapKhacPhucONhiemNuoc { get; set; }
         //tạo  khoá ngoại
         [ForeignKey("MaCt ")]
-        public virtual TLN_CongTrinh? TLN_CongTrinh { get; set; }
+        public virtual QLC_CongTrinh? QLC_CongTrinh { get; set; }
 
         [ForeignKey("MaChiTieu ")]
         public virtual ThongTinVeCacChiTieuPhanTichCLN? ThongTinVeCacChiTieuPhanTichCLN { get; set; }

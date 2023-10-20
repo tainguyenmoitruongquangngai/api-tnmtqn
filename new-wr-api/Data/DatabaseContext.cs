@@ -87,6 +87,10 @@ namespace new_wr_api.Data
         public DbSet<ThoiGianVanHanhCongTrinh>? ThoiGianVanHanhCongTrinh { get; set; }
         public DbSet<PhanCapCongTrinhCong>? PhanCapCongTrinhCong { get; set; }
 
+        //QLC
+        public DbSet<QLC_CongTrinh>? QLC_CongTrinh { get; set; }
+        public DbSet<QLC_TangChuaNuoc>? QLC_TangChuaNuoc { get; set; }
+
         //TLN
         //TLN > NDD
         public DbSet<SoLuongNDD>? SoLuongNDD { get; set; }
@@ -95,8 +99,6 @@ namespace new_wr_api.Data
         public DbSet<ThongTinVeHoatDongCuaCongTrinh>? ThongTinVeHoatDongCuaCongTrinh { get; set; }
         public DbSet<ThongTinVeMucNuocTinh>? ThongTinVeMucNuocTinh { get; set; }
         public DbSet<ThongTinVeTruLuongNuoc>? ThongTinVeTruLuongNuoc { get; set; }
-        public DbSet<TLN_CongTrinh>? TLN_CongTrinh { get; set; }
-        public DbSet<TLN_TangChuaNuoc>? TLN_TangChuaNuoc { get; set; }
         public DbSet<TongLuongNuocMan>? TongLuongNuocMan { get; set; }
 
         //TLN > NMat
@@ -104,7 +106,6 @@ namespace new_wr_api.Data
         public DbSet<CLNMatTheoWQI>? CLNMatTheoWQI { get; set; }
         public DbSet<DacTrungSongSuoi>? DacTrungSongSuoi { get; set; }
         public DbSet<Song_Suoi_KenhRach>? Song_Suoi_KenhRach { get; set; }
-        public DbSet<TLN_LuuVucSong>? TLN_LuuVucSong { get; set; }
         public DbSet<TongLuongDongChay>? TongLuongDongChay { get; set; }
 
         //TLN > NMua
@@ -114,6 +115,19 @@ namespace new_wr_api.Data
         public DbSet<TongLuongMua>? TongLuongMua { get; set; }
         public DbSet<TramQuanTracLuongMua>? TramQuanTracLuongMua { get; set; }
         public DbSet<TrangThaiQuanTrac>? TrangThaiQuanTrac { get; set; }
+
+
+        //DKKetNoi
+        //DKKetNoi > CQNN
+        public DbSet<ChuyenVien>? ChuyenVien { get; set; }
+        public DbSet<TaiKhoanKetNoi>? TaiKhoanKetNoi { get; set; }
+        public DbSet<ThongTinCQNN>? ThongTinCQNN { get; set; }
+        public DbSet<TrangThaiTaiKhoan>? TrangThaiTaiKhoan { get; set; }
+        //DKKetNoi > TCCN
+        public DbSet<DuLieuKetNoi>? DuLieuKetNoi { get; set; }
+        public DbSet<LichSuKetNoi>? LichSuKetNoi { get; set; }
+        public DbSet<ThongTinKetNoi>? ThongTinKetNoi { get; set; }
+        public DbSet<ThongTinTCCN>? ThongTinTCCN { get; set; }
 
 
         #endregion

@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class ThongTinVeTruLuongNuoc
+    public class ThongTinKetNoi
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? MaThongTinVeTruLuong { get; set; }
-        public int? MaCt { get; set; }
-        public double? TruLuongHienCo { get; set; }
-        public double? TruLuongCoTheKhaiThac { get; set; }
-        public double? TruLuongDaKhaiThac { get; set; }
-        public DateTime? ThoiGianBaoCaoTruLuongDaKhaiThac { get; set; }
+        public int? MaThongTinKetNoi { get; set; }
+        public int MaCt { get; set; }
+        public string? TaiKhoanKetNoi { get; set; }
+        public string? MatKhauKetNoi { get; set; }
+        public string? DiaChiNhanDuLieu { get; set; }
+
         //tạo  khoá ngoại
         [ForeignKey("MaCt ")]
         public virtual QLC_CongTrinh? QLC_CongTrinh { get; set; }
