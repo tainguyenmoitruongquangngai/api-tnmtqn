@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using new_wr_api.Data;
 using new_wr_api.Dto;
 using new_wr_api.Models;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace new_wr_api.Service
 {
@@ -22,8 +24,23 @@ namespace new_wr_api.Service
         }
         public async Task<List<TLN_NuocMua_TongLuongDto>> GetAllAsync()
         {
-            var items = await _context.TLN_NuocMua_TongLuong!.Where(d => d.DaXoa == false).OrderBy(d => d.Id ).ToListAsync();
-            return _mapper.Map<List<TLN_NuocMua_TongLuongDto>>(items);
+            var items = await _context.TLN_NuocMua_TongLuong!.Where(d => d.DaXoa == false)
+                .Include(d => d.Tram_ThongTin)
+                .OrderBy(d => d.Id)
+                .AsQueryable().ToListAsync();
+
+            var tongLuongNuocMuaDto = _mapper.Map<List<TLN_NuocMua_TongLuongDto>>(items);
+            foreach (var dto in tongLuongNuocMuaDto)
+            {
+                if (!string.IsNullOrEmpty(dto.Tram!.IdXa.ToString()))
+                {
+                    dto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
+                        .FirstOrDefaultAsync(dv => dv.IdXa == dto.Tram!.IdXa.ToString()));
+                }
+            }
+            return tongLuongNuocMuaDto;
+
+            
         }
         public async Task<bool> SaveAsync(TLN_NuocMua_TongLuongDto dto)
         {

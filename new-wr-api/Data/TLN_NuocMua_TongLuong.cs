@@ -8,6 +8,7 @@ namespace new_wr_api.Data
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string? TenTram { get; set; }
         public int? IdTram { get; set; }
         public double? Thang1 { get; set; }
         public double? Thang2 { get; set; }
@@ -26,5 +27,9 @@ namespace new_wr_api.Data
         public DateTime? ThoiGianSua { get; set; }
         public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+
+        [ForeignKey("IdTram")]
+        public virtual Tram_ThongTin? Tram_ThongTin { get; set; }
+
     }
 }

@@ -101,7 +101,11 @@ namespace new_wr_api.Helpers
 
             //TruLuongNuoc
             CreateMap<Tram_ThongTin, Tram_ThongTinDto>().ReverseMap();
-            CreateMap<TLN_NuocMua_TongLuong, TLN_NuocMua_TongLuongDto>().ReverseMap();
+            CreateMap<TLN_NuocMua_TongLuong, TLN_NuocMua_TongLuongDto>()
+                .ForMember(dest => dest.Tram, opt => opt.MapFrom(src => src.Tram_ThongTin))
+                .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
+                .ReverseMap();
+           
 
         }
     }

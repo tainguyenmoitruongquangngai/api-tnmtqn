@@ -28,5 +28,6 @@ namespace new_wr_api.Data
         public DateTime? ThoiGianSua { get; set; }
         public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+        public virtual ICollection<TLN_NuocMua_TongLuong>? TLN_NuocMua_TongLuong { get; set; }
     }
 }
