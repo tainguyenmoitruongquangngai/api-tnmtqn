@@ -14,5 +14,8 @@
         public double? YCuoiSong { get; set; }
         public int? IdXaCuoiSong { get; set; }
         public int? IdHuyenCuoiSong { get; set; }
+        public SongDto? Song { get; set; }
+        public DonViHCDto? donvi_hanhchinh { get; set; }
+        public TLN_NuocMat_SoLuongDto? TLN_NuocMat_SoLuong { get; set; }
     }
 }

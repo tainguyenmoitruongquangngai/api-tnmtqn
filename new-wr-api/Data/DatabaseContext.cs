@@ -46,8 +46,8 @@ namespace new_wr_api.Data
         public DbSet<TLN_NuocDuoiDat_SoLuong>? TLN_NuocDuoiDat_SoLuong { get; set; }
         public DbSet<TLN_NuocDuoiDat_TongLuong>? TLN_NuocDuoiDat_TongLuong { get; set; }
         public DbSet<TLN_NuocDuoiDat_ChatLuong>? TLN_NuocDuoiDat_ChatLuong { get; set; }
-        public DbSet<TLN_NuocMat_ChatLuong>? TLN_NuocMat_ChatLuong { get; set; }
         public DbSet<TLN_NuocMat_SoLuong>? TLN_NuocMat_SoLuong { get; set; }
+        public DbSet<TLN_NuocMat_ChatLuong>? TLN_NuocMat_ChatLuong { get; set; }
         public DbSet<TLN_NuocMat_TongLuong>? TLN_NuocMat_TongLuong { get; set; }
         public DbSet<TLN_NuocMua_TongLuong>? TLN_NuocMua_TongLuong { get; set; }
         public DbSet<ToChuc_CaNhan>? ToChuc_CaNhan { get; set; }

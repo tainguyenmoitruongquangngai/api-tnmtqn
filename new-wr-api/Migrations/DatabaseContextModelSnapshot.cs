@@ -2359,6 +2359,9 @@ namespace new_wr_api.Migrations
                     b.Property<int?>("IdXa")
                         .HasColumnType("int");
 
+                    b.Property<string>("MaSong")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -2757,6 +2760,18 @@ namespace new_wr_api.Migrations
                     b.Property<int?>("IdXaDauSong")
                         .HasColumnType("int");
 
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiGianTao")
+                        .HasColumnType("datetime2");
+
                     b.Property<double?>("XCuoiSong")
                         .HasColumnType("float");
 
@@ -2770,6 +2785,8 @@ namespace new_wr_api.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdSong");
 
                     b.ToTable("TLN_NuocMat_SoLuong");
                 });
@@ -2856,9 +2873,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TaiKhoanTao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TenTram")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Thang1")
@@ -4189,6 +4203,24 @@ namespace new_wr_api.Migrations
                     b.Navigation("DacTrungSongSuoi");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.TLN_NuocMat_SoLuong", b =>
+                {
+                    b.HasOne("new_wr_api.Data.Song", "Song")
+                        .WithMany()
+                        .HasForeignKey("IdSong");
+
+                    b.Navigation("Song");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.TLN_NuocMua_TongLuong", b =>
+                {
+                    b.HasOne("new_wr_api.Data.Tram_ThongTin", "Tram_ThongTin")
+                        .WithMany("TLN_NuocMua_TongLuong")
+                        .HasForeignKey("IdTram");
+
+                    b.Navigation("Tram_ThongTin");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.TaiKhoanKetNoi", b =>
                 {
                     b.HasOne("new_wr_api.Data.QLC_CongTrinh", "QLC_CongTrinh")
@@ -4520,6 +4552,11 @@ namespace new_wr_api.Migrations
                     b.Navigation("TongLuongMua");
 
                     b.Navigation("TrangThaiQuanTrac");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Tram_ThongTin", b =>
+                {
+                    b.Navigation("TLN_NuocMua_TongLuong");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.TrangThaiTaiKhoan", b =>

@@ -11,6 +11,7 @@ namespace new_wr_api.Data
         public int? IdLuuVuc { get; set; }
         public int? IdXa { get; set; }
         public int? IdHuyen { get; set; }
+        public string? MaSong { get; set; }
         public string? Name { get; set; }
         public double? X { get; set; }
         public double? Y { get; set; }

@@ -8,7 +8,6 @@ namespace new_wr_api.Data
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string? TenTram { get; set; }
         public int? IdTram { get; set; }
         public double? Thang1 { get; set; }
         public double? Thang2 { get; set; }

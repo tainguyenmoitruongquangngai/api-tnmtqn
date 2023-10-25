@@ -19,6 +19,13 @@ namespace new_wr_api.Data
         public double? YCuoiSong { get; set; }
         public int? IdXaCuoiSong { get; set; }
         public int? IdHuyenCuoiSong { get; set; }
+        public DateTime? ThoiGianTao { get; set; }
+        public string? TaiKhoanTao { get; set; }
+        public DateTime? ThoiGianSua { get; set; }
+        public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+
+        [ForeignKey("IdSong")]
+        public virtual Song? Song { get; set; }
     }
 }

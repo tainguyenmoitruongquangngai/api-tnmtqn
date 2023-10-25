@@ -105,8 +105,14 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.Tram, opt => opt.MapFrom(src => src.Tram_ThongTin))
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
                 .ReverseMap();
-           
 
+            CreateMap<TLN_NuocMat_SoLuong, TLN_NuocMat_SoLuongDto>()
+                 .ForMember(dest => dest.Song, opt => opt.MapFrom(src => src.Song))
+                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
+                 .ReverseMap();
+
+            //Song
+            CreateMap<Song, SongDto>().ReverseMap();
         }
     }
 }
