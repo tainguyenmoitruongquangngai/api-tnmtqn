@@ -13,5 +13,6 @@ namespace new_wr_api.Data
         public string? GhiChu { get; set; }
 
         public virtual SoLieuMua? SoLieuMua { get; set; }
+        public virtual TongLuongMua? TongLuongMua { get; set; }
     }
 }

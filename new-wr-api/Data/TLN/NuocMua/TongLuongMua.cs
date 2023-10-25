@@ -10,6 +10,7 @@ namespace new_wr_api.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MaTongLuongMua { get; set; }
         public int? MaTramQuanTracLuongMua { get; set; }
+        public int? MaPhuongPhapTinhMua { get; set; }
         public int? MaSoLieuMua { get; set; }
         public double? LuongMuaThangI { get; set; }
         public double? LuongMuaThangII { get; set; }
@@ -34,5 +35,8 @@ namespace new_wr_api.Data
 
         [ForeignKey("MaSoLieuMua ")]
         public virtual SoLieuMua? SoLieuMua { get; set; }
+
+        [ForeignKey("MaPhuongPhapTinhMua ")]
+        public virtual PhuongPhapTinhMua? PhuongPhapTinhMua { get; set; }
     }
 }
