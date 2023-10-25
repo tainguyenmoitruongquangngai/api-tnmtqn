@@ -115,11 +115,18 @@ namespace new_wr_api.Helpers
 
             CreateMap<TLN_NuocMat_SoLuong, TLN_NuocMat_SoLuongDto>()
                  .ForMember(dest => dest.Song, opt => opt.MapFrom(src => src.Song))
-                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
                  .ReverseMap();
+
+            CreateMap<TLN_NuocMat_TongLuong, TLN_NuocMat_TongLuongDto>()
+                .ForMember(dest => dest.LuuVucSong, opt => opt.MapFrom(src => src.LuuVucSong))
+                .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
+                .ReverseMap();
 
             //Song
             CreateMap<Song, SongDto>().ReverseMap();
+
+            //LuuVucSong
+            CreateMap<LuuVucSong, LuuVucSongDto>().ReverseMap();
         }
     }
 }

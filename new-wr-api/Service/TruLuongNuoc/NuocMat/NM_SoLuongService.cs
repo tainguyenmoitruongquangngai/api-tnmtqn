@@ -31,10 +31,30 @@ namespace new_wr_api.Service
             var soLuongNuocMatDto = _mapper.Map<List<TLN_NuocMat_SoLuongDto>>(items);
             foreach (var dto in soLuongNuocMatDto)
             {
-                if (!string.IsNullOrEmpty(dto.TLN_NuocMat_SoLuong!.IdXaDauSong.ToString()))
+                if (!string.IsNullOrEmpty(dto.Song!.IdXaDauSong.ToString()))
                 {
-                    dto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
-                        .FirstOrDefaultAsync(dv => dv.IdXa == dto.TLN_NuocMat_SoLuong!.IdXaDauSong.ToString()));
+                    var ds = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto.Song!.IdXaDauSong.ToString());
+                    if (ds != null)
+                    {
+                        dto.Song.DauSong = new DauCuoiSongDto
+                        {
+                            X = dto.Song.XDauSong,
+                            Y = dto.Song.YDauSong,
+                            Xa = ds!.TenXa,
+                            Huyen = ds!.TenHuyen
+                        };
+                    }
+                    var cs = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto.Song!.IdXaCuoiSong.ToString());
+                    if (cs != null)
+                    {
+                        dto.Song.CuoiSong = new DauCuoiSongDto
+                        {
+                            X = dto.Song.XCuoiSong,
+                            Y = dto.Song.YCuoiSong,
+                            Xa = cs!.TenXa,
+                            Huyen = cs!.TenHuyen
+                        };
+                    }
                 }
             }
             return soLuongNuocMatDto;

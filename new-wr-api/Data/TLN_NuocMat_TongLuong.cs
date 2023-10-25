@@ -10,8 +10,6 @@ namespace new_wr_api.Data
         public int Id { get; set; }
         public int? IdLuuVucSong { get; set; }
         public int? Nam { get; set; }
-        public int? IdXa { get; set; }
-        public int? IdHuyen { get; set; }
         public double? Thang1 { get; set; }
         public double? Thang2 { get; set; }
         public double? Thang3 { get; set; }
@@ -24,6 +22,13 @@ namespace new_wr_api.Data
         public double? Thang10 { get; set; }
         public double? Thang11 { get; set; }
         public double? Thang12 { get; set; }
+        public DateTime? ThoiGianTao { get; set; }
+        public string? TaiKhoanTao { get; set; }
+        public DateTime? ThoiGianSua { get; set; }
+        public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+
+        [ForeignKey("IdLuuVucSong")]
+        public LuuVucSong? LuuVucSong { get; set; }
     }
 }

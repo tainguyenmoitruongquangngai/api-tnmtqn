@@ -1,12 +1,13 @@
-﻿namespace new_wr_api.Dto
+﻿using new_wr_api.Data;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace new_wr_api.Dto
 {
     public class TLN_NuocMat_TongLuongDto
     {
         public int Id { get; set; }
         public int? IdLuuVucSong { get; set; }
         public int? Nam { get; set; }
-        public int? IdXa { get; set; }
-        public int? IdHuyen { get; set; }
         public double? Thang1 { get; set; }
         public double? Thang2 { get; set; }
         public double? Thang3 { get; set; }
@@ -19,5 +20,7 @@
         public double? Thang10 { get; set; }
         public double? Thang11 { get; set; }
         public double? Thang12 { get; set; }
+        public LuuVucSong? LuuVucSong { get; set; }
+        public DonViHCDto? donvi_hanhchinh { get; set; }
     }
 }

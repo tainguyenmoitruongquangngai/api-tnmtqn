@@ -22,7 +22,7 @@ namespace new_wr_api.Service
 
         public async Task<List<SongDto>> GetAllAsync()
         {
-            var items = await _context.Song!.Where(x => x.DaXoa == false).OrderBy(x => x.Name).ToListAsync();
+            var items = await _context.Song!.Where(x => x.DaXoa == false).Include(s => s.LuuVucSong).OrderBy(x => x.TenSong).ToListAsync();
 
             var listItems = _mapper.Map<List<SongDto>>(items);
 
@@ -32,8 +32,10 @@ namespace new_wr_api.Service
                 var basin = await _context!.LuuVucSong!.FirstOrDefaultAsync(b => b.Id == item.IdLuuVuc && b.DaXoa == false);
                 item.luuvuc_song = _mapper.Map<LuuVucSongDto>(basin);
                 //Song.Location
-                var donvi_hc = await _context!.DonViHC!.FirstOrDefaultAsync(l => l.IdXa == item.IdXa.ToString() && l.DaXoa == false);
-                item.donvi_hc = _mapper.Map<DonViHCDto>(donvi_hc);
+                //var hc_dau = await _context!.DonViHC!.FirstOrDefaultAsync(l => l.IdXa == item.IdXaDauSong.ToString() && l.DaXoa == false);
+                //item.hc_dau = _mapper.Map<DonViHCDto>(hc_dau);
+                //var hc_cuoi = await _context!.DonViHC!.FirstOrDefaultAsync(l => l.IdXa == item.IdXaCuoiSong.ToString() && l.DaXoa == false);
+                //item.hc_cuoi = _mapper.Map<DonViHCDto>(hc_cuoi);
             }
 
             return listItems;

@@ -13,5 +13,6 @@
         public DateTime? ThoiGianSua { get; set; }
         public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+        public DonViHCDto? donvi_hanhchinh { get; set; }
     }
 }
