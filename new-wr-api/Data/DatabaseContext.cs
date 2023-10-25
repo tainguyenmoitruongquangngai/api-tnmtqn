@@ -67,11 +67,15 @@ namespace new_wr_api.Data
         public DbSet<BieuMauSoMuoi>? BieuMauSoMuoi { get; set; }
         public DbSet<BieuMauSoMuoiMot>? BieuMauSoMuoiMot { get; set; }
         public DbSet<BieuMauSoMuoiHai>? BieuMauSoMuoiHai { get; set; }
+        public DbSet<BieuMauSoMuoiBa>? BieuMauSoMuoiBa { get; set; }
+        public DbSet<BieuMauSoMuoiBon>? BieuMauSoMuoiBon { get; set; }
         public DbSet<BieuMauSoMuoiNam>? BieuMauSoMuoiNam { get; set; }
         public DbSet<BieuMauSoMuoiSau>? BieuMauSoMuoiSau { get; set; }
         public DbSet<BieuMauSoMuoiBay>? BieuMauSoMuoiBay { get; set; }
         public DbSet<BieuMauSoMuoiTam>? BieuMauSoMuoiTam { get; set; }
         public DbSet<BieuMauSoMuoiChin>? BieuMauSoMuoiChin { get; set; }
+        public DbSet<BieuMauSoHaiMot>? BieuMauSoHaiMot { get; set; }
+
 
 
         //MoreDatabase
