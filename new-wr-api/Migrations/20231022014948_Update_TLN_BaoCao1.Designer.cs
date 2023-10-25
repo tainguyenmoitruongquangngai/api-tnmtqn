@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231022014948_Update_TLN_BaoCao1")]
+    partial class Update_TLN_BaoCao1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2858,9 +2861,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("TaiKhoanTao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TenTram")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double?>("Thang1")
                         .HasColumnType("float");
 
@@ -2904,8 +2904,6 @@ namespace new_wr_api.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdTram");
 
                     b.ToTable("TLN_NuocMua_TongLuong");
                 });
