@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231025082140_BieuMauSoHaiHai")]
+    partial class BieuMauSoHaiHai
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -523,49 +526,6 @@ namespace new_wr_api.Migrations
                     b.ToTable("BieuMauSoHai");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiBa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double?>("ChieuSauMucNuocDongMax")
-                        .HasColumnType("float");
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("LuuLuongKTDuocCapPhep")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("LuuLuongKhaiThacLonNhat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("LuuLuongKhaiThacNhoNhat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MucNuocKhaiThacLonNhat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("MucNuocKhaiThacNhoNhat")
-                        .HasColumnType("float");
-
-                    b.Property<string>("SoNgayKhaiThac")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThoiGian")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("TongLuongKhaiThac")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BieuMauSoHaiBa");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiHai", b =>
                 {
                     b.Property<int>("Id")
@@ -598,34 +558,6 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BieuMauSoHaiHai");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiLam", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("NongDoLonNhat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("NongDoNhoNhat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("NongDoQuyDinh")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ThongSoQuanTrac")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BieuMauSoHaiLam");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiMot", b =>
@@ -663,40 +595,6 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BieuMauSoHaiMot");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiTu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("LuuLuongXaThaiChoPhep")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("LuuLuongXaThaiLonNhat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("LuuLuongXaThaiNhoNhat")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("SoNgayXaThai")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ThoiGian")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("TongLuongXaThai")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BieuMauSoHaiTu");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.BieuMauSoMot", b =>

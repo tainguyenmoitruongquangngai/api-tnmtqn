@@ -101,6 +101,10 @@ namespace new_wr_api.Helpers
             CreateMap<BieuMauSoMuoiTam, BieuMauMuoiTamDto>().ReverseMap();
             CreateMap<BieuMauSoMuoiChin, BieuMauMuoiChinDto>().ReverseMap();
             CreateMap<BieuMauSoHaiMot, BieuMauHaiMotDto>().ReverseMap();
+            CreateMap<BieuMauSoHaiHai, BieuMauHaiHaiDto>().ReverseMap();
+            CreateMap<BieuMauSoHaiBa, BieuMauHaiBaDto>().ReverseMap();
+            CreateMap<BieuMauSoHaiTu ,BieuMauHaiTuDto>().ReverseMap();
+            CreateMap<BieuMauSoHaiLam ,BieuMauHaiLamDto>().ReverseMap();
 
             //TruLuongNuoc
             CreateMap<Tram_ThongTin, Tram_ThongTinDto>().ReverseMap();

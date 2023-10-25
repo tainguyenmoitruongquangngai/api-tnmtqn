@@ -63,6 +63,11 @@ services.AddScoped<BieuMauMuoiBayService>();
 services.AddScoped<BieuMauMuoiTamService>();
 services.AddScoped<BieuMauMuoiChinService>();
 services.AddScoped<BieuMauHaiMotService>();
+services.AddScoped<BieuMauHaiHaiService>();
+services.AddScoped<BieuMauHaiBaService>();
+services.AddScoped<BieuMauHaiTuService>();
+services.AddScoped<BieuMauHaiLamService>();
+
 
 services.AddScoped<Tram_ThongTinService>();
 services.AddScoped<NMua_TongLuongService>();
