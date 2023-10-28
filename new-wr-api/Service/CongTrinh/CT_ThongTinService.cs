@@ -119,8 +119,9 @@ namespace new_wr_api.Service
         public async Task<CT_ThongTinDto?> GetByIdAsync(int Id)
         {
             var query = _context.CT_ThongTin!
-                .Where(ct => ct.Id == Id && ct.DaXoa == false)
+                .Where(ct => ct.DaXoa == false && ct.Id == Id)
                 .Include(ct => ct.LoaiCT)
+                .Include(ct => ct.TangChuaNuoc)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
@@ -128,10 +129,9 @@ namespace new_wr_api.Service
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 
+            var congtrinh = query.FirstOrDefault();
 
-            var congtrinh = await query.ToListAsync();
-
-            var congTrinhDto = _mapper.Map<CT_ThongTinDto>(congtrinh);
+            var congTrinhDto = _mapper.Map<CT_ThongTinDto>(query);
 
             congTrinhDto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(congTrinhDto.hangmuc!.Where(x => x.DaXoa == false));
 

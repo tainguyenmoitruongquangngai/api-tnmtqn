@@ -76,7 +76,7 @@ namespace new_wr_api.Data
         public DbSet<BieuMauSoMuoiChin>? BieuMauSoMuoiChin { get; set; }
         public DbSet<BieuMauSoHaiMot>? BieuMauSoHaiMot { get; set; }
         public DbSet<BieuMauSoHaiHai>? BieuMauSoHaiHai { get; set; }
-        public DbSet<BieuMauSoHaiBa>? BieuMauSoHaiBa{ get; set; }
+        public DbSet<BieuMauSoHaiBa>? BieuMauSoHaiBa { get; set; }
         public DbSet<BieuMauSoHaiTu>? BieuMauSoHaiTu { get; set; }
         public DbSet<BieuMauSoHaiLam>? BieuMauSoHaiLam { get; set; }
 
@@ -95,6 +95,7 @@ namespace new_wr_api.Data
 
         //QLC
         public DbSet<QLC_CongTrinh>? QLC_CongTrinh { get; set; }
+        public DbSet<QLC_LoaiCT>? QLC_LoaiCT { get; set; }
         public DbSet<QLC_TangChuaNuoc>? QLC_TangChuaNuoc { get; set; }
 
         //TLN
@@ -134,6 +135,41 @@ namespace new_wr_api.Data
         public DbSet<LichSuKetNoi>? LichSuKetNoi { get; set; }
         public DbSet<ThongTinKetNoi>? ThongTinKetNoi { get; set; }
         public DbSet<ThongTinTCCN>? ThongTinTCCN { get; set; }
+
+        //Quan Trac
+        //Quan Trac > MucNuoc
+        public DbSet<PhanLoaiHoChuaTheoMDSD>? PhanLoaiHoChuaTheoMDSD { get; set; }
+        public DbSet<CongTrinhHoChua>? CongTrinhHoChua { get; set; }
+        public DbSet<ThongTinCongTrinhHoChua>? ThongTinCongTrinhHoChua { get; set; }
+        public DbSet<ThongSoThietKeCuaMucNuoc>? ThongSoThietKeCuaMucNuoc { get; set; }
+        public DbSet<GiaTriMucNuocQuanTrac>? GiaTriMucNuocQuanTrac { get; set; }
+        public DbSet<CheDoQuanTracMucNuoc>? CheDoQuanTracMucNuoc { get; set; }
+        public DbSet<CacCapBaoDongMucNuocLu>? CacCapBaoDongMucNuocLu { get; set; }
+
+        //Quan Trac > LuuLuongXaDCTT
+        public DbSet<CongTrinhQuanTracLuuLuongXaDCTT>? CongTrinhQuanTracLuuLuongXaDCTT { get; set; }
+        public DbSet<ThongTinChatLuongNuoc>? ThongTinChatLuongNuoc { get; set; }
+        public DbSet<CheDoQuanTracLuuLuongDongChayToiThieu>? CheDoQuanTracLuuLuongDongChayToiThieu { get; set; }
+        public DbSet<GiaTriQuanTracLuuLuongXa>? GiaTriQuanTracLuuLuongXa { get; set; }
+        public DbSet<ThongTinLuuLuongXaCuaCt>? ThongTinLuuLuongXaCuaCt { get; set; }
+
+        //Quan Trac > LuuLuongKTNDD
+        public DbSet<DuLieuQuanTracCuaCTKTNDD>? DuLieuQuanTracCuaCTKTNDD { get; set; }
+        public DbSet<DuLieuQuanTracCuaCTXaThai>? DuLieuQuanTracCuaCTXaThai { get; set; }
+        public DbSet<SoLieuQuanTrac>? SoLieuQuanTrac { get; set; }
+
+        //Quan Trac > LuuLuongXaQuaNM
+        public DbSet<CheDoGiamSatLuuLuongXaQuaNhaMay>? CheDoGiamSatLuuLuongXaQuaNhaMay { get; set; }
+        public DbSet<CheDoQuanTracLuuLuongXaQuaNhaMay>? CheDoQuanTracLuuLuongXaQuaNhaMay { get; set; }
+        public DbSet<GiaTriLuuLuongXaQuaNhaMay>? GiaTriLuuLuongXaQuaNhaMay { get; set; }
+        public DbSet<HangMucNhaMay>? HangMucNhaMay { get; set; }
+        public DbSet<ThongTinNhaMay>? ThongTinNhaMay { get; set; }
+
+        //Quan Trac > LuuLuongXaTran
+        public DbSet<GiaTriQuanTracLuuLuongXaTran>? GiaTriQuanTracLuuLuongXaTran { get; set; }
+        public DbSet<HangMucDapTran>? HangMucDapTran { get; set; }
+        public DbSet<PhanLoaiDapTran>? PhanLoaiDapTran { get; set; }
+        public DbSet<ThongSoDapTran>? ThongSoDapTran { get; set; }
 
 
         #endregion
