@@ -75,14 +75,14 @@ namespace new_wr_api.Service
 
                 if (dto.giayphep != null)
                 {
-                    foreach(var gp in dto.giayphep)
+                    foreach (var gp in dto.giayphep)
                     {
                         gp.gp_tcq = null;
                     }
                     var ctIds = dto.giayphep.Select(x => x.IdCT).ToList();
                     var cts = await _context.CT_ThongTin!.Where(ct => ctIds.Contains(ct.Id)).ToListAsync();
                     dto.congtrinh = _mapper.Map<List<CT_ThongTinDto>>(cts);
-                    if(dto.congtrinh != null)
+                    if (dto.congtrinh != null)
                     {
                         foreach (var ct in dto.congtrinh)
                         {
@@ -125,6 +125,7 @@ namespace new_wr_api.Service
                 item = existingItem; // Assign existingItem to item
 
                 _mapper.Map(dto, item); // Map properties from dto to item
+                item.DaXoa = false;
                 item.ThoiGianSua = DateTime.Now;
                 item.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
                 _context.TCQ_ThongTin!.Update(item);
