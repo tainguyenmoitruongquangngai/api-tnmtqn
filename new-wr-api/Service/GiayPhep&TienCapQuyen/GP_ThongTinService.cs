@@ -127,6 +127,12 @@ namespace new_wr_api.Service
                     dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
                 }
 
+                var gp_cu = await _context.GP_ThongTin!.Where(gp => gp.Id == dto.IdCon && gp.DaXoa == false).ToListAsync();
+                if (gp_cu != null)
+                {
+                    dto.giayphep_cu = _mapper.Map<List<GP_ThongTinDto>>(gp_cu);
+                }
+
                 // Assuming this code is within an async method
                 var tcqIds = dto.gp_tcq!.Select(x => x.IdTCQ).ToList();
 
@@ -408,6 +414,7 @@ namespace new_wr_api.Service
                 item = existingItem; // Assign existingItem to item
 
                 _mapper.Map(model, item); // Map properties from model to item
+                item.DaXoa = false;
                 item.ThoiGianSua = DateTime.Now;
                 item.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
                 _context.GP_ThongTin!.Update(item);

@@ -2,7 +2,7 @@
 {
     public class ToChuc_CaNhanDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? TenTCCN { get; set; }
         public string? DiaChi { get; set; }
         public string? MaSoThue { get; set; }
