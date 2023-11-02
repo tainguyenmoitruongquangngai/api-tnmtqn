@@ -122,6 +122,11 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
                 .ReverseMap();
 
+            CreateMap<CT_ThongTin, GS_SoLieuDto>()
+                .ForMember(dest => dest.loaiCT, opt => opt.MapFrom(src => src.LoaiCT))
+                .ForMember(dest => dest.thongso, opt => opt.MapFrom(src => src.ThongSo))
+                .ReverseMap();
+
             //Song
             CreateMap<Song, SongDto>().ReverseMap();
 

@@ -40,16 +40,6 @@ namespace new_wr_api.Dto
         public int? QKTThietKe { get; set; }
         public int? QKTThucTe { get; set; }
         public string? ViTriXT { get; set; }
-        public double? QXaMaxTT { get; set; }
-        public double? DungTichTT { get; set; }
-        public double? HHaLuuTT { get; set; }
-        public double? HThuongLuuTT { get; set; }
-        public double? QMinTT { get; set; }
-        public double? QMaxTT { get; set; }
-        public double? QXaTranTT { get; set; }
-        public double? ThoiGianTT { get; set; }
-        public int? MatKetNoi { get; set; }
-        public int? Loi { get; set; }
         public bool? DaXoa { get; set; }
 
         public CT_LoaiDto? loaiCT { get; set; }
