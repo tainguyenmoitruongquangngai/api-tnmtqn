@@ -9,7 +9,7 @@ namespace new_wr_api.Data
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int IdLoaiCT { get; set; }
+        public int? IdLoaiCT { get; set; }
         public string? IdHuyen { get; set; }
         public string? IdXa { get; set; }
         public int? IdSong { get; set; }

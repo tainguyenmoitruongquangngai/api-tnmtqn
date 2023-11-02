@@ -12,8 +12,8 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231025083519_BieuMauSoHaiBa")]
-    partial class BieuMauSoHaiBa
+    [Migration("20231031080533_setcolumnIdLoaiCT_to_allowNull")]
+    partial class setcolumnIdLoaiCT_to_allowNull
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -603,6 +603,34 @@ namespace new_wr_api.Migrations
                     b.ToTable("BieuMauSoHaiHai");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiLam", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("NongDoLonNhat")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NongDoNhoNhat")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NongDoQuyDinh")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ThongSoQuanTrac")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BieuMauSoHaiLam");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiMot", b =>
                 {
                     b.Property<int>("Id")
@@ -638,6 +666,40 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BieuMauSoHaiMot");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.BieuMauSoHaiTu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("LuuLuongXaThaiChoPhep")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuuLuongXaThaiLonNhat")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuuLuongXaThaiNhoNhat")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("SoNgayXaThai")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ThoiGian")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("TongLuongXaThai")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BieuMauSoHaiTu");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.BieuMauSoMot", b =>
@@ -1608,7 +1670,7 @@ namespace new_wr_api.Migrations
                     b.Property<string>("IdHuyen")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdLoaiCT")
+                    b.Property<int?>("IdLoaiCT")
                         .HasColumnType("int");
 
                     b.Property<int?>("IdLuuVuc")
@@ -4243,9 +4305,7 @@ namespace new_wr_api.Migrations
                 {
                     b.HasOne("new_wr_api.Data.CT_Loai", "LoaiCT")
                         .WithMany("CongTrinh")
-                        .HasForeignKey("IdLoaiCT")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdLoaiCT");
 
                     b.HasOne("new_wr_api.Data.TangChuaNuoc", "TangChuaNuoc")
                         .WithMany("CongTrinh")

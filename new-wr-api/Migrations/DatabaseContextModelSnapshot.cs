@@ -1667,7 +1667,7 @@ namespace new_wr_api.Migrations
                     b.Property<string>("IdHuyen")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdLoaiCT")
+                    b.Property<int?>("IdLoaiCT")
                         .HasColumnType("int");
 
                     b.Property<int?>("IdLuuVuc")
@@ -5198,9 +5198,7 @@ namespace new_wr_api.Migrations
                 {
                     b.HasOne("new_wr_api.Data.CT_Loai", "LoaiCT")
                         .WithMany("CongTrinh")
-                        .HasForeignKey("IdLoaiCT")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IdLoaiCT");
 
                     b.HasOne("new_wr_api.Data.TangChuaNuoc", "TangChuaNuoc")
                         .WithMany("CongTrinh")
