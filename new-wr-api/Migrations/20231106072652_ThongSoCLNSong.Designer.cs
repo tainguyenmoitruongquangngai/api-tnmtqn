@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231106072652_ThongSoCLNSong")]
+    partial class ThongSoCLNSong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2779,67 +2782,6 @@ namespace new_wr_api.Migrations
                     b.ToTable("HangMucNhaMay");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.KNTiepNhanNuocThai.KNTNNTAo.ThongSoCLNAo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BOD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("COD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Chiorophylla")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ColiformChiuNhiet")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MucPLCLNuoc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TOC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TSS")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanSua")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanTao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ThoiGianSua")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TongColiform")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TongNito")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TongPhosphor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("pH")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ThongSoCLNAo");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.LichSuKetNoi", b =>
                 {
                     b.Property<int>("MaLichSuKetNoi")
@@ -3954,64 +3896,6 @@ namespace new_wr_api.Migrations
                         .IsUnique();
 
                     b.ToTable("ThoiGianVanHanhCongTrinh");
-                });
-
-            modelBuilder.Entity("new_wr_api.Data.ThongSoCLNSong", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BOD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("COD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ColiformChiuNhiet")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("DaXoa")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MucPLCLNuoc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TOC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TSS")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanSua")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaiKhoanTao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ThoiGianSua")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TongColiform")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TongNito")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TongPhosphor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("pH")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ThongSoCLNSong");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.ThongSoDapTran", b =>
