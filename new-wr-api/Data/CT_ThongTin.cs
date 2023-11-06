@@ -22,6 +22,7 @@ namespace new_wr_api.Data
         public string? ViTriCT { get; set; }
         public double? X { get; set; }
         public double? Y { get; set; }
+        public double? CapCT { get; set; }
         public int? NamBatDauVanHanh { get; set; }
         public string? NguonNuocKT { get; set; }
         public string? CheDoKT { get; set; }
@@ -44,16 +45,6 @@ namespace new_wr_api.Data
         public int? QKTThietKe { get; set; }
         public int? QKTThucTe { get; set; }
         public string? ViTriXT { get; set; }
-        public double? QXaMaxTT { get; set; }
-        public double? DungTichTT { get; set; }
-        public double? HHaLuuTT { get; set; }
-        public double? HThuongLuuTT { get; set; }
-        public double? QMinTT { get; set; }
-        public double? QMaxTT { get; set; }
-        public double? QXaTranTT { get; set; }
-        public double? ThoiGianTT { get; set; }
-        public int? MatKetNoi { get; set; }
-        public int? Loi { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }
         public DateTime? ThoiGianSua { get; set; }

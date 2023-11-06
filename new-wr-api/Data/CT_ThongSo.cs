@@ -10,7 +10,6 @@ namespace new_wr_api.Data
         public int Id { get; set; }
         public int? IdCT { get; set; }
         public int? IdHangMucCT { get; set; }
-        public double? CapCT { get; set; }
         public double? DienTichLuuVuc { get; set; }
         public double? MuaTrungBinhNam { get; set; }
         public double? QTrungBinhNam { get; set; }
