@@ -13,5 +13,15 @@
         public int? NuocMan_IdXa { get; set; }
         public int? NuocMan_IdHuyen { get; set; }
         public double? NuocMan_TruLuong { get; set; }
+        public TangChuaNuocDto? TangChuaNuoc { get; set; }
+        public DonViHCDto? donvi_hanhchinh { get; set; }
+        public NuocManNuocNgotDto? NuocNgot { get; set; }
+        public NuocManNuocNgotDto? NuocMan { get; set; }
+
+        public class NuocManNuocNgotDto
+        {
+            public string? Xa { get; set; }
+            public string? Huyen { get; set; }
+        }
     }
 }

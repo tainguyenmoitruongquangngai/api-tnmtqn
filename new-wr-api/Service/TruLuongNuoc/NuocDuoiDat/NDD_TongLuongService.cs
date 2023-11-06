@@ -5,6 +5,7 @@ using new_wr_api.Data;
 using new_wr_api.Dto;
 using new_wr_api.Models;
 using System.Security.Claims;
+using static new_wr_api.Dto.TLN_NuocDuoiDat_TongLuongDto;
 
 namespace new_wr_api.Service
 {
@@ -21,44 +22,76 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
-        public async Task<bool> SaveAsync(CT_HangMucDto dto)
+        public async Task<List<TLN_NuocDuoiDat_TongLuongDto>> GetAllAsync()
         {
+            var items = await _context.TLN_NuocDuoiDat_TongLuong!.Where(d => d.DaXoa == false)
+                .Include(d => d.TangChuaNuoc)
+                .OrderBy(d => d.Id)
+                .AsQueryable().ToListAsync();
 
-            var existingItem = await _context.CT_HangMuc!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
-
-            if (existingItem == null || dto.Id == 0)
+            var tongLuongNDDDto = _mapper.Map<List<TLN_NuocDuoiDat_TongLuongDto>>(items);
+            foreach (var dto in tongLuongNDDDto)
             {
-                var newItem = _mapper.Map<CT_HangMuc>(dto);
-                newItem.DaXoa = false;
-                newItem.ThoiGianTao = DateTime.Now;
-                newItem.TaiKhoanTao = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.CT_HangMuc!.Add(newItem);
+                if (!string.IsNullOrEmpty(dto.NuocNgot_IdXa.ToString()))
+                {
+                    var ds = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto!.NuocNgot_IdXa.ToString());
+                    if (ds != null)
+                    {
+                        dto.NuocNgot = new NuocManNuocNgotDto
+                        {
+                            Xa = ds!.TenXa,
+                            Huyen = ds!.TenHuyen
+                        };
+                    }
+                    var cs = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto!.NuocMan_IdXa.ToString());
+                    if (cs != null)
+                    {
+                        dto.NuocMan = new NuocManNuocNgotDto
+                        {
+                            Xa = cs!.TenXa,
+                            Huyen = cs!.TenHuyen
+                        };
+                    }
+                }
             }
-            else
-            {
-                var updateItem = await _context.CT_HangMuc!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+            return tongLuongNDDDto;
 
-                updateItem = _mapper.Map(dto, updateItem);
-
-                updateItem!.ThoiGianSua = DateTime.Now;
-                updateItem.TaiKhoanSua = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.CT_HangMuc!.Update(updateItem);
-            }
-
-            var res = await _context.SaveChangesAsync();
-
-            return true;
         }
+
+        //public async Task<bool> SaveAsync(TLN_NuocDuoiDat_TongLuongDto dto)
+        //{
+
+        //    var existingItem = await _context.TLN_NuocDuoiDat_TongLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
+
+        //    if (existingItem == null || dto.Id == 0)
+        //    {
+        //        var newItem = _mapper.Map<TLN_NuocDuoiDat_TongLuong>(dto);
+        //        newItem.DaXoa = false;
+        //        _context.TLN_NuocDuoiDat_TongLuong!.Add(newItem);
+        //    }
+        //    else
+        //    {
+        //        var updateItem = await _context.TLN_NuocDuoiDat_TongLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+
+        //        updateItem = _mapper.Map(dto, updateItem);
+
+        //        _context.TLN_NuocDuoiDat_TongLuong!.Update(updateItem);
+        //    }
+
+        //    var res = await _context.SaveChangesAsync();
+
+        //    return true;
+        //}
 
 
         public async Task<bool> DeleteAsync(int Id)
         {
-            var existingItem = await _context.CT_HangMuc!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+            var existingItem = await _context.TLN_NuocDuoiDat_TongLuong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
 
             if (existingItem == null) { return false; }
 
             existingItem!.DaXoa = true;
-            _context.CT_HangMuc!.Update(existingItem);
+            _context.TLN_NuocDuoiDat_TongLuong!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return true;

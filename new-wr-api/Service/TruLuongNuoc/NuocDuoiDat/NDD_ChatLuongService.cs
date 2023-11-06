@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using new_wr_api.Data;
 using new_wr_api.Dto;
 using new_wr_api.Models;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace new_wr_api.Service
 {
@@ -20,45 +22,55 @@ namespace new_wr_api.Service
             _mapper = mapper;
             _httpContext = httpContext;
         }
-
-        public async Task<bool> SaveAsync(CT_HangMucDto dto)
+        public async Task<List<TLN_NuocDuoiDat_ChatLuongDto>> GetAllAsync()
         {
-
-            var existingItem = await _context.CT_HangMuc!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
-
-            if (existingItem == null || dto.Id == 0)
+            var items = await _context.TLN_NuocDuoiDat_ChatLuong!.Where(x => x.DaXoa == false).OrderBy(x => x.Id).ToListAsync();
+            var chatLuongNDDDto = _mapper.Map<List<TLN_NuocDuoiDat_ChatLuongDto>>(items);
+            foreach (var dto in chatLuongNDDDto)
             {
-                var newItem = _mapper.Map<CT_HangMuc>(dto);
-                newItem.DaXoa = false;
-                newItem.ThoiGianTao = DateTime.Now;
-                newItem.TaiKhoanTao = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.CT_HangMuc!.Add(newItem);
+                if (!string.IsNullOrEmpty(dto.IdXa.ToString()))
+                {
+                    dto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
+                        .FirstOrDefaultAsync(dv => dv.IdXa == dto.IdXa.ToString()));
+                }
             }
-            else
-            {
-                var updateItem = await _context.CT_HangMuc!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+            return chatLuongNDDDto;
 
-                updateItem = _mapper.Map(dto, updateItem);
 
-                updateItem!.ThoiGianSua = DateTime.Now;
-                updateItem.TaiKhoanSua = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.CT_HangMuc!.Update(updateItem);
-            }
-
-            var res = await _context.SaveChangesAsync();
-
-            return true;
         }
+        //public async Task<bool> SaveAsync(TLN_NuocDuoiDat_ChatLuongDto dto)
+        //{
+
+        //    var existingItem = await _context.TLN_NuocDuoiDat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
+
+        //    if (existingItem == null || dto.Id == 0)
+        //    {
+        //        var newItem = _mapper.Map<TLN_NuocDuoiDat_ChatLuong>(dto);
+        //        newItem.DaXoa = false;
+        //        _context.TLN_NuocDuoiDat_ChatLuong!.Add(newItem);
+        //    }
+        //    else
+        //    {
+        //        var updateItem = await _context.TLN_NuocDuoiDat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+
+        //        updateItem = _mapper.Map(dto, updateItem);
+        //        _context.TLN_NuocDuoiDat_ChatLuong!.Update(updateItem);
+        //    }
+
+        //    var res = await _context.SaveChangesAsync();
+
+        //    return true;
+        //}
 
 
         public async Task<bool> DeleteAsync(int Id)
         {
-            var existingItem = await _context.CT_HangMuc!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+            var existingItem = await _context.TLN_NuocDuoiDat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
 
             if (existingItem == null) { return false; }
 
             existingItem!.DaXoa = true;
-            _context.CT_HangMuc!.Update(existingItem);
+            _context.TLN_NuocDuoiDat_ChatLuong!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return true;

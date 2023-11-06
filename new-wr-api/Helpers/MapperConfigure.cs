@@ -117,11 +117,9 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.Tram, opt => opt.MapFrom(src => src.Tram_ThongTin))
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
                 .ReverseMap();
-
             CreateMap<TLN_NuocMat_SoLuong, TLN_NuocMat_SoLuongDto>()
                  .ForMember(dest => dest.Song, opt => opt.MapFrom(src => src.Song))
                  .ReverseMap();
-
             CreateMap<TLN_NuocMat_TongLuong, TLN_NuocMat_TongLuongDto>()
                 .ForMember(dest => dest.LuuVucSong, opt => opt.MapFrom(src => src.LuuVucSong))
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
@@ -132,11 +130,24 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.thongso, opt => opt.MapFrom(src => src.ThongSo))
                 .ReverseMap();
 
+            CreateMap<TLN_NuocMat_ChatLuong, TLN_NuocMat_ChatLuongDto>().ReverseMap();
+            CreateMap<TLN_NuocDuoiDat_SoLuong, TLN_NuocDuoiDat_SoLuongDto>()
+               .ForMember(dest => dest.TangChuaNuoc, opt => opt.MapFrom(src => src.TangChuaNuoc))
+               .ReverseMap();
+            CreateMap<TLN_NuocDuoiDat_TongLuong, TLN_NuocDuoiDat_TongLuongDto>()
+              .ForMember(dest => dest.TangChuaNuoc, opt => opt.MapFrom(src => src.TangChuaNuoc))
+              .ReverseMap();
+            CreateMap<TLN_NuocDuoiDat_ChatLuong, TLN_NuocDuoiDat_ChatLuongDto>()
+               .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
+               .ReverseMap();
             //Song
             CreateMap<Song, SongDto>().ReverseMap();
 
             //LuuVucSong
             CreateMap<LuuVucSong, LuuVucSongDto>().ReverseMap();
+
+            //TangChuaNuoc
+            CreateMap<TangChuaNuoc, TangChuaNuocDto>().ReverseMap();
         }
     }
 }

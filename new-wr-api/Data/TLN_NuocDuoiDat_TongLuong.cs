@@ -19,5 +19,7 @@ namespace new_wr_api.Data
         public int? NuocMan_IdHuyen { get; set; }
         public double? NuocMan_TruLuong { get; set; }
         public bool? DaXoa { get; set; }
+        [ForeignKey("IdTangChuaNuoc")]
+        public virtual TangChuaNuoc? TangChuaNuoc { get; set; }
     }
 }

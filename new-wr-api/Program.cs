@@ -77,6 +77,11 @@ services.AddScoped<Tram_ThongTinService>();
 services.AddScoped<NMua_TongLuongService>();
 services.AddScoped<NM_SoLuongService>();
 services.AddScoped<NM_TongLuongService>();
+services.AddScoped<NM_ChatLuongService>();
+services.AddScoped<NDD_SoLuongService>();
+services.AddScoped<NDD_TongLuongService>();
+services.AddScoped<NDD_ChatLuongService>();
+
 
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
