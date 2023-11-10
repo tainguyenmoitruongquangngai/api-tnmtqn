@@ -89,9 +89,9 @@ namespace new_wr_api.Service
 
         public async Task<bool> SaveRoleAsync(RoleModel model)
         {
-            var exitsItem = await _roleManager.FindByIdAsync(model.Id);
+            var exitsRole = await _roleManager.FindByIdAsync(model.Id);
 
-            if (exitsItem == null)
+            if (exitsRole == null)
             {
                 // Create a new user
                 AspNetRoles item = new AspNetRoles();
@@ -105,10 +105,10 @@ namespace new_wr_api.Service
             }
             else
             {
-                exitsItem.Name = model.Name;
-                exitsItem.IsDefault = model.IsDefault;
-
-                await _roleManager.UpdateAsync(exitsItem);
+                exitsRole.Name = model.Name;
+                exitsRole.IsDefault = model.IsDefault;
+                exitsRole.IsDeleted = false;
+                await _roleManager.UpdateAsync(exitsRole);
                 return true;
             }
         }

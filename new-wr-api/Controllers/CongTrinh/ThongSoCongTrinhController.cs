@@ -8,7 +8,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/thong-so-ct")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ThongSoCongTrinhController : ControllerBase
     {
         private readonly CT_ThongSoService _service;

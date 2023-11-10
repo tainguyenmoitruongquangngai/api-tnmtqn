@@ -18,6 +18,7 @@ namespace new_wr_api.Dto
         public string? ViTriCT { get; set; }
         public double? X { get; set; }
         public double? Y { get; set; }
+        public string? CapCT { get; set; }
         public int? NamBatDauVanHanh { get; set; }
         public string? NguonNuocKT { get; set; }
         public string? CheDoKT { get; set; }
@@ -45,7 +46,7 @@ namespace new_wr_api.Dto
         public CT_LoaiDto? loaiCT { get; set; }
         public List<CT_HangMucDto>? hangmuc { get; set; }
         public CT_ThongSoDto? thongso { get; set; }
-        public DonViHCDto? donvi_hanhchinh { get; set; } 
+        public DonViHCDto? donvi_hanhchinh { get; set; }
         public List<GP_ThongTinDto>? giayphep { get; set; }
 
     }

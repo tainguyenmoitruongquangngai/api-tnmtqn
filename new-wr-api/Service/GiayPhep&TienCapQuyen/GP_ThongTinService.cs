@@ -148,8 +148,10 @@ namespace new_wr_api.Service
             return giayPhepDtos;
         }
 
+        // Method to count the number of GP_ThongTin entities based on licensing authorities
         public async Task<CountFolowLicensingAuthoritiesDto> CountFolowLicensingAuthoritiesAsync()
         {
+            // Count total, Btnmt, and Ubndt entities
             var totalCount = await _context.GP_ThongTin!
                 .Where(gp => gp.DaXoa == false)
                 .CountAsync();
@@ -170,6 +172,7 @@ namespace new_wr_api.Service
             };
         }
 
+        // Method to count the number of GP_ThongTin entities based on construction types
         public async Task<CountFolowConstructionTypesDto> CountFolowConstructionTypesAsync()
         {
             var today = DateTime.Today;
@@ -179,6 +182,7 @@ namespace new_wr_api.Service
                 .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.LoaiCT)
                 .AsQueryable();
 
+            // Count entities for different construction types
             var ktsd_nm = query.Where(gp => gp.CongTrinh!.LoaiCT!.IdCha == 1);
             var ktsd_ndd = query.Where(gp => gp.CongTrinh!.LoaiCT!.Id == 7);
             var thamdo_ndd = query.Where(gp => gp.CongTrinh!.LoaiCT!.Id == 8);
@@ -225,6 +229,7 @@ namespace new_wr_api.Service
             };
         }
 
+        // Method to get license statistics based on filter criteria
         public async Task<LicenseStatisticsDto> LicenseStatisticsAsync(GPFilterFormDto formDto)
         {
             var query = _context.GP_ThongTin!
@@ -360,9 +365,10 @@ namespace new_wr_api.Service
         }
 
 
-
+        // Method to get GP_ThongTin entity by Id
         public async Task<GP_ThongTinDto> GetByIdAsync(int Id)
         {
+            // Query to get GP_ThongTin entity by Id
             var query = _context.GP_ThongTin!
                 .Where(gp => gp.Id == Id && gp.DaXoa == false)
                 .Include(gp => gp.LoaiGP)
@@ -392,6 +398,7 @@ namespace new_wr_api.Service
             return giayPhepDto;
         }
 
+        // Method to save or update a GP_ThongTin entity
         public async Task<int> SaveAsync(GP_ThongTinDto model)
         {
             int id = 0;
@@ -431,9 +438,11 @@ namespace new_wr_api.Service
         public async Task<bool> DeleteAsync(int Id)
         {
             var existingItem = await _context.GP_ThongTin!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
 
             if (existingItem == null) { return false; }
-
+            existingItem.ThoiGianSua = DateTime.Now;
+            existingItem.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
             existingItem!.DaXoa = true;
             _context.GP_ThongTin!.Update(existingItem);
             await _context.SaveChangesAsync();

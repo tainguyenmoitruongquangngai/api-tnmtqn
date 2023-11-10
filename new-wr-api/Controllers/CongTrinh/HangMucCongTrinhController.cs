@@ -23,9 +23,9 @@ namespace new_wr_api.Controllers
         public async Task<ActionResult<CT_HangMuc>> Save(CT_HangMucDto dto)
         {
             var res = await _service.SaveAsync(dto);
-            if (res)
+            if (res > 0)
             {
-                return Ok(new { message = "Hạng mục công trình: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Hạng mục công trình: Dữ liệu đã được lưu", id = res });
             }
             else
             {

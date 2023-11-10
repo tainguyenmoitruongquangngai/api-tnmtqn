@@ -12,12 +12,14 @@ namespace new_wr_api.Service
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly UserManager<AspNetUsers> _userManager;
 
-        public DonViHCService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
+        public DonViHCService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext, UserManager<AspNetUsers> userManager)
         {
             _context = context;
             _mapper = mapper;
             _httpContext = httpContext;
+            _userManager = userManager;
         }
 
         public async Task<List<DonViHCDto>> GetAllAsync()
@@ -34,7 +36,7 @@ namespace new_wr_api.Service
         public async Task<List<HuyenDto>> GetAllDistrictAsync()
         {
             var items = await _context.DonViHC!
-                .Where(l => l.IdTinh!.Contains("51")&& l.DaXoa == false)
+                .Where(l => l.IdTinh!.Contains("51") && l.DaXoa == false)
                 .GroupBy(l => new { l.IdTinh, l.IdHuyen })
                 .Select(group => group.First())
                 .ToListAsync();
@@ -77,13 +79,14 @@ namespace new_wr_api.Service
         public async Task<bool> SaveAsync(DonViHCDto model)
         {
             var existingItem = await _context.DonViHC!.FirstOrDefaultAsync(d => d.Id == model.Id && d.DaXoa == false);
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
 
             if (existingItem == null || model.Id == 0)
             {
                 var newItem = _mapper.Map<DonViHC>(model);
                 newItem.DaXoa = false;
                 newItem.ThoiGianTao = DateTime.Now;
-                newItem.TaiKhoanTao = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
+                newItem.TaiKhoanTao = currentUser != null ? currentUser.UserName : null;
                 _context.DonViHC!.Add(newItem);
             }
             else
@@ -91,9 +94,9 @@ namespace new_wr_api.Service
                 var updateItem = await _context.DonViHC!.FirstOrDefaultAsync(d => d.Id == model.Id && d.DaXoa == false);
 
                 updateItem = _mapper.Map(model, updateItem);
-
-                updateItem!.ThoiGianSua = DateTime.Now;
-                updateItem.TaiKhoanSua = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
+                updateItem!.DaXoa = false;
+                updateItem.ThoiGianSua = DateTime.Now;
+                updateItem.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
                 _context.DonViHC!.Update(updateItem);
             }
 
@@ -105,10 +108,13 @@ namespace new_wr_api.Service
         public async Task<bool> DeleteAsync(int Id)
         {
             var existingItem = await _context.DonViHC!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
 
-            if (existingItem == null) { return false; }
+            if (existingItem == null) { return false; } // If the item doesn't exist, return false
 
-            existingItem!.DaXoa = true;
+            existingItem!.DaXoa = true; // Mark the item as deleted
+            existingItem.ThoiGianSua = DateTime.Now;
+            existingItem.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
             _context.DonViHC!.Update(existingItem);
             await _context.SaveChangesAsync();
 

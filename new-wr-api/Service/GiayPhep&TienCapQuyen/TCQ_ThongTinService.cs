@@ -15,6 +15,7 @@ namespace new_wr_api.Service
         private readonly IHttpContextAccessor _httpContext;
         private readonly UserManager<AspNetUsers> _userManager;
 
+        // Constructor to initialize the service with required dependencies
         public TCQ_ThongTinService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext, UserManager<AspNetUsers> userManager)
         {
             _context = context;
@@ -23,6 +24,7 @@ namespace new_wr_api.Service
             _userManager = userManager;
         }
 
+        // Method to get all TCQ_ThongTin entities
         public async Task<List<TCQ_ThongTinDto>> GetAllAsync()
         {
             var items = await _context!.TCQ_ThongTin!
@@ -34,6 +36,7 @@ namespace new_wr_api.Service
             return listItems;
         }
 
+        // Method to get TCQ_ThongTin entities by licensing authorities
         public async Task<List<TCQ_ThongTinDto>> GetByLicensingAuthoritiesAsync(string coquan_cp)
         {
             var query = _context!.TCQ_ThongTin!
@@ -98,22 +101,26 @@ namespace new_wr_api.Service
             return listItems;
         }
 
+        // Method to get TCQ_ThongTin entity by Id
         public async Task<TCQ_ThongTinDto?> GetByIdAsync(int Id)
         {
             var item = await _context.TCQ_ThongTin!.FindAsync(Id);
             return _mapper.Map<TCQ_ThongTinDto>(item);
         }
 
+        // Method to save or update a TCQ_ThongTin entity
         public async Task<int> SaveAsync(TCQ_ThongTinDto dto)
         {
             int id = 0;
             var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
             TCQ_ThongTin? item = null; // Declare item variable
 
+            // Retrieve an existing item based on Id or if dto.Id is 0
             var existingItem = await _context.TCQ_ThongTin!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
 
             if (existingItem == null || dto.Id == 0)
             {
+                // If the item doesn't exist or dto.Id is 0, create a new item
                 item = _mapper.Map<TCQ_ThongTin>(dto);
                 item.DaXoa = false;
                 item.ThoiGianTao = DateTime.Now;
@@ -122,24 +129,26 @@ namespace new_wr_api.Service
             }
             else
             {
-                item = existingItem; // Assign existingItem to item
-
-                _mapper.Map(dto, item); // Map properties from dto to item
+                // If the item exists, update it with values from the dto
+                item = existingItem;
+                _mapper.Map(dto, item);
                 item.DaXoa = false;
                 item.ThoiGianSua = DateTime.Now;
                 item.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
                 _context.TCQ_ThongTin!.Update(item);
             }
 
+            // Save changes to the database
             var res = await _context.SaveChangesAsync();
 
-            // Simplified assignment of id
+            // Simplified assignment of id based on the result of SaveChanges
             id = (int)(res > 0 ? item.Id : 0);
 
+            // Return the id
             return id;
         }
 
-
+        // Method to delete a TCQ_ThongTin entity
         public async Task<bool> DeleteAsync(int Id)
         {
             var existingItem = await _context.TCQ_ThongTin!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);

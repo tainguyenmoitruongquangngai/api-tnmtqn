@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Dto;
 using System.Security.Claims;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace new_wr_api.Service
 {
@@ -14,6 +13,7 @@ namespace new_wr_api.Service
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
 
+        // Constructor to initialize the service with required dependencies
         public GiamSatService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _context = context;
@@ -21,19 +21,22 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
+        // Method to retrieve and map all data for monitoring
         public async Task<List<GS_SoLieuDto>> GetAllAsync(int? loaict, int? tochuc_canhan, string? tenct)
         {
+            // Initial query to retrieve construction information
             var query = _context.CT_ThongTin!
-                 .Where(ct => ct.DaXoa == false)
-                 .Include(ct => ct.LoaiCT)
-                 .Include(ct => ct.TangChuaNuoc)
-                 .Include(ct => ct.ThongSo)
-                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
-                 .OrderBy(x => x.IdLoaiCT)
-                 .AsQueryable();
+                .Where(ct => ct.DaXoa == false)
+                .Include(ct => ct.LoaiCT)
+                .Include(ct => ct.TangChuaNuoc)
+                .Include(ct => ct.ThongSo)
+                .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
+                .OrderBy(x => x.IdLoaiCT)
+                .AsQueryable();
 
             var congtrinh = await query.ToListAsync();
 
+            // Apply additional filters based on parameters
             if (loaict > 0)
             {
                 query = query.Where(ct => loaict == 1 || loaict == 2 || loaict == 3 || loaict == 24 ? ct.LoaiCT!.IdCha == loaict : ct.LoaiCT!.Id == loaict);
@@ -49,28 +52,35 @@ namespace new_wr_api.Service
                 query = query.Where(ct => ct.TenCT!.Contains(tenct));
             }
 
+            // Map the construction information to DTOs
             var congTrinhDtos = _mapper.Map<List<GS_SoLieuDto>>(congtrinh);
 
+            // Iterate over each DTO and retrieve additional monitoring data
             foreach (var item in congTrinhDtos)
             {
                 var solieu = _context.GS_DuLieu!.Where(x => x.ConstructionCode == item.MaCT).OrderByDescending(x => x.Time).FirstOrDefault();
-                if(solieu != null)
+
+                if (solieu != null)
                 {
+                    // Map monitoring data to DTO properties
                     item.ThoiGian = solieu.Time;
+
                     switch (solieu.StationCode!.ToLower())
                     {
                         case "quatran":
                             item.QXaTranTT = solieu.Value;
-                        break;
+                            break;
                         case "nhamay":
                             item.QXaMaxTT = solieu.Value;
-                        break;
+                            break;
                         case "dctt":
                             item.DCTTTT = solieu.Value;
-                        break;
+                            break;
                     }
                 }
             }
+
+            // Return the list of mapped DTOs
             return congTrinhDtos;
         }
     }

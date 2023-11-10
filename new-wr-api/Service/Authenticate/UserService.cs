@@ -107,9 +107,9 @@ namespace new_wr_api.Service
 
         public async Task<bool> SaveUserAsync(UserModel model)
         {
-            var existingItem = await _userManager.FindByIdAsync(model.Id);
+            var existingUser = await _userManager.FindByIdAsync(model.Id);
 
-            if (existingItem == null)
+            if (existingUser == null)
             {
                 // Create a new user
                 AspNetUsers user = new AspNetUsers
@@ -137,13 +137,14 @@ namespace new_wr_api.Service
             else
             {
                 // Update an existing user
-                existingItem.UserName = model.UserName;
-                existingItem.Email = model.Email;
-                existingItem.FullName = model.FullName;
-                existingItem.PhoneNumber = model.PhoneNumber;
-                existingItem.ModifiedTime = DateTime.Now;
-                existingItem.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                var res = await _userManager.UpdateAsync(existingItem);
+                existingUser.UserName = model.UserName;
+                existingUser.Email = model.Email;
+                existingUser.FullName = model.FullName;
+                existingUser.PhoneNumber = model.PhoneNumber;
+                existingUser.IsDeleted = false;
+                existingUser.ModifiedTime = DateTime.Now;
+                existingUser.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
+                var res = await _userManager.UpdateAsync(existingUser);
                 if (res.Succeeded)
                 {
                     return true;
@@ -158,6 +159,8 @@ namespace new_wr_api.Service
             if (user != null)
             {
                 user.IsDeleted = true;
+                user.ModifiedTime = DateTime.Now;
+                user.ModifiedUser = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
                 await _userManager.UpdateAsync(user);
                 return true;
             }

@@ -5,7 +5,6 @@
         public int? Id { get; set; }
         public int? IdCT { get; set; }
         public int? IdHangMucCT { get; set; }
-        public string? CapCT { get; set; }
         public double? DienTichLuuVuc { get; set; }
         public double? MuaTrungBinhNam { get; set; }
         public double? QTrungBinhNam { get; set; }

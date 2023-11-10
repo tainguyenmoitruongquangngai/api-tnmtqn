@@ -22,7 +22,7 @@ namespace new_wr_api.Data
         public string? ViTriCT { get; set; }
         public double? X { get; set; }
         public double? Y { get; set; }
-        public double? CapCT { get; set; }
+        public string? CapCT { get; set; }
         public int? NamBatDauVanHanh { get; set; }
         public string? NguonNuocKT { get; set; }
         public string? CheDoKT { get; set; }
