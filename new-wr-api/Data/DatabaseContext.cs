@@ -142,6 +142,7 @@ namespace new_wr_api.Data
         public DbSet<ThongTinKetNoi>? ThongTinKetNoi { get; set; }
         public DbSet<ThongTinTCCN>? ThongTinTCCN { get; set; }
 
+
         //Quan Trac
         //Quan Trac > MucNuoc
         public DbSet<PhanLoaiHoChuaTheoMDSD>? PhanLoaiHoChuaTheoMDSD { get; set; }
@@ -176,6 +177,47 @@ namespace new_wr_api.Data
         public DbSet<HangMucDapTran>? HangMucDapTran { get; set; }
         public DbSet<PhanLoaiDapTran>? PhanLoaiDapTran { get; set; }
         public DbSet<ThongSoDapTran>? ThongSoDapTran { get; set; }
+
+
+        //ThongTin
+        public DbSet<DMSS_AoHo>? DMSS_AoHo { get; set; }
+        public DbSet<DMSS_DiemCuoiSongSuoi>? DMSS_DiemCuoiSongSuoi { get; set; }
+        public DbSet<DMSS_DiemDauSongSuoi>? DMSS_DiemDauSongSuoi { get; set; }
+        public DbSet<DMSS_SongSuoiNoiTinh>? DMSS_SongSuoiNoiTinh { get; set; }
+        public DbSet<HSKTCT_FilePDFHSKTCongTrinh>? HSKTCT_FilePDFHSKTCongTrinh { get; set; }
+        public DbSet<HSKTCT_LoaiHSKTCongTrinh>? HSKTCT_LoaiHSKTCongTrinh { get; set; }
+        public DbSet<HSKTCT_ThongTinTaiLieuHSKTTram>? HSKTCT_ThongTinTaiLieuHSKTTram { get; set; }
+        public DbSet<HSKTCT_ToChucThucHienQuanTrac>? HSKTCT_ToChucThucHienQuanTrac { get; set; }
+        public DbSet<KQCGHTHGPKTSDN_CongTrinh>? KQCGHTHGPKTSDN_CongTrinh { get; set; }
+        public DbSet<KQCGHTHGPKTSDN_FileGiayPhepKTSDN>? KQCGHTHGPKTSDN_FileGiayPhepKTSDN { get; set; }
+        public DbSet<KQCGHTHGPKTSDN_HoSoGiaHanDieuChinhTheoGiayPhep>? KQCGHTHGPKTSDN_HoSoGiaHanDieuChinhTheoGiayPhep { get; set; }
+        public DbSet<KQCGHTHGPKTSDN_QuanLyNgayCapPhepKTSDN>? KQCGHTHGPKTSDN_QuanLyNgayCapPhepKTSDN { get; set; }
+        public DbSet<KQCGHTHGPKTSDN_ThanhTraKiemTraKetQuaThucHienTheoGiayPhep>? KQCGHTHGPKTSDN_ThanhTraKiemTraKetQuaThucHienTheoGiayPhep { get; set; }
+        public DbSet<KQCGHTHGPKTSDN_ThongTinGiayPhepKTSDN>? KQCGHTHGPKTSDN_ThongTinGiayPhepKTSDN { get; set; }
+        public DbSet<NCKTSDN_KhaNangDapUngNguonNuoc>? NCKTSDN_KhaNangDapUngNguonNuoc { get; set; }
+        public DbSet<NCKTSDN_LoaiTaiNguyenNuoc>? NCKTSDN_LoaiTaiNguyenNuoc { get; set; }
+        public DbSet<NCKTSDN_MucNuocLonNhatCoTheKhaiThac>? NCKTSDN_MucNuocLonNhatCoTheKhaiThac { get; set; }
+        public DbSet<NCKTSDN_NhuCauSuDungNuoc>? NCKTSDN_NhuCauSuDungNuoc { get; set; }
+        public DbSet<NCKTSDN_TongLuongNuoc>? NCKTSDN_TongLuongNuoc { get; set; }
+        public DbSet<SLCLNMNDD_LoaiNuoc>? SLCLNMNDD_LoaiNuoc { get; set; }
+        public DbSet<SLCLNMNDD_LuuVuc>? SLCLNMNDD_LuuVuc { get; set; }
+        public DbSet<SLCLNMNDD_SoLuongNuoc>? SLCLNMNDD_SoLuongNuoc { get; set; }
+        public DbSet<SLCLNMNDD_Song>? SLCLNMNDD_Song { get; set; }
+        public DbSet<SLCLNMNDD_ThongSoSong>? SLCLNMNDD_ThongSoSong { get; set; }
+        public DbSet<SLCLNMNDD_TiemNangNuocDuoiDat>? SLCLNMNDD_TiemNangNuocDuoiDat { get; set; }
+        public DbSet<SLCLNMNDD_ViTriDieuTra>? SLCLNMNDD_ViTriDieuTra { get; set; }
+        public DbSet<SLCLNMNDD_WMuaCan>? SLCLNMNDD_WMuaCan { get; set; }
+        public DbSet<SLCLNMNDD_WMuaLu>? SLCLNMNDD_WMuaLu { get; set; }
+        public DbSet<SLCLNMNDD_WNam>? SLCLNMNDD_WNam { get; set; }
+        public DbSet<SLDTKSDCTV_PhanLoaiDieuTra>? SLDTKSDCTV_PhanLoaiDieuTra { get; set; }
+        public DbSet<SLDTKSDCTV_PhuongPhapDieuTraDiaChatThuyVan>? SLDTKSDCTV_PhuongPhapDieuTraDiaChatThuyVan { get; set; }
+        public DbSet<SLDTKSDCTV_SoLieuDieuTraNDD>? SLDTKSDCTV_SoLieuDieuTraNDD { get; set; }
+        public DbSet<SLDTKSDCTV_ThongTinVungDieuTra>? SLDTKSDCTV_ThongTinVungDieuTra { get; set; }
+        public DbSet<SLDTKSDCTV_TieuVungQuyHoach>? SLDTKSDCTV_TieuVungQuyHoach { get; set; }
+        public DbSet<TT_Huyen>? TT_Huyen { get; set; }
+        public DbSet<TT_ThongTinTieuVung>? TT_ThongTinTieuVung { get; set; }
+        public DbSet<TT_TieuVungTNN>? TT_TieuVungTNN { get; set; }
+        public DbSet<TT_Xa>? TT_Xa { get; set; }
 
 
         #endregion

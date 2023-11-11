@@ -4,12 +4,11 @@ using new_wr_api.Dto;
 
 namespace new_wr_api.Data
 {
-    public class SLCLNMNDD_Song
+    public class SLDTKSDCTV_PhanLoaiDieuTra
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int MaSong { get; set; }
-        public string? TenSong { get; set; } 
-        public int? MaLuuVuc { get; set; }
+        public int MaPhanLoaiDieuTra { get; set; }
+        public string? Tenloaidieutra { get; set; }
     }
 }
