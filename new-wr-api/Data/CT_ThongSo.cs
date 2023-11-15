@@ -48,7 +48,6 @@ namespace new_wr_api.Data
         public double? QKTCapNuocSinhHoat { get; set; }
         public double? Hgieng { get; set; }
         public double? HGiengKT { get; set; }
-        public double? PhuongThucKT { get; set; }
         public double? MucNuocTinh { get; set; }
         public double? MucNuocDong { get; set; }
         public double? TangChuaNuocKT { get; set; }

@@ -21,15 +21,15 @@ namespace new_wr_api.Service
         }
 
         // Method to save a GP_TCQ entity
-        public async Task<bool> SaveAsync(GP_TCQDto model)
+        public async Task<bool> SaveAsync(GP_TCQDto dto)
         {
             // Retrieve an existing item based on IdTCQ and IdGP
-            var existingItem = await _context.GP_TCQ!.FirstOrDefaultAsync(d => d.IdTCQ == model.IdTCQ && d.IdGP == model.IdGP);
+            var existingItem = await _context.GP_TCQ!.FirstOrDefaultAsync(d => d.IdTCQ == dto.IdTCQ && d.IdGP == dto.IdGP);
 
             if (existingItem == null)
             {
                 // If the item doesn't exist, create a new item
-                var newItem = _mapper.Map<GP_TCQ>(model);
+                var newItem = _mapper.Map<GP_TCQ>(dto);
                 _context.GP_TCQ!.Add(newItem);
 
                 // Save changes to the database
@@ -41,10 +41,10 @@ namespace new_wr_api.Service
         }
 
         // Method to delete a GP_TCQ entity
-        public async Task<bool> DeleteAsync(GP_TCQDto model)
+        public async Task<bool> DeleteAsync(GP_TCQDto dto)
         {
             // Retrieve an existing item based on IdTCQ and IdGP
-            var existingItem = await _context.GP_TCQ!.FirstOrDefaultAsync(d => d.IdTCQ == model.IdTCQ && d.IdGP == model.IdGP);
+            var existingItem = await _context.GP_TCQ!.FirstOrDefaultAsync(d => d.IdTCQ == dto.IdTCQ && d.IdGP == dto.IdGP);
 
             if (existingItem == null) { return false; } // If the item doesn't exist, return false
 

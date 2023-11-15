@@ -73,7 +73,8 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.tiencq, opt => opt.MapFrom((src, dest) => dest.tiencq))
                 .ReverseMap();
 
-            CreateMap<GP_TCQ, GP_TCQDto>();
+            CreateMap<GP_TCQ, GP_TCQDto>().ReverseMap();
+
             CreateMap<TCQ_ThongTin, TCQ_ThongTinDto>()
                 .ForMember(dest => dest.giayphep, opt => opt.MapFrom((src, dest) => dest.giayphep))
                 .ForMember(dest => dest.congtrinh, opt => opt.MapFrom((src, dest) => dest.congtrinh))
@@ -104,8 +105,8 @@ namespace new_wr_api.Helpers
             CreateMap<BieuMauSoHaiMot, BieuMauHaiMotDto>().ReverseMap();
             CreateMap<BieuMauSoHaiHai, BieuMauHaiHaiDto>().ReverseMap();
             CreateMap<BieuMauSoHaiBa, BieuMauHaiBaDto>().ReverseMap();
-            CreateMap<BieuMauSoHaiTu ,BieuMauHaiTuDto>().ReverseMap();
-            CreateMap<BieuMauSoHaiLam ,BieuMauHaiLamDto>().ReverseMap();
+            CreateMap<BieuMauSoHaiTu, BieuMauHaiTuDto>().ReverseMap();
+            CreateMap<BieuMauSoHaiLam, BieuMauHaiLamDto>().ReverseMap();
 
             //KNTiepNhanNuocThai
             CreateMap<ThongSoCLNSong, ThongSoCLNSongDto>().ReverseMap();
