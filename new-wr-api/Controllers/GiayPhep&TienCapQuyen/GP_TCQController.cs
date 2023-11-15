@@ -28,11 +28,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveAsync(dto);
             if (res == true)
             {
-                return Ok(new { message = "GP_TCQ: Dữ liệu đã được lưu" });
+                return Ok(new { message = "GP_TCQ: Đã tạo quan hệ" });
             }
             else
             {
-                return BadRequest(new { message = "GP_TCQ: Lỗi lưu dữ liệu", error = true });
+                return BadRequest(new { message = "GP_TCQ: Lỗi tạo quan hệ", error = true });
             }
         }
 
