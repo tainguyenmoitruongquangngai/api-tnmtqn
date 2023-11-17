@@ -76,6 +76,15 @@ namespace new_wr_api.Service
                         case "dctt":
                             item.DCTTTT = solieu.Value;
                             break;
+                        case "haluu":
+                            item.HHaLuuTT = solieu.Value;
+                        break;
+                        case "dungtich":
+                            item.DungTichTT = solieu.Value;
+                        break;
+                        case "thuongluu":
+                            item.HThuongLuuTT = solieu.Value;
+                        break;
                     }
                 }
             }
