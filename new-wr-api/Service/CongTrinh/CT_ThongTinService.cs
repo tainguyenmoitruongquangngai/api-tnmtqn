@@ -33,6 +33,7 @@ namespace new_wr_api.Service
                 .Include(ct => ct.ThongSo)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
+                .Include(ct => ct.LuuLuongTheoMucDich)
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 

@@ -3233,6 +3233,39 @@ namespace new_wr_api.Migrations
                     b.ToTable("LoaiTramQuanTracLuongMua");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.LuuLuongTheoMucDich", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DonViDo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("IdCT")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("LuuLuong")
+                        .HasColumnType("float");
+
+                    b.Property<string>("MucDich")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdCT");
+
+                    b.ToTable("LuuLuongTheoMucDich");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.LuuVucSong", b =>
                 {
                     b.Property<int>("Id")
@@ -6554,6 +6587,15 @@ namespace new_wr_api.Migrations
                     b.Navigation("TaiKhoanKetNoi");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.LuuLuongTheoMucDich", b =>
+                {
+                    b.HasOne("new_wr_api.Data.CT_ThongTin", "CT_ThongTin")
+                        .WithMany("LuuLuongTheoMucDich")
+                        .HasForeignKey("IdCT");
+
+                    b.Navigation("CT_ThongTin");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.PhanCapCongTrinhCong", b =>
                 {
                     b.HasOne("new_wr_api.Data.ThongTinCongTrinh", "ThongTinCongTrinh")
@@ -6975,6 +7017,8 @@ namespace new_wr_api.Migrations
                     b.Navigation("GiayPhep");
 
                     b.Navigation("HangMuc");
+
+                    b.Navigation("LuuLuongTheoMucDich");
 
                     b.Navigation("ThongSo");
                 });

@@ -5,7 +5,7 @@
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class create_table_quantrac_for_baocao4 : Migration
+    public partial class table_LuuLuongTheoMucDich : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

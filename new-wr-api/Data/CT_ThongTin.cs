@@ -62,5 +62,6 @@ namespace new_wr_api.Data
         public virtual CT_ThongSo? ThongSo { get; set; }
         public virtual ICollection<CT_HangMuc>? HangMuc { get; set; }
         public virtual ICollection<GP_ThongTin>? GiayPhep { get; set; }
+        public virtual ICollection<LuuLuongTheoMucDich>? LuuLuongTheoMucDich { get; set; }
     }
 }

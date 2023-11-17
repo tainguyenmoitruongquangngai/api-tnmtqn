@@ -80,6 +80,7 @@ namespace new_wr_api.Data
         public DbSet<BieuMauSoHaiBa>? BieuMauSoHaiBa { get; set; }
         public DbSet<BieuMauSoHaiTu>? BieuMauSoHaiTu { get; set; }
         public DbSet<BieuMauSoHaiLam>? BieuMauSoHaiLam { get; set; }
+        public DbSet<LuuLuongTheoMucDich>? LuuLuongTheoMucDich { get; set; }
 
         //MoreDatabase
 
