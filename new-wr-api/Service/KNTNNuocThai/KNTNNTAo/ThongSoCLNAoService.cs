@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
-using new_wr_api.Data.KNTiepNhanNuocThai.KNTNNTAo;
 using new_wr_api.Dto;
 
 namespace new_wr_api.Service

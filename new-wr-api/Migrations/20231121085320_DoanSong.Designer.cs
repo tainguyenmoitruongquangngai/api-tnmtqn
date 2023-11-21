@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231121085320_DoanSong")]
+    partial class DoanSong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -5047,20 +5050,17 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("Amoni")
-                        .HasColumnType("float");
+                    b.Property<string>("BOD")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("BOD")
-                        .HasColumnType("float");
+                    b.Property<string>("COD")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("COD")
-                        .HasColumnType("float");
+                    b.Property<string>("ColiformChiuNhiet")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("ColiformChiuNhiet")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("DO")
-                        .HasColumnType("float");
+                    b.Property<string>("DO")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("DaXoa")
                         .HasColumnType("bit");
@@ -5068,11 +5068,11 @@ namespace new_wr_api.Migrations
                     b.Property<string>("MucPLCLNuoc")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("TOC")
-                        .HasColumnType("float");
+                    b.Property<string>("TOC")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("TSS")
-                        .HasColumnType("float");
+                    b.Property<string>("TSS")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TaiKhoanSua")
                         .HasColumnType("nvarchar(max)");
@@ -5083,17 +5083,17 @@ namespace new_wr_api.Migrations
                     b.Property<DateTime?>("ThoiGianSua")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("TongColiform")
-                        .HasColumnType("float");
+                    b.Property<string>("TongColiform")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("TongNito")
-                        .HasColumnType("float");
+                    b.Property<string>("TongNito")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("TongPhosphor")
-                        .HasColumnType("float");
+                    b.Property<string>("TongPhosphor")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("pH")
-                        .HasColumnType("float");
+                    b.Property<string>("pH")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -5216,32 +5216,32 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("AmoniTd")
-                        .HasColumnType("float");
+                    b.Property<string>("AmoniTd")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("BODTd")
-                        .HasColumnType("float");
+                    b.Property<string>("BODTd")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("CODTd")
-                        .HasColumnType("float");
+                    b.Property<string>("CODTd")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("IdDoanSong")
                         .HasColumnType("int");
 
-                    b.Property<double?>("TSSTd")
-                        .HasColumnType("float");
+                    b.Property<string>("TSSTd")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("TongColiformTd")
-                        .HasColumnType("float");
+                    b.Property<string>("TongColiformTd")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("TongNTd")
-                        .HasColumnType("float");
+                    b.Property<string>("TongNTd")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("TongPTd")
-                        .HasColumnType("float");
+                    b.Property<string>("TongPTd")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("pHTd")
-                        .HasColumnType("float");
+                    b.Property<string>("pHTd")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

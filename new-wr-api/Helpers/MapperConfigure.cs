@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using new_wr_api.Data;
-using new_wr_api.Data.KNTiepNhanNuocThai.KNTNNTAo;
 using new_wr_api.Dto;
 using new_wr_api.Models;
 using new_wr_api.Models.Authenticate;
@@ -114,6 +113,10 @@ namespace new_wr_api.Helpers
             //KNTiepNhanNuocThai
             CreateMap<ThongSoCLNSong, ThongSoCLNSongDto>().ReverseMap();
             CreateMap<ThongSoCLNAo, ThongSoCLNAoDto>().ReverseMap();
+            CreateMap<DoanSong, DoanSongDto>()
+                .ForMember(dest => dest.ThongSoLtd, opt => opt.MapFrom(src => src.ThongSoLtd))
+                .ReverseMap();
+            CreateMap<ThongSoLtd, ThongSoLtdDto>().ReverseMap();
 
             //TruLuongNuoc
             CreateMap<Tram_ThongTin, Tram_ThongTinDto>().ReverseMap();

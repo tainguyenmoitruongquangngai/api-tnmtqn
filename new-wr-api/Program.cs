@@ -72,6 +72,7 @@ services.AddScoped<GiamSatService>();
 //khannangtiepnhannuocthai
 services.AddScoped<ThongSoCLNSongService>();
 services.AddScoped<ThongSoCLNAoService>();
+services.AddScoped<DoanSongService>();
 
 services.AddScoped<Tram_ThongTinService>();
 services.AddScoped<NMua_TongLuongService>();

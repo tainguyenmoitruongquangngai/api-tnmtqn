@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
-using new_wr_api.Data.KNTiepNhanNuocThai.KNTNNTAo;
 using new_wr_api.Dto;
 using new_wr_api.Service;
 
