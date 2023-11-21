@@ -58,7 +58,10 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.thongso, opt => opt.MapFrom(src => src.ThongSo))
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
                 .ForMember(dest => dest.giayphep, opt => opt.MapFrom(src => src.GiayPhep))
+                .ForMember(dest => dest.luuluongtheo_mucdich, opt => opt.MapFrom(src => src.LuuLuongTheoMucDich))
             .ReverseMap();
+
+            CreateMap<LuuLuongTheoMucDich, LuuLuongTheoMucDichDto>().ReverseMap();
 
             CreateMap<DonViHC, DonViHCDto>().ReverseMap();
             CreateMap<DonViHC, HuyenDto>().ReverseMap();
