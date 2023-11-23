@@ -12,34 +12,34 @@ namespace new_wr_api.Dto
         public int? IdLuuVuc { get; set; }
         public int? IdTieuLuuVuc { get; set; }
         public int? IdTangChuaNuoc { get; set; }
+        public string? TenCT { get; set; }
+        public string? MaCT { get; set; }
+        public string? ViTriCT { get; set; }
+        public double? X { get; set; }
+        public double? Y { get; set; }
         public string? CapCT { get; set; }
-        public string? CHeDoXT { get; set; }
-        public string? ChuThich { get; set; }
-        public string? KhoiLuongCacHangMucTD { get; set; }
-        public double? MaCT { get; set; }
-        public double? MucDichhKT { get; set; }
-        public string? MucDichHNK { get; set; }
-        public int? MucDichhTD { get; set; }
-        public string? NamBatDauVanHanh { get; set; }
+        public int? NamBatDauVanHanh { get; set; }
         public string? NguonNuocKT { get; set; }
-        public string? NguonNuocXT { get; set; }
+        public string? MucDichhKT { get; set; }
         public string? PhuongThucKT { get; set; }
         public string? PhuongThucXT { get; set; }
-        public string? QKTThietKe { get; set; }
-        public string? QKTThucTe { get; set; }
-        public string? QuyMoHNK { get; set; }
-        public string? SoLuongGieng { get; set; }
-        public string? SoLuongGiengKT { get; set; }
-        public string? SoLuongGiengQT { get; set; }
-        public string? TaiKhoan { get; set; }
-        public int? TenCT { get; set; }
-        public int? ThoiGianHNK { get; set; }
+        public string? CHeDoXT { get; set; }
+        public string? NguonNuocXT { get; set; }
         public string? ThoiGianKT { get; set; }
-        public int? ThoiGianXD { get; set; }
-        public int? ViTriCT { get; set; }
-        public int? ViTriXT { get; set; }
-        public int? X { get; set; }
-        public string? Y { get; set; }
+        public string? ThoiGianHNK { get; set; }
+        public string? MucDichHNK { get; set; }
+        public string? MucDichhTD { get; set; }
+        public string? QuyMoHNK { get; set; }
+        public string? ThoiGianXD { get; set; }
+        public int? SoLuongGiengKT { get; set; }
+        public int? SoLuongGiengQT { get; set; }
+        public string? ChuThich { get; set; }
+        public int? SoLuongGieng { get; set; }
+        public int? KhoiLuongCacHangMucTD { get; set; }
+        public int? QKTThietKe { get; set; }
+        public int? QKTThucTe { get; set; }
+        public string? ViTriXT { get; set; }
+        public string? TaiKhoan { get; set; }
         public bool? DaXoa { get; set; }
 
         public CT_LoaiDto? loaiCT { get; set; }
