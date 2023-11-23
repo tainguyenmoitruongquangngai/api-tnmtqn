@@ -16,7 +16,6 @@ namespace new_wr_api.Data
         public int? IdLuuVuc { get; set; }
         public int? IdTieuLuuVuc { get; set; }
         public int? IdTangChuaNuoc { get; set; }
-        public string? TaiKhoan { get; set; }
         public string? TenCT { get; set; }
         public string? MaCT { get; set; }
         public string? ViTriCT { get; set; }
@@ -25,7 +24,6 @@ namespace new_wr_api.Data
         public string? CapCT { get; set; }
         public int? NamBatDauVanHanh { get; set; }
         public string? NguonNuocKT { get; set; }
-        public string? CheDoKT { get; set; }
         public string? MucDichhKT { get; set; }
         public string? PhuongThucKT { get; set; }
         public string? PhuongThucXT { get; set; }
@@ -45,6 +43,7 @@ namespace new_wr_api.Data
         public int? QKTThietKe { get; set; }
         public int? QKTThucTe { get; set; }
         public string? ViTriXT { get; set; }
+        public string? TaiKhoan { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }
         public DateTime? ThoiGianSua { get; set; }
