@@ -8,6 +8,7 @@
         public double? CaoTrinhCong { get; set; }
         public string? CheDoKT { get; set; }
         public double? CaoTrinhDap { get; set; }
+        public string? CheDoXT { get; set; }
         public double? ChieuCaoDap { get; set; }
         public double? ChieuDaiCong { get; set; }
         public double? ChieuDaiDap { get; set; }
@@ -49,6 +50,7 @@
         public double? MuaTrungBinhNam { get; set; }
         public double? MucNuocDong { get; set; }
         public double? MucNuocTinh { get; set; }
+        public string? PhuongThucXT { get; set; }
         public double? QBomLonNhat { get; set; }
         public double? QBomThietKe { get; set; }
         public double? QDamBao { get; set; }

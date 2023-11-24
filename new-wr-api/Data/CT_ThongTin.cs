@@ -26,8 +26,6 @@ namespace new_wr_api.Data
         public string? NguonNuocKT { get; set; }
         public string? MucDichhKT { get; set; }
         public string? PhuongThucKT { get; set; }
-        public string? PhuongThucXT { get; set; }
-        public string? CHeDoXT { get; set; }
         public string? NguonNuocXT { get; set; }
         public string? ThoiGianKT { get; set; }
         public string? ThoiGianHNK { get; set; }
@@ -37,12 +35,13 @@ namespace new_wr_api.Data
         public string? ThoiGianXD { get; set; }
         public int? SoLuongGiengKT { get; set; }
         public int? SoLuongGiengQT { get; set; }
-        public string? ChuThich { get; set; }
+        public int? SoDiemXaThai { get; set; }
         public int? SoLuongGieng { get; set; }
         public int? KhoiLuongCacHangMucTD { get; set; }
         public int? QKTThietKe { get; set; }
         public int? QKTThucTe { get; set; }
         public string? ViTriXT { get; set; }
+        public string? ChuThich { get; set; }
         public string? TaiKhoan { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }
