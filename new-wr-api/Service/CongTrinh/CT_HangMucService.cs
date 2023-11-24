@@ -79,10 +79,10 @@ namespace new_wr_api.Service
             _context.CT_HangMuc!.Update(existingItem);
 
             // Save changes to the database
-            await _context.SaveChangesAsync();
+            var res = await _context.SaveChangesAsync();
 
             // Return true to indicate successful deletion
-            return true;
+            return res > 0;
         }
     }
 }
