@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\ThongTinDuLieu\**" />
     <Compile Remove="Service\LicenseTypes\**" />
+    <Content Remove="Data\ThongTinDuLieu\**" />
     <Content Remove="Service\LicenseTypes\**" />
+    <EmbeddedResource Remove="Data\ThongTinDuLieu\**" />
     <EmbeddedResource Remove="Service\LicenseTypes\**" />
+    <None Remove="Data\ThongTinDuLieu\**" />
     <None Remove="Service\LicenseTypes\**" />
   </ItemGroup>
 
@@ -31,7 +35,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\ThongTinDuLieu\DanhMucNguonNuoc\" />
     <Folder Include="Service\DonViHC\" />
   </ItemGroup>
 
