@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("api/giay-phep")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class GiayPhepController : ControllerBase
     {
         private readonly GP_ThongTinService _service;
