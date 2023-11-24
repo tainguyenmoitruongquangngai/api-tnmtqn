@@ -29,6 +29,7 @@ services.AddScoped<CT_ThongTinService>();
 services.AddScoped<CT_ThongSoService>();
 services.AddScoped<CT_LoaiService>();
 services.AddScoped<CT_HangMucService>();
+services.AddScoped<LuuLuongTheoMucDichService>();
 
 services.AddScoped<GP_ThongTinService>();
 services.AddScoped<GP_LoaiService>();

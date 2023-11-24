@@ -97,6 +97,7 @@ namespace new_wr_api.Service
             foreach (var dto in congTrinhDtos)
             {
                 dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.hangmuc!.Where(x => x.DaXoa == false));
+                dto.luuluongtheo_mucdich = _mapper.Map<List<LuuLuongTheoMucDichDto>>(dto.luuluongtheo_mucdich!.Where(x => x.DaXoa == false));
 
                 if (!string.IsNullOrEmpty(dto.IdXa))
                 {

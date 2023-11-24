@@ -10,7 +10,7 @@ namespace new_wr_api.Dto
         public double? LuuLuong { get; set; }
         public string? DonViDo { get; set; }
         public string? GhiChu { get; set; }
-        public CT_ThongTinDto? congtrinh { get; set; }
+        public bool? DaXoa { get; set; }
 
     }
 }
