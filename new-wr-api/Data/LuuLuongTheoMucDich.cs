@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using new_wr_api.Dto;
 
 namespace new_wr_api.Data
 {
@@ -21,6 +20,6 @@ namespace new_wr_api.Data
         public bool? DaXoa { get; set; }
 
         [ForeignKey("IdCT")]
-        public CT_ThongTin? CT_ThongTin { get; set; }
+        public virtual CT_ThongTin? CT_ThongTin { get; set; }
     }
 }
