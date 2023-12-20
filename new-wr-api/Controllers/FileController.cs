@@ -5,7 +5,7 @@ using new_wr_api.Models.Files;
 namespace new_wr_api.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("file")]
 
     public class FileController : ControllerBase
     {
