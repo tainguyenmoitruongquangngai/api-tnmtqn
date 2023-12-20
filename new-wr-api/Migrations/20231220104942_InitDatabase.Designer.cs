@@ -12,8 +12,8 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231220055638_initDatabase")]
-    partial class initDatabase
+    [Migration("20231220104942_InitDatabase")]
+    partial class InitDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1412,11 +1412,11 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("CaoTrinhCong")
-                        .HasColumnType("float");
+                    b.Property<string>("CaoTrinhCong")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("CaoTrinhDap")
-                        .HasColumnType("float");
+                    b.Property<string>("CaoTrinhDap")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CheDoKT")
                         .HasColumnType("nvarchar(max)");
@@ -1433,7 +1433,7 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("ChieuDaiDap")
                         .HasColumnType("float");
 
-                    b.Property<double?>("ChieuRongCong")
+                    b.Property<double?>("ChieuRongDap")
                         .HasColumnType("float");
 
                     b.Property<double?>("ChieuSauDoanThuNuocDen")
@@ -1471,6 +1471,9 @@ namespace new_wr_api.Migrations
 
                     b.Property<double?>("DungTichToanBo")
                         .HasColumnType("float");
+
+                    b.Property<string>("DuongKichCong")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("HBeHut")
                         .HasColumnType("float");
@@ -1526,8 +1529,8 @@ namespace new_wr_api.Migrations
                     b.Property<int?>("IdHangMucCT")
                         .HasColumnType("int");
 
-                    b.Property<double?>("KichThuocCong")
-                        .HasColumnType("float");
+                    b.Property<string>("KichThuocCong")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("KqKf")
                         .HasColumnType("float");
@@ -1554,6 +1557,9 @@ namespace new_wr_api.Migrations
                         .HasColumnType("float");
 
                     b.Property<double?>("MucNuocTinh")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NguongTran")
                         .HasColumnType("float");
 
                     b.Property<string>("PhuongThucXT")
@@ -1613,8 +1619,8 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("Qtt")
                         .HasColumnType("float");
 
-                    b.Property<double?>("SoLuongMayBom")
-                        .HasColumnType("float");
+                    b.Property<int?>("SoLuongMayBom")
+                        .HasColumnType("int");
 
                     b.Property<string>("TaiKhoanSua")
                         .HasColumnType("nvarchar(max)");
@@ -1622,14 +1628,14 @@ namespace new_wr_api.Migrations
                     b.Property<string>("TaiKhoanTao")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("ThoiGianBomLonNhat")
-                        .HasColumnType("float");
+                    b.Property<string>("ThoiGianBomLonNhat")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("ThoiGianBomNhoNhat")
-                        .HasColumnType("float");
+                    b.Property<string>("ThoiGianBomNhoNhat")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("ThoiGianBomTB")
-                        .HasColumnType("float");
+                    b.Property<string>("ThoiGianBomTB")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ThoiGianSua")
                         .HasColumnType("datetime2");

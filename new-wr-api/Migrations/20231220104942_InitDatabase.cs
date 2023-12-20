@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class initDatabase : Migration
+    public partial class InitDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -3396,14 +3396,16 @@ namespace new_wr_api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdCT = table.Column<int>(type: "int", nullable: true),
                     IdHangMucCT = table.Column<int>(type: "int", nullable: true),
-                    CaoTrinhCong = table.Column<double>(type: "float", nullable: true),
+                    CaoTrinhCong = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheDoKT = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CaoTrinhDap = table.Column<double>(type: "float", nullable: true),
+                    CaoTrinhDap = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheDoXT = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChieuCaoDap = table.Column<double>(type: "float", nullable: true),
                     ChieuDaiCong = table.Column<double>(type: "float", nullable: true),
                     ChieuDaiDap = table.Column<double>(type: "float", nullable: true),
-                    ChieuRongCong = table.Column<double>(type: "float", nullable: true),
+                    DuongKichCong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ChieuRongDap = table.Column<double>(type: "float", nullable: true),
+                    NguongTran = table.Column<double>(type: "float", nullable: true),
                     ChieuSauDoanThuNuocDen = table.Column<double>(type: "float", nullable: true),
                     ChieuSauDoanThuNuocTu = table.Column<double>(type: "float", nullable: true),
                     CongSuatBom = table.Column<double>(type: "float", nullable: true),
@@ -3431,7 +3433,7 @@ namespace new_wr_api.Migrations
                     HThuongLuu = table.Column<double>(type: "float", nullable: true),
                     HTinh = table.Column<double>(type: "float", nullable: true),
                     HtoiThieu = table.Column<double>(type: "float", nullable: true),
-                    KichThuocCong = table.Column<double>(type: "float", nullable: true),
+                    KichThuocCong = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     KqKf = table.Column<double>(type: "float", nullable: true),
                     LuongNuocKT = table.Column<double>(type: "float", nullable: true),
                     MNC = table.Column<double>(type: "float", nullable: true),
@@ -3460,10 +3462,10 @@ namespace new_wr_api.Migrations
                     QXaThaiLonNhat = table.Column<double>(type: "float", nullable: true),
                     QXaThaiTB = table.Column<double>(type: "float", nullable: true),
                     QXaTran = table.Column<double>(type: "float", nullable: true),
-                    SoLuongMayBom = table.Column<double>(type: "float", nullable: true),
-                    ThoiGianBomLonNhat = table.Column<double>(type: "float", nullable: true),
-                    ThoiGianBomNhoNhat = table.Column<double>(type: "float", nullable: true),
-                    ThoiGianBomTB = table.Column<double>(type: "float", nullable: true),
+                    SoLuongMayBom = table.Column<int>(type: "int", nullable: true),
+                    ThoiGianBomLonNhat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGianBomNhoNhat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGianBomTB = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
