@@ -4,7 +4,7 @@ namespace new_wr_api.Dto
 {
     public class TLN_NuocMua_TongLuongDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdTram { get; set; }
         public int? NgayBatDau { get; set; }
         public int? NgayKetThuc { get; set; }

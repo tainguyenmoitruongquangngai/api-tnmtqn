@@ -2,7 +2,7 @@
 {
     public class SongDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdLuuVuc { get; set; }
         public string? TenSong { get; set; }
         public string? MaSong { get; set; }

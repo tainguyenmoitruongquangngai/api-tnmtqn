@@ -2,7 +2,7 @@
 {
     public class ThongSoCLNAoDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? pH { get; set; }
         public string? BOD { get; set; }
         public string? COD { get; set; }

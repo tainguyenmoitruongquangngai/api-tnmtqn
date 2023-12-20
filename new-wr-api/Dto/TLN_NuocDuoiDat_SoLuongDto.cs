@@ -2,7 +2,7 @@
 {
     public class TLN_NuocDuoiDat_SoLuongDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdTangChuaNuoc { get; set; }
         public int? SoLuongGieng { get; set; }
         public double? HmaxKyTruoc { get; set; }

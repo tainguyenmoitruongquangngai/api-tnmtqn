@@ -2,7 +2,7 @@
 {
     public class LuuVucSongDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? TenLVS { get; set; }
         public string? ChuGiai { get; set; }
         public string? ViTriQT { get; set; }

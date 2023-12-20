@@ -2,7 +2,7 @@
 {
     public class DonViHCDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? TenTinh { get; set; }
         public string? IdTinh { get; set; }
         public string? TenHuyen { get; set; }

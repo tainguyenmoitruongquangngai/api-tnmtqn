@@ -4,7 +4,7 @@ namespace new_wr_api.Dto
 {
     public class GP_ThongTinDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdCon { get; set; }
         public int? IdLoaiGP { get; set; }
         public int? IdTCCN { get; set; }

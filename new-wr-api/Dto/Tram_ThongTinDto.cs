@@ -2,7 +2,7 @@
 {
     public class Tram_ThongTinDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdXa { get; set; }
         public int? IdHuyen { get; set; }
         public int? IdLoaiTram { get; set; }

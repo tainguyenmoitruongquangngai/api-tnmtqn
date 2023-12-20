@@ -99,7 +99,7 @@ namespace new_wr_api.Helpers
             CreateMap<BieuMauSoMuoiHai, BieuMauMuoiHaiDto>().ReverseMap();
             CreateMap<BieuMauSoMuoiBa, BieuMauMuoiBaDto>().ReverseMap();
             CreateMap<BieuMauSoMuoiBon, BieuMauMuoiBonDto>().ReverseMap();
-            CreateMap<BieuMauSoMuoiNam, BieuMauMuoiNamDto>().ReverseMap();
+            CreateMap<BieuMauSoMuoiNam, BieuMauMuoiLamDto>().ReverseMap();
             CreateMap<BieuMauSoMuoiSau, BieuMauMuoiSauDto>().ReverseMap();
             CreateMap<BieuMauSoMuoiBay, BieuMauMuoiBayDto>().ReverseMap();
             CreateMap<BieuMauSoMuoiTam, BieuMauMuoiTamDto>().ReverseMap();

@@ -5,7 +5,7 @@ namespace new_wr_api.Dto
 {
     public class TLN_NuocMat_TongLuongDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdLuuVucSong { get; set; }
         public int? Nam { get; set; }
         public double? Thang1 { get; set; }

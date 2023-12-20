@@ -19,14 +19,14 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("danhsach")]
-        public async Task<List<BieuMauMuoiNamDto>> GetAll()
+        public async Task<List<BieuMauMuoiLamDto>> GetAll()
         {
             return await _service.GetAllBieuMauMuoiNamAsync();
         }
 
         [HttpPost]
         [Route("luu")]
-        public async Task<ActionResult<BieuMauSoMuoiNam>> Save(BieuMauMuoiNamDto dto)
+        public async Task<ActionResult<BieuMauSoMuoiNam>> Save(BieuMauMuoiLamDto dto)
         {
             var res = await _service.SaveBieuMauMuoiNamAsync(dto);
             if (res == true)

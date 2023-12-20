@@ -4,7 +4,7 @@ namespace new_wr_api.Dto
 {
     public class LuuLuongTheoMucDichDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdCT { get; set; }
         public string? MucDich { get; set; }
         public double? LuuLuong { get; set; }

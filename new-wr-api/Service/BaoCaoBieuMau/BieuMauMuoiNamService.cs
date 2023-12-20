@@ -15,13 +15,13 @@ namespace new_wr_api.Service
             _context = context;
             _mapper = mapper;
         }
-        public async Task<List<BieuMauMuoiNamDto>> GetAllBieuMauMuoiNamAsync()
+        public async Task<List<BieuMauMuoiLamDto>> GetAllBieuMauMuoiNamAsync()
         {
             var items = await _context.BieuMauSoMuoiNam!.Where(x => x.Id > 0).ToListAsync();
-            return _mapper.Map<List<BieuMauMuoiNamDto>>(items);
+            return _mapper.Map<List<BieuMauMuoiLamDto>>(items);
         }
 
-        public async Task<bool> SaveBieuMauMuoiNamAsync(BieuMauMuoiNamDto dto)
+        public async Task<bool> SaveBieuMauMuoiNamAsync(BieuMauMuoiLamDto dto)
         {
             var exitsItem = await _context!.BieuMauSoMuoiNam!.FindAsync(dto.Id);
 

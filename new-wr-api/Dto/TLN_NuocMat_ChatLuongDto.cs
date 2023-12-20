@@ -2,7 +2,7 @@
 {
     public class TLN_NuocMat_ChatLuongDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int? IdXa { get; set; }
         public int? IdHuyen { get; set; }
         public int? IdTinh { get; set; }
