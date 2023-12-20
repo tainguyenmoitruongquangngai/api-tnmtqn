@@ -12,8 +12,8 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231123085536_Update__CT_ThongSo")]
-    partial class Update__CT_ThongSo
+    [Migration("20231220055638_initDatabase")]
+    partial class initDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1421,6 +1421,9 @@ namespace new_wr_api.Migrations
                     b.Property<string>("CheDoKT")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CheDoXT")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("ChieuCaoDap")
                         .HasColumnType("float");
 
@@ -1553,6 +1556,9 @@ namespace new_wr_api.Migrations
                     b.Property<double?>("MucNuocTinh")
                         .HasColumnType("float");
 
+                    b.Property<string>("PhuongThucXT")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("QBomLonNhat")
                         .HasColumnType("float");
 
@@ -1652,9 +1658,6 @@ namespace new_wr_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CHeDoXT")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CapCT")
                         .HasColumnType("nvarchar(max)");
 
@@ -1712,9 +1715,6 @@ namespace new_wr_api.Migrations
                     b.Property<string>("PhuongThucKT")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhuongThucXT")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("QKTThietKe")
                         .HasColumnType("int");
 
@@ -1723,6 +1723,9 @@ namespace new_wr_api.Migrations
 
                     b.Property<string>("QuyMoHNK")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SoDiemXaThai")
+                        .HasColumnType("int");
 
                     b.Property<int?>("SoLuongGieng")
                         .HasColumnType("int");
@@ -3260,6 +3263,18 @@ namespace new_wr_api.Migrations
 
                     b.Property<string>("MucDich")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiGianTao")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

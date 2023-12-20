@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class NDD_TongLuongController : ControllerBase
     {
         private readonly NDD_TongLuongService _service;

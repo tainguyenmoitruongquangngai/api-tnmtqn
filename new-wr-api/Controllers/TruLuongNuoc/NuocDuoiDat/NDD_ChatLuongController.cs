@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class NDD_ChatLuongController : ControllerBase
     {
         private readonly NDD_ChatLuongService _service;

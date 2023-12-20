@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class DoanSongController : ControllerBase
     {
         private readonly DoanSongService _service;
