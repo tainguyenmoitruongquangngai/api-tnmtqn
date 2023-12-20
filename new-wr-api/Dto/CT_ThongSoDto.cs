@@ -5,14 +5,16 @@
         public int? Id { get; set; }
         public int? IdCT { get; set; }
         public int? IdHangMucCT { get; set; }
-        public double? CaoTrinhCong { get; set; }
+        public string? CaoTrinhCong { get; set; }
         public string? CheDoKT { get; set; }
-        public double? CaoTrinhDap { get; set; }
+        public string? CaoTrinhDap { get; set; }
         public string? CheDoXT { get; set; }
         public double? ChieuCaoDap { get; set; }
         public double? ChieuDaiCong { get; set; }
         public double? ChieuDaiDap { get; set; }
-        public double? ChieuRongCong { get; set; }
+        public string? DuongKichCong { get; set; }
+        public double? ChieuRongDap { get; set; }
+        public double? NguongTran { get; set; }
         public double? ChieuSauDoanThuNuocDen { get; set; }
         public double? ChieuSauDoanThuNuocTu { get; set; }
         public double? CongSuatBom { get; set; }
@@ -40,7 +42,7 @@
         public double? HThuongLuu { get; set; }
         public double? HTinh { get; set; }
         public double? HtoiThieu { get; set; }
-        public double? KichThuocCong { get; set; }
+        public string? KichThuocCong { get; set; }
         public double? KqKf { get; set; }
         public double? LuongNuocKT { get; set; }
         public double? MNC { get; set; }
@@ -69,10 +71,14 @@
         public double? QXaThaiLonNhat { get; set; }
         public double? QXaThaiTB { get; set; }
         public double? QXaTran { get; set; }
-        public double? SoLuongMayBom { get; set; }
-        public double? ThoiGianBomLonNhat { get; set; }
-        public double? ThoiGianBomNhoNhat { get; set; }
-        public double? ThoiGianBomTB { get; set; }
+        public int? SoLuongMayBom { get; set; }
+        public string? ThoiGianBomLonNhat { get; set; }
+        public string? ThoiGianBomNhoNhat { get; set; }
+        public string? ThoiGianBomTB { get; set; }
+        public DateTime? ThoiGianTao { get; set; }
+        public string? TaiKhoanTao { get; set; }
+        public DateTime? ThoiGianSua { get; set; }
+        public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
     }
 }
