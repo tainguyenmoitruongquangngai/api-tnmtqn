@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/to-chuc-ca-nhan")]
+    [Route("to-chuc-ca-nhan")]
     [ApiController]
     [Authorize]
     public class ToChucCaNhanController : ControllerBase

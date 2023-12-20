@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class BieuMauSoBonController : ControllerBase
     {

@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/hanh-chinh")]
+    [Route("hanh-chinh")]
     [ApiController]
     [Authorize]
     public class DonViHCController : ControllerBase

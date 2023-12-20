@@ -7,7 +7,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/giay-phep")]
+    [Route("giay-phep")]
     [ApiController]
     [Authorize]
     public class GiayPhepController : ControllerBase

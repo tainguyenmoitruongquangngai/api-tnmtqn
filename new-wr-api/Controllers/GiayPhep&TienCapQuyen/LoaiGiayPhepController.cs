@@ -7,7 +7,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/loai-gp")]
+    [Route("loai-gp")]
     [ApiController]
     [Authorize]
     public class LoaiGiayPhepController : ControllerBase

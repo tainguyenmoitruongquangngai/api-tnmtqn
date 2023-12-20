@@ -6,7 +6,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/loai-ct")]
+    [Route("loai-ct")]
     [ApiController]
     [Authorize]
     public class LoaiCongTrinhController : ControllerBase

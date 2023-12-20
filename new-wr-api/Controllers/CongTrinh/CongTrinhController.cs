@@ -7,7 +7,7 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
-    [Route("api/cong-trinh")]
+    [Route("cong-trinh")]
     [ApiController]
     //[Authorize]
     public class CongTrinhController : ControllerBase
