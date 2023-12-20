@@ -36,6 +36,7 @@ namespace new_wr_api.Service
                 .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc!).ThenInclude(hm => hm!.ThongSo)
                 .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.ThongSo)
                 .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.LoaiCT)
+                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.LuuLuongTheoMucDich)
                 .Include(gp => gp.GP_TCQ)
                 .OrderBy(x => x.NgayKy)
                 .AsQueryable();
