@@ -17,7 +17,7 @@ namespace new_wr_api.Data
         public double? ChieuCaoDap { get; set; }
         public double? ChieuDaiCong { get; set; }
         public double? ChieuDaiDap { get; set; }
-        public string? DuongKichCong { get; set; }
+        public string? DuongKinhCong { get; set; }
         public double? ChieuRongDap { get; set; }
         public double? NguongTran { get; set; }
         public double? ChieuSauDoanThuNuocDen { get; set; }
