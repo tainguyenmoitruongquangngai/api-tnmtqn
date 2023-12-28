@@ -6,6 +6,7 @@ namespace new_wr_api.Data
     {
         public string? PasswordSalt { get; set; }
         public string? FullName { get; set; }
+        public string? IdHuyen { get; set; }
         public DateTime? CreatedTime { get; set; }
         public string? CreatedUser { get; set; }
         public DateTime? ModifiedTime { get; set; }

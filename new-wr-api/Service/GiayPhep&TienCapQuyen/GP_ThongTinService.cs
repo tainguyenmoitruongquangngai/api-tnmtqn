@@ -41,6 +41,19 @@ namespace new_wr_api.Service
                 .OrderBy(x => x.NgayKy)
                 .AsQueryable();
 
+            // Apply filters based on input parameters
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+
+            if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
+            {
+                query = query.Where(x => x.CongTrinh!.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
+            }
+
+            if (await _userManager.IsInRoleAsync(currentUser!, "District"))
+            {
+                query = query.Where(x => x.CongTrinh!.IdHuyen == currentUser!.IdHuyen);
+            }
+
             if (!string.IsNullOrEmpty(filterDto.so_gp))
             {
                 query = query.Where(x => x.SoGP!.Contains(filterDto.so_gp));

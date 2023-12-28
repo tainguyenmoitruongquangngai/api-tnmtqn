@@ -31,6 +31,7 @@ namespace new_wr_api.Service
                 .Include(ct => ct.TangChuaNuoc)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
+                .Include(ct => ct.GiayPhep)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
                 .Include(ct => ct.LuuLuongTheoMucDich)
@@ -38,6 +39,18 @@ namespace new_wr_api.Service
                 .AsQueryable();
 
             // Apply filters based on input parameters
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+
+            if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
+            {
+                query = query.Where(ct => ct.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
+            }
+
+            if (await _userManager.IsInRoleAsync(currentUser!, "District"))
+            {
+                query = query.Where(ct => ct.IdHuyen == currentUser!.IdHuyen);
+            }
+
             if (!string.IsNullOrEmpty(TenCT))
             {
                 query = query.Where(ct => ct.TenCT!.Contains(TenCT));
