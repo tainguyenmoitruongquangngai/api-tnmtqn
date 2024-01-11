@@ -23,14 +23,16 @@ namespace new_wr_api.Service
         public SignInManager<AspNetUsers> _signInManager { get; }
 
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public AuthService(UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, RoleManager<AspNetRoles> roleManager, IConfiguration configuration, Data.DatabaseContext context)
+        public AuthService(UserManager<AspNetUsers> userManager, SignInManager<AspNetUsers> signInManager, RoleManager<AspNetRoles> roleManager, IConfiguration configuration, Data.DatabaseContext context, IHttpContextAccessor httpContext)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _httpContext = httpContext;
         }
 
         public async Task<bool> RegisterAsync(UserModel model)
@@ -162,12 +164,13 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> UpdatePasswordAsync(UserModel model, string currentPassword, string newPassword)
+        public async Task<bool> UpdatePasswordAsync(string currentPassword, string newPassword, string newConfirmPassword)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName!);
+            if (newPassword != newConfirmPassword) return false;
+            var user = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+            if (user == null) return false;
             var res = await _userManager.ChangePasswordAsync(user!, currentPassword, newPassword);
-            if (res.Succeeded) { return true; }
-            return false;
+            return res.Succeeded;
         }
 
         public async Task<bool> SetPasswordAsync(UserModel model, string newPassword)

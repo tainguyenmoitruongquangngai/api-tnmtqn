@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Models;
+using System.Security.Claims;
 using new_wr_api.Models.Authenticate;
 using new_wr_api.Service;
 
@@ -47,18 +49,18 @@ namespace new_wr_api.Controllers
         }
 
         [HttpPost]
-        [Route("change-password/{userId}")]
+        [Route("change-password")]
         //[Authorize(Roles = "Administrator")]
-        public async Task<ActionResult<AspNetUsers>> UpdatePassword(UserModel modle, string currentPassword, string newPassword)
+        public async Task<ActionResult<AspNetUsers>> UpdatePassword(string currentPassword, string newPassword, string newConfirmPassword)
         {
-            var res = await _repo.UpdatePasswordAsync(modle, currentPassword, newPassword);
+            var res = await _repo.UpdatePasswordAsync(currentPassword, newPassword, newConfirmPassword);
             if (res == true)
             {
                 return Ok(new { message = "Đổi mật khẩu thành công" });
             }
             else
             {
-                return BadRequest(new { message = "Mật khẩu không chính xác", error = true });
+                return BadRequest(new { message = "Đổi mật khẩu thất bại", error = true });
             }
         }
 
@@ -70,11 +72,11 @@ namespace new_wr_api.Controllers
             var res = await _repo.SetPasswordAsync(modle, newPassword);
             if (res == true)
             {
-                return Ok(new { message = "Đổi mật khẩu thành công" });
+                return Ok(new { message = "Đặt mật khẩu thành công" });
             }
             else
             {
-                return BadRequest(new { message = "Mật khẩu không chính xác", error = true });
+                return BadRequest(new { message = "Đặt mật khẩu thất bại", error = true });
             }
         }
 
