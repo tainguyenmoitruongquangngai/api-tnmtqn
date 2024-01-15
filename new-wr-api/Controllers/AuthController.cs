@@ -50,7 +50,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("change-password")]
-        //[Authorize(Roles = "Administrator")]
         public async Task<ActionResult<AspNetUsers>> UpdatePassword(string currentPassword, string newPassword, string newConfirmPassword)
         {
             var res = await _repo.UpdatePasswordAsync(currentPassword, newPassword, newConfirmPassword);
@@ -60,13 +59,13 @@ namespace new_wr_api.Controllers
             }
             else
             {
-                return BadRequest(new { message = "Đổi mật khẩu thất bại", error = true });
+                //return BadRequest(new { message = "Đổi mật khẩu thất bại", error = true });
+                return BadRequest(new { message = "Đổi mật khẩu thất bại", error = true, data = new { currentPassword, newPassword, newConfirmPassword} });
             }
         }
 
         [HttpPost]
         [Route("set-password")]
-        //[Authorize(Roles = "Administrator")]
         public async Task<ActionResult<AspNetUsers>> SetPassword(UserModel modle, string newPassword)
         {
             var res = await _repo.SetPasswordAsync(modle, newPassword);
@@ -82,7 +81,6 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("assign-role")]
-        //[Authorize(Roles = "Administrator")]
         public async Task<ActionResult> AssignRole(AssignRoleModel model)
         {
             var res = await _repo.AssignRoleAsync(model);

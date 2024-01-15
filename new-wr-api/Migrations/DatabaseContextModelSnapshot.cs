@@ -1674,7 +1674,7 @@ namespace new_wr_api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("IdHuyen")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("IdLoaiCT")
                         .HasColumnType("int");
@@ -1692,7 +1692,7 @@ namespace new_wr_api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("IdXa")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("KhoiLuongCacHangMucTD")
                         .HasColumnType("int");
@@ -1783,9 +1783,13 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdHuyen");
+
                     b.HasIndex("IdLoaiCT");
 
                     b.HasIndex("IdTangChuaNuoc");
+
+                    b.HasIndex("IdXa");
 
                     b.ToTable("CT_ThongTin");
                 });
@@ -3046,6 +3050,38 @@ namespace new_wr_api.Migrations
                         .HasFilter("[MaCongTrinhHoChua] IS NOT NULL");
 
                     b.ToTable("HangMucNhaMay");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Huyen", b =>
+                {
+                    b.Property<string>("IdHuyen")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CapHanhChinh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenHuyen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiGianTao")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IdHuyen");
+
+                    b.ToTable("Huyen");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.KQCGHTHGPKTSDN_CongTrinh", b =>
@@ -6342,6 +6378,43 @@ namespace new_wr_api.Migrations
                     b.ToTable("UserDashboards");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.Xa", b =>
+                {
+                    b.Property<string>("IdXa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CapHanhChinh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("IdHuyen")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenXa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiGianTao")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IdXa");
+
+                    b.HasIndex("IdHuyen");
+
+                    b.ToTable("Xa");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("new_wr_api.Data.AspNetRoles", null)
@@ -6451,6 +6524,10 @@ namespace new_wr_api.Migrations
 
             modelBuilder.Entity("new_wr_api.Data.CT_ThongTin", b =>
                 {
+                    b.HasOne("new_wr_api.Data.Huyen", "Huyen")
+                        .WithMany("CongTrinh")
+                        .HasForeignKey("IdHuyen");
+
                     b.HasOne("new_wr_api.Data.CT_Loai", "LoaiCT")
                         .WithMany("CongTrinh")
                         .HasForeignKey("IdLoaiCT");
@@ -6459,9 +6536,17 @@ namespace new_wr_api.Migrations
                         .WithMany("CongTrinh")
                         .HasForeignKey("IdTangChuaNuoc");
 
+                    b.HasOne("new_wr_api.Data.Xa", "Xa")
+                        .WithMany("CongTrinh")
+                        .HasForeignKey("IdXa");
+
+                    b.Navigation("Huyen");
+
                     b.Navigation("LoaiCT");
 
                     b.Navigation("TangChuaNuoc");
+
+                    b.Navigation("Xa");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CacCapBaoDongMucNuocLu", b =>
@@ -7151,6 +7236,15 @@ namespace new_wr_api.Migrations
                     b.Navigation("QLC_CongTrinh");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.Xa", b =>
+                {
+                    b.HasOne("new_wr_api.Data.Huyen", "Huyen")
+                        .WithMany("Xa")
+                        .HasForeignKey("IdHuyen");
+
+                    b.Navigation("Huyen");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.CT_HangMuc", b =>
                 {
                     b.Navigation("ThongSo");
@@ -7237,6 +7331,13 @@ namespace new_wr_api.Migrations
                     b.Navigation("GiaTriLuuLuongXaQuaNhaMay");
 
                     b.Navigation("ThongTinNhaMay");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Huyen", b =>
+                {
+                    b.Navigation("CongTrinh");
+
+                    b.Navigation("Xa");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.LoaiTramQuanTracLuongMua", b =>
@@ -7387,6 +7488,11 @@ namespace new_wr_api.Migrations
             modelBuilder.Entity("new_wr_api.Data.TrangThaiTaiKhoan", b =>
                 {
                     b.Navigation("TaiKhoanKetNoi");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Xa", b =>
+                {
+                    b.Navigation("CongTrinh");
                 });
 #pragma warning restore 612, 618
         }

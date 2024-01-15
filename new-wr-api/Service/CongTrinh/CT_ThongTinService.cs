@@ -31,7 +31,8 @@ namespace new_wr_api.Service
                 .Include(ct => ct.TangChuaNuoc)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
-                .Include(ct => ct.GiayPhep)
+                .Include(ct => ct.Xa)
+                .Include(ct => ct.Huyen)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
                 .Include(ct => ct.LuuLuongTheoMucDich)
@@ -41,14 +42,17 @@ namespace new_wr_api.Service
             // Apply filters based on input parameters
             var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
 
-            if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
+            if (currentUser != null)
             {
-                query = query.Where(ct => ct.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
-            }
+                if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
+                {
+                    query = query.Where(ct => ct.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
+                }
 
-            if (await _userManager.IsInRoleAsync(currentUser!, "District"))
-            {
-                query = query.Where(ct => ct.IdHuyen == currentUser!.IdHuyen);
+                if (await _userManager.IsInRoleAsync(currentUser!, "District"))
+                {
+                    query = query.Where(ct => ct.IdHuyen == currentUser!.IdHuyen);
+                }
             }
 
             if (!string.IsNullOrEmpty(TenCT))
@@ -111,12 +115,6 @@ namespace new_wr_api.Service
             {
                 dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.hangmuc!.Where(x => x.DaXoa == false));
                 dto.luuluongtheo_mucdich = _mapper.Map<List<LuuLuongTheoMucDichDto>>(dto.luuluongtheo_mucdich!.Where(x => x.DaXoa == false));
-
-                if (!string.IsNullOrEmpty(dto.IdXa))
-                {
-                    dto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
-                        .FirstOrDefaultAsync(dv => dv.IdXa == dto.IdXa));
-                }
 
                 dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(dto.giayphep!.Where(x => x.DaXoa == false));
 

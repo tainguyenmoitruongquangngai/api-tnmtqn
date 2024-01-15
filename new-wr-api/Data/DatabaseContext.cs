@@ -34,6 +34,8 @@ namespace new_wr_api.Data
         public DbSet<CT_ThongTin>? CT_ThongTin { get; set; }
         public DbSet<CT_ThongSo>? CT_ThongSo { get; set; }
         public DbSet<DonViHC>? DonViHC { get; set; }
+        public DbSet<Huyen>? Huyen { get; set; }
+        public DbSet<Xa>? Xa { get; set; }
         public DbSet<GP_Loai>? GP_Loai { get; set; }
         public DbSet<GP_TCQ>? GP_TCQ { get; set; }
         public DbSet<GP_ThongTin>? GP_ThongTin { get; set; }

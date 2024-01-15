@@ -57,6 +57,12 @@ namespace new_wr_api.Data
         [ForeignKey("IdLoaiCT")]
         public virtual CT_Loai? LoaiCT { get; set; }
 
+        [ForeignKey("IdHuyen")]
+        public virtual Huyen? Huyen { get; set; }
+
+        [ForeignKey("IdXa")]
+        public virtual Xa? Xa { get; set; }
+
         public virtual CT_ThongSo? ThongSo { get; set; }
         public virtual ICollection<CT_HangMuc>? HangMuc { get; set; }
         public virtual ICollection<GP_ThongTin>? GiayPhep { get; set; }

@@ -55,6 +55,8 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.loaiCT, opt => opt.MapFrom(src => src.LoaiCT))
                 .ForMember(dest => dest.hangmuc, opt => opt.MapFrom(src => src.HangMuc))
                 .ForMember(dest => dest.thongso, opt => opt.MapFrom(src => src.ThongSo))
+                .ForMember(dest => dest.huyen, opt => opt.MapFrom(src => src.Huyen))
+                .ForMember(dest => dest.xa, opt => opt.MapFrom(src => src.Xa))
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
                 .ForMember(dest => dest.giayphep, opt => opt.MapFrom(src => src.GiayPhep))
                 .ForMember(dest => dest.luuluongtheo_mucdich, opt => opt.MapFrom(src => src.LuuLuongTheoMucDich))
@@ -63,8 +65,8 @@ namespace new_wr_api.Helpers
             CreateMap<LuuLuongTheoMucDich, LuuLuongTheoMucDichDto>().ReverseMap();
 
             CreateMap<DonViHC, DonViHCDto>().ReverseMap();
-            CreateMap<DonViHC, HuyenDto>().ReverseMap();
-            CreateMap<DonViHC, XaDto>().ReverseMap();
+            CreateMap<Huyen, HuyenDto>().ReverseMap();
+            CreateMap<Xa, XaDto>().ReverseMap();
 
             CreateMap<GP_Loai, GP_LoaiDto>().ReverseMap();
             CreateMap<GP_ThongTin, GP_ThongTinDto>()

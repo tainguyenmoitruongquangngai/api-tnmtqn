@@ -45,8 +45,9 @@ namespace new_wr_api.Dto
         public List<CT_HangMucDto>? hangmuc { get; set; }
         public CT_ThongSoDto? thongso { get; set; }
         public DonViHCDto? donvi_hanhchinh { get; set; }
+        public HuyenDto? huyen { get; set; }
+        public XaDto? xa { get; set; }
         public List<GP_ThongTinDto>? giayphep { get; set; }
         public List<LuuLuongTheoMucDichDto>? luuluongtheo_mucdich { get; set; }
-
     }
 }
