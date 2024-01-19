@@ -25,6 +25,8 @@ namespace new_wr_api.Service
         // Method to retrieve a list of CT_ThongTin entities based on specified filters
         public async Task<List<CT_ThongTinDto>> GetAllAsync(string? TenCT, int? IdLoaiCT, int? IdHuyen, int? IdXa, int? IdSong, int? IdLuuVuc, int? IdTieuLuuVuc, int? IdTangChuaNuoc, int IdTCCN, string? NguonNuocKT)
         {
+            _context.Database.SetCommandTimeout(120);
+
             var query = _context.CT_ThongTin!
                 .Where(ct => ct.DaXoa == false)
                 .Include(ct => ct.LoaiCT)
