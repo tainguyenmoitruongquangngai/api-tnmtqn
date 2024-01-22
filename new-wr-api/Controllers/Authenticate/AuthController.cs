@@ -22,9 +22,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult> Register(UserModel modle)
+        public async Task<ActionResult> Register(UserModel model)
         {
-            var res = await _repo.RegisterAsync(modle);
+            var res = await _repo.RegisterAsync(model);
             if (res == true)
             {
                 return Ok(new { message = "Đăng ký tài khoản thành công" });
@@ -50,9 +50,9 @@ namespace new_wr_api.Controllers
 
         [HttpPost]
         [Route("change-password")]
-        public async Task<ActionResult<AspNetUsers>> UpdatePassword(string currentPassword, string newPassword, string newConfirmPassword)
+        public async Task<ActionResult<AspNetUsers>> UpdatePassword(ChangePasswordModel model)
         {
-            var res = await _repo.UpdatePasswordAsync(currentPassword, newPassword, newConfirmPassword);
+            var res = await _repo.UpdatePasswordAsync(model);
             if (res == true)
             {
                 return Ok(new { message = "Đổi mật khẩu thành công" });
@@ -60,15 +60,15 @@ namespace new_wr_api.Controllers
             else
             {
                 //return BadRequest(new { message = "Đổi mật khẩu thất bại", error = true });
-                return BadRequest(new { message = "Đổi mật khẩu thất bại", error = true, data = new { currentPassword, newPassword, newConfirmPassword} });
+                return BadRequest(new { message = "Đổi mật khẩu thất bại", error = true, data = new { model } });
             }
         }
 
         [HttpPost]
         [Route("set-password")]
-        public async Task<ActionResult<AspNetUsers>> SetPassword(UserModel modle, string newPassword)
+        public async Task<ActionResult<AspNetUsers>> SetPassword(SetPasswordModel model)
         {
-            var res = await _repo.SetPasswordAsync(modle, newPassword);
+            var res = await _repo.SetPasswordAsync(model);
             if (res == true)
             {
                 return Ok(new { message = "Đặt mật khẩu thành công" });

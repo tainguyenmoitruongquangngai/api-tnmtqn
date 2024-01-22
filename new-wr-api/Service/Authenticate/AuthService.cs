@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using new_wr_api.Models.Authenticate;
 using new_wr_api.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace new_wr_api.Service
 {
@@ -164,25 +165,30 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> UpdatePasswordAsync(string currentPassword, string newPassword, string newConfirmPassword)
+        public async Task<bool> UpdatePasswordAsync(ChangePasswordModel model)
         {
-            if (newPassword != newConfirmPassword) return false;
+            var ret = false;
+            if (model.currentPassword != model.newConfirmPassword) ret = false;
             var user = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
-            if (user == null) return false;
-            var res = await _userManager.ChangePasswordAsync(user!, currentPassword, newPassword);
-            return res.Succeeded;
+            if (user == null) ret = false;
+            if (model.currentPassword != null || model.newPassword != null)
+            {
+                var res = await _userManager.ChangePasswordAsync(user!, model.currentPassword!, model.newPassword!);
+                ret = res.Succeeded;
+            }
+            return ret;
         }
 
-        public async Task<bool> SetPasswordAsync(UserModel model, string newPassword)
+        public async Task<bool> SetPasswordAsync(SetPasswordModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName!);
+            var user = await _userManager.FindByNameAsync(model.user!.UserName!);
 
             if (user != null)
             {
                 var removePasswordResult = await _userManager.RemovePasswordAsync(user);
                 if (removePasswordResult.Succeeded)
                 {
-                    var addPasswordResult = await _userManager.AddPasswordAsync(user, newPassword);
+                    var addPasswordResult = await _userManager.AddPasswordAsync(user, model.newPassword!);
                     return addPasswordResult.Succeeded;
                 }
             }
