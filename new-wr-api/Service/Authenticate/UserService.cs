@@ -107,7 +107,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> SaveUserAsync(UserModel model)
         {
-            var existingUser = await _userManager.FindByIdAsync(model.Id);
+            var existingUser = await _userManager.FindByIdAsync(model.Id!);
 
             if (existingUser == null)
             {
@@ -123,7 +123,7 @@ namespace new_wr_api.Service
                     IsDeleted = false
                 };
 
-                var res = await _userManager.CreateAsync(user, model.Password);
+                var res = await _userManager.CreateAsync(user, model.Password!);
 
                 var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 

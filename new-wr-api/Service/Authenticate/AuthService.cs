@@ -48,7 +48,7 @@ namespace new_wr_api.Service
                 IsDeleted = false
             };
 
-            var res = await _userManager.CreateAsync(user, model.Password);
+            var res = await _userManager.CreateAsync(user, model.Password!);
 
             var role = await _roleManager.Roles.FirstOrDefaultAsync(u => u.IsDefault == true);
 
