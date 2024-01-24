@@ -50,7 +50,7 @@ namespace new_wr_api.Dto
             }
         }
 
-        public List<GP_ThongTinDto>? giayphep_cu { get; set; }
+        public GP_ThongTinDto? giayphep_cu { get; set; }
         public GP_LoaiDto? loaiGP { get; set; }
         public TangChuaNuocDto? tangchuanuoc { get; set; }
         public CT_ThongTinDto? congtrinh { get; set; }

@@ -190,10 +190,10 @@ namespace new_wr_api.Service
                 dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
             }
 
-            var gp_cu = await _context.GP_ThongTin!.Where(gp => gp.Id == dto.IdCon && gp.DaXoa == false).ToListAsync();
+            var gp_cu = await _context.GP_ThongTin!.FirstOrDefaultAsync(gp => gp.Id == dto.IdCon && gp.DaXoa == false);
             if (gp_cu != null)
             {
-                dto.giayphep_cu = _mapper.Map<List<GP_ThongTinDto>>(gp_cu);
+                dto.giayphep_cu = _mapper.Map<GP_ThongTinDto>(gp_cu);
             }
 
             // Assuming this code is within an async method
