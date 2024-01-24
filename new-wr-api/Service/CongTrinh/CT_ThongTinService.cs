@@ -42,21 +42,6 @@ namespace new_wr_api.Service
                 .AsQueryable();
 
             // Apply filters based on input parameters
-            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
-
-            if (currentUser != null)
-            {
-                if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
-                {
-                    query = query.Where(ct => ct.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
-                }
-
-                if (await _userManager.IsInRoleAsync(currentUser!, "District"))
-                {
-                    query = query.Where(ct => ct.IdHuyen == currentUser!.IdHuyen);
-                }
-            }
-
             if (!string.IsNullOrEmpty(TenCT))
             {
                 query = query.Where(ct => ct.TenCT!.Contains(TenCT));
@@ -107,6 +92,21 @@ namespace new_wr_api.Service
                 query = query.Where(ct => ct.NguonNuocKT!.Contains(NguonNuocKT));
             }
 
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+
+            if (currentUser != null)
+            {
+                if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
+                {
+                    query = query.Where(ct => ct.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
+                }
+
+                if (await _userManager.IsInRoleAsync(currentUser!, "District"))
+                {
+                    query = query.Where(ct => ct.IdHuyen == currentUser!.IdHuyen);
+                }
+            }
+
             var congtrinh = await query.ToListAsync();
 
             // Map the result to DTOs
@@ -115,23 +115,7 @@ namespace new_wr_api.Service
             // Further processing on DTOs
             foreach (var dto in congTrinhDtos)
             {
-                dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.hangmuc!.Where(x => x.DaXoa == false));
-                dto.luuluongtheo_mucdich = _mapper.Map<List<LuuLuongTheoMucDichDto>>(dto.luuluongtheo_mucdich!.Where(x => x.DaXoa == false));
-
-                dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(dto.giayphep!.Where(x => x.DaXoa == false));
-
-                foreach (var dtoGP in dto.giayphep)
-                {
-                    var tcqIds = dtoGP.gp_tcq!.Select(x => x.IdTCQ).ToList();
-
-                    var tcqThongTinList = await _context.TCQ_ThongTin!
-                        .Where(x => tcqIds.Contains(x.Id) && x.DaXoa == false)
-                        .ToListAsync();
-
-                    dtoGP.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
-
-                    dtoGP.gp_tcq = null;
-                }
+                await PopulateDataAsync(dto);
             }
 
             // Return the list of DTOs
@@ -147,8 +131,11 @@ namespace new_wr_api.Service
                 .Include(ct => ct.TangChuaNuoc)
                 .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
                 .Include(ct => ct.ThongSo)
+                .Include(ct => ct.Xa)
+                .Include(ct => ct.Huyen)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
                 .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
+                .Include(ct => ct.LuuLuongTheoMucDich)
                 .OrderBy(x => x.IdLoaiCT)
                 .AsQueryable();
 
@@ -157,18 +144,20 @@ namespace new_wr_api.Service
             // Map the result to a DTO
             var congTrinhDto = _mapper.Map<CT_ThongTinDto>(query);
 
-            // Further processing on the DTO
-            congTrinhDto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(congTrinhDto.hangmuc!.Where(x => x.DaXoa == false));
+            await PopulateDataAsync(congTrinhDto);
 
-            if (!string.IsNullOrEmpty(congTrinhDto.IdXa))
-            {
-                congTrinhDto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
-                    .FirstOrDefaultAsync(dv => dv.IdXa == congTrinhDto.IdXa));
-            }
+            // Return the DTO
+            return congTrinhDto;
+        }
 
-            congTrinhDto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(congTrinhDto.giayphep!.Where(x => x.DaXoa == false));
+        private async Task PopulateDataAsync(CT_ThongTinDto dto)
+        {
+            dto.hangmuc = _mapper.Map<List<CT_HangMucDto>>(dto.hangmuc!.Where(x => x.DaXoa == false));
+            dto.luuluongtheo_mucdich = _mapper.Map<List<LuuLuongTheoMucDichDto>>(dto.luuluongtheo_mucdich!.Where(x => x.DaXoa == false));
 
-            foreach (var dtoGP in congTrinhDto.giayphep)
+            dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(dto.giayphep!.Where(x => x.DaXoa == false));
+
+            foreach (var dtoGP in dto.giayphep)
             {
                 var tcqIds = dtoGP.gp_tcq!.Select(x => x.IdTCQ).ToList();
 
@@ -180,9 +169,6 @@ namespace new_wr_api.Service
 
                 dtoGP.gp_tcq = null;
             }
-
-            // Return the DTO
-            return congTrinhDto;
         }
 
         // Method to save or update a CT_ThongTin entity

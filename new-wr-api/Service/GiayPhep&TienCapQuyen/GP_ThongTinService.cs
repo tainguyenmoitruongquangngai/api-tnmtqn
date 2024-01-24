@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.SqlServer.Server;
 using Microsoft.VisualBasic;
 using new_wr_api.Data;
 using new_wr_api.Dto;
@@ -42,31 +43,9 @@ namespace new_wr_api.Service
                 .AsQueryable();
 
             // Apply filters based on input parameters
-            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
-
-            if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
-            {
-                query = query.Where(x => x.CongTrinh!.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
-            }
-
-            if (await _userManager.IsInRoleAsync(currentUser!, "District"))
-            {
-                query = query.Where(x => x.CongTrinh!.IdHuyen == currentUser!.IdHuyen);
-            }
-
             if (!string.IsNullOrEmpty(filterDto.so_gp))
             {
                 query = query.Where(x => x.SoGP!.Contains(filterDto.so_gp));
-            }
-
-            if (!string.IsNullOrEmpty(filterDto.coquan_cp))
-            {
-                query = query.Where(x => x.CoQuanCapPhep!.Contains(filterDto.coquan_cp));
-            }
-
-            if (filterDto.tochuc_canhan > 0)
-            {
-                query = query.Where(x => x.IdTCCN == filterDto.tochuc_canhan);
             }
 
             if (filterDto.cong_trinh > 0)
@@ -74,9 +53,19 @@ namespace new_wr_api.Service
                 query = query.Where(x => x.IdCT == filterDto.cong_trinh);
             }
 
+            if (!string.IsNullOrEmpty(filterDto.coquan_cp))
+            {
+                query = query.Where(x => x.CoQuanCapPhep!.Contains(filterDto.coquan_cp));
+            }
+
             if (filterDto.loaihinh_cp > 0)
             {
                 query = query.Where(x => x.IdLoaiGP == filterDto.loaihinh_cp);
+            }
+
+            if (filterDto.tochuc_canhan > 0)
+            {
+                query = query.Where(x => x.IdTCCN == filterDto.tochuc_canhan);
             }
 
             if (filterDto.loai_ct > 0)
@@ -94,9 +83,24 @@ namespace new_wr_api.Service
                 query = query.Where(gp => gp.CongTrinh!.IdXa!.Contains(filterDto.xa.ToString()!));
             }
 
+            if (filterDto.huyen > 0)
+            {
+                query = query.Where(gp => gp.CongTrinh!.IdTangChuaNuoc == filterDto.tang_chuanuoc);
+            }
+
             if (filterDto.tieuvung_qh > 0)
             {
                 query = query.Where(gp => gp.CongTrinh!.IdTieuLuuVuc == filterDto.tieuvung_qh);
+            }
+
+            if (filterDto.tu_nam > 0)
+            {
+                query = query.Where(x => x.NgayKy!.Value.Year >= filterDto.tu_nam);
+            }
+
+            if (filterDto.den_nam > 0)
+            {
+                query = query.Where(x => x.NgayKy!.Value.Year <= filterDto.den_nam);
             }
 
             if (!string.IsNullOrEmpty(filterDto.hieuluc_gp))
@@ -129,39 +133,79 @@ namespace new_wr_api.Service
                 }
             }
 
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+
+            if (await _userManager.IsInRoleAsync(currentUser!, "Construction"))
+            {
+                query = query.Where(x => x.CongTrinh!.TaiKhoan!.ToLower() == currentUser!.UserName!.ToLower());
+            }
+
+            if (await _userManager.IsInRoleAsync(currentUser!, "District"))
+            {
+                query = query.Where(x => x.CongTrinh!.IdHuyen == currentUser!.IdHuyen);
+            }
+
             var giayphep = await query.ToListAsync();
 
             var giayPhepDtos = _mapper.Map<List<GP_ThongTinDto>>(giayphep);
 
             foreach (var dto in giayPhepDtos)
             {
-                if (dto.congtrinh != null)
-                {
-                    dto.congtrinh!.giayphep = null;
-                    dto.congtrinh.hangmuc = dto.congtrinh.hangmuc != null ? _mapper.Map<List<CT_HangMucDto>>(dto.congtrinh.hangmuc!.Where(x => x.DaXoa == false)) : null;
-                    dto.congtrinh.luuluongtheo_mucdich = dto.congtrinh.luuluongtheo_mucdich != null ? _mapper.Map<List<LuuLuongTheoMucDichDto>>(dto.congtrinh.luuluongtheo_mucdich!.Where(x => x.DaXoa == false)) : null;
-                    dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
-                }
-
-                var gp_cu = await _context.GP_ThongTin!.Where(gp => gp.Id == dto.IdCon && gp.DaXoa == false).ToListAsync();
-                if (gp_cu != null)
-                {
-                    dto.giayphep_cu = _mapper.Map<List<GP_ThongTinDto>>(gp_cu);
-                }
-
-                // Assuming this code is within an async method
-                var tcqIds = dto.gp_tcq!.Select(x => x.IdTCQ).ToList();
-
-                var tcqThongTinList = await _context.TCQ_ThongTin!
-                    .Where(x => tcqIds.Contains(x.Id) && x.DaXoa == false)
-                    .ToListAsync();
-
-                dto.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
-
-                dto.gp_tcq = null;
+                await PopulateDataAsync(dto);
             }
 
             return giayPhepDtos;
+        }
+
+        // Method to get GP_ThongTin entity by Id
+        public async Task<GP_ThongTinDto> GetByIdAsync(int Id)
+        {
+            // Query to get GP_ThongTin entity by Id
+            var query = _context.GP_ThongTin!
+                .Where(gp => gp.Id == Id && gp.DaXoa == false)
+                .Include(gp => gp.LoaiGP)
+                .Include(gp => gp.ToChuc_CaNhan)
+                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc!).ThenInclude(hm => hm!.ThongSo)
+                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.ThongSo)
+                .Include(gp => gp.GP_TCQ)
+                .OrderBy(x => x.NgayKy)
+                .AsQueryable();
+
+            var giayphep = await query.FirstOrDefaultAsync();
+
+            var giayPhepDto = _mapper.Map<GP_ThongTinDto>(giayphep);
+
+            await PopulateDataAsync(giayPhepDto);
+
+            return giayPhepDto;
+        }
+
+        private async Task PopulateDataAsync(GP_ThongTinDto dto)
+        {
+            if (dto.congtrinh != null)
+            {
+                dto.congtrinh!.giayphep = null;
+                dto.congtrinh.hangmuc = dto.congtrinh.hangmuc != null ? _mapper.Map<List<CT_HangMucDto>>(dto.congtrinh.hangmuc!.Where(x => x.DaXoa == false)) : null;
+                dto.congtrinh.luuluongtheo_mucdich = dto.congtrinh.luuluongtheo_mucdich != null ? _mapper.Map<List<LuuLuongTheoMucDichDto>>(dto.congtrinh.luuluongtheo_mucdich!.Where(x => x.DaXoa == false)) : null;
+                dto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(dto.congtrinh.IdXa!)));
+            }
+
+            var gp_cu = await _context.GP_ThongTin!.Where(gp => gp.Id == dto.IdCon && gp.DaXoa == false).ToListAsync();
+            if (gp_cu != null)
+            {
+                dto.giayphep_cu = _mapper.Map<List<GP_ThongTinDto>>(gp_cu);
+            }
+
+            // Assuming this code is within an async method
+            var tcqIds = dto.gp_tcq!.Select(x => x.IdTCQ).ToList();
+
+            var tcqThongTinList = await _context.TCQ_ThongTin!
+                .Where(x => tcqIds.Contains(x.Id) && x.DaXoa == false)
+                .ToListAsync();
+
+            dto.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
+
+            dto.gp_tcq = null;
         }
 
         // Method to count the number of GP_ThongTin entities based on licensing authorities
@@ -246,21 +290,77 @@ namespace new_wr_api.Service
         }
 
         // Method to get license statistics based on filter criteria
-        public async Task<LicenseStatisticsDto> LicenseStatisticsAsync(GPFilterFormDto formDto)
+        public async Task<LicenseStatisticsDto> LicenseStatisticsAsync(GPFilterFormDto filterDto)
         {
             var query = _context.GP_ThongTin!
                 .Where(gp => gp.DaXoa == false && gp.NgayKy != null)
                 .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.LoaiCT)
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(formDto.coquan_cp))
+            // Apply filters based on input parameters
+            if (!string.IsNullOrEmpty(filterDto.so_gp))
             {
-                query = query.Where(x => x.CoQuanCapPhep!.Contains(formDto.coquan_cp));
+                query = query.Where(x => x.SoGP!.Contains(filterDto.so_gp));
             }
 
-            if (!string.IsNullOrEmpty(formDto.hieuluc_gp))
+            if (filterDto.cong_trinh > 0)
             {
-                switch (formDto.hieuluc_gp.ToLower())
+                query = query.Where(x => x.IdCT == filterDto.cong_trinh);
+            }
+
+            if (!string.IsNullOrEmpty(filterDto.coquan_cp))
+            {
+                query = query.Where(x => x.CoQuanCapPhep!.Contains(filterDto.coquan_cp));
+            }
+
+            if (filterDto.loaihinh_cp > 0)
+            {
+                query = query.Where(x => x.IdLoaiGP == filterDto.loaihinh_cp);
+            }
+
+            if (filterDto.tochuc_canhan > 0)
+            {
+                query = query.Where(x => x.IdTCCN == filterDto.tochuc_canhan);
+            }
+
+            if (filterDto.loai_ct > 0)
+            {
+                query = query.Where(gp => filterDto.loai_ct == 1 || filterDto.loai_ct == 2 || filterDto.loai_ct == 3 || filterDto.loai_ct == 24 ? gp.CongTrinh!.LoaiCT!.IdCha == filterDto.loai_ct : gp.CongTrinh!.LoaiCT!.Id == filterDto.loai_ct);
+            }
+
+            if (filterDto.huyen > 0)
+            {
+                query = query.Where(gp => gp.CongTrinh!.IdHuyen!.Contains(filterDto.huyen.ToString()!));
+            }
+
+            if (filterDto.xa > 0)
+            {
+                query = query.Where(gp => gp.CongTrinh!.IdXa!.Contains(filterDto.xa.ToString()!));
+            }
+
+            if (filterDto.huyen > 0)
+            {
+                query = query.Where(gp => gp.CongTrinh!.IdTangChuaNuoc == filterDto.tang_chuanuoc);
+            }
+
+            if (filterDto.tieuvung_qh > 0)
+            {
+                query = query.Where(gp => gp.CongTrinh!.IdTieuLuuVuc == filterDto.tieuvung_qh);
+            }
+
+            if (filterDto.tu_nam > 0)
+            {
+                query = query.Where(x => x.NgayKy!.Value.Year >= filterDto.tu_nam);
+            }
+
+            if (filterDto.den_nam > 0)
+            {
+                query = query.Where(x => x.NgayKy!.Value.Year <= filterDto.den_nam);
+            }
+
+            if (!string.IsNullOrEmpty(filterDto.hieuluc_gp))
+            {
+                switch (filterDto.hieuluc_gp.ToLower())
                 {
                     case "sap-het-hieu-luc":
                         query = query
@@ -288,51 +388,6 @@ namespace new_wr_api.Service
                 }
             }
 
-            if (formDto.loaihinh_cp > 0)
-            {
-                query = query.Where(x => x.IdLoaiGP == formDto.loaihinh_cp);
-            }
-
-            if (formDto.tochuc_canhan > 0)
-            {
-                query = query.Where(x => x.IdTCCN == formDto.tochuc_canhan);
-            }
-
-            if (formDto.loai_ct > 0)
-            {
-                query = query.Where(gp => formDto.loai_ct == 1 || formDto.loai_ct == 2 || formDto.loai_ct == 3 || formDto.loai_ct == 24 ? gp.CongTrinh!.LoaiCT!.IdCha == formDto.loai_ct : gp.CongTrinh!.LoaiCT!.Id == formDto.loai_ct);
-            }
-
-            if (formDto.huyen > 0)
-            {
-                query = query.Where(gp => gp.CongTrinh!.IdHuyen!.Contains(formDto.huyen.ToString()!));
-            }
-
-            if (formDto.xa > 0)
-            {
-                query = query.Where(gp => gp.CongTrinh!.IdXa!.Contains(formDto.xa.ToString()!));
-            }
-
-            if (formDto.tieuvung_qh > 0)
-            {
-                query = query.Where(gp => gp.CongTrinh!.IdTieuLuuVuc == formDto.tieuvung_qh);
-            }
-
-            if (formDto.tang_chuanuoc > 0)
-            {
-                query = query.Where(gp => gp.CongTrinh!.IdTangChuaNuoc == formDto.tang_chuanuoc);
-            }
-
-            if (formDto.tu_nam > 0)
-            {
-                query = query.Where(x => x.NgayKy!.Value.Year >= formDto.tu_nam);
-            }
-
-            if (formDto.den_nam > 0)
-            {
-                query = query.Where(x => x.NgayKy!.Value.Year <= formDto.den_nam);
-            }
-
             var categoryQueries = new List<(string, Func<IQueryable<GP_ThongTin>, IQueryable<GP_ThongTin>>)>
 {
                 ("Khai thác sử dụng nước mặt", q => q.Where(gp => gp.CongTrinh!.LoaiCT!.IdCha == 1)),
@@ -342,7 +397,7 @@ namespace new_wr_api.Service
                 ("Xả thải vào nguồn nước", q => q.Where(gp => gp.CongTrinh!.LoaiCT!.IdCha == 3))
             };
 
-            var distinctYears = Enumerable.Range((int)formDto.tu_nam!, (int)(formDto.den_nam! - formDto.tu_nam! + 1)).ToArray();
+            var distinctYears = Enumerable.Range((int)filterDto.tu_nam!, (int)(filterDto.den_nam! - filterDto.tu_nam! + 1)).ToArray();
 
             var color = new string[]
             {
@@ -378,40 +433,6 @@ namespace new_wr_api.Service
                 year = distinctYears,
                 series = seriesList
             };
-        }
-
-
-        // Method to get GP_ThongTin entity by Id
-        public async Task<GP_ThongTinDto> GetByIdAsync(int Id)
-        {
-            // Query to get GP_ThongTin entity by Id
-            var query = _context.GP_ThongTin!
-                .Where(gp => gp.Id == Id && gp.DaXoa == false)
-                .Include(gp => gp.LoaiGP)
-                .Include(gp => gp.ToChuc_CaNhan)
-                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.HangMuc!).ThenInclude(hm => hm!.ThongSo)
-                .Include(gp => gp.CongTrinh).ThenInclude(ct => ct!.ThongSo)
-                .Include(gp => gp.GP_TCQ)
-                .OrderBy(x => x.NgayKy)
-                .AsQueryable();
-
-            var giayphep = await query.FirstOrDefaultAsync();
-
-            var giayPhepDto = _mapper.Map<GP_ThongTinDto>(giayphep);
-            giayPhepDto.congtrinh!.donvi_hanhchinh = _mapper.Map<DonViHCDto>(_context.DonViHC!.FirstOrDefault(x => x.IdXa!.Contains(giayPhepDto.congtrinh.IdXa!)));
-
-            // Assuming this code is within an async method
-            var tcqIds = giayPhepDto.gp_tcq!.Select(x => x.IdTCQ).ToList();
-
-            var tcqThongTinList = await _context.TCQ_ThongTin!
-                .Where(x => tcqIds.Contains(x.Id) && x.DaXoa == false)
-                .ToListAsync();
-
-            giayPhepDto.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
-
-            giayPhepDto.gp_tcq = null;
-
-            return giayPhepDto;
         }
 
         // Method to save or update a GP_ThongTin entity

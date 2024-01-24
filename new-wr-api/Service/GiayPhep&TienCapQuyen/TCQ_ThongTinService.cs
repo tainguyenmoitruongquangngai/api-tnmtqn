@@ -33,6 +33,11 @@ namespace new_wr_api.Service
 
             var listItems = _mapper.Map<List<TCQ_ThongTinDto>>(items);
 
+            foreach (var dto in listItems)
+            {
+                await PopulateDataAsync(dto);
+            }
+
             return listItems;
         }
 
@@ -60,42 +65,7 @@ namespace new_wr_api.Service
 
             foreach (var dto in listItems)
             {
-                var qd_bosung = await _context!.TCQ_ThongTin!.FirstOrDefaultAsync(tcq => tcq.Id == dto.IdCon && tcq.DaXoa == false);
-                dto.qd_bosung = _mapper.Map<TCQ_ThongTinDto>(qd_bosung);
-                if (qd_bosung != null)
-                {
-                    dto.qd_bosung.gp_tcq = null;
-                }
-
-                // Assuming this code is within an async method
-                var gpIds = dto.gp_tcq!.Select(x => x.IdGP).ToList();
-
-                var gpList = await _context.GP_ThongTin!
-                    .Where(x => gpIds.Contains(x.Id) && x.DaXoa == false)
-                    .ToListAsync();
-
-                dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(gpList);
-
-                if (dto.giayphep != null)
-                {
-                    foreach (var gp in dto.giayphep)
-                    {
-                        gp.gp_tcq = null;
-                    }
-                    var ctIds = dto.giayphep.Select(x => x.IdCT).ToList();
-                    var cts = await _context.CT_ThongTin!.Where(ct => ctIds.Contains(ct.Id)).ToListAsync();
-                    dto.congtrinh = _mapper.Map<List<CT_ThongTinDto>>(cts);
-                    if (dto.congtrinh != null)
-                    {
-                        foreach (var ct in dto.congtrinh)
-                        {
-                            ct.giayphep = null;
-                        }
-                    }
-                }
-
-                dto.gp_tcq = null;
-
+                await PopulateDataAsync(dto);
             }
 
             return listItems;
@@ -105,7 +75,49 @@ namespace new_wr_api.Service
         public async Task<TCQ_ThongTinDto?> GetByIdAsync(int Id)
         {
             var item = await _context.TCQ_ThongTin!.FindAsync(Id);
-            return _mapper.Map<TCQ_ThongTinDto>(item);
+
+            var dto = _mapper.Map<TCQ_ThongTinDto>(item);
+            await PopulateDataAsync(dto);
+            return dto;
+        }
+
+        private async Task PopulateDataAsync(TCQ_ThongTinDto dto)
+        {
+            var qd_bosung = await _context!.TCQ_ThongTin!.FirstOrDefaultAsync(tcq => tcq.Id == dto.IdCon && tcq.DaXoa == false);
+            dto.qd_bosung = _mapper.Map<TCQ_ThongTinDto>(qd_bosung);
+            if (qd_bosung != null)
+            {
+                dto.qd_bosung.gp_tcq = null;
+            }
+
+            // Assuming this code is within an async method
+            var gpIds = dto.gp_tcq!.Select(x => x.IdGP).ToList();
+
+            var gpList = await _context.GP_ThongTin!
+                .Where(x => gpIds.Contains(x.Id) && x.DaXoa == false)
+                .ToListAsync();
+
+            dto.giayphep = _mapper.Map<List<GP_ThongTinDto>>(gpList);
+
+            if (dto.giayphep != null)
+            {
+                foreach (var gp in dto.giayphep)
+                {
+                    gp.gp_tcq = null;
+                }
+                var ctIds = dto.giayphep.Select(x => x.IdCT).ToList();
+                var cts = await _context.CT_ThongTin!.Where(ct => ctIds.Contains(ct.Id)).ToListAsync();
+                dto.congtrinh = _mapper.Map<List<CT_ThongTinDto>>(cts);
+                if (dto.congtrinh != null)
+                {
+                    foreach (var ct in dto.congtrinh)
+                    {
+                        ct.giayphep = null;
+                    }
+                }
+            }
+
+            dto.gp_tcq = null;
         }
 
         // Method to save or update a TCQ_ThongTin entity
