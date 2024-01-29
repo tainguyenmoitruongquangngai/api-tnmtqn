@@ -23,7 +23,7 @@ namespace new_wr_api.Service
         }
 
         // Method to retrieve a list of CT_ThongTin entities based on specified filters
-        public async Task<List<CT_ThongTinDto>> GetAllAsync(string? TenCT, int? IdLoaiCT, int? IdHuyen, int? IdXa, int? IdSong, int? IdLuuVuc, int? IdTieuLuuVuc, int? IdTangChuaNuoc, int IdTCCN, string? NguonNuocKT)
+        public async Task<List<CT_ThongTinDto>> GetAllAsync(string? TenCT, int? IdLoaiCT, int? IdHuyen, int? IdXa, int? IdSong, int? IdLuuVuc, int? IdTieuLuuVuc, int? IdTangChuaNuoc, string? NguonNuocKT)
         {
             _context.Database.SetCommandTimeout(120);
 
@@ -80,11 +80,6 @@ namespace new_wr_api.Service
             if (IdTangChuaNuoc > 0)
             {
                 query = query.Where(ct => ct.IdTangChuaNuoc == IdTangChuaNuoc);
-            }
-
-            if (IdTCCN > 0)
-            {
-                query = query.Where(ct => ct.GiayPhep!.Any(gp => gp.IdTCCN == IdTCCN));
             }
 
             if (!string.IsNullOrEmpty(NguonNuocKT))
