@@ -75,6 +75,7 @@ namespace new_wr_api.Service
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user!.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim("id", user.Id),
                 new Claim(ClaimTypes.Name, user.UserName ?? ""),
                 new Claim(ClaimTypes.NameIdentifier, user.FullName ?? ""),
             };
