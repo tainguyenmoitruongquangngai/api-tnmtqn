@@ -2,7 +2,7 @@
 
 namespace new_wr_api.Dto
 {
-    public class TLN_NuocMua_TongLuongDto
+    public class KKTNN_NuocMua_TongLuongDto
     {
         public int? Id { get; set; }
         public int? IdTram { get; set; }

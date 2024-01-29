@@ -21,35 +21,35 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
-        public async Task<List<TLN_NuocDuoiDat_SoLuongDto>> GetAllAsync()
+        public async Task<List<KKTNN_NuocDuoiDat_SoLuongDto>> GetAllAsync()
         {
-            var items = await _context.TLN_NuocDuoiDat_SoLuong!.Where(d => d.DaXoa == false)
+            var items = await _context.KKTNN_NuocDuoiDat_SoLuong!.Where(d => d.DaXoa == false)
                 .Include(d => d.TangChuaNuoc)
                 .OrderBy(d => d.Id)
                 .AsQueryable().ToListAsync();
 
-            return _mapper.Map<List<TLN_NuocDuoiDat_SoLuongDto>>(items);
+            return _mapper.Map<List<KKTNN_NuocDuoiDat_SoLuongDto>>(items);
 
         }
 
-        //public async Task<bool> SaveAsync(TLN_NuocDuoiDat_SoLuongDto dto)
+        //public async Task<bool> SaveAsync(KKTNN_NuocDuoiDat_SoLuongDto dto)
         //{
 
-        //    var existingItem = await _context.TLN_NuocDuoiDat_SoLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
+        //    var existingItem = await _context.KKTNN_NuocDuoiDat_SoLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
 
         //    if (existingItem == null || dto.Id == 0)
         //    {
-        //        var newItem = _mapper.Map<TLN_NuocDuoiDat_SoLuong>(dto);
+        //        var newItem = _mapper.Map<KKTNN_NuocDuoiDat_SoLuong>(dto);
         //        newItem.DaXoa = false;
-        //        _context.TLN_NuocDuoiDat_SoLuong!.Add(newItem);
+        //        _context.KKTNN_NuocDuoiDat_SoLuong!.Add(newItem);
         //    }
         //    else
         //    {
-        //        var updateItem = await _context.TLN_NuocDuoiDat_SoLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+        //        var updateItem = await _context.KKTNN_NuocDuoiDat_SoLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
 
         //        updateItem = _mapper.Map(dto, updateItem);
 
-        //        _context.TLN_NuocDuoiDat_SoLuong!.Update(updateItem);
+        //        _context.KKTNN_NuocDuoiDat_SoLuong!.Update(updateItem);
         //    }
 
         //    var res = await _context.SaveChangesAsync();
@@ -60,12 +60,12 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteAsync(int Id)
         {
-            var existingItem = await _context.TLN_NuocDuoiDat_SoLuong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+            var existingItem = await _context.KKTNN_NuocDuoiDat_SoLuong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
 
             if (existingItem == null) { return false; }
 
             existingItem!.DaXoa = true;
-            _context.TLN_NuocDuoiDat_SoLuong!.Update(existingItem);
+            _context.KKTNN_NuocDuoiDat_SoLuong!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return true;

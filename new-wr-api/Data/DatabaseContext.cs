@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
+using new_wr_api.Data.KiemKeTNN;
 
 namespace new_wr_api.Data
 {
@@ -46,13 +47,14 @@ namespace new_wr_api.Data
         public DbSet<Song>? Song { get; set; }
         public DbSet<TCQ_ThongTin>? TCQ_ThongTin { get; set; }
         public DbSet<TieuVungLuuVuc>? TieuVungLuuVuc { get; set; }
-        public DbSet<TLN_NuocDuoiDat_SoLuong>? TLN_NuocDuoiDat_SoLuong { get; set; }
-        public DbSet<TLN_NuocDuoiDat_TongLuong>? TLN_NuocDuoiDat_TongLuong { get; set; }
-        public DbSet<TLN_NuocDuoiDat_ChatLuong>? TLN_NuocDuoiDat_ChatLuong { get; set; }
-        public DbSet<TLN_NuocMat_SoLuong>? TLN_NuocMat_SoLuong { get; set; }
-        public DbSet<TLN_NuocMat_ChatLuong>? TLN_NuocMat_ChatLuong { get; set; }
-        public DbSet<TLN_NuocMat_TongLuong>? TLN_NuocMat_TongLuong { get; set; }
-        public DbSet<TLN_NuocMua_TongLuong>? TLN_NuocMua_TongLuong { get; set; }
+        public DbSet<KKTNN_NuocDuoiDat_SoLuong>? KKTNN_NuocDuoiDat_SoLuong { get; set; }
+        public DbSet<KKTNN_NuocDuoiDat_TongLuong>? KKTNN_NuocDuoiDat_TongLuong { get; set; }
+        public DbSet<KKTNN_NuocDuoiDat_ChatLuong>? KKTNN_NuocDuoiDat_ChatLuong { get; set; }
+        public DbSet<KKTNN_NuocMat_SoLuong_SongSuoi>? KKTNN_NuocMat_SoLuong_SongSuoi { get; set; }
+        public DbSet<KKTNN_NuocMat_SoLuong_AoHoDamPha>? KKTNN_NuocMat_SoLuong_AoHoDamPha { get; set; }
+        public DbSet<KKTNN_NuocMat_ChatLuong>? KKTNN_NuocMat_ChatLuong { get; set; }
+        public DbSet<KKTNN_NuocMat_TongLuong>? KKTNN_NuocMat_TongLuong { get; set; }
+        public DbSet<KKTNN_NuocMua_TongLuong>? KKTNN_NuocMua_TongLuong { get; set; }
         public DbSet<ToChuc_CaNhan>? ToChuc_CaNhan { get; set; }
         public DbSet<Tram_LoaiTram>? Tram_LoaiTram { get; set; }
         public DbSet<Tram_ThongTin>? Tram_ThongTin { get; set; }
@@ -120,7 +122,7 @@ namespace new_wr_api.Data
         public DbSet<TongLuongNuocMan>? TongLuongNuocMan { get; set; }
 
         //TLN > NMat
-        public DbSet<Ao_Ho_Dam_Pha>? Ao_Ho_Dam_Pha { get; set; }
+        public DbSet<KKTNN_NuocMat_SoLuong_AoHoDamPha>? AoHoDamPha { get; set; }
         public DbSet<CLNMatTheoWQI>? CLNMatTheoWQI { get; set; }
         public DbSet<DacTrungSongSuoi>? DacTrungSongSuoi { get; set; }
         public DbSet<Song_Suoi_KenhRach>? Song_Suoi_KenhRach { get; set; }

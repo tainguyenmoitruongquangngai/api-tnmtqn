@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDatabase : Migration
+    public partial class InitDbase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -866,6 +866,87 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "KKTNN_NuocDuoiDat_ChatLuong",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdXa = table.Column<int>(type: "int", nullable: true),
+                    IdHuyen = table.Column<int>(type: "int", nullable: true),
+                    pHMax = table.Column<double>(type: "float", nullable: true),
+                    pHMin = table.Column<double>(type: "float", nullable: true),
+                    DoCungMax = table.Column<double>(type: "float", nullable: true),
+                    DoCungMin = table.Column<double>(type: "float", nullable: true),
+                    NitratMax = table.Column<double>(type: "float", nullable: true),
+                    NitratMin = table.Column<double>(type: "float", nullable: true),
+                    AmoniMax = table.Column<double>(type: "float", nullable: true),
+                    AmoniMin = table.Column<double>(type: "float", nullable: true),
+                    SulfatMax = table.Column<double>(type: "float", nullable: true),
+                    SulfatMin = table.Column<double>(type: "float", nullable: true),
+                    AsenMax = table.Column<double>(type: "float", nullable: true),
+                    AsenMin = table.Column<double>(type: "float", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KKTNN_NuocDuoiDat_ChatLuong", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KKTNN_NuocMat_ChatLuong",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdXa = table.Column<int>(type: "int", nullable: true),
+                    IdHuyen = table.Column<int>(type: "int", nullable: true),
+                    IdTinh = table.Column<int>(type: "int", nullable: true),
+                    IdLuuVucSong = table.Column<int>(type: "int", nullable: true),
+                    ViTriQuanTrac = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GiaTriWQI = table.Column<double>(type: "float", nullable: true),
+                    BOD5Max = table.Column<double>(type: "float", nullable: true),
+                    BOD5Min = table.Column<double>(type: "float", nullable: true),
+                    CODMax = table.Column<double>(type: "float", nullable: true),
+                    CODMin = table.Column<double>(type: "float", nullable: true),
+                    DOMax = table.Column<double>(type: "float", nullable: true),
+                    DOMin = table.Column<double>(type: "float", nullable: true),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGian = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KKTNN_NuocMat_ChatLuong", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KKTNN_NuocMat_SoLuong_AoHoDamPha",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ten = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NguonNuocKhaiThac = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThuocHeThongSong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DienTichMatNuoc = table.Column<double>(type: "float", nullable: true),
+                    DungTichToanBo = table.Column<double>(type: "float", nullable: true),
+                    DungTichHuuIch = table.Column<double>(type: "float", nullable: true),
+                    Xa = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Huyen = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MucDich = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaiKhoanSua = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KKTNN_NuocMat_SoLuong_AoHoDamPha", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "KQCGHTHGPKTSDN_CongTrinh",
                 columns: table => new
                 {
@@ -1618,60 +1699,6 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TLN_NuocDuoiDat_ChatLuong",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdXa = table.Column<int>(type: "int", nullable: true),
-                    IdHuyen = table.Column<int>(type: "int", nullable: true),
-                    pHMax = table.Column<double>(type: "float", nullable: true),
-                    pHMin = table.Column<double>(type: "float", nullable: true),
-                    DoCungMax = table.Column<double>(type: "float", nullable: true),
-                    DoCungMin = table.Column<double>(type: "float", nullable: true),
-                    NitratMax = table.Column<double>(type: "float", nullable: true),
-                    NitratMin = table.Column<double>(type: "float", nullable: true),
-                    AmoniMax = table.Column<double>(type: "float", nullable: true),
-                    AmoniMin = table.Column<double>(type: "float", nullable: true),
-                    SulfatMax = table.Column<double>(type: "float", nullable: true),
-                    SulfatMin = table.Column<double>(type: "float", nullable: true),
-                    AsenMax = table.Column<double>(type: "float", nullable: true),
-                    AsenMin = table.Column<double>(type: "float", nullable: true),
-                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TLN_NuocDuoiDat_ChatLuong", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TLN_NuocMat_ChatLuong",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdXa = table.Column<int>(type: "int", nullable: true),
-                    IdHuyen = table.Column<int>(type: "int", nullable: true),
-                    IdTinh = table.Column<int>(type: "int", nullable: true),
-                    IdLuuVucSong = table.Column<int>(type: "int", nullable: true),
-                    ViTriQuanTrac = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GiaTriWQI = table.Column<double>(type: "float", nullable: true),
-                    BOD5Max = table.Column<double>(type: "float", nullable: true),
-                    BOD5Min = table.Column<double>(type: "float", nullable: true),
-                    CODMax = table.Column<double>(type: "float", nullable: true),
-                    CODMin = table.Column<double>(type: "float", nullable: true),
-                    DOMax = table.Column<double>(type: "float", nullable: true),
-                    DOMin = table.Column<double>(type: "float", nullable: true),
-                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThoiGian = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TLN_NuocMat_ChatLuong", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ToChuc_CaNhan",
                 columns: table => new
                 {
@@ -1982,6 +2009,42 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "KKTNN_NuocMat_TongLuong",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdLuuVucSong = table.Column<int>(type: "int", nullable: true),
+                    Nam = table.Column<int>(type: "int", nullable: true),
+                    Thang1 = table.Column<double>(type: "float", nullable: true),
+                    Thang2 = table.Column<double>(type: "float", nullable: true),
+                    Thang3 = table.Column<double>(type: "float", nullable: true),
+                    Thang4 = table.Column<double>(type: "float", nullable: true),
+                    Thang5 = table.Column<double>(type: "float", nullable: true),
+                    Thang6 = table.Column<double>(type: "float", nullable: true),
+                    Thang7 = table.Column<double>(type: "float", nullable: true),
+                    Thang8 = table.Column<double>(type: "float", nullable: true),
+                    Thang9 = table.Column<double>(type: "float", nullable: true),
+                    Thang10 = table.Column<double>(type: "float", nullable: true),
+                    Thang11 = table.Column<double>(type: "float", nullable: true),
+                    Thang12 = table.Column<double>(type: "float", nullable: true),
+                    ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaiKhoanSua = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KKTNN_NuocMat_TongLuong", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_KKTNN_NuocMat_TongLuong_LuuVucSong_IdLuuVucSong",
+                        column: x => x.IdLuuVucSong,
+                        principalTable: "LuuVucSong",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Song",
                 columns: table => new
                 {
@@ -2012,42 +2075,6 @@ namespace new_wr_api.Migrations
                     table.ForeignKey(
                         name: "FK_Song_LuuVucSong_IdLuuVuc",
                         column: x => x.IdLuuVuc,
-                        principalTable: "LuuVucSong",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TLN_NuocMat_TongLuong",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdLuuVucSong = table.Column<int>(type: "int", nullable: true),
-                    Nam = table.Column<int>(type: "int", nullable: true),
-                    Thang1 = table.Column<double>(type: "float", nullable: true),
-                    Thang2 = table.Column<double>(type: "float", nullable: true),
-                    Thang3 = table.Column<double>(type: "float", nullable: true),
-                    Thang4 = table.Column<double>(type: "float", nullable: true),
-                    Thang5 = table.Column<double>(type: "float", nullable: true),
-                    Thang6 = table.Column<double>(type: "float", nullable: true),
-                    Thang7 = table.Column<double>(type: "float", nullable: true),
-                    Thang8 = table.Column<double>(type: "float", nullable: true),
-                    Thang9 = table.Column<double>(type: "float", nullable: true),
-                    Thang10 = table.Column<double>(type: "float", nullable: true),
-                    Thang11 = table.Column<double>(type: "float", nullable: true),
-                    Thang12 = table.Column<double>(type: "float", nullable: true),
-                    ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TaiKhoanSua = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DaXoa = table.Column<bool>(type: "bit", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TLN_NuocMat_TongLuong", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TLN_NuocMat_TongLuong_LuuVucSong_IdLuuVucSong",
-                        column: x => x.IdLuuVucSong,
                         principalTable: "LuuVucSong",
                         principalColumn: "Id");
                 });
@@ -2120,7 +2147,7 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TLN_NuocDuoiDat_SoLuong",
+                name: "KKTNN_NuocDuoiDat_SoLuong",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -2138,16 +2165,16 @@ namespace new_wr_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TLN_NuocDuoiDat_SoLuong", x => x.Id);
+                    table.PrimaryKey("PK_KKTNN_NuocDuoiDat_SoLuong", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TLN_NuocDuoiDat_SoLuong_TangChuaNuoc_IdTangChuaNuoc",
+                        name: "FK_KKTNN_NuocDuoiDat_SoLuong_TangChuaNuoc_IdTangChuaNuoc",
                         column: x => x.IdTangChuaNuoc,
                         principalTable: "TangChuaNuoc",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "TLN_NuocDuoiDat_TongLuong",
+                name: "KKTNN_NuocDuoiDat_TongLuong",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -2166,9 +2193,9 @@ namespace new_wr_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TLN_NuocDuoiDat_TongLuong", x => x.Id);
+                    table.PrimaryKey("PK_KKTNN_NuocDuoiDat_TongLuong", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TLN_NuocDuoiDat_TongLuong_TangChuaNuoc_IdTangChuaNuoc",
+                        name: "FK_KKTNN_NuocDuoiDat_TongLuong_TangChuaNuoc_IdTangChuaNuoc",
                         column: x => x.IdTangChuaNuoc,
                         principalTable: "TangChuaNuoc",
                         principalColumn: "Id");
@@ -2371,7 +2398,7 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TLN_NuocMua_TongLuong",
+                name: "KKTNN_NuocMua_TongLuong",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -2397,9 +2424,9 @@ namespace new_wr_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TLN_NuocMua_TongLuong", x => x.Id);
+                    table.PrimaryKey("PK_KKTNN_NuocMua_TongLuong", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TLN_NuocMua_TongLuong_Tram_ThongTin_IdTram",
+                        name: "FK_KKTNN_NuocMua_TongLuong_Tram_ThongTin_IdTram",
                         column: x => x.IdTram,
                         principalTable: "Tram_ThongTin",
                         principalColumn: "Id");
@@ -2553,7 +2580,7 @@ namespace new_wr_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TLN_NuocMat_SoLuong",
+                name: "KKTNN_NuocMat_SoLuong_SongSuoi",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -2561,6 +2588,7 @@ namespace new_wr_api.Migrations
                     IdSong = table.Column<int>(type: "int", nullable: true),
                     ChayRa = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChieuDai = table.Column<double>(type: "float", nullable: true),
+                    ChieuDaiThuocTinh_ThanhPho = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ThoiGianTao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TaiKhoanTao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ThoiGianSua = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -2569,9 +2597,9 @@ namespace new_wr_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TLN_NuocMat_SoLuong", x => x.Id);
+                    table.PrimaryKey("PK_KKTNN_NuocMat_SoLuong_SongSuoi", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TLN_NuocMat_SoLuong_Song_IdSong",
+                        name: "FK_KKTNN_NuocMat_SoLuong_SongSuoi_Song_IdSong",
                         column: x => x.IdSong,
                         principalTable: "Song",
                         principalColumn: "Id");
@@ -4102,6 +4130,31 @@ namespace new_wr_api.Migrations
                 filter: "[MaCongTrinhHoChua] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_KKTNN_NuocDuoiDat_SoLuong_IdTangChuaNuoc",
+                table: "KKTNN_NuocDuoiDat_SoLuong",
+                column: "IdTangChuaNuoc");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KKTNN_NuocDuoiDat_TongLuong_IdTangChuaNuoc",
+                table: "KKTNN_NuocDuoiDat_TongLuong",
+                column: "IdTangChuaNuoc");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KKTNN_NuocMat_SoLuong_SongSuoi_IdSong",
+                table: "KKTNN_NuocMat_SoLuong_SongSuoi",
+                column: "IdSong");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KKTNN_NuocMat_TongLuong_IdLuuVucSong",
+                table: "KKTNN_NuocMat_TongLuong",
+                column: "IdLuuVucSong");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KKTNN_NuocMua_TongLuong_IdTram",
+                table: "KKTNN_NuocMua_TongLuong",
+                column: "IdTram");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LichSuKetNoi_MaCt",
                 table: "LichSuKetNoi",
                 column: "MaCt",
@@ -4330,31 +4383,6 @@ namespace new_wr_api.Migrations
                 name: "IX_TLN_LuuVucSong_DacTrungSongSuoiMaDacTrungSongSuoi",
                 table: "TLN_LuuVucSong",
                 column: "DacTrungSongSuoiMaDacTrungSongSuoi");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TLN_NuocDuoiDat_SoLuong_IdTangChuaNuoc",
-                table: "TLN_NuocDuoiDat_SoLuong",
-                column: "IdTangChuaNuoc");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TLN_NuocDuoiDat_TongLuong_IdTangChuaNuoc",
-                table: "TLN_NuocDuoiDat_TongLuong",
-                column: "IdTangChuaNuoc");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TLN_NuocMat_SoLuong_IdSong",
-                table: "TLN_NuocMat_SoLuong",
-                column: "IdSong");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TLN_NuocMat_TongLuong_IdLuuVucSong",
-                table: "TLN_NuocMat_TongLuong",
-                column: "IdLuuVucSong");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TLN_NuocMua_TongLuong_IdTram",
-                table: "TLN_NuocMua_TongLuong",
-                column: "IdTram");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ToaDoCongTrinh_MaThongTinCongTrinh",
@@ -4653,6 +4681,30 @@ namespace new_wr_api.Migrations
                 name: "HSKTCT_ToChucThucHienQuanTrac");
 
             migrationBuilder.DropTable(
+                name: "KKTNN_NuocDuoiDat_ChatLuong");
+
+            migrationBuilder.DropTable(
+                name: "KKTNN_NuocDuoiDat_SoLuong");
+
+            migrationBuilder.DropTable(
+                name: "KKTNN_NuocDuoiDat_TongLuong");
+
+            migrationBuilder.DropTable(
+                name: "KKTNN_NuocMat_ChatLuong");
+
+            migrationBuilder.DropTable(
+                name: "KKTNN_NuocMat_SoLuong_AoHoDamPha");
+
+            migrationBuilder.DropTable(
+                name: "KKTNN_NuocMat_SoLuong_SongSuoi");
+
+            migrationBuilder.DropTable(
+                name: "KKTNN_NuocMat_TongLuong");
+
+            migrationBuilder.DropTable(
+                name: "KKTNN_NuocMua_TongLuong");
+
+            migrationBuilder.DropTable(
                 name: "KQCGHTHGPKTSDN_CongTrinh");
 
             migrationBuilder.DropTable(
@@ -4803,27 +4855,6 @@ namespace new_wr_api.Migrations
                 name: "TieuVungLuuVuc");
 
             migrationBuilder.DropTable(
-                name: "TLN_NuocDuoiDat_ChatLuong");
-
-            migrationBuilder.DropTable(
-                name: "TLN_NuocDuoiDat_SoLuong");
-
-            migrationBuilder.DropTable(
-                name: "TLN_NuocDuoiDat_TongLuong");
-
-            migrationBuilder.DropTable(
-                name: "TLN_NuocMat_ChatLuong");
-
-            migrationBuilder.DropTable(
-                name: "TLN_NuocMat_SoLuong");
-
-            migrationBuilder.DropTable(
-                name: "TLN_NuocMat_TongLuong");
-
-            migrationBuilder.DropTable(
-                name: "TLN_NuocMua_TongLuong");
-
-            migrationBuilder.DropTable(
                 name: "ToaDoCongTrinh");
 
             migrationBuilder.DropTable(
@@ -4884,6 +4915,9 @@ namespace new_wr_api.Migrations
                 name: "TCQ_ThongTin");
 
             migrationBuilder.DropTable(
+                name: "Tram_ThongTin");
+
+            migrationBuilder.DropTable(
                 name: "TaiKhoanKetNoi");
 
             migrationBuilder.DropTable(
@@ -4903,9 +4937,6 @@ namespace new_wr_api.Migrations
 
             migrationBuilder.DropTable(
                 name: "ThongTinVeCacChiTieuPhanTichCLN");
-
-            migrationBuilder.DropTable(
-                name: "Tram_ThongTin");
 
             migrationBuilder.DropTable(
                 name: "SoLieuMua");

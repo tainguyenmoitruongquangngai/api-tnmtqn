@@ -21,29 +21,29 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
-        public async Task<List<TLN_NuocMat_ChatLuongDto>> GetAllAsync()
+        public async Task<List<KKTNN_NuocMat_ChatLuongDto>> GetAllAsync()
         {
-            var items = await _context.TLN_NuocMat_ChatLuong!.Where(x => x.DaXoa == false).OrderBy(x => x.Id).ToListAsync();
-            return _mapper.Map<List<TLN_NuocMat_ChatLuongDto>>(items);
+            var items = await _context.KKTNN_NuocMat_ChatLuong!.Where(x => x.DaXoa == false).OrderBy(x => x.Id).ToListAsync();
+            return _mapper.Map<List<KKTNN_NuocMat_ChatLuongDto>>(items);
         }
 
-        //public async Task<bool> SaveAsync(TLN_NuocMat_ChatLuongDto dto)
+        //public async Task<bool> SaveAsync(KKTNN_NuocMat_ChatLuongDto dto)
         //{
 
-        //    var existingItem = await _context.TLN_NuocMat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
+        //    var existingItem = await _context.KKTNN_NuocMat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
 
         //    if (existingItem == null || dto.Id == 0)
         //    {
-        //        var newItem = _mapper.Map<TLN_NuocMat_ChatLuong>(dto);
+        //        var newItem = _mapper.Map<KKTNN_NuocMat_ChatLuong>(dto);
         //        newItem.DaXoa = false;
-        //        _context.TLN_NuocMat_ChatLuong!.Add(newItem);
+        //        _context.KKTNN_NuocMat_ChatLuong!.Add(newItem);
         //    }
         //    else
         //    {
-        //        var updateItem = await _context.TLN_NuocMat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+        //        var updateItem = await _context.KKTNN_NuocMat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
 
         //        updateItem = _mapper.Map(dto, updateItem);
-        //        _context.TLN_NuocMat_ChatLuong!.Update(updateItem);
+        //        _context.KKTNN_NuocMat_ChatLuong!.Update(updateItem);
         //    }
 
         //    var res = await _context.SaveChangesAsync();
@@ -54,12 +54,12 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteAsync(int Id)
         {
-            var existingItem = await _context.TLN_NuocMat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+            var existingItem = await _context.KKTNN_NuocMat_ChatLuong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
 
             if (existingItem == null) { return false; }
 
             existingItem!.DaXoa = true;
-            _context.TLN_NuocMat_ChatLuong!.Update(existingItem);
+            _context.KKTNN_NuocMat_ChatLuong!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return true;

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace new_wr_api.Data
 {
-    public class TLN_NuocMat_SoLuong
+    public class KKTNN_NuocMat_SoLuong_SongSuoi
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -11,6 +11,7 @@ namespace new_wr_api.Data
         public int? IdSong { get; set; }
         public string? ChayRa { get; set; }
         public double? ChieuDai { get; set; }
+        public string? ChieuDaiThuocTinh_ThanhPho { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }
         public DateTime? ThoiGianSua { get; set; }

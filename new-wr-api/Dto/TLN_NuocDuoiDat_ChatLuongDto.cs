@@ -1,6 +1,6 @@
 ﻿namespace new_wr_api.Dto
 {
-    public class TLN_NuocDuoiDat_ChatLuongDto
+    public class KKTNN_NuocDuoiDat_ChatLuongDto
     {
         public int? Id { get; set; }
         public int? IdXa { get; set; }

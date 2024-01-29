@@ -89,7 +89,7 @@ namespace new_wr_api.Service
 
         public async Task<bool> SaveRoleAsync(RoleModel model)
         {
-            var exitsRole = await _roleManager.FindByIdAsync(model.Id);
+            var exitsRole = await _roleManager.FindByIdAsync(model.Id!);
 
             if (exitsRole == null)
             {

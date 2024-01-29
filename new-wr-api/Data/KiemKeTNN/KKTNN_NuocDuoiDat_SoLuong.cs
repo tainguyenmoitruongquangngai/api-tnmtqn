@@ -4,7 +4,7 @@ using new_wr_api.Dto;
 
 namespace new_wr_api.Data
 {
-    public class TLN_NuocDuoiDat_SoLuong
+    public class KKTNN_NuocDuoiDat_SoLuong
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

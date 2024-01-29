@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace new_wr_api.Data
 {
-    public class TLN_NuocMat_TongLuong
+    public class KKTNN_NuocMat_TongLuong
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

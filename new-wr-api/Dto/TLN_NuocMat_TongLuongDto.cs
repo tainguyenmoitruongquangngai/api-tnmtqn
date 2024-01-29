@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Dto
 {
-    public class TLN_NuocMat_TongLuongDto
+    public class KKTNN_NuocMat_TongLuongDto
     {
         public int? Id { get; set; }
         public int? IdLuuVucSong { get; set; }

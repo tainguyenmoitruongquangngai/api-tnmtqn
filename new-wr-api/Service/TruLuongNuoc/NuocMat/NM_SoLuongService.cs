@@ -21,14 +21,14 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
-        public async Task<List<TLN_NuocMat_SoLuongDto>> GetAllAsync()
+        public async Task<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>> GetAllAsync()
         {
-            var items = await _context.TLN_NuocMat_SoLuong!.Where(d => d.DaXoa == false)
+            var items = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.Where(d => d.DaXoa == false)
                 .Include(d => d.Song)
                 .OrderBy(d => d.Id)
                 .AsQueryable().ToListAsync();
 
-            var soLuongNuocMatDto = _mapper.Map<List<TLN_NuocMat_SoLuongDto>>(items);
+            var soLuongNuocMatDto = _mapper.Map<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>>(items);
             foreach (var dto in soLuongNuocMatDto)
             {
                 if (!string.IsNullOrEmpty(dto.Song!.IdXaDauSong.ToString()))
@@ -61,28 +61,28 @@ namespace new_wr_api.Service
 
 
         }
-        public async Task<bool> SaveAsync(TLN_NuocMat_SoLuongDto dto)
+        public async Task<bool> SaveAsync(KKTNN_NuocMat_SoLuong_SongSuoiDto dto)
         {
 
-            var existingItem = await _context.TLN_NuocMat_SoLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
+            var existingItem = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
 
             if (existingItem == null || dto.Id == 0)
             {
-                var newItem = _mapper.Map<TLN_NuocMat_SoLuong>(dto);
+                var newItem = _mapper.Map<KKTNN_NuocMat_SoLuong_SongSuoi>(dto);
                 newItem.DaXoa = false;
                 newItem.ThoiGianTao = DateTime.Now;
                 newItem.TaiKhoanTao = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.TLN_NuocMat_SoLuong!.Add(newItem);
+                _context.KKTNN_NuocMat_SoLuong_SongSuoi!.Add(newItem);
             }
             else
             {
-                var updateItem = await _context.TLN_NuocMat_SoLuong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+                var updateItem = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.FirstOrDefaultAsync(d => d.Id == dto.Id);
 
                 updateItem = _mapper.Map(dto, updateItem);
 
                 updateItem!.ThoiGianSua = DateTime.Now;
                 updateItem.TaiKhoanSua = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
-                _context.TLN_NuocMat_SoLuong!.Update(updateItem);
+                _context.KKTNN_NuocMat_SoLuong_SongSuoi!.Update(updateItem);
             }
 
             var res = await _context.SaveChangesAsync();
@@ -93,12 +93,12 @@ namespace new_wr_api.Service
 
         public async Task<bool> DeleteAsync(int Id)
         {
-            var existingItem = await _context.TLN_NuocMat_SoLuong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+            var existingItem = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
 
             if (existingItem == null) { return false; }
 
             existingItem!.DaXoa = true;
-            _context.TLN_NuocMat_SoLuong!.Update(existingItem);
+            _context.KKTNN_NuocMat_SoLuong_SongSuoi!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return true;

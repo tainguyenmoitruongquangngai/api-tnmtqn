@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using new_wr_api.Dto;
 
-namespace new_wr_api.Data
+namespace new_wr_api.Data.KiemKeTNN
 {
-    public class AoHoDapPha
+    public class KKTNN_NuocMat_SoLuong_AoHoDamPha
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -15,10 +15,10 @@ namespace new_wr_api.Data
         public double? DienTichMatNuoc { get; set; }
         public double? DungTichToanBo { get; set; }
         public double? DungTichHuuIch { get; set; }
-        public string? MucDich { get; set; }
-        public string? GhiChu { get; set; }
         public string? Xa { get; set; }
         public string? Huyen { get; set; }
+        public string? MucDich { get; set; }
+        public string? GhiChu { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }
         public DateTime? ThoiGianSua { get; set; }
