@@ -201,6 +201,7 @@ namespace new_wr_api.Service
 
             var tcqThongTinList = await _context.TCQ_ThongTin!
                 .Where(x => tcqIds.Contains(x.Id) && x.DaXoa == false)
+                .OrderBy(x => x.Id)
                 .ToListAsync();
 
             dto.tiencq = _mapper.Map<List<TCQ_ThongTinDto>>(tcqThongTinList);
