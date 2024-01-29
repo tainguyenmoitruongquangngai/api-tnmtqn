@@ -35,10 +35,8 @@ namespace new_wr_api.Service
 
         public async Task<List<HuyenDto>> GetAllDistrictAsync()
         {
-            var items = await _context.DonViHC!
-                .Where(l => l.IdTinh!.Contains("51") && l.DaXoa == false)
-                .GroupBy(l => new { l.IdTinh, l.IdHuyen })
-                .Select(group => group.First())
+            var items = await _context.Huyen!
+                .Where(l => l.DaXoa == false)
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<HuyenDto>>(items);
@@ -47,10 +45,8 @@ namespace new_wr_api.Service
 
         public async Task<List<XaDto>> GetAllCommuneAsync()
         {
-            var items = await _context.DonViHC!
-                .Where(l => l.IdXa != null && l.DaXoa == false)
-                .GroupBy(l => new { l.IdHuyen, l.IdXa })
-                .Select(group => group.First())
+            var items = await _context.Xa!
+                .Where(l => l.DaXoa == false)
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<XaDto>>(items);
@@ -59,10 +55,8 @@ namespace new_wr_api.Service
 
         public async Task<List<XaDto>> GetAllCommuneByDistrictAsync(string IdHuyen)
         {
-            var items = await _context.DonViHC!
+            var items = await _context.Xa!
                 .Where(l => l.IdHuyen == IdHuyen && l.DaXoa == false)
-                .GroupBy(l => new { l.IdHuyen, l.IdXa })
-                .Select(group => group.First())
                 .ToListAsync();
 
             var listItems = _mapper.Map<List<XaDto>>(items);
