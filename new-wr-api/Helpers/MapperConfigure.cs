@@ -120,12 +120,11 @@ namespace new_wr_api.Helpers
                 .ReverseMap();
             CreateMap<ThongSoLtd, ThongSoLtdDto>().ReverseMap();
 
-            //TruLuongNuoc
-            CreateMap<Tram_ThongTin, Tram_ThongTinDto>().ReverseMap();
-            CreateMap<KKTNN_NuocMua_TongLuong, KKTNN_NuocMua_TongLuongDto>()
-                .ForMember(dest => dest.Tram, opt => opt.MapFrom(src => src.Tram_ThongTin))
-                .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
+            //KiemKeTaiNguyenNuoc
+            CreateMap<Tram_ThongTin, Tram_ThongTinDto>()
+                .ForMember(dest => dest.tongluong_nuocmua, opt => opt.MapFrom(src => src.KKTNN_NuocMua_TongLuong))
                 .ReverseMap();
+            CreateMap<KKTNN_NuocMua_TongLuong, KKTNN_NuocMua_TongLuongDto>().ReverseMap();
             CreateMap<KKTNN_NuocMat_SoLuong_SongSuoi, KKTNN_NuocMat_SoLuong_SongSuoiDto>()
                  .ForMember(dest => dest.Song, opt => opt.MapFrom(src => src.Song))
                  .ReverseMap();

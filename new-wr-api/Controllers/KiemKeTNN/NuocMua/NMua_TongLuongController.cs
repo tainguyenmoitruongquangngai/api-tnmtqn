@@ -9,7 +9,7 @@ namespace new_wr_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class NMua_TongLuongController : ControllerBase
     {
         private readonly NMua_TongLuongService _service;
@@ -21,7 +21,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("danh-sach")]
-        public async Task<List<KKTNN_NuocMua_TongLuongDto>> GetAll()
+        public async Task<List<Tram_ThongTinDto>> GetAll()
         {
             return (await _service.GetAllAsync());
         }

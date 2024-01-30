@@ -39,6 +39,7 @@ namespace new_wr_api.Data
         public virtual ICollection<Xa>? Xa { get; set; }
 
         public virtual ICollection<CT_ThongTin>? CongTrinh { get; set; }
+        public virtual ICollection<Tram_ThongTin>? Tram { get; set; }
     }
 
     public class Xa
@@ -62,6 +63,7 @@ namespace new_wr_api.Data
         public virtual Huyen? Huyen { get; set; }
 
         public virtual ICollection<CT_ThongTin>? CongTrinh { get; set; }
+        public virtual ICollection<Tram_ThongTin>? Tram { get; set; }
     }
 
 }

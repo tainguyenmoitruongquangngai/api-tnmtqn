@@ -6,8 +6,7 @@ namespace new_wr_api.Dto
     {
         public int? Id { get; set; }
         public int? IdTram { get; set; }
-        public int? NgayBatDau { get; set; }
-        public int? NgayKetThuc { get; set; }
+        public string? Nam { get; set; }
         public double? Thang1 { get; set; }
         public double? Thang2 { get; set; }
         public double? Thang3 { get; set; }
@@ -21,7 +20,5 @@ namespace new_wr_api.Dto
         public double? Thang11 { get; set; }
         public double? Thang12 { get; set; }
         public bool? Daxoa { get; set; }
-        public Tram_ThongTinDto? Tram { get; set; }
-        public DonViHCDto? donvi_hanhchinh { get; set; }
     }
 }

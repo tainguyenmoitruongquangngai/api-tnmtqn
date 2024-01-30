@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240130144125_update_KKTNN_NuocMua")]
+    partial class update_KKTNN_NuocMua
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3474,7 +3477,9 @@ namespace new_wr_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdTram");
+                    b.HasIndex("IdTram")
+                        .IsUnique()
+                        .HasFilter("[IdTram] IS NOT NULL");
 
                     b.ToTable("KKTNN_NuocMua_TongLuong");
                 });
@@ -6330,11 +6335,11 @@ namespace new_wr_api.Migrations
                     b.Property<string>("MaTram")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NgayBatDau")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("NgayBatDau")
+                        .HasColumnType("int");
 
-                    b.Property<string>("NgayKetThuc")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("NgayKetThuc")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("OnlineStatus")
                         .HasColumnType("bit");
@@ -6906,8 +6911,8 @@ namespace new_wr_api.Migrations
             modelBuilder.Entity("new_wr_api.Data.KKTNN_NuocMua_TongLuong", b =>
                 {
                     b.HasOne("new_wr_api.Data.Tram_ThongTin", "Tram_ThongTin")
-                        .WithMany("KKTNN_NuocMua_TongLuong")
-                        .HasForeignKey("IdTram");
+                        .WithOne("KKTNN_NuocMua_TongLuong")
+                        .HasForeignKey("new_wr_api.Data.KKTNN_NuocMua_TongLuong", "IdTram");
 
                     b.Navigation("Tram_ThongTin");
                 });

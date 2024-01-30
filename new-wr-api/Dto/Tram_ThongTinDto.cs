@@ -11,8 +11,8 @@
         public string? DiaChiTram { get; set; }
         public double? X { get; set; }
         public double? Y { get; set; }
-        public int? NgayBatDau { get; set; }
-        public int? NgayKetThuc { get; set; }
+        public string? NgayBatDau { get; set; }
+        public string? NgayKetThuc { get; set; }
         public string? HoSoThanhLap { get; set; }
         public string? HoSoHoatDong { get; set; }
         public string? CameraLine { get; set; }
@@ -23,5 +23,7 @@
         public DateTime? ThoiGianSua { get; set; }
         public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+
+        public List<KKTNN_NuocMua_TongLuongDto>? tongluong_nuocmua { get; set; }
     }
 }

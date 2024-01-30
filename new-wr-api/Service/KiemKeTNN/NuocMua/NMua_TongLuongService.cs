@@ -22,25 +22,20 @@ namespace new_wr_api.Service
             _mapper = mapper;
             _httpContext = httpContext;
         }
-        public async Task<List<KKTNN_NuocMua_TongLuongDto>> GetAllAsync()
+        public async Task<List<Tram_ThongTinDto>> GetAllAsync()
         {
-            var items = await _context.KKTNN_NuocMua_TongLuong!.Where(d => d.DaXoa == false)
-                .Include(d => d.Tram_ThongTin)
+            var items = await _context.Tram_ThongTin!.Where(x => x.DaXoa == false)
+                .Include(d => d.KKTNN_NuocMua_TongLuong)
                 .OrderBy(d => d.Id)
-                .AsQueryable().ToListAsync();
+                .AsQueryable()
+                .ToListAsync();
 
-            var tongLuongNuocMuaDto = _mapper.Map<List<KKTNN_NuocMua_TongLuongDto>>(items);
-            foreach (var dto in tongLuongNuocMuaDto)
+            var tramDto = _mapper.Map<List<Tram_ThongTinDto>>(items);
+            foreach (var dto in tramDto)
             {
-                if (!string.IsNullOrEmpty(dto.Tram!.IdXa.ToString()))
-                {
-                    dto.donvi_hanhchinh = _mapper.Map<DonViHCDto>(await _context.DonViHC!
-                        .FirstOrDefaultAsync(dv => dv.IdXa == dto.Tram!.IdXa.ToString()));
-                }
+                dto.tongluong_nuocmua!.Where(x => x.Daxoa == false);
             }
-            return tongLuongNuocMuaDto;
-
-            
+            return tramDto;
         }
         public async Task<bool> SaveAsync(KKTNN_NuocMua_TongLuongDto dto)
         {
