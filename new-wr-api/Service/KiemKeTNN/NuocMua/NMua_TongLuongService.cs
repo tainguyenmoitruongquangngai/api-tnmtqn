@@ -22,18 +22,19 @@ namespace new_wr_api.Service
             _mapper = mapper;
             _httpContext = httpContext;
         }
-        public async Task<List<Tram_ThongTinDto>> GetAllAsync()
+        public List<Tram_ThongTinDto> GetAll(string? nam_bao_cao)
         {
-            var items = await _context.Tram_ThongTin!.Where(x => x.DaXoa == false)
+            var items = _context.Tram_ThongTin!.Where(x => x.DaXoa == false)
                 .Include(d => d.KKTNN_NuocMua_TongLuong)
                 .OrderBy(d => d.Id)
-                .AsQueryable()
-                .ToListAsync();
+                .AsQueryable();
+
+            items = items.Where(x => x.KKTNN_NuocMua_TongLuong != null);
 
             var tramDto = _mapper.Map<List<Tram_ThongTinDto>>(items);
             foreach (var dto in tramDto)
             {
-                dto.tongluong_nuocmua!.Where(x => x.Daxoa == false);
+                dto.tongluong_nuocmua = dto.tongluong_nuocmua!.Where(x => x.Daxoa == false && x.Nam == nam_bao_cao).ToList();
             }
             return tramDto;
         }

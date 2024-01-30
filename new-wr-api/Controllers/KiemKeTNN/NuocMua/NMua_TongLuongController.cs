@@ -20,10 +20,10 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("danh-sach")]
-        public async Task<List<Tram_ThongTinDto>> GetAll()
+        [Route("danh-sach/{nam_bao_cao}")]
+        public async Task<List<Tram_ThongTinDto>> GetAll(string nam_bao_cao)
         {
-            return (await _service.GetAllAsync());
+            return (_service.GetAll(nam_bao_cao));
         }
 
         [HttpPost]
@@ -33,11 +33,11 @@ namespace new_wr_api.Controllers
             var res = await _service.SaveAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Loại công trình: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "Loại công trình: Lỗi lưu dữ liệu", error = true });
+                return BadRequest(new { message = "Lỗi lưu dữ liệu", error = true });
             }
         }
 
@@ -48,11 +48,11 @@ namespace new_wr_api.Controllers
             var res = await _service.DeleteAsync(Id);
             if (res == true)
             {
-                return Ok(new { message = "Loại công trình: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Dữ liệu đã được xóa" });
             }
             else
             {
-                return BadRequest(new { message = "Loại công trình: Lỗi xóa dữ liệu", error = true });
+                return BadRequest(new { message = "Lỗi xóa dữ liệu", error = true });
             }
         }
     }
