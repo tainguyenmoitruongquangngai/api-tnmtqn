@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Dto;
 
-namespace new_wr_api.Service.BaoCaoBieuMau
+namespace new_wr_api.Service
 {
     public class BieuMauBaService
     {

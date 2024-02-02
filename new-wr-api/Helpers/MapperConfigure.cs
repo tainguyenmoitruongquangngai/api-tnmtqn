@@ -131,7 +131,20 @@ namespace new_wr_api.Helpers
             CreateMap<KKTNN_NuocMat_SoLuong_SongSuoi, KKTNN_NuocMat_SoLuong_SongSuoiDto>()
                  .ForMember(dest => dest.Song, opt => opt.MapFrom(src => src.Song))
                  .ReverseMap();
+
             CreateMap<KKTNN_NuocMat_SoLuong_AoHoDamPha, KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>().ReverseMap();
+
+            CreateMap<CT_ThongTin, KKTNN_NuocMat_KhaiThacSuDungDto>()
+                 .ForMember(dest => dest.ten_ct, opt => opt.MapFrom(src => src.TenCT))
+                 .ForMember(dest => dest.loai_ct, opt => opt.MapFrom(src => src.LoaiCT!.TenLoaiCT))
+                 .ForMember(dest => dest.nguonnuoc_kt, opt => opt.MapFrom(src => src.NguonNuocKT))
+                 .ForMember(dest => dest.mucdich_kt, opt => opt.MapFrom(src => src.MucDichKT))
+                 .ForMember(dest => dest.dungtich_ho, opt => opt.MapFrom(src => src.ThongSo!.DungTichToanBo))
+                 .ForMember(dest => dest.congsuat, opt => opt.MapFrom(src => src.ThongSo!.CongSuatLM))
+                 .ForMember(dest => dest.xa, opt => opt.MapFrom(src => src.Xa!.TenXa))
+                 .ForMember(dest => dest.huyen, opt => opt.MapFrom(src => src.Huyen!.TenHuyen))
+                 .ReverseMap();
+
             CreateMap<KKTNN_NuocMat_TongLuong, KKTNN_NuocMat_TongLuongDto>()
                 .ForMember(dest => dest.LuuVucSong, opt => opt.MapFrom(src => src.LuuVucSong))
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))

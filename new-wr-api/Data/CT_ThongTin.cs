@@ -24,7 +24,7 @@ namespace new_wr_api.Data
         public string? CapCT { get; set; }
         public int? NamBatDauVanHanh { get; set; }
         public string? NguonNuocKT { get; set; }
-        public string? MucDichhKT { get; set; }
+        public string? MucDichKT { get; set; }
         public string? PhuongThucKT { get; set; }
         public string? NguonNuocXT { get; set; }
         public string? ThoiGianKT { get; set; }
