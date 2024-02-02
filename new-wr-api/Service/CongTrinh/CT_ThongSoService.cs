@@ -27,54 +27,41 @@ namespace new_wr_api.Service
         public async Task<bool> SaveAsync(CT_ThongSoDto dto)
         {
             var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+            CT_ThongSo? item = null; // Declare item variable
 
+            // Retrieve an existing item based on Id or if dto.Id is 0
             var existingItem = await _context.CT_ThongSo!.FirstOrDefaultAsync(d => d.IdCT == dto.IdCT || d.IdHangMucCT == dto.IdHangMucCT);
 
-            if (existingItem == null || dto.Id == 0)
+            if (existingItem == null)
             {
-                // Create a new item if it doesn't exist or dto.Id is 0
-                var newItem = _mapper.Map<CT_ThongSo>(dto);
-
-                // Set nullable properties to null if their values are 0
-                if (dto.IdHangMucCT == 0)
-                {
-                    newItem.IdHangMucCT = null;
-                }
-                if (dto.IdCT == 0)
-                {
-                    newItem.IdCT = null;
-                }
-
-                newItem.DaXoa = false;
-                newItem.ThoiGianTao = DateTime.Now;
-                newItem.TaiKhoanTao = currentUser != null ? currentUser.UserName : null;
-                _context.CT_ThongSo!.Add(newItem);
+                // If the item doesn't exist or dto.Id is 0, create a new item
+                item = _mapper.Map<CT_ThongSo>(dto);
+                if (item.IdCT == 0) item.IdCT = null;
+                if (item.IdHangMucCT == 0) item.IdHangMucCT = null;
+                item.DaXoa = false;
+                item.ThoiGianTao = DateTime.Now;
+                item.TaiKhoanTao = currentUser != null ? currentUser.UserName : null;
+                _context.CT_ThongSo!.Add(item);
             }
             else
             {
-                // Update the existing item with values from the dto
-                var updateItem = _mapper.Map(dto, existingItem);
-
-                // Set nullable properties to null if their values are 0
-                if (dto.IdHangMucCT == 0)
-                {
-                    updateItem.IdHangMucCT = null;
-                }
-                if (dto.IdCT == 0)
-                {
-                    updateItem.IdCT = null;
-                }
-
-                updateItem.DaXoa = false;
-                updateItem!.ThoiGianSua = DateTime.Now;
-                updateItem.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
-                _context.CT_ThongSo!.Update(updateItem);
+                // If the item exists, update it with values from the dto, excluding the key property
+                item = existingItem;
+                _mapper.Map(dto, item);
+                if (item.IdCT == 0) item.IdCT = null;
+                if (item.IdHangMucCT == 0) item.IdHangMucCT = null;
+                item.DaXoa = false;
+                item.ThoiGianSua = DateTime.Now;
+                item.TaiKhoanSua = currentUser != null ? currentUser.UserName : null;
+                _context.CT_ThongSo!.Update(item);
             }
 
             // Save changes to the database
             await _context.SaveChangesAsync();
+
             return true;
         }
+
 
         // Method to delete a CT_ThongSo entity
         public async Task<bool> DeleteAsync(int Id)

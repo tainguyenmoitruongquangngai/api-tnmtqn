@@ -2,7 +2,6 @@
 {
     public class CT_ThongSoDto
     {
-        public int? Id { get; set; }
         public int? IdCT { get; set; }
         public int? IdHangMucCT { get; set; }
         public string? CaoTrinhCong { get; set; }
