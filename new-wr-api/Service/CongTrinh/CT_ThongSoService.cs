@@ -28,8 +28,7 @@ namespace new_wr_api.Service
         {
             var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
 
-            var existingItem = await _context.CT_ThongSo!
-                    .FirstOrDefaultAsync(d => d.Id == dto.Id);
+            var existingItem = await _context.CT_ThongSo!.FirstOrDefaultAsync(d => d.IdCT == dto.IdCT || d.IdHangMucCT == dto.IdHangMucCT);
 
             if (existingItem == null || dto.Id == 0)
             {
