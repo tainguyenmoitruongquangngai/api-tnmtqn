@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using new_wr_api.Data;
+using new_wr_api.Data.KiemKeTNN;
 using new_wr_api.Dto;
 using new_wr_api.Models;
 using new_wr_api.Models.Authenticate;
@@ -123,11 +124,14 @@ namespace new_wr_api.Helpers
             //KiemKeTaiNguyenNuoc
             CreateMap<Tram_ThongTin, Tram_ThongTinDto>()
                 .ForMember(dest => dest.tongluong_nuocmua, opt => opt.MapFrom(src => src.KKTNN_NuocMua_TongLuong))
+                .ForMember(dest => dest.huyen, opt => opt.MapFrom(src => src.Huyen))
+                .ForMember(dest => dest.xa, opt => opt.MapFrom(src => src.Xa))
                 .ReverseMap();
             CreateMap<KKTNN_NuocMua_TongLuong, KKTNN_NuocMua_TongLuongDto>().ReverseMap();
             CreateMap<KKTNN_NuocMat_SoLuong_SongSuoi, KKTNN_NuocMat_SoLuong_SongSuoiDto>()
                  .ForMember(dest => dest.Song, opt => opt.MapFrom(src => src.Song))
                  .ReverseMap();
+            CreateMap<KKTNN_NuocMat_SoLuong_AoHoDamPha, KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>().ReverseMap();
             CreateMap<KKTNN_NuocMat_TongLuong, KKTNN_NuocMat_TongLuongDto>()
                 .ForMember(dest => dest.LuuVucSong, opt => opt.MapFrom(src => src.LuuVucSong))
                 .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))

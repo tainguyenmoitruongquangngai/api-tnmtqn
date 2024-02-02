@@ -9,7 +9,6 @@ namespace new_wr_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class Tram_ThongTinController : ControllerBase
     {
         private readonly Tram_ThongTinService _service;

@@ -26,6 +26,8 @@ namespace new_wr_api.Service
         {
             var items = _context.Tram_ThongTin!.Where(x => x.DaXoa == false)
                 .Include(d => d.KKTNN_NuocMua_TongLuong)
+                .Include(d => d.Huyen)
+                .Include(d => d.Xa)
                 .OrderBy(d => d.Id)
                 .AsQueryable();
 

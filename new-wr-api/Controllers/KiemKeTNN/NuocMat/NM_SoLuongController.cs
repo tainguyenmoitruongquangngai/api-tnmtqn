@@ -18,41 +18,78 @@ namespace new_wr_api.Controllers
         {
             _service = service;
         }
-
+        //Ao Ho
         [HttpGet]
-        [Route("danh-sach")]
-        public async Task<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>> GetAll()
+        [Route("danh-sach/ao-ho")]
+        public async Task<List<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> GetAllAoHoDamPha()
         {
-            return (await _service.GetAllAsync());
+            return (await _service.GetAllAoHoDamPhaAsync());
         }
 
         [HttpPost]
-        [Route("luu")]
-        public async Task<ActionResult<KKTNN_NuocMat_SoLuong_SongSuoiDto>> Save(KKTNN_NuocMat_SoLuong_SongSuoiDto moddel)
+        [Route("luu/ao-ho")]
+        public async Task<ActionResult<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> SaveAoHoDamPha(KKTNN_NuocMat_SoLuong_AoHoDamPhaDto moddel)
         {
-            var res = await _service.SaveAsync(moddel);
+            var res = await _service.SaveAoHoDamPhaAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Loại công trình: Dữ liệu đã được lưu" });
+                return Ok(new { message = "Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "Loại công trình: Lỗi lưu dữ liệu", error = true });
+                return BadRequest(new { message = "Lỗi lưu dữ liệu", error = true });
             }
         }
 
         [HttpGet]
-        [Route("xoa/{Id}")]
-        public async Task<ActionResult<KKTNN_NuocMat_SoLuong_SongSuoiDto>> Delete(int Id)
+        [Route("xoa/ao-ho/{Id}")]
+        public async Task<ActionResult<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> DeleteAoHoDamPha(int Id)
         {
-            var res = await _service.DeleteAsync(Id);
+            var res = await _service.DeleteAoHoDamPhaAsync(Id);
             if (res == true)
             {
-                return Ok(new { message = "Loại công trình: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Dữ liệu đã được xóa" });
             }
             else
             {
-                return BadRequest(new { message = "Loại công trình: Lỗi xóa dữ liệu", error = true });
+                return BadRequest(new { message = "Lỗi xóa dữ liệu", error = true });
+            }
+        }
+        //Song Suoi
+        [HttpGet]
+        [Route("danh-sach/song-suoi")]
+        public async Task<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>> GetAllSongSuoi()
+        {
+            return (await _service.GetAllSongSuoiAsync());
+        }
+
+        [HttpPost]
+        [Route("luu/song-suoi")]
+        public async Task<ActionResult<KKTNN_NuocMat_SoLuong_SongSuoiDto>> SaveSongSuoi(KKTNN_NuocMat_SoLuong_SongSuoiDto moddel)
+        {
+            var res = await _service.SaveSongSuoiAsync(moddel);
+            if (res == true)
+            {
+                return Ok(new { message = "Dữ liệu đã được lưu" });
+            }
+            else
+            {
+                return BadRequest(new { message = "Lỗi lưu dữ liệu", error = true });
+            }
+        }
+
+        [HttpGet]
+        [Route("xoa/song-suoi/{Id}")]
+        public async Task<ActionResult<KKTNN_NuocMat_SoLuong_SongSuoiDto>> DeleteSongSuoi(int Id)
+        {
+            var res = await _service.DeleteSongSuoiAsync(Id);
+            if (res == true)
+            {
+                return Ok(new { message = "Dữ liệu đã được xóa" });
+            }
+            else
+            {
+                return BadRequest(new { message = "Lỗi xóa dữ liệu", error = true });
             }
         }
     }

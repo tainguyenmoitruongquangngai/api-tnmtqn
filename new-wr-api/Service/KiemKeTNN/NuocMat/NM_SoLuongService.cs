@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
+using new_wr_api.Data.KiemKeTNN;
 using new_wr_api.Dto;
 using new_wr_api.Models;
 using System.Security.Claims;
@@ -21,7 +22,8 @@ namespace new_wr_api.Service
             _httpContext = httpContext;
         }
 
-        public async Task<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>> GetAllAsync()
+        //Song Suoi
+        public async Task<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>> GetAllSongSuoiAsync()
         {
             var items = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.Where(d => d.DaXoa == false)
                 .Include(d => d.Song)
@@ -61,7 +63,7 @@ namespace new_wr_api.Service
 
 
         }
-        public async Task<bool> SaveAsync(KKTNN_NuocMat_SoLuong_SongSuoiDto dto)
+        public async Task<bool> SaveSongSuoiAsync(KKTNN_NuocMat_SoLuong_SongSuoiDto dto)
         {
 
             var existingItem = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
@@ -91,7 +93,7 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> DeleteAsync(int Id)
+        public async Task<bool> DeleteSongSuoiAsync(int Id)
         {
             var existingItem = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
 
@@ -99,6 +101,57 @@ namespace new_wr_api.Service
 
             existingItem!.DaXoa = true;
             _context.KKTNN_NuocMat_SoLuong_SongSuoi!.Update(existingItem);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        //Ao Ho
+        public async Task<List<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> GetAllAoHoDamPhaAsync()
+        {
+            var items = await _context.KKTNN_NuocMat_SoLuong_AoHoDamPha!.Where(x => x.DaXoa == false).OrderBy(x => x.Id).ToListAsync();
+            return _mapper.Map<List<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>>(items);
+
+
+        }
+        public async Task<bool> SaveAoHoDamPhaAsync(KKTNN_NuocMat_SoLuong_AoHoDamPhaDto dto)
+        {
+
+            var existingItem = await _context.KKTNN_NuocMat_SoLuong_AoHoDamPha!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
+
+            if (existingItem == null || dto.Id == 0)
+            {
+                var newItem = _mapper.Map<KKTNN_NuocMat_SoLuong_AoHoDamPha>(dto);
+                newItem.DaXoa = false;
+                newItem.ThoiGianTao = DateTime.Now;
+                newItem.TaiKhoanTao = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
+                _context.KKTNN_NuocMat_SoLuong_AoHoDamPha!.Add(newItem);
+            }
+            else
+            {
+                var updateItem = await _context.KKTNN_NuocMat_SoLuong_AoHoDamPha!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+
+                updateItem = _mapper.Map(dto, updateItem);
+
+                updateItem!.ThoiGianSua = DateTime.Now;
+                updateItem.TaiKhoanSua = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? null;
+                _context.KKTNN_NuocMat_SoLuong_AoHoDamPha!.Update(updateItem);
+            }
+
+            var res = await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+
+        public async Task<bool> DeleteAoHoDamPhaAsync(int Id)
+        {
+            var existingItem = await _context.KKTNN_NuocMat_SoLuong_AoHoDamPha!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
+
+            if (existingItem == null) { return false; }
+
+            existingItem!.DaXoa = true;
+            _context.KKTNN_NuocMat_SoLuong_AoHoDamPha!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return true;

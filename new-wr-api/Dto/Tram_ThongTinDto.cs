@@ -25,5 +25,7 @@
         public bool? DaXoa { get; set; }
 
         public List<KKTNN_NuocMua_TongLuongDto>? tongluong_nuocmua { get; set; }
+        public HuyenDto? huyen { get; set; }
+        public XaDto? xa { get; set; }
     }
 }
