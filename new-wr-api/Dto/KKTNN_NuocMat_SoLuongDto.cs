@@ -6,6 +6,7 @@
         public int? IdSong { get; set; }
         public string? ChayRa { get; set; }
         public double? ChieuDai { get; set; }
+        public string? ChieuDaiThuocTinh_ThanhPho { get; set; }
         public SongDto? Song { get; set; }
     }
     public class KKTNN_NuocMat_SoLuong_AoHoDamPhaDto

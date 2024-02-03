@@ -21,9 +21,9 @@ namespace new_wr_api.Controllers
         //Ao Ho
         [HttpGet]
         [Route("danh-sach/ao-ho")]
-        public async Task<List<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> GetAllAoHoDamPha()
+        public async Task<List<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> GetAllAoHoDamPha(string? nam_bao_cao)
         {
-            return (await _service.GetAllAoHoDamPhaAsync());
+            return (await _service.GetAllAoHoDamPhaAsync(nam_bao_cao);
         }
 
         [HttpPost]
