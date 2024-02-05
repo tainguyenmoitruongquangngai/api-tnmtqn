@@ -121,27 +121,31 @@ namespace new_wr_api.Service
         public async Task<CT_ThongTinDto?> GetByIdAsync(int Id)
         {
             var query = _context.CT_ThongTin!
-                .Where(ct => ct.DaXoa == false && ct.Id == Id)
-                .Include(ct => ct.LoaiCT)
-                .Include(ct => ct.TangChuaNuoc)
-                .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
-                .Include(ct => ct.ThongSo)
-                .Include(ct => ct.Xa)
-                .Include(ct => ct.Huyen)
-                .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
-                .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
-                .Include(ct => ct.LuuLuongTheoMucDich)
-                .OrderBy(x => x.IdLoaiCT)
-                .AsQueryable();
+            .Where(ct => ct.DaXoa == false)
+            .Include(ct => ct.LoaiCT)
+            .Include(ct => ct.TangChuaNuoc)
+            .Include(ct => ct.HangMuc!).ThenInclude(hm => hm.ThongSo)
+            .Include(ct => ct.ThongSo)
+            .Include(ct => ct.Xa)
+            .Include(ct => ct.Huyen)
+            .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.ToChuc_CaNhan)
+            .Include(ct => ct.GiayPhep!).ThenInclude(gp => gp.GP_TCQ)
+            .Include(ct => ct.LuuLuongTheoMucDich)
+            .OrderBy(x => x.IdLoaiCT)
+            .AsQueryable();
 
-            var congtrinh = query.FirstOrDefault();
+            var congTrinh = await query.SingleOrDefaultAsync(ct => ct.Id == Id);
 
-            // Map the result to a DTO
-            var congTrinhDto = _mapper.Map<CT_ThongTinDto>(query);
+            if (congTrinh == null)
+            {
+                // Handle the case where the record is not found
+                return null;
+            }
+
+            var congTrinhDto = _mapper.Map<CT_ThongTinDto>(congTrinh);
 
             await PopulateDataAsync(congTrinhDto);
 
-            // Return the DTO
             return congTrinhDto;
         }
 
