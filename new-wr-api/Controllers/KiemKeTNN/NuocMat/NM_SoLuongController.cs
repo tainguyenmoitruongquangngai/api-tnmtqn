@@ -9,7 +9,6 @@ namespace new_wr_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class NM_SoLuongController : ControllerBase
     {
         private readonly NM_SoLuongService _service;
@@ -21,9 +20,9 @@ namespace new_wr_api.Controllers
         //Ao Ho
         [HttpGet]
         [Route("danh-sach/ao-ho")]
-        public async Task<List<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> GetAllAoHoDamPha(string? nam_bao_cao)
+        public async Task<List<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> GetAllAoHoDamPha()
         {
-            return (await _service.GetAllAoHoDamPhaAsync(nam_bao_cao);
+            return (await _service.GetAllAoHoDamPhaAsync());
         }
 
         [HttpPost]
@@ -42,7 +41,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("xoa/ao-ho/{Id}")]
+        [Route("ao-ho/xoa/{Id}")]
         public async Task<ActionResult<KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>> DeleteAoHoDamPha(int Id)
         {
             var res = await _service.DeleteAoHoDamPhaAsync(Id);
@@ -79,7 +78,7 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("xoa/song-suoi/{Id}")]
+        [Route("song-suoi/xoa/{Id}")]
         public async Task<ActionResult<KKTNN_NuocMat_SoLuong_SongSuoiDto>> DeleteSongSuoi(int Id)
         {
             var res = await _service.DeleteSongSuoiAsync(Id);
