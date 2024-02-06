@@ -31,14 +31,16 @@ namespace new_wr_api.Service
                 .OrderBy(d => d.Id)
                 .AsQueryable();
 
-            items = items.Where(x => x.KKTNN_NuocMua_TongLuong != null);
-
             var tramDto = _mapper.Map<List<Tram_ThongTinDto>>(items);
             foreach (var dto in tramDto)
             {
                 dto.tongluong_nuocmua = dto.tongluong_nuocmua!.Where(x => x.Daxoa == false && x.Nam == nam_bao_cao).ToList();
 
             }
+
+            // Exclude items where KKTNN_NuocMua_TongLuong is an empty list
+            tramDto = tramDto.Where(dto => dto.tongluong_nuocmua != null && dto.tongluong_nuocmua.Any()).ToList();
+
             return tramDto;
         }
         public async Task<bool> SaveAsync(KKTNN_NuocMua_TongLuongDto dto)
