@@ -37,6 +37,7 @@ namespace new_wr_api.Service
             foreach (var dto in tramDto)
             {
                 dto.tongluong_nuocmua = dto.tongluong_nuocmua!.Where(x => x.Daxoa == false && x.Nam == nam_bao_cao).ToList();
+
             }
             return tramDto;
         }

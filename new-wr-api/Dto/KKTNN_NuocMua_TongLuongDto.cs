@@ -19,6 +19,9 @@ namespace new_wr_api.Dto
         public double? Thang10 { get; set; }
         public double? Thang11 { get; set; }
         public double? Thang12 { get; set; }
+        public double? muamua => Math.Round((double)((Thang9 ?? 0) + (Thang10 ?? 0) + (Thang11 ?? 0) + (Thang12 ?? 0)), 2);
+        public double? muakho => Math.Round((double)((Thang1 ?? 0) + (Thang2 ?? 0) + (Thang3 ?? 0) + (Thang4 ?? 0) + (Thang5 ?? 0) + (Thang6 ?? 0) + (Thang7 ?? 0) + (Thang8 ?? 0)), 2);
+        public double? canam => Math.Round((double)((Thang1 ?? 0) + (Thang2 ?? 0) + (Thang3 ?? 0) + (Thang4 ?? 0) + (Thang5 ?? 0) + (Thang6 ?? 0) + (Thang7 ?? 0) + (Thang8 ?? 0) + (Thang9 ?? 0) + (Thang10 ?? 0) + (Thang11 ?? 0) + (Thang12 ?? 0)), 2);
         public bool? Daxoa { get; set; }
     }
 }
