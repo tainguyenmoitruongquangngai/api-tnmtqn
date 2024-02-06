@@ -21,7 +21,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("danh-sach/{nam_bao_cao}")]
-        public async Task<List<Tram_ThongTinDto>> GetAll(string nam_bao_cao)
+        public List<Tram_ThongTinDto> GetAll(string nam_bao_cao)
         {
             return (_service.GetAll(nam_bao_cao));
         }
