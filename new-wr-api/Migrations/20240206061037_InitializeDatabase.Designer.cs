@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using new_wr_api.Data;
 
@@ -11,9 +12,11 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240206061037_InitializeDatabase")]
+    partial class InitializeDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1816,25 +1819,6 @@ namespace new_wr_api.Migrations
                     b.ToTable("DoanSong");
                 });
 
-            modelBuilder.Entity("new_wr_api.Data.DonViDo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ten")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DonViDo");
-                });
-
             modelBuilder.Entity("new_wr_api.Data.DonViHC", b =>
                 {
                     b.Property<int>("Id")
@@ -2639,11 +2623,11 @@ namespace new_wr_api.Migrations
                     b.Property<int?>("IdCT")
                         .HasColumnType("int");
 
-                    b.Property<int?>("IdMucDich")
-                        .HasColumnType("int");
-
                     b.Property<double?>("LuuLuong")
                         .HasColumnType("float");
+
+                    b.Property<string>("MucDich")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TaiKhoanSua")
                         .HasColumnType("nvarchar(max)");
@@ -2660,8 +2644,6 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IdCT");
-
-                    b.HasIndex("IdMucDich");
 
                     b.ToTable("LuuLuongTheoMucDich");
                 });
@@ -3625,13 +3607,7 @@ namespace new_wr_api.Migrations
                         .WithMany("LuuLuongTheoMucDich")
                         .HasForeignKey("IdCT");
 
-                    b.HasOne("new_wr_api.Data.MucDichKT", "MucDichKT")
-                        .WithMany("LuuLuongTheoMucDich")
-                        .HasForeignKey("IdMucDich");
-
                     b.Navigation("CT_ThongTin");
-
-                    b.Navigation("MucDichKT");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Song", b =>
@@ -3730,8 +3706,6 @@ namespace new_wr_api.Migrations
             modelBuilder.Entity("new_wr_api.Data.MucDichKT", b =>
                 {
                     b.Navigation("CongTrinh");
-
-                    b.Navigation("LuuLuongTheoMucDich");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.Song", b =>

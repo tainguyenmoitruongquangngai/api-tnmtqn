@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Dto;
-using new_wr_api.Models;
-using System.Security.Claims;
 
 namespace new_wr_api.Service
 {
@@ -28,13 +26,18 @@ namespace new_wr_api.Service
                 .Include(d => d.Huyen)
                 .Include(d => d.LoaiCT)
                 .Include(d => d.ThongSo)
+                .Include(d => d.MucDichKT)
                 .Include(d => d.LuuLuongTheoMucDich)
                 .AsQueryable().ToListAsync();
 
             var newData = new List<CT_ThongTin>();
 
+            //Hồ chứa, đập dâng có dung tích toàn bộ >= 0,01 triệu m3
             var hochua_dapdang = items
-                .Where(c => c.LoaiCT != null && new List<int> { 4, 5 }.Contains(c.LoaiCT.Id)
+                .Where(c => c.LoaiCT!.Id == 4 && c.ThongSo != null && c.ThongSo.DungTichToanBo != null && c.ThongSo.DungTichToanBo >= 0.01);
+
+            //Công trình khai thác , sử dụng nước mặt khác cho mục đích sản suất nông nghiệp, nuôi trồng thủy sản với quy mô > 0,1 m3/s
+            var sxnn_ntts = items.Where(c => c.LoaiCT != null && new List<int> { 5, 6,  }.Contains(c.LoaiCT.Id)
                             && c.ThongSo != null && c.ThongSo.DungTichToanBo != null && c.ThongSo.DungTichToanBo <= 0.01);
 
             newData.AddRange(hochua_dapdang);

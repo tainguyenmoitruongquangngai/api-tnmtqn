@@ -3,26 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace new_wr_api.Data
 {
-    public class LuuLuongTheoMucDich
+    public class MucDichKT
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int? IdCT { get; set; }
-        public int? IdMucDich { get; set; }
-        public double? LuuLuong { get; set; }
-        public string? DonViDo { get; set; }
-        public string? GhiChu { get; set; }
+        public string? MucDich { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }
         public DateTime? ThoiGianSua { get; set; }
         public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
 
-        [ForeignKey("IdCT")]
-        public virtual CT_ThongTin? CT_ThongTin { get; set; }
-
-        [ForeignKey("IdMucDich")]
-        public virtual MucDichKT? MucDichKT { get; set; }
+        public virtual ICollection<CT_ThongTin>? CongTrinh { get; set; }
+        public virtual ICollection<LuuLuongTheoMucDich>? LuuLuongTheoMucDich { get; set; }
     }
 }

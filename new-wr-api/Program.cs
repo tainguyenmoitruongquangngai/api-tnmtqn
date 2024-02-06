@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
@@ -42,6 +44,7 @@ services.AddScoped<SongService>();
 services.AddScoped<LuuVucSongService>();
 services.AddScoped<TieuVungLuuVucService>();
 services.AddScoped<DonViHCService>();
+services.AddScoped<DonViDoService>();
 
 services.AddScoped<BieuMauMotService>();
 services.AddScoped<BieuMauHaiService>();
@@ -192,5 +195,23 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Seed the database
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AspNetUsers>>();
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AspNetRoles>>();
+
+        await dbContext.Database.MigrateAsync();
+        await SeedData.InitializeAsync(dbContext, userManager, roleManager);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error during database seeding: {ex.Message}");
+    }
+}
 
 app.Run();

@@ -16,6 +16,7 @@ namespace new_wr_api.Data
         public int? IdLuuVuc { get; set; }
         public int? IdTieuLuuVuc { get; set; }
         public int? IdTangChuaNuoc { get; set; }
+        public int? IdMucDichKT { get; set; }
         public string? TenCT { get; set; }
         public string? MaCT { get; set; }
         public string? ViTriCT { get; set; }
@@ -24,11 +25,11 @@ namespace new_wr_api.Data
         public string? CapCT { get; set; }
         public int? NamBatDauVanHanh { get; set; }
         public string? NguonNuocKT { get; set; }
-        public string? MucDichKT { get; set; }
         public string? PhuongThucKT { get; set; }
         public string? NguonNuocXT { get; set; }
         public string? ThoiGianKT { get; set; }
         public string? ThoiGianHNK { get; set; }
+        public string? MucDichKT { get; set; }
         public string? MucDichHNK { get; set; }
         public string? MucDichhTD { get; set; }
         public string? QuyMoHNK { get; set; }
@@ -63,9 +64,14 @@ namespace new_wr_api.Data
         [ForeignKey("IdXa")]
         public virtual Xa? Xa { get; set; }
 
+        [ForeignKey("IdMucDichKT")]
+        public virtual MucDichKT? MucDichKTSD { get; set; }
+
         public virtual CT_ThongSo? ThongSo { get; set; }
         public virtual ICollection<CT_HangMuc>? HangMuc { get; set; }
         public virtual ICollection<GP_ThongTin>? GiayPhep { get; set; }
         public virtual ICollection<LuuLuongTheoMucDich>? LuuLuongTheoMucDich { get; set; }
+
+
     }
 }
