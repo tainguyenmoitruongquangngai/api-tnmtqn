@@ -26,39 +26,38 @@ namespace new_wr_api.Service
         public async Task<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>> GetAllSongSuoiAsync()
         {
             var items = await _context.KKTNN_NuocMat_SoLuong_SongSuoi!.Where(d => d.DaXoa == false)
-                .Include(d => d.Song)
                 .OrderBy(d => d.Id)
                 .AsQueryable().ToListAsync();
 
             var soLuongNuocMatDto = _mapper.Map<List<KKTNN_NuocMat_SoLuong_SongSuoiDto>>(items);
-            foreach (var dto in soLuongNuocMatDto)
-            {
-                if (!string.IsNullOrEmpty(dto.Song!.IdXaDauSong.ToString()))
-                {
-                    var ds = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto.Song!.IdXaDauSong.ToString());
-                    if (ds != null)
-                    {
-                        dto.Song.DauSong = new DauCuoiSongDto
-                        {
-                            X = dto.Song.XDauSong,
-                            Y = dto.Song.YDauSong,
-                            Xa = ds!.TenXa,
-                            Huyen = ds!.TenHuyen
-                        };
-                    }
-                    var cs = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto.Song!.IdXaCuoiSong.ToString());
-                    if (cs != null)
-                    {
-                        dto.Song.CuoiSong = new DauCuoiSongDto
-                        {
-                            X = dto.Song.XCuoiSong,
-                            Y = dto.Song.YCuoiSong,
-                            Xa = cs!.TenXa,
-                            Huyen = cs!.TenHuyen
-                        };
-                    }
-                }
-            }
+            //foreach (var dto in soLuongNuocMatDto)
+            //{
+            //    if (!string.IsNullOrEmpty(dto.Song!.IdXaDauSong.ToString()))
+            //    {
+            //        var ds = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto.Song!.IdXaDauSong.ToString());
+            //        if (ds != null)
+            //        {
+            //            dto.Song.DauSong = new DauCuoiSongDto
+            //            {
+            //                X = dto.Song.XDauSong,
+            //                Y = dto.Song.YDauSong,
+            //                Xa = ds!.TenXa,
+            //                Huyen = ds!.TenHuyen
+            //            };
+            //        }
+            //        var cs = await _context.DonViHC!.FirstOrDefaultAsync(dv => dv.IdXa == dto.Song!.IdXaCuoiSong.ToString());
+            //        if (cs != null)
+            //        {
+            //            dto.Song.CuoiSong = new DauCuoiSongDto
+            //            {
+            //                X = dto.Song.XCuoiSong,
+            //                Y = dto.Song.YCuoiSong,
+            //                Xa = cs!.TenXa,
+            //                Huyen = cs!.TenHuyen
+            //            };
+            //        }
+            //    }
+            //}
             return soLuongNuocMatDto;
 
 

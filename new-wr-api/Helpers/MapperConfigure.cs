@@ -128,9 +128,7 @@ namespace new_wr_api.Helpers
                 .ForMember(dest => dest.xa, opt => opt.MapFrom(src => src.Xa))
                 .ReverseMap();
             CreateMap<KKTNN_NuocMua_TongLuong, KKTNN_NuocMua_TongLuongDto>().ReverseMap();
-            CreateMap<KKTNN_NuocMat_SoLuong_SongSuoi, KKTNN_NuocMat_SoLuong_SongSuoiDto>()
-                 .ForMember(dest => dest.Song, opt => opt.MapFrom(src => src.Song))
-                 .ReverseMap();
+            CreateMap<KKTNN_NuocMat_SoLuong_SongSuoi, KKTNN_NuocMat_SoLuong_SongSuoiDto>().ReverseMap();
 
             CreateMap<KKTNN_NuocMat_SoLuong_AoHoDamPha, KKTNN_NuocMat_SoLuong_AoHoDamPhaDto>().ReverseMap();
 
