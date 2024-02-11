@@ -21,29 +21,38 @@ namespace new_wr_api.Service
 
         public async Task<List<KKTNN_NuocMat_KhaiThacSuDungDto>> GetAllAsync()
         {
-            var items = await _context.CT_ThongTin!.Where(d => d.DaXoa == false)
+            // Retrieve data from the database asynchronously
+            var items = await _context.CT_ThongTin!
+                .Where(d => d.DaXoa == false)
                 .Include(d => d.Xa)
                 .Include(d => d.Huyen)
                 .Include(d => d.LoaiCT)
                 .Include(d => d.ThongSo)
-                .Include(d => d.MucDichKT)
+                .Include(d => d.MucDichKTSD)
                 .Include(d => d.LuuLuongTheoMucDich)
-                .AsQueryable().ToListAsync();
+                .ToListAsync();
 
-            var newData = new List<CT_ThongTin>();
-
-            //Hồ chứa, đập dâng có dung tích toàn bộ >= 0,01 triệu m3
+            // Filter and categorize the retrieved data
             var hochua_dapdang = items
                 .Where(c => c.LoaiCT!.Id == 4 && c.ThongSo != null && c.ThongSo.DungTichToanBo != null && c.ThongSo.DungTichToanBo >= 0.01);
 
-            //Công trình khai thác , sử dụng nước mặt khác cho mục đích sản suất nông nghiệp, nuôi trồng thủy sản với quy mô > 0,1 m3/s
-            var sxnn_ntts = items.Where(c => c.LoaiCT != null && new List<int> { 5, 6,  }.Contains(c.LoaiCT.Id)
-                            && c.ThongSo != null && c.ThongSo.DungTichToanBo != null && c.ThongSo.DungTichToanBo <= 0.01);
+            var sxnn_ntts = items
+                .Where(c => c.LoaiCT != null && new List<int> { 5, 6 }.Contains(c.LoaiCT.Id)
+                            && c.MucDichKTSD != null && new List<int> { 4, 5 }.Contains(c.MucDichKTSD.Id)
+                            && c.ThongSo!.QMaxKT > 0.1);
 
-            newData.AddRange(hochua_dapdang);
+            var kddv_sxpnn = items
+                .Where(c => c.LoaiCT != null && new List<int> { 4, 5, 6 }.Contains(c.LoaiCT.Id)
+                            && c.MucDichKTSD != null && new List<int> { 2, 3 }.Contains(c.MucDichKTSD.Id)
+                            && c.ThongSo!.QKhaiThac > 0.00116 && c.ThongSo.CongSuatLM > 50);
 
+            // Combine filtered data from different categories
+            var newData = hochua_dapdang.Concat(sxnn_ntts).Concat(kddv_sxpnn).ToList();
+
+            // Map filtered data to DTOs
             var dtos = _mapper.Map<List<KKTNN_NuocMat_KhaiThacSuDungDto>>(newData);
 
+            // Set additional property for each DTO
             foreach (var dto in dtos)
             {
                 dto.tinh = "Quảng Ngãi";
@@ -51,6 +60,5 @@ namespace new_wr_api.Service
 
             return dtos;
         }
-
     }
 }

@@ -12,8 +12,8 @@ using new_wr_api.Data;
 namespace new_wr_api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240206061813_CreateRelationshipCT_ThongTin__MucDichKT__LuuLuongTheoMucDich")]
-    partial class CreateRelationshipCT_ThongTin__MucDichKT__LuuLuongTheoMucDich
+    [Migration("20240207054057_InitialzeDatabase")]
+    partial class InitialzeDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1817,6 +1817,25 @@ namespace new_wr_api.Migrations
                     b.HasIndex("IdSong");
 
                     b.ToTable("DoanSong");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.DonViDo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DonViDo");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.DonViHC", b =>

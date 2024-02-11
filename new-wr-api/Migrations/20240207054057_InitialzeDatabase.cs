@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace new_wr_api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitializeDatabase : Migration
+    public partial class InitialzeDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -613,6 +613,20 @@ namespace new_wr_api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dashboards", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DonViDo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ten = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DonViDo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1605,7 +1619,7 @@ namespace new_wr_api.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdCT = table.Column<int>(type: "int", nullable: true),
-                    MucDich = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdMucDich = table.Column<int>(type: "int", nullable: true),
                     LuuLuong = table.Column<double>(type: "float", nullable: true),
                     DonViDo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -1622,6 +1636,11 @@ namespace new_wr_api.Migrations
                         name: "FK_LuuLuongTheoMucDich_CT_ThongTin_IdCT",
                         column: x => x.IdCT,
                         principalTable: "CT_ThongTin",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_LuuLuongTheoMucDich_MucDichKT_IdMucDich",
+                        column: x => x.IdMucDich,
+                        principalTable: "MucDichKT",
                         principalColumn: "Id");
                 });
 
@@ -1961,6 +1980,11 @@ namespace new_wr_api.Migrations
                 column: "IdCT");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LuuLuongTheoMucDich_IdMucDich",
+                table: "LuuLuongTheoMucDich",
+                column: "IdMucDich");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Song_IdLuuVuc",
                 table: "Song",
                 column: "IdLuuVuc");
@@ -2088,6 +2112,9 @@ namespace new_wr_api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Dashboards");
+
+            migrationBuilder.DropTable(
+                name: "DonViDo");
 
             migrationBuilder.DropTable(
                 name: "DonViHC");
