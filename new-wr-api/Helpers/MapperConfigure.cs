@@ -143,9 +143,9 @@ namespace new_wr_api.Helpers
                  .ForMember(dest => dest.congsuat, opt => opt.MapFrom(src => src.ThongSo!.CongSuatLM))
                  .ForMember(dest => dest.xa, opt => opt.MapFrom(src => src.Xa!.TenXa))
                  .ForMember(dest => dest.huyen, opt => opt.MapFrom(src => src.Huyen!.TenHuyen))
-                 .ForMember(dest => dest.q_kt_tuoi, opt => opt.MapFrom(src => src.MucDichKTSD!.Id == 4 ? src.ThongSo!.QMaxKT : 0))
-                 .ForMember(dest => dest.q_kt_kddv_sx_phi_nn, opt => opt.MapFrom(src => new List<int> { 2, 3 }.Contains(src.MucDichKTSD!.Id) ? src.ThongSo!.QMaxKT * 86400 : 0))
-                 .ForMember(dest => dest.mucdich_khac, opt => opt.MapFrom(src => !new List<int> { 2, 3, 4 }.Contains(src.MucDichKTSD!.Id) ? src.ThongSo!.QMaxKT * 86400 : 0))
+                 .ForMember(dest => dest.q_kt_tuoi, opt => opt.MapFrom(src => src.MucDichKTSD!.Id == 4 ? src.ThongSo!.QMaxKT : null))
+                 .ForMember(dest => dest.q_kt_kddv_sx_phi_nn, opt => opt.MapFrom(src => new List<int> { 2, 3 }.Contains(src.MucDichKTSD!.Id) ? src.ThongSo!.QMaxKT * 86400 : null))
+                 .ForMember(dest => dest.mucdich_khac, opt => opt.MapFrom(src => !new List<int> { 2, 3, 4 }.Contains(src.MucDichKTSD!.Id) ? src.ThongSo!.QMaxKT * 86400 : null))
                  .ReverseMap();
 
             CreateMap<KKTNN_NuocMat_TongLuong, KKTNN_NuocMat_TongLuongDto>()
