@@ -163,7 +163,7 @@ namespace new_wr_api.Helpers
             CreateMap<KKTNN_NuocDuoiDat_TongLuong, KKTNN_NuocDuoiDat_TongLuongDto>()
               .ForMember(dest => dest.TangChuaNuoc, opt => opt.MapFrom(src => src.TangChuaNuoc))
               .ReverseMap();
-            CreateMap<KKTNN_NuocDuoiDat_ChatLuong, KKTNN_NuocDuoiDat_ChatLuongDto>()
+            CreateMap<LuuVucSong, KKTNN_NuocDuoiDat_ChatLuongDto>()
                .ForMember(dest => dest.donvi_hanhchinh, opt => opt.MapFrom((src, dest) => dest.donvi_hanhchinh))
                .ReverseMap();
             //Song
@@ -174,6 +174,9 @@ namespace new_wr_api.Helpers
 
             //TangChuaNuoc
             CreateMap<TangChuaNuoc, TangChuaNuocDto>().ReverseMap();
+
+            //ThongTinDuLieu
+            CreateMap<NN_LuuVucSong, NN_LuuVucSongDto>().ReverseMap();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using new_wr_api.Data;
 using new_wr_api.Data.KiemKeTNN;
 
 namespace new_wr_api.Data
@@ -63,12 +62,31 @@ namespace new_wr_api.Data
         //KiemKeTaiNguyenNuoc
         public DbSet<KKTNN_NuocDuoiDat_SoLuong>? KKTNN_NuocDuoiDat_SoLuong { get; set; }
         public DbSet<KKTNN_NuocDuoiDat_TongLuong>? KKTNN_NuocDuoiDat_TongLuong { get; set; }
-        public DbSet<KKTNN_NuocDuoiDat_ChatLuong>? KKTNN_NuocDuoiDat_ChatLuong { get; set; }
+        public DbSet<LuuVucSong>? KKTNN_NuocDuoiDat_ChatLuong { get; set; }
         public DbSet<KKTNN_NuocMat_SoLuong_SongSuoi>? KKTNN_NuocMat_SoLuong_SongSuoi { get; set; }
         public DbSet<KKTNN_NuocMat_SoLuong_AoHoDamPha>? KKTNN_NuocMat_SoLuong_AoHoDamPha { get; set; }
         public DbSet<KKTNN_NuocMat_ChatLuong>? KKTNN_NuocMat_ChatLuong { get; set; }
         public DbSet<KKTNN_NuocMat_TongLuong>? KKTNN_NuocMat_TongLuong { get; set; }
         public DbSet<KKTNN_NuocMua_TongLuong>? KKTNN_NuocMua_TongLuong { get; set; }
+
+        //ThongTinDuLieu
+        public DbSet<NN_LuuVucSong>? NN_LuuVucSong { get; set; }
+        public DbSet<NN_NguonNuoc_SongSuoi>? NN_NguonNuoc_SongSuoi { get; set; }
+        public DbSet<NN_NguonNuoc_AoHoDamPha>? NN_NguonNuoc_AoHoDamPha { get; set; }
+        public DbSet<NN_NguonNuoc_TangChuaNuoc>? NN_NguonNuoc_TangChuaNuoc { get; set; }
+        public DbSet<NN_AoHoDamPhaKhongDuocSanLap>? NN_AoHoDamPhaKhongDuocSanLap { get; set; }
+        public DbSet<NN_HanhLangBaoVeNN_AoHoDamTuNhienNhanTao>? NN_HanhLangBaoVeNN_AoHoDamTuNhienNhanTao { get; set; }
+        public DbSet<NN_HanhLangBaoVeNN_HoThuyLoiItHon1m3>? NN_HanhLangBaoVeNN_HoThuyLoiItHon1m3 { get; set; }
+        public DbSet<NN_HanhLangBaoVeNN_HoThuyLoiNhieuHon1m3>? NN_HanhLangBaoVeNN_HoThuyLoiNhieuHon1m3 { get; set; }
+        public DbSet<NN_HanhLangBaoVeNN_SongSuoi>? NN_HanhLangBaoVeNN_SongSuoi { get; set; }
+        public DbSet<NN_CNNN_Ho>? NN_CNNN_Ho { get; set; }
+        public DbSet<NN_CNNN_SongSuoi>? NN_CNNN_SongSuoi { get; set; }
+        public DbSet<NN_CNNN_TangChuaNuoc>? NN_CNNN_TangChuaNuoc { get; set; }
+        public DbSet<NN_DCTT_HaDuHoChua>? NN_DCTT_HaDuHoChua { get; set; }
+        public DbSet<NN_DCTT_SongSuoi>? NN_DCTT_SongSuoi { get; set; }
+        public DbSet<NN_NguongKhaiThacNDD>? NN_NguongKhaiThacNDD { get; set; }
+        public DbSet<NN_VungCamHanCheKTNDD>? NN_VungCamHanCheKTNDD { get; set; }
+        public DbSet<NN_MatCatSongSuoi>? NN_MatCatSongSuoi { get; set; }
 
 
         //BaoCaoBieuMau

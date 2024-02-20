@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using new_wr_api.Dto;
-using new_wr_api.Data;
 
 namespace new_wr_api.Data
 {

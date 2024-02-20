@@ -2,7 +2,7 @@
 {
     public class KKTNN_NuocMat_SoLuong_SongSuoiDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? MaSong { get; set; }
         public string? TenSong { get; set; }
         public string? ChayRa { get; set; }
