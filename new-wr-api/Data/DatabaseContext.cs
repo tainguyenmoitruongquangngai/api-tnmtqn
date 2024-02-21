@@ -120,6 +120,7 @@ namespace new_wr_api.Data
         public DbSet<ThongSoCLNAo>? ThongSoCLNAo { get; set; }
         public DbSet<DoanSong>? DoanSong { get; set; }
         public DbSet<ThongSoLtd>? ThongSoLtd { get; set; }
+        public DbSet<DuLieuNguonNuocNhan>? DuLieuNguonNuocNhan { get; set; }
 
 
         //MoreDatabase

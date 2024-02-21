@@ -1884,6 +1884,130 @@ namespace new_wr_api.Migrations
                     b.ToTable("DonViHC");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.DuLieuNguonNuocNhan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double?>("ChieuDai")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CnnAmoni")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CnnBOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CnnCOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CnnColiform")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CnnTSS")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CnnTongN")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CnnTongP")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CqcAmoni")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CqcBOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CqcCOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CqcColiform")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CqcTSS")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CqcTongN")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CqcTongP")
+                        .HasColumnType("float");
+
+                    b.Property<bool?>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("LnnAmoni")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LnnBOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LnnCOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LnnColiform")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LnnTSS")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LnnTongN")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LnnTongP")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdAmoni")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdBOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdCOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdColiform")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdTSS")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdTongN")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdTongP")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuuLuongDongChay")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Song")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenDoanSong")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DuLieuNguonNuocNhan");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.Functions", b =>
                 {
                     b.Property<int>("Id")
