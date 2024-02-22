@@ -77,6 +77,7 @@ services.AddScoped<ThongSoCLNSongService>();
 services.AddScoped<ThongSoCLNAoService>();
 services.AddScoped<DoanSongService>();
 services.AddScoped<DuLieuNguonNuocNhanService>();
+services.AddScoped<PhanDoanSongService>();
 
 services.AddScoped<Tram_ThongTinService>();
 services.AddScoped<NN_LuuVucSongService>();
