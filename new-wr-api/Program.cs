@@ -79,7 +79,6 @@ services.AddScoped<DoanSongService>();
 services.AddScoped<DuLieuNguonNuocNhanService>();
 
 services.AddScoped<Tram_ThongTinService>();
-services.AddScoped<NN_LuuVucSongService>();
 services.AddScoped<NM_SoLuongService>();
 services.AddScoped<NM_TongLuongService>();
 services.AddScoped<NM_KhaiThacSuDungService>();
@@ -88,6 +87,24 @@ services.AddScoped<NDD_SoLuongService>();
 services.AddScoped<NDD_TongLuongService>();
 services.AddScoped<NDD_ChatLuongService>();
 
+//thongtindulieu
+services.AddScoped<NN_LuuVucSongService>();
+services.AddScoped<NN_NguonNuoc_SongSuoiService>();
+services.AddScoped<NN_NguonNuoc_AoHoDamPhaService>();
+services.AddScoped<NN_NguonNuoc_TangChuaNuocService>();
+services.AddScoped<NN_AoHoDamPhaKhongDuocSanLapService>();
+services.AddScoped<NN_HanhLangBaoVeNN_SongSuoiService>();
+services.AddScoped<NN_HanhLangBaoVeNN_HoThuyLoiNhieuHon1m3Service>();
+services.AddScoped<NN_HanhLangBaoVeNN_HoThuyLoiItHon1m3Service>();
+services.AddScoped<NN_HanhLangBaoVeNN_AoHoDamTuNhienNhanTaoService>();
+services.AddScoped<NN_CNNN_SongSuoiService>();
+services.AddScoped<NN_CNNN_HoService>();
+services.AddScoped<NN_CNNN_TangChuaNuocService>();
+services.AddScoped<NN_DCTT_SongSuoiService>();
+services.AddScoped<NN_DCTT_HaDuHoChuaService>();
+services.AddScoped<NN_NguongKhaiThacNDDService>();
+services.AddScoped<NN_VungCamHanCheKTNDDService>();
+services.AddScoped<NN_MatCatSongSuoiService>();
 
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>

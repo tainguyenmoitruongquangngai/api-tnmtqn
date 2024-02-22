@@ -178,6 +178,22 @@ namespace new_wr_api.Helpers
 
             //ThongTinDuLieu
             CreateMap<NN_LuuVucSong, NN_LuuVucSongDto>().ReverseMap();
+            CreateMap<NN_NguonNuoc_SongSuoi, NN_NguonNuoc_SongSuoiDto>().ReverseMap();
+            CreateMap<NN_NguonNuoc_AoHoDamPha, NN_NguonNuoc_AoHoDamPhaDto>().ReverseMap();
+            CreateMap<NN_NguonNuoc_TangChuaNuoc, NN_NguonNuoc_TangChuaNuocDto>().ReverseMap();
+            CreateMap<NN_AoHoDamPhaKhongDuocSanLap, NN_AoHoDamPhaKhongDuocSanLapDto>().ReverseMap();
+            CreateMap<NN_HanhLangBaoVeNN_SongSuoi, NN_HanhLangBaoVeNN_SongSuoiDto>().ReverseMap();
+            CreateMap<NN_HanhLangBaoVeNN_HoThuyLoiNhieuHon1m3, NN_HanhLangBaoVeNN_HoThuyLoiNhieuHon1m3Dto>().ReverseMap();
+            CreateMap<NN_HanhLangBaoVeNN_HoThuyLoiItHon1m3, NN_HanhLangBaoVeNN_HoThuyLoiItHon1m3Dto>().ReverseMap();
+            CreateMap<NN_HanhLangBaoVeNN_AoHoDamTuNhienNhanTao, NN_HanhLangBaoVeNN_AoHoDamTuNhienNhanTaoDto>().ReverseMap();
+            CreateMap<NN_CNNN_SongSuoi, NN_CNNN_SongSuoiDto>().ReverseMap();
+            CreateMap<NN_CNNN_Ho, NN_CNNN_HoDto>().ReverseMap();
+            CreateMap<NN_CNNN_TangChuaNuoc, NN_CNNN_TangChuaNuocDto>().ReverseMap();
+            CreateMap<NN_DCTT_SongSuoi, NN_DCTT_SongSuoiDto>().ReverseMap();
+            CreateMap<NN_DCTT_HaDuHoChua, NN_DCTT_HaDuHoChuaDto>().ReverseMap();
+            CreateMap<NN_NguongKhaiThacNDD, NN_NguongKhaiThacNDDDto>().ReverseMap();
+            CreateMap<NN_VungCamHanCheKTNDD, NN_VungCamHanCheKTNDDDto>().ReverseMap();
+            CreateMap<NN_MatCatSongSuoi, NN_MatCatSongSuoiDto>().ReverseMap();
         }
     }
 }
