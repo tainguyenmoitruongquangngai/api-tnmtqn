@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong;
 using new_wr_api.Data.KiemKeTNN;
 
 namespace new_wr_api.Data
@@ -121,6 +122,8 @@ namespace new_wr_api.Data
         public DbSet<DoanSong>? DoanSong { get; set; }
         public DbSet<ThongSoLtd>? ThongSoLtd { get; set; }
         public DbSet<DuLieuNguonNuocNhan>? DuLieuNguonNuocNhan { get; set; }
+        public DbSet<PhanDoanSong>? PhanDoanSong { get; set; }
+
 
 
         //MoreDatabase
