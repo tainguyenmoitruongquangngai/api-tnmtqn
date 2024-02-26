@@ -196,6 +196,29 @@ namespace new_wr_api.Helpers
             CreateMap<NN_NguongKhaiThacNDD, NN_NguongKhaiThacNDDDto>().ReverseMap();
             CreateMap<NN_VungCamHanCheKTNDD, NN_VungCamHanCheKTNDDDto>().ReverseMap();
             CreateMap<NN_MatCatSongSuoi, NN_MatCatSongSuoiDto>().ReverseMap();
+
+            CreateMap<SLN_TongLuongNuocMat, SLN_TongLuongNuocMatDto>().ReverseMap();
+            CreateMap<CLN_NuocMat, CLN_NuocMatDto>().ReverseMap();
+            CreateMap<CLN_NDD, CLN_NDDDto>().ReverseMap();
+
+            CreateMap<SLDTKTSDN_Mat, SLDTKTSDN_MatDto>().ReverseMap();
+            CreateMap<SLDTKTSDN_NDD, SLDTKTSDN_NDDDto>().ReverseMap();
+            CreateMap<SLDTKTSDN_XaThai, SLDTKTSDN_XaThaiDto>().ReverseMap();
+
+            CreateMap<CTKTSDN_PCGP_NDD, CTKTSDN_PCGP_NDDDto>().ReverseMap();
+            CreateMap<CTKTSDN_PCGP_NuocBien, CTKTSDN_PCGP_NuocBienDto>().ReverseMap();
+            CreateMap<CTKTSDN_PCGP_NuocMat, CTKTSDN_PCGP_NuocMatDto>().ReverseMap();
+            CreateMap<CTKTSDN_PDK_NDD, CTKTSDN_PDK_NDDDto>().ReverseMap();
+            CreateMap<CTKTSDN_PDK_NuocBien, CTKTSDN_PDK_NuocBienDto>().ReverseMap();
+            CreateMap<CTKTSDN_PDK_NuocMat, CTKTSDN_PDK_NuocMatDto>().ReverseMap();
+            CreateMap<CTKTSDN_KTNDDCuaHoGD, CTKTSDN_KTNDDCuaHoGDDto>().ReverseMap();
+
+            CreateMap<HSKTT_NuocMat, HSKTT_NuocMatDto>().ReverseMap();
+            CreateMap<HSKTT_NDD, HSKTT_NDDDto>().ReverseMap();
+
+            CreateMap<DanhMucNN_LienTinh, DanhMucNN_LienTinhDto>().ReverseMap();
+            CreateMap<DanhMucNN_NoiTinh_AoHo, DanhMucNN_NoiTinh_AoHoDto>().ReverseMap();
+            CreateMap<DanhMucNN_NoiTinh_SongSuoi, DanhMucNN_NoiTinh_SongSuoiDto>().ReverseMap();
         }
     }
 }

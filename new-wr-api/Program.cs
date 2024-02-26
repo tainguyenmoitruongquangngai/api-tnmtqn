@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using new_wr_api.Data;
+using new_wr_api.Dto;
 using new_wr_api.Service;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -23,7 +24,7 @@ services.AddScoped<RoleService>();
 services.AddScoped<DashboardService>();
 services.AddScoped<RoleDashboardService>();
 services.AddScoped<UserDashboardService>();
-services.AddScoped<PermissionService>();
+services.AddScoped<PermissionService>();                                                                                   
 
 //Other Service
 services.AddScoped<CT_ThongTinService>();
@@ -106,6 +107,30 @@ services.AddScoped<NN_DCTT_HaDuHoChuaService>();
 services.AddScoped<NN_NguongKhaiThacNDDService>();
 services.AddScoped<NN_VungCamHanCheKTNDDService>();
 services.AddScoped<NN_MatCatSongSuoiService>();
+
+services.AddScoped<SLN_TongLuongNuocMat>();
+services.AddScoped<CLN_NuocMat>();
+services.AddScoped<CLN_NDD>();
+
+services.AddScoped<SLDTKTSDN_Mat>();
+services.AddScoped<SLDTKTSDN_NDD>();
+services.AddScoped<SLDTKTSDN_XaThai>();
+
+services.AddScoped<CTKTSDN_PCGP_NDD>();
+services.AddScoped<CTKTSDN_PCGP_NuocBien>();
+services.AddScoped<CTKTSDN_PCGP_NuocMat>();
+services.AddScoped<CTKTSDN_PDK_NDD>();
+services.AddScoped<CTKTSDN_PDK_NuocBien>();
+services.AddScoped<CTKTSDN_PDK_NuocMat>();
+services.AddScoped<CTKTSDN_KTNDDCuaHoGD>();
+
+services.AddScoped<HSKTT_NDD>();
+services.AddScoped<HSKTT_NuocMat>();
+
+services.AddScoped<DanhMucNN_LienTinh>();
+services.AddScoped<DanhMucNN_NoiTinh_AoHo>();
+services.AddScoped<DanhMucNN_NoiTinh_SongSuoi>();
+
 
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
