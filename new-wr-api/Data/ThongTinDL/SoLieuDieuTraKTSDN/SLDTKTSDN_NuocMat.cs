@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace new_wr_api.Data
 {
-    public class SLDTKTSDN_Mat
+    public class SLDTKTSDN_NuocMat
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -20,7 +20,7 @@ namespace new_wr_api.Data
         public double? CongSuatPhatDien { get; set; }
         public string? SoHoDanDuocCapNuoc { get; set; }
         public string? CheDoKT { get; set; }
-        public string? FilePDF { get; set; }      
+        public string? FilePDF { get; set; }
         public string? GhiChu { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }

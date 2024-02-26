@@ -201,7 +201,7 @@ namespace new_wr_api.Helpers
             CreateMap<CLN_NuocMat, CLN_NuocMatDto>().ReverseMap();
             CreateMap<CLN_NDD, CLN_NDDDto>().ReverseMap();
 
-            CreateMap<SLDTKTSDN_Mat, SLDTKTSDN_MatDto>().ReverseMap();
+            CreateMap<SLDTKTSDN_NuocMat, SLDTKTSDN_NuocMatDto>().ReverseMap();
             CreateMap<SLDTKTSDN_NDD, SLDTKTSDN_NDDDto>().ReverseMap();
             CreateMap<SLDTKTSDN_XaThai, SLDTKTSDN_XaThaiDto>().ReverseMap();
 

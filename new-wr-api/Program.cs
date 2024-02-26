@@ -108,28 +108,28 @@ services.AddScoped<NN_NguongKhaiThacNDDService>();
 services.AddScoped<NN_VungCamHanCheKTNDDService>();
 services.AddScoped<NN_MatCatSongSuoiService>();
 
-services.AddScoped<SLN_TongLuongNuocMat>();
-services.AddScoped<CLN_NuocMat>();
-services.AddScoped<CLN_NDD>();
+services.AddScoped<SLN_TongLuongNuocMatService>();
+services.AddScoped<CLN_NuocMatService>();
+services.AddScoped<CLN_NDDService>();
 
-services.AddScoped<SLDTKTSDN_Mat>();
-services.AddScoped<SLDTKTSDN_NDD>();
-services.AddScoped<SLDTKTSDN_XaThai>();
+services.AddScoped<SLDTKTSDN_NuocMatService>();
+services.AddScoped<SLDTKTSDN_NDDService>();
+services.AddScoped<SLDTKTSDN_XaThaiService>();
 
-services.AddScoped<CTKTSDN_PCGP_NDD>();
-services.AddScoped<CTKTSDN_PCGP_NuocBien>();
-services.AddScoped<CTKTSDN_PCGP_NuocMat>();
-services.AddScoped<CTKTSDN_PDK_NDD>();
-services.AddScoped<CTKTSDN_PDK_NuocBien>();
-services.AddScoped<CTKTSDN_PDK_NuocMat>();
-services.AddScoped<CTKTSDN_KTNDDCuaHoGD>();
+services.AddScoped<CTKTSDN_PCGP_NDDService>();
+services.AddScoped<CTKTSDN_PCGP_NuocBienService>();
+services.AddScoped<CTKTSDN_PCGP_NuocMatService>();
+services.AddScoped<CTKTSDN_PDK_NDDService>();
+services.AddScoped<CTKTSDN_PDK_NuocBienService>();
+services.AddScoped<CTKTSDN_PDK_NuocMatService>();
+services.AddScoped<CTKTSDN_KTNDDCuaHoGDService>();
 
-services.AddScoped<HSKTT_NDD>();
-services.AddScoped<HSKTT_NuocMat>();
+services.AddScoped<HSKTT_NDDService>();
+services.AddScoped<HSKTT_NuocMatService>();
 
-services.AddScoped<DanhMucNN_LienTinh>();
-services.AddScoped<DanhMucNN_NoiTinh_AoHo>();
-services.AddScoped<DanhMucNN_NoiTinh_SongSuoi>();
+services.AddScoped<DanhMucNN_LienTinhService>();
+services.AddScoped<DanhMucNN_NoiTinh_AoHoService>();
+services.AddScoped<DanhMucNN_NoiTinh_SongSuoiService>();
 
 
 

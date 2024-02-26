@@ -20,6 +20,7 @@ namespace new_wr_api.Data
         public double? YDiemCuoi { get; set; }
         public string? ChucNang { get; set; }
         public string? PhamViHanhLangBaoVe { get; set; }
+        public string? GhiChu { get; set; }
         public DateTime? ThoiGianThucHien { get; set; }
         public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }

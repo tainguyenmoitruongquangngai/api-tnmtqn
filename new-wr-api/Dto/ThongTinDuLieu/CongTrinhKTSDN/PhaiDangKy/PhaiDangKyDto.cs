@@ -1,6 +1,6 @@
 ﻿namespace new_wr_api.Dto
 {
-    public class CTKTSDN_PDK_NDD
+    public class CTKTSDN_PDK_NDDDto
     {
         public int? Id { get; set; }
         public string? TenCongTrinh { get; set; }

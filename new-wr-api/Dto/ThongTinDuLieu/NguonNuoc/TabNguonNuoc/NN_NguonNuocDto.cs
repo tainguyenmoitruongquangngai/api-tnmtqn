@@ -35,6 +35,7 @@
         public double? YDiemCuoi { get; set; }
         public string? ChucNang { get; set; }
         public string? PhamViHanhLangBaoVe { get; set; }
+        public string? GhiChu { get; set; }
     }
 
     public class NN_NguonNuoc_TangChuaNuocDto

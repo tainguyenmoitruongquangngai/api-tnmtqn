@@ -1,6 +1,6 @@
 ﻿namespace new_wr_api.Dto
 {
-    public class SLDTKTSDN_MatDto
+    public class SLDTKTSDN_NuocMatDto
     {
         public int? Id { get; set; }
         public string? TenChuHoCT { get; set; }

@@ -88,6 +88,24 @@ namespace new_wr_api.Data
         public DbSet<NN_NguongKhaiThacNDD>? NN_NguongKhaiThacNDD { get; set; }
         public DbSet<NN_VungCamHanCheKTNDD>? NN_VungCamHanCheKTNDD { get; set; }
         public DbSet<NN_MatCatSongSuoi>? NN_MatCatSongSuoi { get; set; }
+        public DbSet<CLN_NDD>? CLN_NDD { get; set; }
+        public DbSet<CLN_NuocMat>? CLN_NuocMat { get; set; }
+        public DbSet<SLN_TongLuongNuocMat>? SLN_TongLuongNuocMat { get; set; }
+        public DbSet<SLDTKTSDN_NuocMat>? SLDTKTSDN_NuocMat { get; set; }
+        public DbSet<SLDTKTSDN_NDD>? SLDTKTSDN_NDD { get; set; }
+        public DbSet<SLDTKTSDN_XaThai>? SLDTKTSDN_XaThai { get; set; }
+        public DbSet<HSKTT_NDD>? HSKTT_NDD { get; set; }
+        public DbSet<HSKTT_NuocMat>? HSKTT_NuocMat { get; set; }
+        public DbSet<DanhMucNN_LienTinh>? DanhMucNN_LienTinh { get; set; }
+        public DbSet<DanhMucNN_NoiTinh_AoHo>? DanhMucNN_NoiTinh_AoHo { get; set; }
+        public DbSet<DanhMucNN_NoiTinh_SongSuoi>? DanhMucNN_NoiTinh_SongSuoi { get; set; }
+        public DbSet<CTKTSDN_PCGP_NDD>? CTKTSDN_PCGP_NDD { get; set; }
+        public DbSet<CTKTSDN_PCGP_NuocBien>? CTKTSDN_PCGP_NuocBien { get; set; }
+        public DbSet<CTKTSDN_PCGP_NuocMat>? CTKTSDN_PCGP_NuocMat { get; set; }
+        public DbSet<CTKTSDN_PDK_NDD>? CTKTSDN_PDK_NDD { get; set; }
+        public DbSet<CTKTSDN_PDK_NuocBien>? CTKTSDN_PDK_NuocBien { get; set; }
+        public DbSet<CTKTSDN_PDK_NuocMat>? CTKTSDN_PDK_NuocMat { get; set; }
+        public DbSet<CTKTSDN_KTNDDCuaHoGD>? CTKTSDN_KTNDDCuaHoGD { get; set; }
 
 
         //BaoCaoBieuMau

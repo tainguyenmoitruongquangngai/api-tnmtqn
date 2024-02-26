@@ -27,9 +27,9 @@ namespace new_wr_api.Service
                 .OrderBy(d => d.Id)
                 .AsQueryable().ToListAsync();
 
-            var luuVucSongDto = _mapper.Map<List<NN_HanhLangBaoVeNN_SongSuoiDto>>(items);
+            var ttdlDto = _mapper.Map<List<NN_HanhLangBaoVeNN_SongSuoiDto>>(items);
 
-            return luuVucSongDto;
+            return ttdlDto;
         }
         public async Task<bool> SaveAsync(NN_HanhLangBaoVeNN_SongSuoiDto dto)
         {
