@@ -107,6 +107,10 @@ namespace new_wr_api.Data
         public DbSet<CTKTSDN_PDK_NuocMat>? CTKTSDN_PDK_NuocMat { get; set; }
         public DbSet<CTKTSDN_KTNDDCuaHoGD>? CTKTSDN_KTNDDCuaHoGD { get; set; }
 
+        //VanHanhHoChua
+        public DbSet<VHHC_LuuVucSong>? VHHC_LuuVucSong { get; set; }
+        public DbSet<VHHC_HoChua_ThongSoKT>? VHHC_HoChua_ThongSoKT { get; set; }
+
 
         //BaoCaoBieuMau
         public DbSet<BieuMauSoMot>? BieuMauSoMot { get; set; }
