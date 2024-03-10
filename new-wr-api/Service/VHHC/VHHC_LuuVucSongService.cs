@@ -21,6 +21,8 @@ namespace new_wr_api.Service
             _mapper = mapper;
             _httpContext = httpContext;
         }
+        
+        //Lấy dữ liệu từ trong csdl (lấy từ cột Id => cột DaXoa)
         public async Task<List<VHHC_LuuVucSongDto>> GetAllVHHC_LuuVucSongAsync()
         {
             var items = await _context.VHHC_LuuVucSong!.Where(d => d.DaXoa == false)
@@ -31,6 +33,8 @@ namespace new_wr_api.Service
 
             return vhhcDto;
         }
+
+        //Lưu dữ liệu vào csdl (lấy từ cột Id => cột DaXoa)
         public async Task<bool> SaveAsync(VHHC_LuuVucSongDto dto)
         {
 
@@ -59,7 +63,7 @@ namespace new_wr_api.Service
             return true;
         }
 
-
+        //Xoá dữ liệu trong csdl (lấy từ cột Id => cột DaXoa)
         public async Task<bool> DeleteAsync(int Id)
         {
             var existingItem = await _context.VHHC_LuuVucSong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
