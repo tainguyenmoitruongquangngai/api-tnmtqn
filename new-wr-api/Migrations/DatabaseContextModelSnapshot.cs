@@ -265,6 +265,85 @@ namespace new_wr_api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong.DuLieuNguonNuocThaiDiem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double?>("CtdiemAmoni")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CtdiemBOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CtdiemCOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CtdiemColiform")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CtdiemTSS")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CtdiemTongN")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("CtdiemTongP")
+                        .HasColumnType("float");
+
+                    b.Property<bool?>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdPhanDoanSong")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("LtdiemAmoni")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdiemBOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdiemCOD")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdiemColiform")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdiemTSS")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdiemTongN")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LtdiemTongP")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuuLuongXaThai")
+                        .HasColumnType("float");
+
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdPhanDoanSong")
+                        .IsUnique();
+
+                    b.ToTable("DuLieuNguonNuocThaiDiem");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong.PhanDoanSong", b =>
                 {
                     b.Property<int>("Id")
@@ -313,6 +392,9 @@ namespace new_wr_api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiGianTao")
                         .HasColumnType("datetime2");
 
                     b.Property<double?>("XCuoi")
@@ -2871,6 +2953,40 @@ namespace new_wr_api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Dashboards");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.Demo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ChuGiai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("SoThucTest")
+                        .HasColumnType("float");
+
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiGianTao")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Demo");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.DoanSong", b =>
@@ -6183,6 +6299,17 @@ namespace new_wr_api.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong.DuLieuNguonNuocThaiDiem", b =>
+                {
+                    b.HasOne("new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong.PhanDoanSong", "PhanDoanSong")
+                        .WithOne("DuLieuNguonNuocThaiDiem")
+                        .HasForeignKey("new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong.DuLieuNguonNuocThaiDiem", "IdPhanDoanSong")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PhanDoanSong");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.CT_HangMuc", b =>
                 {
                     b.HasOne("new_wr_api.Data.CT_ThongTin", "CongTrinh")
@@ -6392,6 +6519,11 @@ namespace new_wr_api.Migrations
                         .HasForeignKey("IdHuyen");
 
                     b.Navigation("Huyen");
+                });
+
+            modelBuilder.Entity("new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong.PhanDoanSong", b =>
+                {
+                    b.Navigation("DuLieuNguonNuocThaiDiem");
                 });
 
             modelBuilder.Entity("new_wr_api.Data.CT_HangMuc", b =>

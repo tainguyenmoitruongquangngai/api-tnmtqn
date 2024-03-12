@@ -29,7 +29,6 @@ namespace new_wr_api.Data
         public DbSet<Functions>? Functions { get; set; }
 
         //Other database
-
         public DbSet<CT_HangMuc>? CT_HangMuc { get; set; }
         public DbSet<CT_Loai>? CT_Loai { get; set; }
         public DbSet<CT_ThongTin>? CT_ThongTin { get; set; }
@@ -144,12 +143,14 @@ namespace new_wr_api.Data
         public DbSet<DoanSong>? DoanSong { get; set; }
         public DbSet<ThongSoLtd>? ThongSoLtd { get; set; }
         public DbSet<DuLieuNguonNuocNhan>? DuLieuNguonNuocNhan { get; set; }
+        
         public DbSet<PhanDoanSong>? PhanDoanSong { get; set; }
 
-
+        ///Du lieu nguon thai diem song
+        public DbSet<DuLieuNguonNuocThaiDiem>? DuLieuNguonNuocThaiDiem { get; set; }
 
         //MoreDatabase
-
+        public DbSet<Demo>? Demo { get; set; }
 
 
 

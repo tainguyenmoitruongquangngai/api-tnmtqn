@@ -5,7 +5,6 @@ namespace new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong
 {
     public class PhanDoanSong
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -23,9 +22,11 @@ namespace new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong
         public string? MucDichSuDung { get; set; }
         public string? ChatLuongNuoc { get; set; }
         public string? GhiChu { get; set; }
+        public DateTime? ThoiGianTao { get; set; }
         public string? TaiKhoanTao { get; set; }
         public DateTime? ThoiGianSua { get; set; }
         public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+        public virtual DuLieuNguonNuocThaiDiem? DuLieuNguonNuocThaiDiem { get; set; }
     }
 }

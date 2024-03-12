@@ -2,7 +2,7 @@
 {
     public class PhanDoanSongDto
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? LuuVucSong { get; set; }
         public string? Song { get; set; }
         public string? TenDoanSong { get; set; }
@@ -17,6 +17,11 @@
         public string? MucDichSuDung { get; set; }
         public string? ChatLuongNuoc { get; set; }
         public string? GhiChu { get; set; }
+        public DateTime? ThoiGianTao { get; set; }
+        public string? TaiKhoanTao { get; set; }
+        public DateTime? ThoiGianSua { get; set; }
+        public string? TaiKhoanSua { get; set; }
         public bool? DaXoa { get; set; }
+        public DuLieuNguonNuocThaiDiemDto? DuLieuNguonNuocThaiDiem { get; set; }
     }
 }

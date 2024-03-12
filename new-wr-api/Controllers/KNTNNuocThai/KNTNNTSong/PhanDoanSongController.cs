@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using new_wr_api.Data;
 using new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong;
@@ -19,40 +19,46 @@ namespace new_wr_api.Controllers
         }
 
         [HttpGet]
-        [Route("danhsach")]
+        [Route("danh-sach")]
         public async Task<List<PhanDoanSongDto>> GetAll()
         {
-            return await _service.GetAllPhanDoanSongAsync();
+            return (await _service.GetAllAsync());
+        }
+
+        [HttpGet]
+        [Route("{Id}")]
+        public async Task<PhanDoanSongDto?> GetById(int Id)
+        {
+            return await _service.GetByIdAsync(Id);
         }
 
         [HttpPost]
         [Route("luu")]
-        public async Task<ActionResult<PhanDoanSong>> Save(PhanDoanSongDto dto)
+        public async Task<ActionResult<PhanDoanSong>> Save(PhanDoanSongDto moddel)
         {
-            var res = await _service.SavePhanDoanSongAsync(dto);
+            var res = await _service.SaveAsync(moddel);
             if (res == true)
             {
-                return Ok(new { message = "Phân đoạn sông: Dữ liệu đã được lưu", id = res });
+                return Ok(new { message = "Lưu vực :Dữ liệu đã được lưu" });
             }
             else
             {
-                return BadRequest(new { message = "Phân đoạn sông: Lỗi lưu dữ liệu", error = true });
+                return BadRequest(new { message = "Lưu vực :Lỗi lưu dữ liệu", error = true });
             }
         }
 
-
         [HttpGet]
         [Route("xoa/{Id}")]
-        public async Task<ActionResult> Delete(int Id)
+        public async Task<ActionResult<PhanDoanSong>> Delete(int Id)
         {
-            var res = await _service.DeletePhanDoanSongAsync(Id);
+            var res = await _service.DeleteAsync(Id);
             if (res == true)
             {
-                return Ok(new { message = "Dữ liệu: Dữ liệu đã được xóa" });
+                return Ok(new { message = "Lưu vực :Dữ liệu đã được xóa" });
             }
             else
             {
-                return BadRequest(new { message = "Dữ liệu: Lỗi xóa dữ liệu", error = true });
+                return BadRequest(new { message = "Lưu vực :Lỗi xóa dữ liệu", error = true });
             }
         }
     }

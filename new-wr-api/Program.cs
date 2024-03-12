@@ -78,6 +78,7 @@ services.AddScoped<ThongSoCLNSongService>();
 services.AddScoped<ThongSoCLNAoService>();
 services.AddScoped<DoanSongService>();
 services.AddScoped<DuLieuNguonNuocNhanService>();
+services.AddScoped<DuLieuNguonNuocThaiDiemService>();
 services.AddScoped<PhanDoanSongService>();
 
 services.AddScoped<Tram_ThongTinService>();
@@ -134,7 +135,8 @@ services.AddScoped<DanhMucNN_NoiTinh_SongSuoiService>();
 services.AddScoped<VHHC_LuuVucSongService>();
 services.AddScoped<VHHC_HoChua_ThongSoKTService>();
 
-
+//demo
+services.AddScoped<DemoService>();
 
 services.AddIdentity<AspNetUsers, AspNetRoles>(options =>
 {

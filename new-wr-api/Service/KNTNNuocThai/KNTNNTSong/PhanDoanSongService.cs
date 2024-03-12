@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data;
 using new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong;
 using new_wr_api.Dto;
+using System.Security.Claims;
 
 namespace new_wr_api.Service
 {
@@ -10,34 +12,51 @@ namespace new_wr_api.Service
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public PhanDoanSongService(DatabaseContext context, IMapper mapper)
+        public PhanDoanSongService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
         {
             _context = context;
             _mapper = mapper;
+            _httpContext = httpContext;
         }
-        public async Task<List<PhanDoanSongDto>> GetAllPhanDoanSongAsync()
+
+        public async Task<List<PhanDoanSongDto>> GetAllAsync()
         {
-            var items = await _context.PhanDoanSong!.Where(x => x.Id > 0).ToListAsync();
+            var items = await _context.PhanDoanSong!.Where(b => b.DaXoa == false)
+                .Include(x => x.DuLieuNguonNuocThaiDiem)
+                .ToListAsync();
             return _mapper.Map<List<PhanDoanSongDto>>(items);
         }
 
-        public async Task<bool> SavePhanDoanSongAsync(PhanDoanSongDto dto)
+        public async Task<PhanDoanSongDto?> GetByIdAsync(int Id)
         {
-            var exitsItem = await _context!.PhanDoanSong!.FindAsync(dto.Id);
+            var item = await _context.PhanDoanSong!.FindAsync(Id);
+            return _mapper.Map<PhanDoanSongDto>(item);
+        }
 
-            if (exitsItem == null || dto.Id == 0)
+
+        public async Task<bool> SaveAsync(PhanDoanSongDto dto)
+        {
+            var existingItem = await _context.PhanDoanSong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
+
+            if (existingItem == null || dto.Id == 0)
             {
                 var newItem = _mapper.Map<PhanDoanSong>(dto);
-
+                newItem.DaXoa = false;
+                newItem.ThoiGianTao = DateTime.Now;
+                newItem.TaiKhoanTao = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
                 _context.PhanDoanSong!.Add(newItem);
             }
             else
             {
-                var updateItem = await _context.PhanDoanSong!.FirstOrDefaultAsync(d => d.Id == dto.Id);
+                var updateItem = await _context.PhanDoanSong!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);
 
                 updateItem = _mapper.Map(dto, updateItem);
-                _context.PhanDoanSong!.Update(updateItem!);
+
+                updateItem!.ThoiGianSua = DateTime.Now;
+                updateItem.TaiKhoanSua = _httpContext.HttpContext?.User.FindFirstValue(ClaimTypes.Name) ?? "";
+                _context.PhanDoanSong!.Update(updateItem);
             }
 
             await _context.SaveChangesAsync();
@@ -45,17 +64,17 @@ namespace new_wr_api.Service
         }
 
 
-        public async Task<bool> DeletePhanDoanSongAsync(int Id)
+        public async Task<bool> DeleteAsync(int Id)
         {
-            var exitsItem = await _context!.PhanDoanSong!.FirstOrDefaultAsync(d => d.Id == Id);
+            var existingItem = await _context.PhanDoanSong!.FirstOrDefaultAsync(d => d.Id == Id && d.DaXoa == false);
 
-            if (exitsItem == null) { return false; }
+            if (existingItem == null) { return false; }
 
-            _context.PhanDoanSong?.Remove(exitsItem);
+            existingItem!.DaXoa = true;
+            _context.PhanDoanSong!.Update(existingItem);
             await _context.SaveChangesAsync();
 
             return true;
         }
     }
 }
-

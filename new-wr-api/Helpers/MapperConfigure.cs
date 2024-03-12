@@ -122,7 +122,11 @@ namespace new_wr_api.Helpers
                 .ReverseMap();
             CreateMap<ThongSoLtd, ThongSoLtdDto>().ReverseMap();
             CreateMap<DuLieuNguonNuocNhan, DuLieuNguonNuocNhanDto>().ReverseMap();
-            CreateMap<PhanDoanSong, PhanDoanSongDto>().ReverseMap();
+            CreateMap<DuLieuNguonNuocThaiDiem, DuLieuNguonNuocThaiDiemDto>().ReverseMap();
+            CreateMap<PhanDoanSong, PhanDoanSongDto>()
+                .ForMember(dest => dest.DuLieuNguonNuocThaiDiem, opt => opt.MapFrom(src => src.DuLieuNguonNuocThaiDiem))
+               .ReverseMap();
+
 
             //KiemKeTaiNguyenNuoc
             CreateMap<Tram_ThongTin, Tram_ThongTinDto>()
@@ -223,6 +227,9 @@ namespace new_wr_api.Helpers
             //VanHanhHoChua
             CreateMap<VHHC_LuuVucSong, VHHC_LuuVucSongDto>().ReverseMap();
             CreateMap<VHHC_HoChua_ThongSoKT, VHHC_HoChua_ThongSoKTDto>().ReverseMap();
+
+            //demo
+            CreateMap<Demo, DemoDto>().ReverseMap();
         }
     }
 }
