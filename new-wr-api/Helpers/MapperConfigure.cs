@@ -2,7 +2,9 @@
 using new_wr_api.Data;
 using new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong;
 using new_wr_api.Data.KiemKeTNN;
+using new_wr_api.Data.VHHC.MuaLu.LuongMua;
 using new_wr_api.Dto;
+using new_wr_api.Dto.VHHC;
 using new_wr_api.Models;
 using new_wr_api.Models.Authenticate;
 
@@ -227,6 +229,8 @@ namespace new_wr_api.Helpers
             //VanHanhHoChua
             CreateMap<VHHC_LuuVucSong, VHHC_LuuVucSongDto>().ReverseMap();
             CreateMap<VHHC_HoChua_ThongSoKT, VHHC_HoChua_ThongSoKTDto>().ReverseMap();
+            CreateMap<MuaHienTai, MuaHienTaiDto>().ReverseMap();
+
 
             //demo
             CreateMap<Demo, DemoDto>().ReverseMap();

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using new_wr_api.Data.BC.KNTiepNhanNuocThai.KNTNNTSong;
 using new_wr_api.Data.KiemKeTNN;
+using new_wr_api.Data.VHHC.MuaLu.LuongMua;
 
 namespace new_wr_api.Data
 {
@@ -109,6 +110,7 @@ namespace new_wr_api.Data
         //VanHanhHoChua
         public DbSet<VHHC_LuuVucSong>? VHHC_LuuVucSong { get; set; }
         public DbSet<VHHC_HoChua_ThongSoKT>? VHHC_HoChua_ThongSoKT { get; set; }
+        public DbSet<MuaHienTai>? MuaHienTai { get; set; }
 
 
         //BaoCaoBieuMau

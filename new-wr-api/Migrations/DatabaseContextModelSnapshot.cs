@@ -6059,6 +6059,70 @@ namespace new_wr_api.Migrations
                     b.ToTable("UserDashboards");
                 });
 
+            modelBuilder.Entity("new_wr_api.Data.VHHC.MuaLu.LuongMua.MuaHienTai", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("DaXoa")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("LuongMua12Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuongMua1Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuongMua24Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuongMua3Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("LuongMua6Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NguongMua12Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NguongMua1Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NguongMua24Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NguongMua3Gio")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("NguongMua6Gio")
+                        .HasColumnType("float");
+
+                    b.Property<string>("TaiKhoanSua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaiKhoanTao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ThoiGianSua")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiGianTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TramMua")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MuaHienTai");
+                });
+
             modelBuilder.Entity("new_wr_api.Data.VHHC_HoChua_ThongSoKT", b =>
                 {
                     b.Property<int>("Id")

@@ -7,6 +7,9 @@ using new_wr_api.Service;
 
 namespace new_wr_api.Controllers
 {
+
+// Route là đường dẫn của contronler 
+
     [Route("[controller]")]
     [ApiController]
     public class NN_LuuVucSongController : ControllerBase
