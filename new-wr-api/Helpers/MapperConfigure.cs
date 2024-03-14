@@ -124,10 +124,10 @@ namespace new_wr_api.Helpers
                 .ReverseMap();
             CreateMap<ThongSoLtd, ThongSoLtdDto>().ReverseMap();
             CreateMap<DuLieuNguonNuocNhan, DuLieuNguonNuocNhanDto>().ReverseMap();
-            CreateMap<DuLieuNguonNuocThaiDiem, DuLieuNguonNuocThaiDiemDto>().ReverseMap();
-            CreateMap<PhanDoanSong, PhanDoanSongDto>()
-                .ForMember(dest => dest.DuLieuNguonNuocThaiDiem, opt => opt.MapFrom(src => src.DuLieuNguonNuocThaiDiem))
-               .ReverseMap();
+            CreateMap<DuLieuNguonNuocThaiDiem, DuLieuNguonNuocThaiDiemDto>()
+                .ForMember(dest => dest.PhanDoanSong, opt => opt.MapFrom(src => src.PhanDoanSong)).ReverseMap();
+
+            CreateMap<PhanDoanSong, PhanDoanSongDto>().ReverseMap();
 
 
             //KiemKeTaiNguyenNuoc

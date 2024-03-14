@@ -25,5 +25,7 @@
 
         public string? GhiChu { get; set; }
         public bool? DaXoa { get; set; }
+
+        public PhanDoanSongDto? PhanDoanSong { get; set; }
     }
 }

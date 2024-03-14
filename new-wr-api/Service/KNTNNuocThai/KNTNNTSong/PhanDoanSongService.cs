@@ -24,7 +24,6 @@ namespace new_wr_api.Service
         public async Task<List<PhanDoanSongDto>> GetAllAsync()
         {
             var items = await _context.PhanDoanSong!.Where(b => b.DaXoa == false)
-                .Include(x => x.DuLieuNguonNuocThaiDiem)
                 .ToListAsync();
             return _mapper.Map<List<PhanDoanSongDto>>(items);
         }

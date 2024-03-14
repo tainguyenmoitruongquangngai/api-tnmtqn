@@ -27,6 +27,7 @@ namespace new_wr_api.Service
         {
             var query = _context.DuLieuNguonNuocThaiDiem!
                 .Where(gp => gp.DaXoa == false)
+                .Include(x => x.PhanDoanSong)
                 .AsQueryable();
 
             // Apply filters based on input parameters
