@@ -21,17 +21,17 @@ namespace new_wr_api.Service
             _mapper = mapper;
             _httpContext = httpContext;
         }
-        public async Task<List<SLN_TongLuongNuocMatDto>> GetAllSLN_TongLuongNuocMatAsync()
+        public async Task<List<BieuMauBonDto>> GetAllSLN_TongLuongNuocMatAsync()
         {
             var items = await _context.SLN_TongLuongNuocMat!.Where(d => d.DaXoa == false)
                 .OrderBy(d => d.Id)
                 .AsQueryable().ToListAsync();
 
-            var ttdlDto = _mapper.Map<List<SLN_TongLuongNuocMatDto>>(items);
+            var ttdlDto = _mapper.Map<List<BieuMauBonDto>>(items);
 
             return ttdlDto;
         }
-        public async Task<bool> SaveAsync(SLN_TongLuongNuocMatDto dto)
+        public async Task<bool> SaveAsync(BieuMauBonDto dto)
         {
 
             var existingItem = await _context.SLN_TongLuongNuocMat!.FirstOrDefaultAsync(d => d.Id == dto.Id && d.DaXoa == false);

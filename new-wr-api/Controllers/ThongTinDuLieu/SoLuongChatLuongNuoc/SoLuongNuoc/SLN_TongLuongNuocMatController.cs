@@ -20,14 +20,14 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("danh-sach")]
-        public async Task<List<SLN_TongLuongNuocMatDto>> GetAll()
+        public async Task<List<BieuMauBonDto>> GetAll()
         {
             return await _service.GetAllSLN_TongLuongNuocMatAsync();
         }
 
         [HttpPost]
         [Route("luu")]
-        public async Task<ActionResult<SLN_TongLuongNuocMatDto>> Save(SLN_TongLuongNuocMatDto moddel)
+        public async Task<ActionResult<BieuMauBonDto>> Save(BieuMauBonDto moddel)
         {
             var res = await _service.SaveAsync(moddel);
             if (res == true)
@@ -42,7 +42,7 @@ namespace new_wr_api.Controllers
 
         [HttpGet]
         [Route("xoa/{Id}")]
-        public async Task<ActionResult<SLN_TongLuongNuocMatDto>> Delete(int Id)
+        public async Task<ActionResult<BieuMauBonDto>> Delete(int Id)
         {
             var res = await _service.DeleteAsync(Id);
             if (res == true)

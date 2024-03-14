@@ -132,6 +132,8 @@ services.AddScoped<DanhMucNN_LienTinhService>();
 services.AddScoped<DanhMucNN_NoiTinh_AoHoService>();
 services.AddScoped<DanhMucNN_NoiTinh_SongSuoiService>();
 
+services.AddScoped<SLN_TongLuongNuocMatService>(); 
+
 // van hanh ho chua
 services.AddScoped<VHHC_LuuVucSongService>();
 services.AddScoped<VHHC_HoChua_ThongSoKTService>();

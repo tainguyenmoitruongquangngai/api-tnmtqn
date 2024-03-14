@@ -70,6 +70,8 @@ namespace new_wr_api.Data
         public DbSet<KKTNN_NuocMat_TongLuong>? KKTNN_NuocMat_TongLuong { get; set; }
         public DbSet<KKTNN_NuocMua_TongLuong>? KKTNN_NuocMua_TongLuong { get; set; }
 
+
+
         //ThongTinDuLieu
         public DbSet<NN_LuuVucSong>? NN_LuuVucSong { get; set; }
         public DbSet<NN_NguonNuoc_SongSuoi>? NN_NguonNuoc_SongSuoi { get; set; }
@@ -106,6 +108,8 @@ namespace new_wr_api.Data
         public DbSet<CTKTSDN_PDK_NuocBien>? CTKTSDN_PDK_NuocBien { get; set; }
         public DbSet<CTKTSDN_PDK_NuocMat>? CTKTSDN_PDK_NuocMat { get; set; }
         public DbSet<CTKTSDN_KTNDDCuaHoGD>? CTKTSDN_KTNDDCuaHoGD { get; set; }
+
+
 
         //VanHanhHoChua
         public DbSet<VHHC_LuuVucSong>? VHHC_LuuVucSong { get; set; }
