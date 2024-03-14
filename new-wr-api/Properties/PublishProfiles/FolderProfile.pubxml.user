@@ -5,7 +5,11 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\apipublish</_PublishTargetUrl>
+<<<<<<< Updated upstream
     <History>True|2024-03-13T04:09:35.0974243Z;True|2024-02-21T18:57:34.1342329+07:00;</History>
+=======
+    <History>True|2024-03-13T02:50:38.2505806Z;True|2024-02-21T18:57:34.1342329+07:00;</History>
+>>>>>>> Stashed changes
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

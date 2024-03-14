@@ -13,18 +13,28 @@ namespace new_wr_api.Service
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly UserManager<AspNetUsers> _userManager;
 
-        public DuLieuNguonNuocThaiDiemService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext)
+        public DuLieuNguonNuocThaiDiemService(DatabaseContext context, IMapper mapper, IHttpContextAccessor httpContext, UserManager<AspNetUsers> userManager)
         {
             _context = context;
             _mapper = mapper;
             _httpContext = httpContext;
+            _userManager = userManager;
         }
 
         public async Task<List<DuLieuNguonNuocThaiDiemDto>> GetAllAsync()
         {
-            var items = await _context.DuLieuNguonNuocThaiDiem!.Where(b => b.DaXoa == false).ToListAsync();
-            return _mapper.Map<List<DuLieuNguonNuocThaiDiemDto>>(items);
+            var query = _context.DuLieuNguonNuocThaiDiem!
+                .Where(gp => gp.DaXoa == false)
+                .AsQueryable();
+
+            // Apply filters based on input parameters
+            var currentUser = await _userManager.GetUserAsync(_httpContext.HttpContext!.User);
+            
+            var listItems = _mapper.Map<List<DuLieuNguonNuocThaiDiemDto>>(query);
+
+            return listItems;
         }
 
         public async Task<DuLieuNguonNuocThaiDiemDto?> GetByIdAsync(int Id)
